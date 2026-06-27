@@ -18,7 +18,7 @@ export class VendorActionsRenderer {
     return false;
   }
 
-  edit(): void {
+ /* edit(): void {
     this.params.context.componentParent
       .openEditVendorDialog(this.params.data);
   }
@@ -26,7 +26,7 @@ export class VendorActionsRenderer {
   delete(): void {
     this.params.context.componentParent
       .deleteVendor(this.params.data.id);
-  }
+  }*/
 
   toggleStatus(): void {
 

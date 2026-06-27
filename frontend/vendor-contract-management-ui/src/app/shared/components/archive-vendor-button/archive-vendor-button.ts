@@ -6,4 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './archive-vendor-button.html',
   styleUrl: './archive-vendor-button.scss',
 })
-export class ArchiveVendorButton {}
+export class ArchiveVendorButtonComponent {}

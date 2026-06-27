@@ -6,4 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './remove-vendor-button.html',
   styleUrl: './remove-vendor-button.scss',
 })
-export class RemoveVendorButton {}
+export class RemoveVendorButtonComponent {}
