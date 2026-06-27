@@ -1,0 +1,29 @@
+2026-06-16 21:23:22.475 +05:30 [INF] Start installing Hangfire SQL objects...
+2026-06-16 21:23:24.885 +05:30 [INF] Hangfire SQL objects installed.
+2026-06-16 21:23:26.239 +05:30 [INF] User profile is available. Using 'C:\Users\shukl\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-06-16 21:23:27.127 +05:30 [INF] Now listening on: https://localhost:7220
+2026-06-16 21:23:27.142 +05:30 [INF] Now listening on: http://localhost:5092
+2026-06-16 21:23:27.442 +05:30 [INF] Starting Hangfire Server using job storage: 'SQL Server: LAPTOP-M2UCBO4S\SQLEXPRESS@VendorContractManagementDb'
+2026-06-16 21:23:27.450 +05:30 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-06-16 21:23:27.460 +05:30 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-06-16 21:23:27.573 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-06-16 21:23:27.578 +05:30 [INF] Hosting environment: Development
+2026-06-16 21:23:27.582 +05:30 [INF] Content root path: E:\Abhi Data\Technical\Job Projects\VendorContractManagement\VendorContractManagement.API
+2026-06-16 21:23:27.970 +05:30 [INF] Server laptop-m2ucbo4s:469556:5d1147bd successfully announced in 402.6894 ms
+2026-06-16 21:23:27.991 +05:30 [INF] Server laptop-m2ucbo4s:469556:5d1147bd is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-06-16 21:23:28.070 +05:30 [INF] 2 servers were removed due to timeout
+2026-06-16 21:23:28.297 +05:30 [INF] Server laptop-m2ucbo4s:469556:5d1147bd all the dispatchers started
+2026-06-16 21:23:28.959 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/index.html - null null
+2026-06-16 21:23:30.937 +05:30 [INF] HTTP GET /swagger/index.html responded 200 in 253.0776 ms
+2026-06-16 21:23:30.979 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/index.html - 200 null text/html;charset=utf-8 2040.8148ms
+2026-06-16 21:23:30.991 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/_framework/aspnetcore-browser-refresh.js - null null
+2026-06-16 21:23:30.996 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/_vs/browserLink - null null
+2026-06-16 21:23:31.025 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/_framework/aspnetcore-browser-refresh.js - 200 13792 application/javascript; charset=utf-8 33.8346ms
+2026-06-16 21:23:31.147 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/_vs/browserLink - 200 null text/javascript; charset=UTF-8 152.7466ms
+2026-06-16 21:23:31.221 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/v1/swagger.json - null null
+2026-06-16 21:23:31.304 +05:30 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 67.7705 ms
+2026-06-16 21:23:31.312 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 91.4642ms

@@ -1,0 +1,27 @@
+2026-06-27 11:04:37.411 +05:30 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ApprovedBy], [c].[ApprovedOn], [c].[ContractNumber], [c].[ContractValue], [c].[CreatedOn], [c].[Description], [c].[EndDate], [c].[IsDeleted], [c].[IsRenewal], [c].[ParentContractId], [c].[RejectionReason], [c].[RenewalApprovedBy], [c].[RenewalApprovedOn], [c].[RenewalRequestedOn], [c].[StartDate], [c].[Status], [c].[SubmittedOn], [c].[TerminatedBy], [c].[TerminatedOn], [c].[TerminationReason], [c].[UpdatedOn], [c].[VendorId], [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Contracts] AS [c]
+INNER JOIN [Vendors] AS [v] ON [c].[VendorId] = [v].[Id]
+WHERE [c].[IsDeleted] = CAST(0 AS bit)
+2026-06-27 11:04:37.424 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ApprovedBy], [c].[ApprovedOn], [c].[ContractNumber], [c].[ContractValue], [c].[CreatedOn], [c].[Description], [c].[EndDate], [c].[IsDeleted], [c].[IsRenewal], [c].[ParentContractId], [c].[RejectionReason], [c].[RenewalApprovedBy], [c].[RenewalApprovedOn], [c].[RenewalRequestedOn], [c].[StartDate], [c].[Status], [c].[SubmittedOn], [c].[TerminatedBy], [c].[TerminatedOn], [c].[TerminationReason], [c].[UpdatedOn], [c].[VendorId], [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Contracts] AS [c]
+INNER JOIN [Vendors] AS [v] ON [c].[VendorId] = [v].[Id]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[Status] = 5
+2026-06-27 11:04:49.464 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20 - null null
+2026-06-27 11:04:50.069 +05:30 [INF] CORS policy execution successful.
+2026-06-27 11:04:50.135 +05:30 [INF] HTTP OPTIONS /api/vendors/paged responded 204 in 65.5586 ms
+2026-06-27 11:04:50.170 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20 - 204 null null 705.8426ms
+2026-06-27 11:04:50.187 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20 - null null
+2026-06-27 11:04:50.511 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '26-06-2026 15:21:58', Current time (UTC): '27-06-2026 05:34:50'.
+   at Microsoft.IdentityModel.Tokens.ValidatorUtilities.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2026-06-27 11:04:50.609 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '26-06-2026 15:21:58', Current time (UTC): '27-06-2026 05:34:50'.
+2026-06-27 11:04:50.616 +05:30 [INF] CORS policy execution successful.
+2026-06-27 11:04:50.633 +05:30 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Admin)
+2026-06-27 11:04:50.657 +05:30 [INF] AuthenticationScheme: Bearer was challenged.
+2026-06-27 11:04:50.677 +05:30 [INF] HTTP GET /api/vendors/paged responded 401 in 213.6473 ms
+2026-06-27 11:04:50.686 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20 - 401 0 null 500.0958ms

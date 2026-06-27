@@ -1,0 +1,91 @@
+
+<div class="p-6 space-y-6">
+
+  <div class="bg-white rounded-2xl shadow p-6 border">
+
+    <div class="flex justify-between items-center">
+
+      <div>
+
+        <h1 class="text-3xl font-bold">
+          {{ vendor?.vendorName }}
+        </h1>
+
+        <p class="text-slate-500">
+          {{ vendor?.companyName }}
+        </p>
+
+      </div>
+
+      <div>
+
+        <span
+          *ngIf="vendor?.isActive"
+          class="px-4 py-2 rounded-full bg-green-100 text-green-700">
+
+          Active
+
+        </span>
+
+        <span
+          *ngIf="!vendor?.isActive"
+          class="px-4 py-2 rounded-full bg-red-100 text-red-700">
+
+          Inactive
+
+        </span>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="bg-white rounded-2xl shadow p-6 border">
+
+    <h2 class="text-xl font-semibold mb-6">
+      Vendor Details
+    </h2>
+
+    <div class="grid grid-cols-2 gap-6">
+
+      <div>
+        <strong>Vendor ID</strong>
+        <p>{{ vendor?.id }}</p>
+      </div>
+
+      <div>
+        <strong>Contact Person</strong>
+        <p>{{ vendor?.contactPerson }}</p>
+      </div>
+
+      <div>
+        <strong>Email</strong>
+        <p>{{ vendor?.email }}</p>
+      </div>
+
+      <div>
+        <strong>Phone</strong>
+        <p>{{ vendor?.phone }}</p>
+      </div>
+
+      <div>
+        <strong>GST Number</strong>
+        <p>{{ vendor?.gstNumber }}</p>
+      </div>
+
+      <div>
+        <strong>PAN Number</strong>
+        <p>{{ vendor?.panNumber }}</p>
+      </div>
+
+      <div class="col-span-2">
+        <strong>Address</strong>
+        <p>{{ vendor?.address }}</p>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

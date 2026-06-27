@@ -1,0 +1,49 @@
+<div class="h-screen w-64 bg-white border-r border-slate-200">
+
+  <div class="p-6 border-b">
+    <h2 class="text-2xl font-bold text-indigo-600">
+      VCMS
+    </h2>
+  </div>
+
+  <nav class="p-4 space-y-2">
+
+    <a
+      routerLink="/dashboard"
+      routerLinkActive="bg-indigo-50 text-indigo-600"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="block rounded-xl px-4 py-3 hover:bg-slate-100">
+      Dashboard
+    </a>
+
+    <a
+      routerLink="/vendors"
+      routerLinkActive="bg-indigo-50 text-indigo-600"
+      class="block rounded-xl px-4 py-3 hover:bg-slate-100">
+      Vendors
+    </a>
+
+    <a
+      routerLink="/contracts"
+      routerLinkActive="bg-indigo-50 text-indigo-600"
+      class="block rounded-xl px-4 py-3 hover:bg-slate-100">
+      Contracts
+    </a>
+
+    <a
+      routerLink="/documents"
+      routerLinkActive="bg-indigo-50 text-indigo-600"
+      class="block rounded-xl px-4 py-3 hover:bg-slate-100">
+      Documents
+    </a>
+
+    <a
+      routerLink="/reports"
+      routerLinkActive="bg-indigo-50 text-indigo-600"
+      class="block rounded-xl px-4 py-3 hover:bg-slate-100">
+      Reports
+    </a>
+
+  </nav>
+
+</div>

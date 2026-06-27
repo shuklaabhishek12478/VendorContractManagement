@@ -1,0 +1,47 @@
+<div class="min-h-screen flex items-center justify-center bg-slate-100">
+
+  <div
+    class="w-full max-w-md rounded-3xl bg-white p-8 shadow-xl">
+
+    <div class="mb-8 text-center">
+
+      <h1 class="text-3xl font-bold">
+        Welcome Back
+      </h1>
+
+      <p class="text-slate-500 mt-2">
+        Vendor Contract Management
+      </p>
+
+    </div>
+
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="login()"
+      class="space-y-4">
+
+      <input
+        type="email"
+        formControlName="email"
+        placeholder="Email"
+        class="w-full rounded-xl border p-3" />
+
+      <input
+        type="password"
+        formControlName="password"
+        placeholder="Password"
+        class="w-full rounded-xl border p-3" />
+
+      <button
+        type="submit"
+        class="w-full rounded-xl bg-indigo-600 py-3 text-white">
+
+        Login
+
+      </button>
+
+    </form>
+
+  </div>
+
+</div>
