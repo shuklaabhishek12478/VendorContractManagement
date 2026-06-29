@@ -1,0 +1,19 @@
+2026-06-28 07:32:48.072 +05:30 [INF] 1 servers were removed due to timeout
+2026-06-28 07:32:50.951 +05:30 [WRN] Server laptop-m2ucbo4s:736792:0c951b0a was considered dead by other servers, restarting...
+2026-06-28 07:32:50.961 +05:30 [INF] Server laptop-m2ucbo4s:736792:0c951b0a caught restart signal...
+2026-06-28 07:32:51.174 +05:30 [WRN] Server laptop-m2ucbo4s:736792:0c951b0a stopped non-gracefully due to ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler. Outstanding work on those dispatchers could be aborted, and there can be delays in background processing. This server instance will be incorrectly shown as active for a while. To avoid non-graceful shutdowns, investigate what prevents from stopping gracefully and add CancellationToken support for those methods.
+2026-06-28 07:32:51.344 +05:30 [INF] Server laptop-m2ucbo4s:736792:0c951b0a successfully reported itself as stopped in 51.5737 ms
+2026-06-28 07:32:51.346 +05:30 [INF] Server laptop-m2ucbo4s:736792:0c951b0a has been stopped in total 362.2443 ms
+2026-06-28 07:32:51.393 +05:30 [INF] Server laptop-m2ucbo4s:736792:562c574f successfully announced in 33.9863 ms
+2026-06-28 07:32:51.416 +05:30 [INF] Server laptop-m2ucbo4s:736792:562c574f is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-06-28 07:32:51.807 +05:30 [INF] Server laptop-m2ucbo4s:736792:562c574f all the dispatchers started
+2026-06-28 07:32:54.812 +05:30 [INF] Executed DbCommand (21ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ApprovedBy], [c].[ApprovedOn], [c].[ContractNumber], [c].[ContractValue], [c].[CreatedOn], [c].[Description], [c].[EndDate], [c].[IsDeleted], [c].[IsRenewal], [c].[ParentContractId], [c].[RejectionReason], [c].[RenewalApprovedBy], [c].[RenewalApprovedOn], [c].[RenewalRequestedOn], [c].[StartDate], [c].[Status], [c].[SubmittedOn], [c].[TerminatedBy], [c].[TerminatedOn], [c].[TerminationReason], [c].[UpdatedOn], [c].[VendorId], [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Contracts] AS [c]
+INNER JOIN [Vendors] AS [v] ON [c].[VendorId] = [v].[Id]
+WHERE [c].[IsDeleted] = CAST(0 AS bit)
+2026-06-28 07:32:54.812 +05:30 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ApprovedBy], [c].[ApprovedOn], [c].[ContractNumber], [c].[ContractValue], [c].[CreatedOn], [c].[Description], [c].[EndDate], [c].[IsDeleted], [c].[IsRenewal], [c].[ParentContractId], [c].[RejectionReason], [c].[RenewalApprovedBy], [c].[RenewalApprovedOn], [c].[RenewalRequestedOn], [c].[StartDate], [c].[Status], [c].[SubmittedOn], [c].[TerminatedBy], [c].[TerminatedOn], [c].[TerminationReason], [c].[UpdatedOn], [c].[VendorId], [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Contracts] AS [c]
+INNER JOIN [Vendors] AS [v] ON [c].[VendorId] = [v].[Id]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[Status] = 5

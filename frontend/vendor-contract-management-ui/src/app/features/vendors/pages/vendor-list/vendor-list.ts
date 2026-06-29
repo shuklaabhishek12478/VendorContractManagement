@@ -103,6 +103,10 @@ onSearch(event: Event): void {
     
   ];
 
+  selectedVendor: Vendor | null = null;
+
+selectedVendors: Vendor[] = [];
+
 
 loadVendors(): void {
 
@@ -334,5 +338,49 @@ onRowDoubleClicked(event: any): void {
   ]);
 }
 
+
+onSelectionChanged(): void {
+
+  this.selectedVendors =
+    this.gridApi.getSelectedRows();
+
+  if (this.selectedVendors.length === 1) {
+
+    this.selectedVendor =
+      this.selectedVendors[0];
+
+  } else {
+
+    this.selectedVendor = null;
+  }
+}
+
+
+onEditVendor(): void {
+
+  if (!this.selectedVendor) {
+    return;
+  }
+
+  this.openEditVendorDialog(this.selectedVendor);
+
+}
+
+
+archiveSelectedVendors(): void {
+
+  console.log(this.selectedVendors);
+
+  alert('Archive functionality coming next.');
+
+}
+
+removeSelectedVendors(): void {
+
+  console.log(this.selectedVendors);
+
+  alert('Remove functionality coming next.');
+
+}
 
 }

@@ -1,0 +1,37 @@
+2026-06-29 11:25:42.483 +05:30 [INF] Executed DbCommand (31ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ApprovedBy], [c].[ApprovedOn], [c].[ContractNumber], [c].[ContractValue], [c].[CreatedOn], [c].[Description], [c].[EndDate], [c].[IsDeleted], [c].[IsRenewal], [c].[ParentContractId], [c].[RejectionReason], [c].[RenewalApprovedBy], [c].[RenewalApprovedOn], [c].[RenewalRequestedOn], [c].[StartDate], [c].[Status], [c].[SubmittedOn], [c].[TerminatedBy], [c].[TerminatedOn], [c].[TerminationReason], [c].[UpdatedOn], [c].[VendorId], [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Contracts] AS [c]
+INNER JOIN [Vendors] AS [v] ON [c].[VendorId] = [v].[Id]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[Status] = 5
+2026-06-29 11:25:42.495 +05:30 [INF] Executed DbCommand (22ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ApprovedBy], [c].[ApprovedOn], [c].[ContractNumber], [c].[ContractValue], [c].[CreatedOn], [c].[Description], [c].[EndDate], [c].[IsDeleted], [c].[IsRenewal], [c].[ParentContractId], [c].[RejectionReason], [c].[RenewalApprovedBy], [c].[RenewalApprovedOn], [c].[RenewalRequestedOn], [c].[StartDate], [c].[Status], [c].[SubmittedOn], [c].[TerminatedBy], [c].[TerminatedOn], [c].[TerminationReason], [c].[UpdatedOn], [c].[VendorId], [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Contracts] AS [c]
+INNER JOIN [Vendors] AS [v] ON [c].[VendorId] = [v].[Id]
+WHERE [c].[IsDeleted] = CAST(0 AS bit)
+2026-06-29 11:26:00.367 +05:30 [INF] 1 servers were removed due to timeout
+2026-06-29 11:26:05.708 +05:30 [WRN] Server laptop-m2ucbo4s:736792:562c574f was considered dead by other servers, restarting...
+2026-06-29 11:26:05.719 +05:30 [INF] Server laptop-m2ucbo4s:736792:562c574f caught restart signal...
+2026-06-29 11:26:05.845 +05:30 [WRN] Server laptop-m2ucbo4s:736792:562c574f stopped non-gracefully due to ServerJobCancellationWatcher, Worker. Outstanding work on those dispatchers could be aborted, and there can be delays in background processing. This server instance will be incorrectly shown as active for a while. To avoid non-graceful shutdowns, investigate what prevents from stopping gracefully and add CancellationToken support for those methods.
+2026-06-29 11:26:05.996 +05:30 [INF] Server laptop-m2ucbo4s:736792:562c574f successfully reported itself as stopped in 38.5287 ms
+2026-06-29 11:26:06.117 +05:30 [INF] Server laptop-m2ucbo4s:736792:562c574f has been stopped in total 389.751 ms
+2026-06-29 11:26:06.159 +05:30 [INF] Server laptop-m2ucbo4s:736792:371ad97a successfully announced in 18.3693 ms
+2026-06-29 11:26:06.191 +05:30 [INF] Server laptop-m2ucbo4s:736792:371ad97a is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-06-29 11:26:06.644 +05:30 [INF] Server laptop-m2ucbo4s:736792:371ad97a all the dispatchers started
+2026-06-29 11:26:37.928 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20 - null null
+2026-06-29 11:26:37.958 +05:30 [INF] CORS policy execution successful.
+2026-06-29 11:26:37.967 +05:30 [INF] HTTP OPTIONS /api/vendors/paged responded 204 in 16.2460 ms
+2026-06-29 11:26:37.978 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20 - 204 null null 51.5229ms
+2026-06-29 11:26:37.984 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20 - null null
+2026-06-29 11:26:38.033 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '27-06-2026 17:06:07', Current time (UTC): '29-06-2026 05:56:38'.
+   at Microsoft.IdentityModel.Tokens.ValidatorUtilities.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2026-06-29 11:26:38.054 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '27-06-2026 17:06:07', Current time (UTC): '29-06-2026 05:56:38'.
+2026-06-29 11:26:38.060 +05:30 [INF] CORS policy execution successful.
+2026-06-29 11:26:38.071 +05:30 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Admin)
+2026-06-29 11:26:38.079 +05:30 [INF] AuthenticationScheme: Bearer was challenged.
+2026-06-29 11:26:38.081 +05:30 [INF] HTTP GET /api/vendors/paged responded 401 in 66.9674 ms
+2026-06-29 11:26:38.087 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20 - 401 0 null 102.4202ms

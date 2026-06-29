@@ -12,7 +12,19 @@
       </p>
     </div>
 
-  <app-vendor-toolbar></app-vendor-toolbar>
+  <app-vendor-toolbar
+    [selectedVendor]="selectedVendor"
+    [selectedVendors]="selectedVendors"
+
+    (add)="openAddVendorDialog()"
+
+    (edit)="onEditVendor()"
+
+    (archive)="archiveSelectedVendors()"
+
+    (remove)="removeSelectedVendors()">
+</app-vendor-toolbar>
+
   </div>
 
   <input
@@ -36,6 +48,7 @@
    [paginationPageSizeSelector]="[10,20,50,100]"
   (gridReady)="onGridReady($event)"
   (rowDoubleClicked)="onRowDoubleClicked($event)"
+  (selectionChanged)="onSelectionChanged()"
   [getRowId]="getRowId"
   [context]="context">
 </ag-grid-angular>

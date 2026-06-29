@@ -1,6 +1,8 @@
 <button
-  class="px-4 py-2 rounded-xl bg-red-600 text-white hover:bg-red-700 transition"
-  disabled>
+  type="button"
+  class="px-4 py-2 rounded-xl bg-red-600 text-white hover:bg-red-700 disabled:bg-gray-300 disabled:text-gray-500 disabled:cursor-not-allowed transition"
+  [disabled]="disabled"
+  (click)="onRemove()">
 
   🗑 Remove Vendor
 
