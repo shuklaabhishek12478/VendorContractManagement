@@ -1,77 +1,37 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
+import {
+  MatDialogModule,
+  MatDialogRef
+} from '@angular/material/dialog';
+
+import { VendorFormComponent } from '../vendor-form/vendor-form';
 
 @Component({
   selector: 'app-add-vendor-dialog',
+  standalone: true,
   imports: [
-    ReactiveFormsModule,
     MatDialogModule,
-    MatButtonModule,
-    MatInputModule,
-    MatFormFieldModule
+    VendorFormComponent
   ],
   templateUrl: './add-vendor-dialog.html',
   styleUrl: './add-vendor-dialog.scss'
 })
 export class AddVendorDialog {
- 
-  private fb = inject(FormBuilder);
-  private dialogRef = inject(MatDialogRef<AddVendorDialog>);
 
-  data = inject(MAT_DIALOG_DATA, {
-  optional: true
-});
+  private dialogRef =
+    inject(MatDialogRef<AddVendorDialog>);
 
+  saveVendor(data: any): void {
 
-  vendorForm = this.fb.group({
-    vendorName: ['', Validators.required],
-    companyName: ['', Validators.required],
-    gstNumber: ['', Validators.required],
-    panNumber: ['', Validators.required],
-    contactPerson: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    phone: ['', Validators.required],
-    address: ['', Validators.required]
-  });
+    this.dialogRef.close(data);
 
+  }
 
   close(): void {
-  this.dialogRef.close();
-}
 
-save(): void {
+    this.dialogRef.close();
 
-  if (this.vendorForm.invalid) {
-    this.vendorForm.markAllAsTouched();
-    return;
   }
 
-  this.dialogRef.close(
-    this.vendorForm.value
-  );
-}
-
-ngOnInit(): void {
-
-  if (!this.data) {
-    return;
-  }
-
-  this.vendorForm.patchValue({
-    vendorName: this.data.vendorName,
-    companyName: this.data.companyName,
-    gstNumber: this.data.gstNumber,
-    panNumber: this.data.panNumber,
-    contactPerson: this.data.contactPerson,
-    email: this.data.email,
-    phone: this.data.phone,
-    address: this.data.address
-  });
-}
 }

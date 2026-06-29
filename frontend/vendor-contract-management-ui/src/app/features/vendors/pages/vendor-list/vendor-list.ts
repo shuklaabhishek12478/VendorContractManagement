@@ -205,7 +205,7 @@ openAddVendorDialog(): void {
 }
 
 
-openEditVendorDialog(
+/*openEditVendorDialog(
   vendor: Vendor
 ): void {
 
@@ -259,7 +259,7 @@ openEditVendorDialog(
           }
         });
     });
-}
+}*/
 
 deleteVendor(id: number): void {
 
@@ -356,13 +356,26 @@ onSelectionChanged(): void {
 }
 
 
-onEditVendor(): void {
+/*onEditVendor(): void {
 
   if (!this.selectedVendor) {
     return;
   }
 
   this.openEditVendorDialog(this.selectedVendor);
+
+}*/
+
+onEditVendor(): void {
+
+  if (!this.selectedVendor) {
+    return;
+  }
+
+  this.router.navigate([
+    '/vendors/edit',
+    this.selectedVendor.id
+  ]);
 
 }
 
@@ -380,6 +393,15 @@ removeSelectedVendors(): void {
   console.log(this.selectedVendors);
 
   alert('Remove functionality coming next.');
+
+}
+
+openEditPage(id: number): void {
+
+  this.router.navigate([
+    '/vendors/edit',
+    id
+  ]);
 
 }
 

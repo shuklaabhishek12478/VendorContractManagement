@@ -8,6 +8,7 @@ import { LoginComponent } from './features/auth/pages/login/login';
 import { VendorListComponent } from './features/vendors/pages/vendor-list/vendor-list';
 import { authGuard } from './core/guards/auth.guard';
 import { VendorDetailsComponent } from './features/vendors/pages/vendor-details/vendor-details';
+import { EditVendorComponent } from './features/vendors/pages/vendor-edit/vendor-edit';
 
 
 
@@ -31,6 +32,10 @@ export const routes: Routes = [
       {
         path: 'vendors',
         component: VendorListComponent
+      },      
+      {
+        path: 'vendors/edit/:id',
+        component: EditVendorComponent
       },
       {
         path: 'vendors/:id',

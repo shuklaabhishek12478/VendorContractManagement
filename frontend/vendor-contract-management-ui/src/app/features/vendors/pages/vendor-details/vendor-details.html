@@ -1,91 +1,267 @@
+@if (isLoading) {
 
-<div class="p-6 space-y-6">
+<div class="flex justify-center items-center h-96">
 
-  <div class="bg-white rounded-2xl shadow p-6 border">
-
-    <div class="flex justify-between items-center">
-
-      <div>
-
-        <h1 class="text-3xl font-bold">
-          {{ vendor?.vendorName }}
-        </h1>
-
-        <p class="text-slate-500">
-          {{ vendor?.companyName }}
-        </p>
-
-      </div>
-
-      <div>
-
-        <span
-          *ngIf="vendor?.isActive"
-          class="px-4 py-2 rounded-full bg-green-100 text-green-700">
-
-          Active
-
-        </span>
-
-        <span
-          *ngIf="!vendor?.isActive"
-          class="px-4 py-2 rounded-full bg-red-100 text-red-700">
-
-          Inactive
-
-        </span>
-
-      </div>
-
-    </div>
-
-  </div>
-
-  <div class="bg-white rounded-2xl shadow p-6 border">
-
-    <h2 class="text-xl font-semibold mb-6">
-      Vendor Details
-    </h2>
-
-    <div class="grid grid-cols-2 gap-6">
-
-      <div>
-        <strong>Vendor ID</strong>
-        <p>{{ vendor?.id }}</p>
-      </div>
-
-      <div>
-        <strong>Contact Person</strong>
-        <p>{{ vendor?.contactPerson }}</p>
-      </div>
-
-      <div>
-        <strong>Email</strong>
-        <p>{{ vendor?.email }}</p>
-      </div>
-
-      <div>
-        <strong>Phone</strong>
-        <p>{{ vendor?.phone }}</p>
-      </div>
-
-      <div>
-        <strong>GST Number</strong>
-        <p>{{ vendor?.gstNumber }}</p>
-      </div>
-
-      <div>
-        <strong>PAN Number</strong>
-        <p>{{ vendor?.panNumber }}</p>
-      </div>
-
-      <div class="col-span-2">
-        <strong>Address</strong>
-        <p>{{ vendor?.address }}</p>
-      </div>
-
-    </div>
-
-  </div>
+    <p class="text-gray-500 text-lg">
+        Loading vendor...
+    </p>
 
 </div>
+
+}
+
+@else if (vendor) {
+
+    @if (!isEditMode) {
+
+    <div class="page-container">
+
+        <div class="page-header">
+
+            <button
+                class="secondary-btn"
+                (click)="back()">
+
+                ← Back
+
+            </button>
+
+            <button
+                class="primary-btn"
+                (click)="enableEditMode()">
+
+                ✏ Edit
+
+            </button>
+
+        </div>
+
+        <h1 class="page-title">
+
+            Vendor Details
+
+        </h1>
+
+        <div class="details-card">
+
+            <h2 class="section-title">
+
+                General Information
+
+            </h2>
+
+            <div class="details-grid">
+
+                <div>
+
+                    <div class="field-label">
+                        Vendor Name
+                    </div>
+
+                    <div class="field-value">
+                        {{ vendor.vendorName }}
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <div class="field-label">
+                        Company
+                    </div>
+
+                    <div class="field-value">
+                        {{ vendor.companyName }}
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <div class="field-label">
+                        Status
+                    </div>
+
+                    <div class="field-value">
+
+                        @if(vendor.isActive){
+
+                        🟢 Active
+
+                        }
+
+                        @else{
+
+                        🔴 Inactive
+
+                        }
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="details-card">
+
+            <h2 class="section-title">
+
+                Contact Information
+
+            </h2>
+
+            <div class="details-grid">
+
+                <div>
+
+                    <div class="field-label">
+                        Email
+                    </div>
+
+                    <div class="field-value">
+                        {{ vendor.email }}
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <div class="field-label">
+                        Phone
+                    </div>
+
+                    <div class="field-value">
+                        {{ vendor.phone }}
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    }
+
+    @else {
+
+    <div class="page-container">
+
+        <div class="page-header">
+
+            <button
+                class="secondary-btn"
+                (click)="back()">
+
+                ← Back
+
+            </button>
+
+        </div>
+
+        <h1 class="page-title">
+
+            Edit Vendor
+
+        </h1>
+
+        <form
+            [formGroup]="vendorForm"
+            class="space-y-6">
+
+            <mat-form-field
+                appearance="outline"
+                class="w-full">
+
+                <mat-label>
+
+                    Vendor Name
+
+                </mat-label>
+
+                <input
+                    matInput
+                    formControlName="vendorName">
+
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                class="w-full">
+
+                <mat-label>
+
+                    Company Name
+
+                </mat-label>
+
+                <input
+                    matInput
+                    formControlName="companyName">
+
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                class="w-full">
+
+                <mat-label>
+
+                    Email
+
+                </mat-label>
+
+                <input
+                    matInput
+                    formControlName="email">
+
+            </mat-form-field>
+
+            <mat-form-field
+                appearance="outline"
+                class="w-full">
+
+                <mat-label>
+
+                    Phone
+
+                </mat-label>
+
+                <input
+                    matInput
+                    formControlName="phone">
+
+            </mat-form-field>
+
+            <div class="flex justify-end gap-3">
+
+                <button
+                    mat-stroked-button
+                    type="button"
+                    (click)="cancelEdit()">
+
+                    Cancel
+
+                </button>
+
+                <button
+                    mat-raised-button
+                    color="primary"
+                    type="submit">
+
+                    Update Vendor
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+    }
+
+}

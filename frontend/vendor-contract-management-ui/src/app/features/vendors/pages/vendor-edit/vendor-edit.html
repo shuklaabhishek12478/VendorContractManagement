@@ -1,1 +1,47 @@
-<p>vendor-edit works!</p>
+@if (isLoading) {
+
+<div class="flex justify-center items-center h-96">
+
+    Loading Vendor...
+
+</div>
+
+}
+
+@else {
+
+<div class="page-container">
+
+    <div class="page-header">
+
+        <button
+            class="secondary-btn"
+            (click)="cancel()">
+
+            ← Back
+
+        </button>
+
+    </div>
+
+    <h1 class="page-title">
+
+        Edit Vendor
+
+    </h1>
+
+    <app-vendor-form
+
+        [vendor]="vendor"
+
+        [isEditMode]="true"
+
+        (formSubmitted)="updateVendor($event)"
+
+        (formCancelled)="cancel()">
+
+    </app-vendor-form>
+
+</div>
+
+}
