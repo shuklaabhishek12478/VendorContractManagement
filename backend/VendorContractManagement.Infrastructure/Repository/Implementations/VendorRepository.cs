@@ -85,36 +85,108 @@ namespace VendorContractManagement.Infrastructure.Repository.Implementations
                     x.PANNumber == panNumber);
         }
 
-        public async Task<(IEnumerable<Vendor>, int)>
-    GetPagedAsync(VendorQueryParams query)
+        /*  public async Task<(IEnumerable<Vendor>, int)>
+      GetPagedAsync(VendorQueryParams query)
+          {
+              var vendors = _context.Vendors
+                  .AsNoTracking()
+                  .Where(x => !x.IsDeleted)
+                  .AsQueryable();
+
+              if (!string.IsNullOrWhiteSpace(query.Search))
+              {
+                  vendors = vendors.Where(x =>
+                      x.VendorName.Contains(query.Search)
+                      ||
+                      x.CompanyName.Contains(query.Search)
+                      ||
+                      x.Email.Contains(query.Search));
+              }
+
+              var totalCount =
+                  await vendors.CountAsync();
+
+              var result =
+                  await vendors
+                      .OrderByDescending(x => x.Id)
+                      .Skip((query.PageNumber - 1)
+                              * query.PageSize)
+                      .Take(query.PageSize)
+                      .ToListAsync();
+
+              return (result, totalCount);
+          }*/
+
+        public async Task<(IEnumerable<Vendor>, int)> GetPagedAsync(
+    VendorQueryParams query)
         {
-            var vendors = _context.Vendors
-                .AsNoTracking()
-                .Where(x => !x.IsDeleted)
+            var vendorQuery = _context.Vendors
+                .Where(v => !v.IsDeleted)
                 .AsQueryable();
+
+            // Search
 
             if (!string.IsNullOrWhiteSpace(query.Search))
             {
-                vendors = vendors.Where(x =>
-                    x.VendorName.Contains(query.Search)
-                    ||
-                    x.CompanyName.Contains(query.Search)
-                    ||
-                    x.Email.Contains(query.Search));
+                var search = query.Search.ToLower();
+
+                vendorQuery = vendorQuery.Where(v =>
+                    v.VendorName.ToLower().Contains(search) ||
+                    v.CompanyName.ToLower().Contains(search) ||
+                    v.Email.ToLower().Contains(search) ||
+                    v.ContactPerson.ToLower().Contains(search));
+            }
+
+            // Status Filter
+
+            if (query.IsActive.HasValue)
+            {
+                vendorQuery = vendorQuery.Where(v =>
+                    v.IsActive == query.IsActive.Value);
+            }
+
+            // Sorting
+
+            if (!string.IsNullOrWhiteSpace(query.SortBy))
+            {
+                var sortDirection =
+                    query.SortDirection?.ToLower() == "desc";
+
+                vendorQuery = query.SortBy.ToLower() switch
+                {
+                    "vendorname" =>
+                        sortDirection
+                            ? vendorQuery.OrderByDescending(v => v.VendorName)
+                            : vendorQuery.OrderBy(v => v.VendorName),
+
+                    "companyname" =>
+                        sortDirection
+                            ? vendorQuery.OrderByDescending(v => v.CompanyName)
+                            : vendorQuery.OrderBy(v => v.CompanyName),
+
+                    "email" =>
+                        sortDirection
+                            ? vendorQuery.OrderByDescending(v => v.Email)
+                            : vendorQuery.OrderBy(v => v.Email),
+
+                    _ => vendorQuery.OrderBy(v => v.Id)
+                };
+            }
+            else
+            {
+                vendorQuery = vendorQuery.OrderBy(v => v.Id);
             }
 
             var totalCount =
-                await vendors.CountAsync();
+                await vendorQuery.CountAsync();
 
-            var result =
-                await vendors
-                    .OrderByDescending(x => x.Id)
-                    .Skip((query.PageNumber - 1)
-                            * query.PageSize)
+            var vendors =
+                await vendorQuery
+                    .Skip((query.PageNumber - 1) * query.PageSize)
                     .Take(query.PageSize)
                     .ToListAsync();
 
-            return (result, totalCount);
+            return (vendors, totalCount);
         }
     }
 }
