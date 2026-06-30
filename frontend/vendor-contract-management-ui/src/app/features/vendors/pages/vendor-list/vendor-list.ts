@@ -12,7 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { VendorActionsRenderer } from '../../../../shared/components/vendor-actions-renderer/vendor-actions-renderer';
 import { Router } from '@angular/router';
 import { VendorToolbarComponent } from '../../../../shared/components/vendor-toolbar/vendor-toolbar';
-
+import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog';
+import { forkJoin } from 'rxjs';
 @Component({
   selector: 'app-vendor-list',
   imports: [AgGridAngular,
@@ -33,6 +34,7 @@ export class VendorListComponent implements OnInit{
    context = {
     componentParent: this
   };
+  
 
 
   getRowId = (params: any) =>
@@ -111,7 +113,7 @@ selectedVendors: Vendor[] = [];
 loadVendors(): void {
 
   this.vendorService
-    .getPaged(1, 20)
+    .getPaged(1, 10)
     .subscribe({
 
  next: (response) => {
@@ -259,7 +261,7 @@ openAddVendorDialog(): void {
           }
         });
     });
-}*/
+}
 
 deleteVendor(id: number): void {
 
@@ -287,8 +289,59 @@ deleteVendor(id: number): void {
         console.error(error);
       }
     });
-}
+}*/
 
+deleteVendor(id: number): void {
+
+  const dialogRef =
+    this.dialog.open(
+      ConfirmationDialogComponent,
+      {
+
+        width: '420px',
+
+        data: {
+
+          title: 'Delete Vendor',
+
+          message:
+            'Are you sure you want to permanently delete this vendor?'
+
+        }
+
+      }
+    );
+
+  dialogRef.afterClosed()
+    .subscribe(result => {
+
+      if (!result) {
+
+        return;
+
+      }
+
+      this.vendorService
+        .deleteVendor(id)
+        .subscribe({
+
+          next: () => {
+
+            this.loadVendors();
+
+          },
+
+          error: error => {
+
+            console.error(error);
+
+          }
+
+        });
+
+    });
+
+}
 
 
 activateVendor(id: number): void {
@@ -380,19 +433,127 @@ onEditVendor(): void {
 }
 
 
-archiveSelectedVendors(): void {
+/*archiveSelectedVendors(): void {
 
   console.log(this.selectedVendors);
 
   alert('Archive functionality coming next.');
 
+}*/
+
+archiveSelectedVendors(): void {
+
+  if (this.selectedVendors.length === 0) {
+
+    return;
+
+  }
+
+  const dialogRef = this.dialog.open(
+    ConfirmationDialogComponent,
+    {
+      width: '420px',
+      data: {
+        title: 'Archive Vendors',
+        message: `Archive ${this.selectedVendors.length} selected vendor(s)?`
+      }
+    }
+  );
+
+  dialogRef.afterClosed().subscribe(result => {
+
+    if (!result) {
+      return;
+    }
+
+    const requests = this.selectedVendors.map(v =>
+      this.vendorService.deactivateVendor(v.id)
+    );
+
+    forkJoin(requests).subscribe({
+
+      next: () => {
+
+        this.loadVendors();
+
+        this.selectedVendor = null;
+
+        this.selectedVendors = [];
+
+      },
+
+      error: error => {
+
+        console.error(error);
+
+      }
+
+    });
+
+  });
+
 }
 
-removeSelectedVendors(): void {
+/*removeSelectedVendors(): void {
 
   console.log(this.selectedVendors);
 
   alert('Remove functionality coming next.');
+
+}*/
+
+removeSelectedVendors(): void {
+
+  if (this.selectedVendors.length === 0) {
+
+    return;
+
+  }
+
+  const dialogRef = this.dialog.open(
+    ConfirmationDialogComponent,
+    {
+      width: '420px',
+      data: {
+        title: 'Remove Vendors',
+        message: `Delete ${this.selectedVendors.length} selected vendor(s)?`
+      }
+    }
+  );
+
+  dialogRef.afterClosed().subscribe(result => {
+
+    if (!result) {
+
+      return;
+
+    }
+
+    const requests = this.selectedVendors.map(v =>
+      this.vendorService.deleteVendor(v.id)
+    );
+
+    forkJoin(requests).subscribe({
+
+      next: () => {
+
+        this.loadVendors();
+
+        this.selectedVendor = null;
+
+        this.selectedVendors = [];
+
+      },
+
+      error: error => {
+
+        console.error(error);
+
+      }
+
+    });
+
+  });
 
 }
 
