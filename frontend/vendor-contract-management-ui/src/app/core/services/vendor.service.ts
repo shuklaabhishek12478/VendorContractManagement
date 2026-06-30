@@ -7,6 +7,7 @@ import { Vendor } from '../models/vendor.model';
 import { environment } from '../../../environments/environment';
 import { PagedResponse } from '../models/paged-response.model';
 import { CreateVendor } from '../models/create-vendor.model';
+import { VendorQuery } from '../models/vendor-query.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class VendorService {
     return this.http.get<Vendor[]>(this.apiUrl);
   }
 
-   getPaged(
+   /*getPaged(
     pageNumber = 1,
     pageSize = 10
   ): Observable<PagedResponse<Vendor>> {
@@ -30,7 +31,36 @@ export class VendorService {
     return this.http.get<PagedResponse<Vendor>>(
       `${this.apiUrl}/paged?pageNumber=${pageNumber}&pageSize=${pageSize}`
     );
-  }
+  }*/
+
+  getPaged(query: VendorQuery)
+: Observable<PagedResponse<Vendor>> {
+
+  return this.http.get<PagedResponse<Vendor>>(
+    `${this.apiUrl}/paged`,
+    {
+      params: {
+
+        pageNumber: query.pageNumber,
+
+        pageSize: query.pageSize,
+
+        search: query.search ?? '',
+
+        sortBy: query.sortBy ?? '',
+
+        sortDirection: query.sortDirection ?? '',
+
+        isActive:
+          query.isActive != null
+            ? query.isActive
+            : ''
+
+      }
+    }
+  );
+
+}
 
   getById(id: number) {
   return this.http.get<Vendor>(

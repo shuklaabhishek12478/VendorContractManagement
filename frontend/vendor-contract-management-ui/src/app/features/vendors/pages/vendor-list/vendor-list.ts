@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 import { VendorToolbarComponent } from '../../../../shared/components/vendor-toolbar/vendor-toolbar';
 import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog';
 import { forkJoin } from 'rxjs';
+import { VendorQuery } from '../../../../core/models/vendor-query.model';
 @Component({
   selector: 'app-vendor-list',
   imports: [AgGridAngular,
@@ -35,7 +36,31 @@ export class VendorListComponent implements OnInit{
     componentParent: this
   };
   
+  query: VendorQuery = {
 
+  pageNumber: 1,
+
+  pageSize: 20,
+
+  search: '',
+
+  sortBy: '',
+
+  sortDirection: '',
+
+  isActive: undefined
+
+};
+
+totalRecords = 0;
+
+totalPages = 0;
+
+currentPage = 1;
+
+pageSize = 20;
+
+pageSizeOptions = [10, 20, 50, 100];
 
   getRowId = (params: any) =>
     params.data.id.toString();
@@ -52,14 +77,27 @@ onGridReady(params: GridReadyEvent): void {
   this.gridApi = params.api;
 }
 
-onSearch(event: Event): void {
+/*onSearch(event: Event): void {
   const value = (event.target as HTMLInputElement).value;
 
   this.gridApi.setGridOption(
     'quickFilterText',
     value
   );
+}*/
+onSearch(event: Event): void {
+
+  this.query.search =
+
+    (event.target as HTMLInputElement).value;
+
+  this.query.pageNumber = 1;
+
+  this.loadVendors();
+
 }
+
+
   columnDefs: ColDef<Vendor>[] = [
   {
   field: 'id',
@@ -112,9 +150,11 @@ selectedVendors: Vendor[] = [];
 
 loadVendors(): void {
 
-  this.vendorService
-    .getPaged(1, 10)
-    .subscribe({
+  /*this.vendorService
+    .getPaged(1, 10)*/
+
+    this.vendorService
+    .getPaged(this.query).subscribe({
 
  next: (response) => {
 
@@ -123,6 +163,13 @@ loadVendors(): void {
   console.table(response.data);
 
   this.rowData = [...response.data];
+  this.totalRecords = response.totalRecords;
+
+  this.totalPages = response.totalPages;
+
+  this.currentPage = response.pageNumber;
+
+  this.pageSize = response.pageSize;
 
   if (this.gridApi) {
 
@@ -566,4 +613,99 @@ openEditPage(id: number): void {
 
 }
 
+onSortChanged(): void {
+
+  const sortModel =
+
+    this.gridApi
+      .getColumnState()
+      .find(c => c.sort);
+
+  if (!sortModel) {
+
+    this.query.sortBy = '';
+
+    this.query.sortDirection = '';
+
+  }
+  else {
+
+    this.query.sortBy =
+      sortModel.colId;
+
+    this.query.sortDirection =
+      sortModel.sort!;
+
+  }
+
+  this.loadVendors();
+
+}
+
+previousPage(): void {
+
+  if (this.currentPage <= 1) {
+
+    return;
+
+  }
+
+  this.query.pageNumber--;
+
+  this.loadVendors();
+
+}
+
+nextPage(): void {
+
+  if (this.currentPage >= this.totalPages) {
+
+    return;
+
+  }
+
+  this.query.pageNumber++;
+
+  this.loadVendors();
+
+}
+
+changePageSize(event: Event): void {
+
+  const size = Number(
+
+    (event.target as HTMLSelectElement).value
+
+  );
+
+  this.query.pageSize = size;
+
+  this.query.pageNumber = 1;
+
+  this.loadVendors();
+
+}
+
+onStatusFilterChanged(event: Event): void {
+
+  const value =
+    (event.target as HTMLSelectElement).value;
+
+  if (value === '') {
+
+    this.query.isActive = undefined;
+
+  }
+  else {
+
+    this.query.isActive =
+      value === 'true';
+
+  }
+
+  this.query.pageNumber = 1;
+
+  this.loadVendors();
+
+}
 }

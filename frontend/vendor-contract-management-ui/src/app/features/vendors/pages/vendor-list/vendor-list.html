@@ -26,13 +26,29 @@
 </app-vendor-toolbar>
 
   </div>
+<div class="flex items-center gap-3 mb-4">
 
   <input
     type="text"
     placeholder="Search vendors..."
     (input)="onSearch($event)"
     class="w-full border rounded-xl px-4 py-3" />
+   
+    
 
+    <select
+        class="border rounded px-3 py-2"
+        (change)="onStatusFilterChanged($event)">
+
+        <option value="">All Vendors</option>
+
+        <option value="true">Active</option>
+
+        <option value="false">Inactive</option>
+
+    </select>
+
+</div>
   <div
     class="rounded-2xl overflow-hidden shadow-sm border"
     style="height: 600px; width: 100%;">
@@ -45,13 +61,82 @@
   [columnDefs]="columnDefs"
   [pagination]="true"
   [paginationPageSize]="10"
-   [paginationPageSizeSelector]="[10,20,50,100]"
+  (sortChanged)="onSortChanged()"
+  [paginationPageSizeSelector]="[10,20,50,100]"
   (gridReady)="onGridReady($event)"
   (rowDoubleClicked)="onRowDoubleClicked($event)"
   (selectionChanged)="onSelectionChanged()"
   [getRowId]="getRowId"
   [context]="context">
 </ag-grid-angular>
+<div class="flex items-center justify-between mt-4">
+
+    <div>
+
+        Showing
+
+        {{ rowData.length }}
+
+        of
+
+        {{ totalRecords }}
+
+        records
+
+    </div>
+
+    <div class="flex items-center gap-3">
+
+        <button
+            mat-stroked-button
+            (click)="previousPage()"
+            [disabled]="currentPage === 1">
+
+            Previous
+
+        </button>
+
+        <span>
+
+            Page
+
+            {{ currentPage }}
+
+            of
+
+            {{ totalPages }}
+
+        </span>
+
+        <button
+            mat-stroked-button
+            (click)="nextPage()"
+            [disabled]="currentPage === totalPages">
+
+            Next
+
+        </button>
+
+        <select
+            (change)="changePageSize($event)">
+
+            @for (size of pageSizeOptions; track size) {
+
+<option
+    [value]="size"
+    [selected]="size === pageSize">
+
+    {{ size }}
+
+</option>
+
+}
+
+        </select>
+
+    </div>
+
+</div>
 
   </div>
 

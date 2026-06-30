@@ -10,4 +10,6 @@ export interface VendorQuery {
 
   sortDirection?: string;
 
+  isActive?: boolean;
+
 }
