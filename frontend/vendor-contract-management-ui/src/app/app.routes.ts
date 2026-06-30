@@ -9,6 +9,7 @@ import { VendorListComponent } from './features/vendors/pages/vendor-list/vendor
 import { authGuard } from './core/guards/auth.guard';
 import { VendorDetailsComponent } from './features/vendors/pages/vendor-details/vendor-details';
 import { EditVendorComponent } from './features/vendors/pages/vendor-edit/vendor-edit';
+import { pendingChangesGuard } from './core/guards/pending-changes.guard';
 
 
 
@@ -34,8 +35,12 @@ export const routes: Routes = [
         component: VendorListComponent
       },      
       {
-        path: 'vendors/edit/:id',
-        component: EditVendorComponent
+        path:'vendors/edit/:id',
+        component:EditVendorComponent,
+        canDeactivate:[
+         pendingChangesGuard
+        ]
+
       },
       {
         path: 'vendors/:id',

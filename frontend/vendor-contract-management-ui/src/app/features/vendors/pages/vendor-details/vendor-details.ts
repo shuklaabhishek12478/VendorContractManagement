@@ -1,159 +1,105 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Vendor } from '../../../../core/models/vendor.model';
-import { VendorService } from '../../../../core/services/vendor.service';
 import { CommonModule } from '@angular/common';
-import { MatTabsModule } from '@angular/material/tabs';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { VendorService } from '../../../../core/services/vendor.service';
+import { Vendor } from '../../../../core/models/vendor.model';
 import { ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
+import { VendorGeneralInfoComponent } from '../../../../shared/components/vendor-general-info/vendor-general-info';
+import { VendorContactInfoComponent } from '../../../../shared/components/vendor-contact-info/vendor-contact-info';
+import { VendorComplianceInfoComponent } from '../../../../shared/components/vendor-compliance-info/vendor-compliance-info';
 
 @Component({
   selector: 'app-vendor-details',
   standalone: true,
-  imports: [CommonModule,
-    MatTabsModule,ReactiveFormsModule,
-  ReactiveFormsModule,
-MatFormFieldModule,
-MatInputModule,
-MatButtonModule],
+  imports: [
+    CommonModule,
+    VendorGeneralInfoComponent,
+    VendorContactInfoComponent,
+    VendorComplianceInfoComponent
+  ],
   templateUrl: './vendor-details.html',
   styleUrl: './vendor-details.scss'
 })
 export class VendorDetailsComponent implements OnInit {
-private cdr = inject(ChangeDetectorRef);
+
+  private cdr = inject(ChangeDetectorRef);
   private route = inject(ActivatedRoute);
-  private vendorService = inject(VendorService);
+
   private router = inject(Router);
-  private fb = inject(FormBuilder);
-  
 
+  private vendorService = inject(VendorService);
 
+  vendor: Vendor | null = null;
 
-constructor() {
-  console.log('VENDOR DETAILS COMPONENT LOADED');
+  isLoading = true;
+
+  constructor() {
+  console.log('VendorDetails Constructor', Math.random());
 }
-
-vendorForm = this.fb.group({
-
-  vendorName: [
-    '',
-    Validators.required
-  ],
-
-  companyName: [
-    '',
-    Validators.required
-  ],
-
-  email: [
-    '',
-    [
-      Validators.required,
-      Validators.email
-    ]
-  ],
-
-  phone: ['']
-
-});
-
- // vendor?: Vendor;
-  id!: number;
-  vendor?: Vendor | null = null;
-
-isLoading = true;
-
-isEditMode = false;
 
   ngOnInit(): void {
 
-  const id =
-    Number(
-      this.route.snapshot.paramMap.get('id')
-    );
- this.loadVendor(id);
+  console.log('VendorDetailsComponent Loaded');
+
+  const id = Number(this.route.snapshot.paramMap.get('id'));
+
   console.log('Vendor Id:', id);
 
-  this.vendorService
-    .getById(id)
-    .subscribe({
-
- next: (response) => {
-
-  this.vendor = response;
-
-  this.cdr.detectChanges();
-
-  console.log('Vendor:', this.vendor);
+  this.loadVendor(id);
 }
-    });
-}
-
 
 loadVendor(id: number): void {
 
-  this.vendorService
-      .getById(id)
-      .subscribe({
+  console.log('Calling Vendor API...');
 
-        next: (vendor) => {
+  console.log('Component Instance', this);
 
-          this.vendor = vendor;
+  this.vendorService.getById(id).subscribe({
 
-          this.isLoading = false;
+   next: (vendor) => {
 
-          console.log(vendor);
+    this.vendor = vendor;
 
-        },
+    this.isLoading = false;
 
-        error: (error) => {
+    this.cdr.detectChanges();
 
-          console.error(error);
+    },
 
-          this.isLoading = false;
+    error: (error) => {
 
-        }
+      console.error(error);
 
-      });
+      this.isLoading = false;
 
-}
-back(): void {
-  this.router.navigate(['/vendors']);
-}
-
-
-
-enableEditMode(): void {
-
-  if (!this.vendor) {
-
-    return;
-
-  }
-
-  this.vendorForm.patchValue({
-
-    vendorName: this.vendor.vendorName,
-
-    companyName: this.vendor.companyName,
-
-    email: this.vendor.email,
-
-    phone: this.vendor.phone
+    }
 
   });
 
-  this.isEditMode = true;
-
 }
 
+  back(): void {
 
-cancelEdit(): void {
+    this.router.navigate([
+      '/vendors'
+    ]);
 
-    this.isEditMode = false;
+  }
 
-}
+  editVendor(): void {
+
+    if (!this.vendor) {
+
+      return;
+
+    }
+
+    this.router.navigate([
+      '/vendors/edit',
+      this.vendor.id
+    ]);
+
+  }
+
 }

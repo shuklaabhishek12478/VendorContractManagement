@@ -9,9 +9,25 @@
       matInput
       formControlName="vendorName">
 
-    <mat-error *ngIf="vendorForm.get('vendorName')?.hasError('required')">
-      Vendor Name is required
-    </mat-error>
+    @if (vendorForm.get('vendorName')?.hasError('required')) {
+
+<mat-error>
+
+    Vendor Name is required.
+
+</mat-error>
+
+}
+
+@if (vendorForm.get('vendorName')?.hasError('maxlength')) {
+
+<mat-error>
+
+    Maximum 100 characters allowed.
+
+</mat-error>
+
+}
 
   </mat-form-field>
 
@@ -33,6 +49,16 @@
       matInput
       formControlName="gstNumber">
 
+    @if (vendorForm.get('gstNumber')?.hasError('pattern')) {
+
+<mat-error>
+
+    Invalid GST Number.
+
+</mat-error>
+
+}
+
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -42,7 +68,17 @@
     <input
       matInput
       formControlName="panNumber">
+    
+    @if (vendorForm.get('panNumber')?.hasError('pattern')) {
 
+<mat-error>
+
+    Invalid PAN Number.
+
+</mat-error>
+
+}
+    
   </mat-form-field>
 
   <mat-form-field appearance="outline">
@@ -63,11 +99,25 @@
       matInput
       formControlName="email">
 
-    <mat-error *ngIf="vendorForm.get('email')?.hasError('email')">
+    @if (vendorForm.get('email')?.hasError('required')) {
 
-      Invalid Email
+<mat-error>
 
-    </mat-error>
+    Email is required.
+
+</mat-error>
+
+}
+
+@if (vendorForm.get('email')?.hasError('email')) {
+
+<mat-error>
+
+    Invalid Email Address.
+
+</mat-error>
+
+}
 
   </mat-form-field>
 
@@ -78,6 +128,15 @@
     <input
       matInput
       formControlName="phone">
+    @if (vendorForm.get('phone')?.hasError('pattern')) {
+
+<mat-error>
+
+    Enter a valid 10-digit mobile number.
+
+</mat-error>
+
+}
 
   </mat-form-field>
 
@@ -105,14 +164,24 @@
     </button>
 
     <button
-      mat-raised-button
-      color="primary"
-      type="button"
-      (click)="submit()">
+    mat-raised-button
+    color="primary"
+    type="button"
+    [disabled]="isSubmitting"
+    (click)="submit()">
 
-      {{ isEditMode ? 'Update Vendor' : 'Save Vendor' }}
+    @if(isSubmitting){
 
-    </button>
+        Updating...
+
+    }
+    @else{
+
+        {{ isEditMode ? 'Update Vendor' : 'Save Vendor' }}
+
+    }
+
+</button>
 
   </div>
 

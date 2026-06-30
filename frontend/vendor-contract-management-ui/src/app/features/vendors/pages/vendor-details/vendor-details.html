@@ -3,7 +3,9 @@
 <div class="flex justify-center items-center h-96">
 
     <p class="text-gray-500 text-lg">
+
         Loading vendor...
+
     </p>
 
 </div>
@@ -12,256 +14,60 @@
 
 @else if (vendor) {
 
-    @if (!isEditMode) {
+<div class="page-container">
 
-    <div class="page-container">
+    <div class="page-header">
 
-        <div class="page-header">
+        <button
+            class="secondary-btn"
+            (click)="back()">
 
-            <button
-                class="secondary-btn"
-                (click)="back()">
+            ← Back
 
-                ← Back
+        </button>
 
-            </button>
+        <button
+            class="primary-btn"
+            (click)="editVendor()">
 
-            <button
-                class="primary-btn"
-                (click)="enableEditMode()">
+            ✏ Edit
 
-                ✏ Edit
-
-            </button>
-
-        </div>
-
-        <h1 class="page-title">
-
-            Vendor Details
-
-        </h1>
-
-        <div class="details-card">
-
-            <h2 class="section-title">
-
-                General Information
-
-            </h2>
-
-            <div class="details-grid">
-
-                <div>
-
-                    <div class="field-label">
-                        Vendor Name
-                    </div>
-
-                    <div class="field-value">
-                        {{ vendor.vendorName }}
-                    </div>
-
-                </div>
-
-                <div>
-
-                    <div class="field-label">
-                        Company
-                    </div>
-
-                    <div class="field-value">
-                        {{ vendor.companyName }}
-                    </div>
-
-                </div>
-
-                <div>
-
-                    <div class="field-label">
-                        Status
-                    </div>
-
-                    <div class="field-value">
-
-                        @if(vendor.isActive){
-
-                        🟢 Active
-
-                        }
-
-                        @else{
-
-                        🔴 Inactive
-
-                        }
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-        <div class="details-card">
-
-            <h2 class="section-title">
-
-                Contact Information
-
-            </h2>
-
-            <div class="details-grid">
-
-                <div>
-
-                    <div class="field-label">
-                        Email
-                    </div>
-
-                    <div class="field-value">
-                        {{ vendor.email }}
-                    </div>
-
-                </div>
-
-                <div>
-
-                    <div class="field-label">
-                        Phone
-                    </div>
-
-                    <div class="field-value">
-                        {{ vendor.phone }}
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
+        </button>
 
     </div>
 
-    }
+    <h1 class="page-title">
 
-    @else {
+        Vendor Details
 
-    <div class="page-container">
+    </h1>
 
-        <div class="page-header">
+    <app-vendor-general-info
+        [vendor]="vendor">
+    </app-vendor-general-info>
 
-            <button
-                class="secondary-btn"
-                (click)="back()">
+    <app-vendor-contact-info
+        [vendor]="vendor">
+    </app-vendor-contact-info>
 
-                ← Back
+    <app-vendor-compliance-info
+        [vendor]="vendor">
+    </app-vendor-compliance-info>
 
-            </button>
+</div>
 
-        </div>
+}
 
-        <h1 class="page-title">
+@else {
 
-            Edit Vendor
+<div class="flex justify-center items-center h-96">
 
-        </h1>
+    <p class="text-red-500">
 
-        <form
-            [formGroup]="vendorForm"
-            class="space-y-6">
+        Vendor not found.
 
-            <mat-form-field
-                appearance="outline"
-                class="w-full">
+    </p>
 
-                <mat-label>
-
-                    Vendor Name
-
-                </mat-label>
-
-                <input
-                    matInput
-                    formControlName="vendorName">
-
-            </mat-form-field>
-
-            <mat-form-field
-                appearance="outline"
-                class="w-full">
-
-                <mat-label>
-
-                    Company Name
-
-                </mat-label>
-
-                <input
-                    matInput
-                    formControlName="companyName">
-
-            </mat-form-field>
-
-            <mat-form-field
-                appearance="outline"
-                class="w-full">
-
-                <mat-label>
-
-                    Email
-
-                </mat-label>
-
-                <input
-                    matInput
-                    formControlName="email">
-
-            </mat-form-field>
-
-            <mat-form-field
-                appearance="outline"
-                class="w-full">
-
-                <mat-label>
-
-                    Phone
-
-                </mat-label>
-
-                <input
-                    matInput
-                    formControlName="phone">
-
-            </mat-form-field>
-
-            <div class="flex justify-end gap-3">
-
-                <button
-                    mat-stroked-button
-                    type="button"
-                    (click)="cancelEdit()">
-
-                    Cancel
-
-                </button>
-
-                <button
-                    mat-raised-button
-                    color="primary"
-                    type="submit">
-
-                    Update Vendor
-
-                </button>
-
-            </div>
-
-        </form>
-
-    </div>
-
-    }
+</div>
 
 }

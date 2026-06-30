@@ -2,26 +2,25 @@ import {
   Component,
   EventEmitter,
   Input,
-  Output
-} from '@angular/core';
-import {
-  inject,
-  OnInit
+  Output,
+  OnChanges,
+  SimpleChanges,
+  inject
 } from '@angular/core';
 
 import {
   FormBuilder,
+  ReactiveFormsModule,
   Validators
 } from '@angular/forms';
 
 import { CommonModule } from '@angular/common';
-import { ReactiveFormsModule } from '@angular/forms';
 
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { Vendor } from '../../../core/models/vendor.model';
 
+import { Vendor } from '../../../core/models/vendor.model';
 
 @Component({
   selector: 'app-vendor-form',
@@ -36,8 +35,7 @@ import { Vendor } from '../../../core/models/vendor.model';
   templateUrl: './vendor-form.html',
   styleUrl: './vendor-form.scss'
 })
-export class VendorFormComponent implements OnInit{
-
+export class VendorFormComponent implements OnChanges {
 
   private fb = inject(FormBuilder);
 
@@ -48,25 +46,54 @@ export class VendorFormComponent implements OnInit{
   isEditMode = false;
 
   @Output()
-  formSubmit = new EventEmitter<any>();
+  formSubmitted = new EventEmitter<any>();
 
- @Output()
-formSubmitted = new EventEmitter<any>();
-
-@Output()
-formCancelled = new EventEmitter<void>();
+  @Output()
+  formCancelled = new EventEmitter<void>();
+  isSubmitting = false;
 
   vendorForm = this.fb.group({
 
-  vendorName: ['', Validators.required],
+  vendorName: [
+    '',
+    [
+      Validators.required,
+      Validators.maxLength(100)
+    ]
+  ],
 
-  companyName: ['', Validators.required],
+  companyName: [
+    '',
+    [
+      Validators.required,
+      Validators.maxLength(150)
+    ]
+  ],
 
-  gstNumber: ['', Validators.required],
+  gstNumber: [
+    '',
+    [
+      Validators.required,
+      Validators.pattern(
+        /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[A-Z0-9]{3}$/
+      )
+    ]
+  ],
 
-  panNumber: ['', Validators.required],
+  panNumber: [
+    '',
+    [
+      Validators.required,
+      Validators.pattern(
+        /^[A-Z]{5}[0-9]{4}[A-Z]{1}$/
+      )
+    ]
+  ],
 
-  contactPerson: ['', Validators.required],
+  contactPerson: [
+    '',
+    Validators.required
+  ],
 
   email: [
     '',
@@ -76,60 +103,69 @@ formCancelled = new EventEmitter<void>();
     ]
   ],
 
-  phone: ['', Validators.required],
+  phone: [
+    '',
+    [
+      Validators.required,
+      Validators.pattern(/^[6-9]\d{9}$/)
+    ]
+  ],
 
-  address: ['', Validators.required]
+  address: [
+    '',
+    Validators.required
+  ]
 
 });
 
-ngOnInit(): void {
+  ngOnChanges(changes: SimpleChanges): void {
 
-  if (!this.vendor) {
+    if (changes['vendor'] && this.vendor) {
 
-    return;
+      this.vendorForm.patchValue({
 
-  }
+        vendorName: this.vendor.vendorName,
 
-  this.vendorForm.patchValue({
+        companyName: this.vendor.companyName,
 
-    vendorName: this.vendor.vendorName,
+        gstNumber: this.vendor.gstNumber,
 
-    companyName: this.vendor.companyName,
+        panNumber: this.vendor.panNumber,
 
-    gstNumber: this.vendor.gstNumber,
+        contactPerson: this.vendor.contactPerson,
 
-    panNumber: this.vendor.panNumber,
+        email: this.vendor.email,
 
-    contactPerson: this.vendor.contactPerson,
+        phone: this.vendor.phone,
 
-    email: this.vendor.email,
+        address: this.vendor.address
 
-    phone: this.vendor.phone,
+      });
 
-    address: this.vendor.address
-
-  });
-
-}
-
-submit(): void {
-
-  if (this.vendorForm.invalid) {
-
-    this.vendorForm.markAllAsTouched();
-
-    return;
+    }
 
   }
 
-  this.formSubmitted.emit(
-    this.vendorForm.getRawValue()
-  );
-}
+  submit(): void {
 
-cancel(): void {
+    if (this.vendorForm.invalid) {
 
-  this.formCancelled.emit();
+      this.vendorForm.markAllAsTouched();
 
-}
+      return;
+
+    }
+    this.isSubmitting = true;
+    this.formSubmitted.emit(
+      this.vendorForm.getRawValue()
+    );
+
+  }
+
+  cancel(): void {
+
+    this.formCancelled.emit();
+
+  }
+
 }

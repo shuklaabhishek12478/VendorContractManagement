@@ -1,0 +1,71 @@
+<div class="details-card">
+
+    <h2 class="section-title">
+
+        General Information
+
+    </h2>
+
+    <div class="details-grid">
+
+        <div>
+
+            <div class="field-label">
+
+                Vendor Name
+
+            </div>
+
+            <div class="field-value">
+
+                {{ vendor.vendorName }}
+
+            </div>
+
+        </div>
+
+        <div>
+
+            <div class="field-label">
+
+                Company Name
+
+            </div>
+
+            <div class="field-value">
+
+                {{ vendor.companyName }}
+
+            </div>
+
+        </div>
+
+        <div>
+
+            <div class="field-label">
+
+                Status
+
+            </div>
+
+            <div class="field-value">
+
+                @if(vendor.isActive){
+
+                    🟢 Active
+
+                }
+
+                @else{
+
+                    🔴 Inactive
+
+                }
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
