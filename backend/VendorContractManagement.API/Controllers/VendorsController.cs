@@ -70,7 +70,8 @@ namespace VendorContractManagement.API.Controllers
         {
             await _vendorService.DeleteAsync(id);
 
-            return Ok("Vendor deleted successfully");
+            //return Ok("Vendor deleted successfully");
+            return NoContent();
         }
 
 
