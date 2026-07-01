@@ -8,14 +8,22 @@ namespace VendorContractManagement.Application.Validators
     {
         public CreateContractDtoValidator()
         {
-           /* RuleFor(x => x.ContractNumber)
-                .NotEmpty()
-                .MaximumLength(100);*/
+            /* RuleFor(x => x.ContractNumber)
+                 .NotEmpty()
+                 .MaximumLength(100);*/
+
+            RuleFor(x => x.Title)
+              .NotEmpty()
+              .MaximumLength(200);
 
             RuleFor(x => x.ContractValue)
-                .GreaterThan(0);
+               .GreaterThan(0);
+
+            RuleFor(x => x.StartDate)
+               .NotEmpty();
 
             RuleFor(x => x.EndDate)
+                .NotEmpty()
                 .GreaterThan(x => x.StartDate)
                 .WithMessage(
                     "End Date must be greater than Start Date");
