@@ -1,6 +1,6 @@
-<div class="bg-white rounded-lg shadow p-6 mt-6">
+<div class="bg-white rounded-lg shadow p-5">
 
-    <div class="flex items-center justify-between mb-4">
+    <div class="flex justify-between items-center mb-4">
 
         <h2 class="text-xl font-semibold">
 
@@ -8,8 +8,7 @@
 
         </h2>
 
-        <span
-            class="text-sm text-gray-500">
+        <span class="text-gray-500">
 
             {{ contracts.length }} Contract(s)
 
@@ -21,7 +20,7 @@
 
     <div class="text-center py-8 text-gray-500">
 
-        No contracts available for this vendor.
+        No Contracts Found
 
     </div>
 
@@ -29,107 +28,19 @@
 
     @else {
 
-    <div class="overflow-x-auto">
+    <ag-grid-angular
 
-        <table class="min-w-full border border-gray-200">
+        class="ag-theme-alpine"
 
-            <thead class="bg-gray-100">
+        style="width:100%; height:400px;"
 
-                <tr>
+        [rowData]="contracts"
 
-                    <th class="px-4 py-3 text-left border">
-                        Contract No
-                    </th>
+        [columnDefs]="columnDefs"
 
-                    <th class="px-4 py-3 text-left border">
-                        Title
-                    </th>
+        [defaultColDef]="defaultColDef">
 
-                    <th class="px-4 py-3 text-left border">
-                        Start Date
-                    </th>
-
-                    <th class="px-4 py-3 text-left border">
-                        End Date
-                    </th>
-
-                    <th class="px-4 py-3 text-right border">
-                        Value
-                    </th>
-
-                    <th class="px-4 py-3 text-center border">
-                        Status
-                    </th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-                @for (contract of contracts; track contract.id) {
-
-                <tr class="hover:bg-gray-50">
-
-                    <td class="px-4 py-3 border">
-
-                        {{ contract.contractNumber }}
-
-                    </td>
-
-                    <td class="px-4 py-3 border">
-
-                        {{ contract.contractTitle }}
-
-                    </td>
-
-                    <td class="px-4 py-3 border">
-
-                        {{ contract.startDate | date:'dd MMM yyyy' }}
-
-                    </td>
-
-                    <td class="px-4 py-3 border">
-
-                        {{ contract.endDate | date:'dd MMM yyyy' }}
-
-                    </td>
-
-                    <td class="px-4 py-3 border text-right">
-
-                        {{ contract.contractValue | currency:'INR' }}
-
-                    </td>
-
-                    <td class="px-4 py-3 border text-center">
-
-                        <span
-                            class="px-3 py-1 rounded-full text-xs font-medium"
-                            [ngClass]="{
-
-                              'bg-green-100 text-green-700': contract.status === 'Active',
-
-                              'bg-yellow-100 text-yellow-700': contract.status === 'Pending',
-
-                              'bg-red-100 text-red-700': contract.status === 'Expired'
-
-                            }">
-
-                            {{ contract.status }}
-
-                        </span>
-
-                    </td>
-
-                </tr>
-
-                }
-
-            </tbody>
-
-        </table>
-
-    </div>
+    </ag-grid-angular>
 
     }
 

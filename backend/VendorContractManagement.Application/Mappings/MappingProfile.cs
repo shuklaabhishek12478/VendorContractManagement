@@ -15,13 +15,16 @@ namespace VendorContractManagement.Application.Mappings
             CreateMap<AuditLog, AuditLogDto>().ReverseMap();
 
             CreateMap<Document, DocumentDto>().ReverseMap();
-            CreateMap<Contract, ContractDto>().ReverseMap();
+
+            CreateMap<Contract, ContractDto>();
+
+            CreateMap<CreateContractDto, Contract>();
+
+            CreateMap<UpdateContractDto, Contract>();
 
             CreateMap<User, UserDto>();
 
             CreateMap<CreateUserDto, User>();
-
-            CreateMap<Contract, ContractDto>();
 
             CreateMap<RecentActivity, RecentActivityDto>();
         }

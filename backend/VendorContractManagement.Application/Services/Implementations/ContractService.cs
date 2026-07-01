@@ -79,7 +79,9 @@ namespace VendorContractManagement.Application.Services.Implementations
             contract.ContractNumber =
                 $"CNT-{DateTime.UtcNow.Year}-{(count + 1):D4}";
 
+            // Default values
             contract.Status = ContractStatus.Draft;
+            contract.SubmittedOn = DateTime.UtcNow;
 
             await _contractRepository.AddAsync(contract);
             await _unitOfWork.SaveChangesAsync();
@@ -97,7 +99,7 @@ namespace VendorContractManagement.Application.Services.Implementations
             await _recentActivityService.LogAsync(
     module: "Contract",
     action: "Created",
-    description: $"Contract {contract.ContractNumber} created",
+    description: $"Contract {contract.Title} ({contract.ContractNumber}) created",
     entityId: contract.Id,
     entityName: contract.ContractNumber,
     entityType: "Contract",
@@ -142,7 +144,7 @@ namespace VendorContractManagement.Application.Services.Implementations
             await _recentActivityService.LogAsync(
     module: "Contract",
     action: "Updated",
-    description: $"Contract {contract.ContractNumber} updated",
+    description: $"Contract {contract.Title} ({contract.ContractNumber}) updated",
     entityId: contract.Id,
     entityName: contract.ContractNumber,
     entityType: "Contract",
@@ -182,7 +184,7 @@ namespace VendorContractManagement.Application.Services.Implementations
             await _recentActivityService.LogAsync(
     module: "Contract",
     action: "Deleted",
-    description: $"Contract {contract.ContractNumber} deleted",
+    description: $"Contract {contract.Title} ({contract.ContractNumber}) deleted",
     entityId: contract.Id,
     entityName: contract.ContractNumber,
     entityType: "Contract",
@@ -245,7 +247,7 @@ namespace VendorContractManagement.Application.Services.Implementations
             await _recentActivityService.LogAsync(
     module: "Contract",
     action: "Submitted",
-    description: $"Contract {contract.ContractNumber} submitted for approval",
+    description: $"Contract {contract.Title} ({contract.ContractNumber}) submitted for approval",
     entityId: contract.Id,
     entityName: contract.ContractNumber,
     entityType: "Contract",
@@ -297,7 +299,7 @@ namespace VendorContractManagement.Application.Services.Implementations
             await _recentActivityService.LogAsync(
     module: "Contract",
     action: "Approved",
-    description: $"Contract {contract.ContractNumber} approved",
+    description: $"Contract {contract.Title} ({contract.ContractNumber}) approved",
     entityId: contract.Id,
     entityName: contract.ContractNumber,
     entityType: "Contract",
@@ -353,7 +355,7 @@ namespace VendorContractManagement.Application.Services.Implementations
             await _recentActivityService.LogAsync(
     module: "Contract",
     action: "Rejected",
-    description: $"Contract {contract.ContractNumber} rejected",
+    description: $"Contract {contract.Title} ({contract.ContractNumber}) rejected",
     entityId: contract.Id,
     entityName: contract.ContractNumber,
     entityType: "Contract",
@@ -429,8 +431,8 @@ namespace VendorContractManagement.Application.Services.Implementations
             var renewedContract = new Contract
             {
                 ContractNumber =
-        renewalContractNumber,
-
+                    renewalContractNumber,
+                Title = contract.Title,
                 VendorId = contract.VendorId,
 
                 StartDate = dto.NewStartDate,
@@ -477,7 +479,7 @@ namespace VendorContractManagement.Application.Services.Implementations
             await _recentActivityService.LogAsync(
     module: "Renewal",
     action: "Created",
-    description: $"Renewal {renewedContract.ContractNumber} created",
+    description: $"Renewal {renewedContract.Title} ({renewedContract.ContractNumber}) created",
     entityId: renewedContract.Id,
     entityName: renewedContract.ContractNumber,
     entityType: "Contract",
@@ -569,7 +571,7 @@ namespace VendorContractManagement.Application.Services.Implementations
             await _recentActivityService.LogAsync(
     module: "Renewal",
     action: "Approved",
-    description: $"Renewal {renewal.ContractNumber} approved",
+    description: $"Renewal {renewal.Title} ({renewal.ContractNumber}) approved",
     entityId: renewal.Id,
     entityName: renewal.ContractNumber,
     entityType: "Contract",
@@ -639,7 +641,7 @@ namespace VendorContractManagement.Application.Services.Implementations
             await _recentActivityService.LogAsync(
     module: "Renewal",
     action: "Activated",
-    description: $"Renewal {renewal.ContractNumber} activated",
+    description: $"Renewal {renewal.Title} ({renewal.ContractNumber}) activated",
     entityId: renewal.Id,
     entityName: renewal.ContractNumber,
     entityType: "Contract",
@@ -696,7 +698,7 @@ namespace VendorContractManagement.Application.Services.Implementations
             await _recentActivityService.LogAsync(
     module: "Renewal",
     action: "Rejected",
-    description: $"Renewal {renewal.ContractNumber} rejected",
+    description: $"Renewal {renewal.Title} ({renewal.ContractNumber}) rejected",
     entityId: renewal.Id,
     entityName: renewal.ContractNumber,
     entityType: "Contract",
@@ -753,7 +755,7 @@ namespace VendorContractManagement.Application.Services.Implementations
             await _recentActivityService.LogAsync(
     module: "Contract",
     action: "Terminated",
-    description: $"Contract {contract.ContractNumber} terminated",
+    description: $"Contract {contract.Title} ({contract.ContractNumber}) terminated",
     entityId: contract.Id,
     entityName: contract.ContractNumber,
     entityType: "Contract",
@@ -823,11 +825,12 @@ namespace VendorContractManagement.Application.Services.Implementations
                     .Add("Contracts");
 
             worksheet.Cells[1, 1].Value = "Contract Number";
-            worksheet.Cells[1, 2].Value = "Vendor";
-            worksheet.Cells[1, 3].Value = "Status";
-            worksheet.Cells[1, 4].Value = "Start Date";
-            worksheet.Cells[1, 5].Value = "End Date";
-            worksheet.Cells[1, 6].Value = "Contract Value";
+            worksheet.Cells[1, 2].Value = "Title";
+            worksheet.Cells[1, 3].Value = "Vendor";
+            worksheet.Cells[1, 4].Value = "Status";
+            worksheet.Cells[1, 5].Value = "Start Date";
+            worksheet.Cells[1, 6].Value = "End Date";
+            worksheet.Cells[1, 7].Value = "Contract Value";
 
             int row = 2;
 
@@ -837,18 +840,21 @@ namespace VendorContractManagement.Application.Services.Implementations
                     contract.ContractNumber;
 
                 worksheet.Cells[row, 2].Value =
-                    contract.Vendor.VendorName;
+                    contract.Title;
 
                 worksheet.Cells[row, 3].Value =
-                    contract.Status.ToString();
+                    contract.Vendor.VendorName;
 
                 worksheet.Cells[row, 4].Value =
-                    contract.StartDate.ToString("dd-MMM-yyyy");
+                    contract.Status.ToString();
 
                 worksheet.Cells[row, 5].Value =
-                    contract.EndDate.ToString("dd-MMM-yyyy");
+                    contract.StartDate.ToString("dd-MMM-yyyy");
 
                 worksheet.Cells[row, 6].Value =
+                    contract.EndDate.ToString("dd-MMM-yyyy");
+
+                worksheet.Cells[row, 7].Value =
                     contract.ContractValue;
 
                 row++;

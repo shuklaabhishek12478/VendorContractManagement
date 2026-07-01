@@ -13,6 +13,10 @@ public class ContractConfiguration : IEntityTypeConfiguration<Contract>
                .HasMaxLength(50)
                .IsRequired();
 
+        builder.Property(x => x.Title)
+               .HasMaxLength(200)
+               .IsRequired();
+
         builder.Property(x => x.ContractValue)
                .HasPrecision(18, 2);
 

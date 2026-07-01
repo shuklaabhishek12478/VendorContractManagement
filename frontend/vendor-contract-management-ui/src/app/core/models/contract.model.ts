@@ -2,16 +2,28 @@ export interface Contract {
 
   id: number;
 
-  contractNumber: string;
-
-  contractTitle: string;
-
   startDate: string;
 
   endDate: string;
 
   contractValue: number;
 
-  status: string;
+  description: string;
+
+  status: number;
+
+  vendorId: number;
+
+  approvedBy?: string;
+
+  approvedOn?: string;
+
+  rejectionReason?: string;
+
+  terminationReason?: string;
+
+  terminatedOn?: string;
+
+  terminatedBy?: string;
 
 }

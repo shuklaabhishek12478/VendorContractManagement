@@ -121,7 +121,14 @@ namespace VendorContractManagement.Infrastructure.Repository
             if (!string.IsNullOrWhiteSpace(query.Search))
             {
                 contracts = contracts.Where(c =>
-                    c.ContractNumber.Contains(query.Search));
+
+                  c.ContractNumber.Contains(query.Search) ||
+
+                  c.Title.Contains(query.Search) ||
+
+                  c.Vendor.VendorName.Contains(query.Search)
+
+                );
             }
 
             if (query.Status.HasValue)
@@ -154,10 +161,11 @@ namespace VendorContractManagement.Infrastructure.Repository
         public async Task<IEnumerable<Contract>>GetRenewalsAsync(int parentContractId)
         {
             return await _context.Contracts
-                .Where(x =>
-                    x.ParentContractId ==
-                    parentContractId)
-                .ToListAsync();
+               .Where(x =>
+                 !x.IsDeleted &&
+                 x.ParentContractId == parentContractId)
+                .Include(x => x.Vendor)
+               .ToListAsync();
         }
 
         public async Task<IEnumerable<Contract>> GetReportDataAsync(ContractReportFilterDto filter)
@@ -326,12 +334,18 @@ namespace VendorContractManagement.Infrastructure.Repository
 
         public async Task<int> GetContractCountAsync()
         {
-            return await _context.Contracts.CountAsync();
+            // return await _context.Contracts.CountAsync();
+            return await _context.Contracts
+             .Where(x => !x.IsDeleted)
+             .CountAsync();
         }
 
         public async Task<string> GenerateContractNumberAsync()
         {
-            var count = await _context.Contracts.CountAsync();
+            //var count = await _context.Contracts.CountAsync();
+            var count = await _context.Contracts
+             .Where(x => !x.IsDeleted)
+             .CountAsync();
 
             return $"CNT-{DateTime.UtcNow.Year}-{(count + 1):D4}";
         }

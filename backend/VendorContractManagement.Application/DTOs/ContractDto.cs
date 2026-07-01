@@ -6,7 +6,10 @@ namespace VendorContractManagement.Application.DTOs
     {
         public int Id { get; set; }
 
-       // public string ContractNumber { get; set; } = string.Empty;
+        public string ContractNumber { get; set; } = string.Empty;
+
+        public string Title { get; set; } = string.Empty;
+
 
         public DateTime StartDate { get; set; }
 
@@ -31,5 +34,7 @@ namespace VendorContractManagement.Application.DTOs
         public DateTime? TerminatedOn { get; set; }
 
         public string? TerminatedBy { get; set; }
+
+        public DateTime? SubmittedOn { get; set; }
     }
 }

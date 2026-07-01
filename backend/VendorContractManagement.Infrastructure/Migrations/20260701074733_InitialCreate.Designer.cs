@@ -9,11 +9,11 @@ using VendorContractManagement.Infrastructure.Data;
 
 #nullable disable
 
-namespace VendorContractManagement.Infrastructure.Migrations.AppDb
+namespace VendorContractManagement.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260615052511_AddUserIsActive")]
-    partial class AddUserIsActive
+    [Migration("20260701074733_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,9 +76,15 @@ namespace VendorContractManagement.Infrastructure.Migrations.AppDb
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("ApprovedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ApprovedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("ContractNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<decimal>("ContractValue")
                         .HasColumnType("decimal(18,2)");
@@ -96,11 +102,45 @@ namespace VendorContractManagement.Infrastructure.Migrations.AppDb
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsRenewal")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("ParentContractId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RejectionReason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RenewalApprovedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RenewalApprovedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("RenewalRequestedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
+
+                    b.Property<DateTime?>("SubmittedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TerminatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("TerminatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TerminationReason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("UpdatedOn")
                         .HasColumnType("datetime2");
@@ -109,6 +149,11 @@ namespace VendorContractManagement.Infrastructure.Migrations.AppDb
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ContractNumber")
+                        .IsUnique();
+
+                    b.HasIndex("ParentContractId");
 
                     b.HasIndex("VendorId");
 
@@ -159,6 +204,47 @@ namespace VendorContractManagement.Infrastructure.Migrations.AppDb
                     b.HasIndex("ContractId");
 
                     b.ToTable("Documents");
+                });
+
+            modelBuilder.Entity("VendorContractManagement.Domain.Entities.RecentActivity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("EntityId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("EntityName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EntityType")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Module")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PerformedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RecentActivities");
                 });
 
             modelBuilder.Entity("VendorContractManagement.Domain.Entities.User", b =>
@@ -272,11 +358,18 @@ namespace VendorContractManagement.Infrastructure.Migrations.AppDb
 
             modelBuilder.Entity("VendorContractManagement.Domain.Entities.Contract", b =>
                 {
+                    b.HasOne("VendorContractManagement.Domain.Entities.Contract", "ParentContract")
+                        .WithMany("Renewals")
+                        .HasForeignKey("ParentContractId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("VendorContractManagement.Domain.Entities.Vendor", "Vendor")
                         .WithMany("Contracts")
                         .HasForeignKey("VendorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("ParentContract");
 
                     b.Navigation("Vendor");
                 });
@@ -305,6 +398,8 @@ namespace VendorContractManagement.Infrastructure.Migrations.AppDb
             modelBuilder.Entity("VendorContractManagement.Domain.Entities.Contract", b =>
                 {
                     b.Navigation("Documents");
+
+                    b.Navigation("Renewals");
                 });
 
             modelBuilder.Entity("VendorContractManagement.Domain.Entities.Vendor", b =>
