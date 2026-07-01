@@ -23,7 +23,7 @@ export class EditVendorComponent implements OnInit, CanComponentDeactivate {
   private route = inject(ActivatedRoute);
   private snackBar = inject(MatSnackBar);
   private router = inject(Router);
-
+  private allowNavigation = false;
   private vendorService = inject(VendorService);
   private cdr = inject(ChangeDetectorRef);
 
@@ -42,7 +42,7 @@ export class EditVendorComponent implements OnInit, CanComponentDeactivate {
 
 }
 
-  cancel(): void {
+ /* cancel(): void {
 
   if (!this.vendor) {
 
@@ -57,7 +57,7 @@ export class EditVendorComponent implements OnInit, CanComponentDeactivate {
     this.vendor.id
   ]);
 
-}
+}*/
 
 loadVendor(id: number): void {
 
@@ -132,6 +132,7 @@ updateVendor(data: any): void {
                     }
 
                     );
+                    this.allowNavigation = true;
                        this.router.navigate([
                        '/vendors',
                   this.vendor!.id
@@ -149,7 +150,53 @@ updateVendor(data: any): void {
 
 }
 
-canDeactivate(): boolean {
+cancel(): void {
+
+  if (!this.vendor) {
+
+    this.allowNavigation = true;
+
+    this.router.navigate(['/vendors']);
+
+    return;
+
+  }
+
+  if (!this.vendorFormComponent.vendorForm.dirty) {
+
+    this.allowNavigation = true;
+
+    this.router.navigate([
+      '/vendors',
+      this.vendor.id
+    ]);
+
+    return;
+
+  }
+
+  const confirmed = confirm(
+
+    'You have unsaved changes.\n\nLeave this page?'
+
+  );
+
+  if (!confirmed) {
+
+    return;
+
+  }
+
+  this.allowNavigation = true;
+
+  this.router.navigate([
+    '/vendors',
+    this.vendor.id
+  ]);
+
+}
+
+/*canDeactivate(): boolean {
 
   if (!this.vendorFormComponent) {
 
@@ -169,5 +216,24 @@ canDeactivate(): boolean {
 
   );
 
+}*/
+
+canDeactivate(): boolean {
+
+  if (this.allowNavigation) {
+
+    return true;
+
+  }
+
+  if (!this.vendorFormComponent) {
+
+    return true;
+
+  }
+
+  return !this.vendorFormComponent.vendorForm.dirty;
+
 }
+
 }

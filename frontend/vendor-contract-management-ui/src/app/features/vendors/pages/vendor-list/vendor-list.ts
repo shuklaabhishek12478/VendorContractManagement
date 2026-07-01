@@ -15,6 +15,7 @@ import { VendorToolbarComponent } from '../../../../shared/components/vendor-too
 import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog';
 import { forkJoin } from 'rxjs';
 import { VendorQuery } from '../../../../core/models/vendor-query.model';
+import { SnackbarService } from '../../../../core/services/snackbar.service';
 @Component({
   selector: 'app-vendor-list',
   imports: [AgGridAngular,
@@ -31,6 +32,8 @@ export class VendorListComponent implements OnInit{
   private gridApi!: GridApi;
   private dialog = inject(MatDialog);
   private router = inject(Router);
+  private snackbar = inject(SnackbarService);
+
 
    context = {
     componentParent: this
@@ -219,16 +222,16 @@ openAddVendorDialog(): void {
 
   console.log('Reloaded Vendors', response);
 
-  this.rowData = [...response.data];
+ // this.rowData = [...response.data];
 
-  console.log('Current Row Data', this.rowData);
+ // console.log('Current Row Data', this.rowData);
 
   if (this.gridApi) {
 
-    this.gridApi.setGridOption(
-      'rowData',
-      [...response.data]
-    );
+ //   this.gridApi.setGridOption(
+   //   'rowData',
+   //   [...response.data]
+   // );
 
     this.gridApi.refreshCells({
       force: true
@@ -240,9 +243,9 @@ openAddVendorDialog(): void {
   }, 500);
 
 
-      alert(
-        'Vendor created successfully'
-      );
+      this.snackbar.success(
+  'Vendor created successfully'
+);
     },
 
     error: (error) => {
@@ -400,6 +403,9 @@ activateVendor(id: number): void {
       next: () => {
 
         this.loadVendors();
+        this.snackbar.success(
+    'Vendor activated successfully'
+  );
       },
 
       error: (error) => {
@@ -418,6 +424,9 @@ deactivateVendor(id: number): void {
       next: () => {
 
         this.loadVendors();
+        this.snackbar.success(
+    'Vendor deactivated successfully'
+  );
       },
 
       error: (error) => {
@@ -527,6 +536,10 @@ archiveSelectedVendors(): void {
 
         this.selectedVendors = [];
 
+        this.snackbar.success(
+    'Selected vendors archived successfully'
+  );
+
       },
 
       error: error => {
@@ -581,14 +594,22 @@ removeSelectedVendors(): void {
     );
 
     forkJoin(requests).subscribe({
+      
+      next: (result) => {
 
-      next: () => {
+        console.log('DELETE SUCCESS');
+
+        console.log(result);
 
         this.loadVendors();
 
         this.selectedVendor = null;
 
         this.selectedVendors = [];
+
+        this.snackbar.success(
+        'Selected Vendors Removed successfully'
+  );
 
       },
 

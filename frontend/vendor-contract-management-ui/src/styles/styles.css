@@ -17,4 +17,27 @@ body {
   box-sizing: border-box;
 }
 
+.success-snackbar {
+
+  --mdc-snackbar-container-color: #16a34a;
+
+  --mat-snack-bar-button-color: white;
+
+}
+
+.error-snackbar {
+
+  --mdc-snackbar-container-color: #dc2626;
+
+  --mat-snack-bar-button-color: white;
+
+}
+
+.warning-snackbar {
+
+  --mdc-snackbar-container-color: #d97706;
+
+  --mat-snack-bar-button-color: white;
+
+}
  
