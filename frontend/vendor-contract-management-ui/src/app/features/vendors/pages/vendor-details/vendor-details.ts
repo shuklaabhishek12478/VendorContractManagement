@@ -1,22 +1,26 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-
+import { MatTabsModule } from '@angular/material/tabs';
 import { VendorService } from '../../../../core/services/vendor.service';
 import { Vendor } from '../../../../core/models/vendor.model';
 import { ChangeDetectorRef } from '@angular/core';
 import { VendorGeneralInfoComponent } from '../../../../shared/components/vendor-general-info/vendor-general-info';
 import { VendorContactInfoComponent } from '../../../../shared/components/vendor-contact-info/vendor-contact-info';
 import { VendorComplianceInfoComponent } from '../../../../shared/components/vendor-compliance-info/vendor-compliance-info';
+import { VendorContractsComponent } from '../../../../shared/components/vendor-contracts/vendor-contracts';
+import { Contract } from '../../../../core/models/contract.model';
 
 @Component({
   selector: 'app-vendor-details',
   standalone: true,
   imports: [
     CommonModule,
+    MatTabsModule,
     VendorGeneralInfoComponent,
     VendorContactInfoComponent,
-    VendorComplianceInfoComponent
+    VendorComplianceInfoComponent,
+    VendorContractsComponent
   ],
   templateUrl: './vendor-details.html',
   styleUrl: './vendor-details.scss'
@@ -34,6 +38,8 @@ export class VendorDetailsComponent implements OnInit {
 
   isLoading = true;
 
+  contracts: Contract[] = [];
+  
   constructor() {
   console.log('VendorDetails Constructor', Math.random());
 }
@@ -62,6 +68,8 @@ loadVendor(id: number): void {
     this.vendor = vendor;
 
     this.isLoading = false;
+
+    this.loadContracts(vendor.id);
 
     this.cdr.detectChanges();
 
@@ -101,5 +109,29 @@ loadVendor(id: number): void {
     ]);
 
   }
+
+  loadContracts(vendorId: number): void {
+
+  this.vendorService
+    .getContracts(vendorId)
+    .subscribe({
+
+      next: (contracts) => {
+
+        console.log('Contracts', contracts);
+
+        this.contracts = contracts;
+
+      },
+
+      error: (error) => {
+
+        console.error(error);
+
+      }
+
+    });
+
+}
 
 }

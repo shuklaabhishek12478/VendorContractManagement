@@ -4,7 +4,7 @@
 
     <p class="text-gray-500 text-lg">
 
-        Loading vendor...
+        Loading Vendor...
 
     </p>
 
@@ -16,43 +16,124 @@
 
 <div class="page-container">
 
-    <div class="page-header">
+    <div class="flex justify-between items-center mb-6">
 
-        <button
-            class="secondary-btn"
-            (click)="back()">
+        <div>
 
-            ← Back
+            <h1 class="text-3xl font-bold">
 
-        </button>
+                {{ vendor.vendorName }}
 
-        <button
-            class="primary-btn"
-            (click)="editVendor()">
+            </h1>
 
-            ✏ Edit
+            <p class="text-gray-500">
 
-        </button>
+                {{ vendor.companyName }}
+
+            </p>
+
+        </div>
+
+        <div class="flex gap-3">
+
+            <button
+                class="secondary-btn"
+                (click)="back()">
+
+                ← Back
+
+            </button>
+
+            <button
+                class="primary-btn"
+                (click)="editVendor()">
+
+                ✏ Edit Vendor
+
+            </button>
+
+        </div>
 
     </div>
 
-    <h1 class="page-title">
+    <mat-tab-group
+        animationDuration="200ms">
 
-        Vendor Details
+        <mat-tab
+            label="General">
 
-    </h1>
+            <div class="mt-5">
 
-    <app-vendor-general-info
-        [vendor]="vendor">
-    </app-vendor-general-info>
+                <app-vendor-general-info
+                    [vendor]="vendor">
+                </app-vendor-general-info>
 
-    <app-vendor-contact-info
-        [vendor]="vendor">
-    </app-vendor-contact-info>
+            </div>
 
-    <app-vendor-compliance-info
-        [vendor]="vendor">
-    </app-vendor-compliance-info>
+        </mat-tab>
+
+        <mat-tab
+            label="Contact">
+
+            <div class="mt-5">
+
+                <app-vendor-contact-info
+                    [vendor]="vendor">
+                </app-vendor-contact-info>
+
+            </div>
+
+        </mat-tab>
+
+        <mat-tab
+            label="Compliance">
+
+            <div class="mt-5">
+
+                <app-vendor-compliance-info
+                    [vendor]="vendor">
+                </app-vendor-compliance-info>
+
+            </div>
+
+        </mat-tab>
+
+        <mat-tab
+            label="Contracts">
+
+            <div class="mt-5">
+
+               <app-vendor-contracts
+                  [contracts]="contracts">
+               </app-vendor-contracts>
+
+            </div>
+
+        </mat-tab>
+
+        <mat-tab
+            label="Documents">
+
+            <div class="mt-5">
+
+                Coming Soon...
+
+            </div>
+
+        </mat-tab>
+
+        <mat-tab
+            label="Activity">
+
+            <div class="mt-5">
+
+                Coming Soon...
+
+            </div>
+
+        </mat-tab>
+
+    </mat-tab-group>
 
 </div>
 
@@ -62,11 +143,7 @@
 
 <div class="flex justify-center items-center h-96">
 
-    <p class="text-red-500">
-
-        Vendor not found.
-
-    </p>
+    Vendor not found.
 
 </div>
 

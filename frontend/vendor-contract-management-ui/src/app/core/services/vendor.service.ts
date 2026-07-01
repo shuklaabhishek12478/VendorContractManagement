@@ -8,6 +8,7 @@ import { environment } from '../../../environments/environment';
 import { PagedResponse } from '../models/paged-response.model';
 import { CreateVendor } from '../models/create-vendor.model';
 import { VendorQuery } from '../models/vendor-query.model';
+import { Contract } from '../models/contract.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ import { VendorQuery } from '../models/vendor-query.model';
 export class VendorService {
 
   private http = inject(HttpClient);
-
+  
   private apiUrl =
     `${environment.apiUrl}/vendors`;
 
@@ -110,4 +111,16 @@ deactivateVendor(id: number) {
     {}
   );
 }
+
+
+getContracts(vendorId: number) {
+
+  return this.http.get<Contract[]>(
+
+    `${this.apiUrl}/${vendorId}/contracts`
+
+  );
+
+}
+
 }

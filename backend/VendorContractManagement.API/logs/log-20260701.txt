@@ -1,0 +1,294 @@
+2026-07-01 10:09:24.660 +05:30 [INF] Start installing Hangfire SQL objects...
+2026-07-01 10:09:26.437 +05:30 [INF] Hangfire SQL objects installed.
+2026-07-01 10:09:28.067 +05:30 [INF] User profile is available. Using 'C:\Users\shukl\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-07-01 10:09:28.614 +05:30 [INF] Now listening on: https://localhost:7220
+2026-07-01 10:09:28.617 +05:30 [INF] Now listening on: http://localhost:5092
+2026-07-01 10:09:28.750 +05:30 [INF] Starting Hangfire Server using job storage: 'SQL Server: LAPTOP-M2UCBO4S\SQLEXPRESS@VendorContractManagementDb'
+2026-07-01 10:09:28.752 +05:30 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-07-01 10:09:28.754 +05:30 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-07-01 10:09:28.781 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-07-01 10:09:28.783 +05:30 [INF] Hosting environment: Development
+2026-07-01 10:09:28.784 +05:30 [INF] Content root path: E:\Abhi Data\Technical\Job Projects\VendorContractManagement\backend\VendorContractManagement.API
+2026-07-01 10:09:28.809 +05:30 [INF] Server laptop-m2ucbo4s:788376:f3b9f89d successfully announced in 30.18 ms
+2026-07-01 10:09:28.817 +05:30 [INF] Server laptop-m2ucbo4s:788376:f3b9f89d is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-07-01 10:09:28.848 +05:30 [INF] 1 servers were removed due to timeout
+2026-07-01 10:09:28.932 +05:30 [INF] Server laptop-m2ucbo4s:788376:f3b9f89d all the dispatchers started
+2026-07-01 10:09:29.859 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/index.html - null null
+2026-07-01 10:09:30.395 +05:30 [INF] HTTP GET /swagger/index.html responded 200 in 289.3366 ms
+2026-07-01 10:09:30.403 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/index.html - 200 null text/html;charset=utf-8 559.9006ms
+2026-07-01 10:09:30.431 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/_framework/aspnetcore-browser-refresh.js - null null
+2026-07-01 10:09:30.431 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/_vs/browserLink - null null
+2026-07-01 10:09:30.444 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/_framework/aspnetcore-browser-refresh.js - 200 13792 application/javascript; charset=utf-8 13.7889ms
+2026-07-01 10:09:30.566 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/_vs/browserLink - 200 null text/javascript; charset=UTF-8 135.4015ms
+2026-07-01 10:09:30.610 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/v1/swagger.json - null null
+2026-07-01 10:09:30.671 +05:30 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 56.1951 ms
+2026-07-01 10:09:30.676 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 66.1004ms
+2026-07-01 10:09:31.492 +05:30 [WRN] No store type was specified for the decimal property 'ContractValue' on entity type 'Contract'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-07-01 10:09:32.129 +05:30 [INF] Executed DbCommand (36ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ApprovedBy], [c].[ApprovedOn], [c].[ContractNumber], [c].[ContractValue], [c].[CreatedOn], [c].[Description], [c].[EndDate], [c].[IsDeleted], [c].[IsRenewal], [c].[ParentContractId], [c].[RejectionReason], [c].[RenewalApprovedBy], [c].[RenewalApprovedOn], [c].[RenewalRequestedOn], [c].[StartDate], [c].[Status], [c].[SubmittedOn], [c].[TerminatedBy], [c].[TerminatedOn], [c].[TerminationReason], [c].[UpdatedOn], [c].[VendorId], [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Contracts] AS [c]
+INNER JOIN [Vendors] AS [v] ON [c].[VendorId] = [v].[Id]
+WHERE [c].[IsDeleted] = CAST(0 AS bit)
+2026-07-01 10:09:32.129 +05:30 [INF] Executed DbCommand (36ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ApprovedBy], [c].[ApprovedOn], [c].[ContractNumber], [c].[ContractValue], [c].[CreatedOn], [c].[Description], [c].[EndDate], [c].[IsDeleted], [c].[IsRenewal], [c].[ParentContractId], [c].[RejectionReason], [c].[RenewalApprovedBy], [c].[RenewalApprovedOn], [c].[RenewalRequestedOn], [c].[StartDate], [c].[Status], [c].[SubmittedOn], [c].[TerminatedBy], [c].[TerminatedOn], [c].[TerminationReason], [c].[UpdatedOn], [c].[VendorId], [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Contracts] AS [c]
+INNER JOIN [Vendors] AS [v] ON [c].[VendorId] = [v].[Id]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[Status] = 5
+2026-07-01 10:09:35.495 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20&search=&sortBy=&sortDirection=&isActive= - null null
+2026-07-01 10:09:37.269 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:09:37.276 +05:30 [INF] HTTP OPTIONS /api/vendors/paged responded 204 in 1772.8104 ms
+2026-07-01 10:09:37.279 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20&search=&sortBy=&sortDirection=&isActive= - 204 null null 1783.4391ms
+2026-07-01 10:09:37.284 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20&search=&sortBy=&sortDirection=&isActive= - null null
+2026-07-01 10:09:37.401 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '30-06-2026 17:31:51', Current time (UTC): '01-07-2026 04:39:37'.
+   at Microsoft.IdentityModel.Tokens.ValidatorUtilities.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2026-07-01 10:09:37.482 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '30-06-2026 17:31:51', Current time (UTC): '01-07-2026 04:39:37'.
+2026-07-01 10:09:37.484 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:09:37.493 +05:30 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (Admin)
+2026-07-01 10:09:37.500 +05:30 [INF] AuthenticationScheme: Bearer was challenged.
+2026-07-01 10:09:37.501 +05:30 [INF] HTTP GET /api/vendors/paged responded 401 in 212.5672 ms
+2026-07-01 10:09:37.504 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20&search=&sortBy=&sortDirection=&isActive= - 401 0 null 220.4545ms
+2026-07-01 10:09:39.918 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/Auth/login - null null
+2026-07-01 10:09:39.927 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:09:39.928 +05:30 [INF] HTTP OPTIONS /api/Auth/login responded 204 in 3.2758 ms
+2026-07-01 10:09:39.932 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/Auth/login - 204 null null 13.071ms
+2026-07-01 10:09:39.933 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7220/api/Auth/login - application/json 53
+2026-07-01 10:09:39.941 +05:30 [INF] Failed to validate the token.
+Microsoft.IdentityModel.Tokens.SecurityTokenExpiredException: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '30-06-2026 17:31:51', Current time (UTC): '01-07-2026 04:39:39'.
+   at Microsoft.IdentityModel.Tokens.ValidatorUtilities.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.Tokens.Validators.ValidateLifetime(Nullable`1 notBefore, Nullable`1 expires, SecurityToken securityToken, TokenValidationParameters validationParameters)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateTokenPayloadAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+   at Microsoft.IdentityModel.JsonWebTokens.JsonWebTokenHandler.ValidateJWSAsync(JsonWebToken jsonWebToken, TokenValidationParameters validationParameters, BaseConfiguration configuration)
+2026-07-01 10:09:39.944 +05:30 [INF] Bearer was not authenticated. Failure message: IDX10223: Lifetime validation failed. The token is expired. ValidTo (UTC): '30-06-2026 17:31:51', Current time (UTC): '01-07-2026 04:39:39'.
+2026-07-01 10:09:39.946 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:09:39.960 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.AuthController.Login (VendorContractManagement.API)'
+2026-07-01 10:09:39.989 +05:30 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(VendorContractManagement.Application.DTOs.LoginDto) on controller VendorContractManagement.API.Controllers.AuthController (VendorContractManagement.API).
+2026-07-01 10:09:40.262 +05:30 [INF] Executed DbCommand (10ms) [Parameters=[@__email_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[CreatedOn], [u].[Email], [u].[FullName], [u].[IsActive], [u].[IsDeleted], [u].[PasswordHash], [u].[RefreshToken], [u].[RefreshTokenExpiryTime], [u].[Role], [u].[UpdatedOn], [u].[VendorId]
+FROM [Users] AS [u]
+WHERE [u].[Email] = @__email_0
+2026-07-01 10:09:40.624 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[@p2='?' (DbType = Int32), @p0='?' (Size = 4000), @p1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Users] SET [RefreshToken] = @p0, [RefreshTokenExpiryTime] = @p1
+OUTPUT 1
+WHERE [Id] = @p2;
+2026-07-01 10:09:40.655 +05:30 [INF] Executing OkObjectResult, writing value of type 'VendorContractManagement.Application.DTOs.LoginResponseDto'.
+2026-07-01 10:09:40.664 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.AuthController.Login (VendorContractManagement.API) in 669.7888ms
+2026-07-01 10:09:40.666 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.AuthController.Login (VendorContractManagement.API)'
+2026-07-01 10:09:40.668 +05:30 [INF] HTTP POST /api/Auth/login responded 200 in 728.7032 ms
+2026-07-01 10:09:40.670 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7220/api/Auth/login - 200 null application/json; charset=utf-8 736.9501ms
+2026-07-01 10:09:42.805 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20&search=&sortBy=&sortDirection=&isActive= - null null
+2026-07-01 10:09:42.811 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:09:42.814 +05:30 [INF] HTTP OPTIONS /api/vendors/paged responded 204 in 3.4731 ms
+2026-07-01 10:09:42.819 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20&search=&sortBy=&sortDirection=&isActive= - 204 null null 13.4207ms
+2026-07-01 10:09:42.823 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20&search=&sortBy=&sortDirection=&isActive= - null null
+2026-07-01 10:09:42.840 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:09:42.844 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetPaged (VendorContractManagement.API)'
+2026-07-01 10:09:42.855 +05:30 [INF] Route matched with {action = "GetPaged", controller = "Vendors"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetPaged(VendorContractManagement.Application.DTOs.VendorQueryParams) on controller VendorContractManagement.API.Controllers.VendorsController (VendorContractManagement.API).
+2026-07-01 10:09:43.023 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Vendors] AS [v]
+WHERE [v].[IsDeleted] = CAST(0 AS bit)
+2026-07-01 10:09:43.043 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@__p_0='?' (DbType = Int32), @__p_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Vendors] AS [v]
+WHERE [v].[IsDeleted] = CAST(0 AS bit)
+ORDER BY [v].[Id]
+OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+2026-07-01 10:09:43.064 +05:30 [INF] Executing OkObjectResult, writing value of type 'VendorContractManagement.Application.DTOs.PagedResponse`1[[VendorContractManagement.Application.DTOs.VendorDto, VendorContractManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-01 10:09:43.072 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.VendorsController.GetPaged (VendorContractManagement.API) in 214.4523ms
+2026-07-01 10:09:43.073 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetPaged (VendorContractManagement.API)'
+2026-07-01 10:09:43.074 +05:30 [INF] HTTP GET /api/vendors/paged responded 200 in 242.6986 ms
+2026-07-01 10:09:43.077 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20&search=&sortBy=&sortDirection=&isActive= - 200 null application/json; charset=utf-8 254.901ms
+2026-07-01 10:09:47.601 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/vendors/3 - null null
+2026-07-01 10:09:47.611 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:09:47.613 +05:30 [INF] HTTP OPTIONS /api/vendors/3 responded 204 in 2.1959 ms
+2026-07-01 10:09:47.616 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/vendors/3 - 204 null null 14.6686ms
+2026-07-01 10:09:47.618 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/vendors/3 - null null
+2026-07-01 10:09:47.622 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:09:47.625 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API)'
+2026-07-01 10:09:47.632 +05:30 [INF] Route matched with {action = "GetById", controller = "Vendors"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(Int32) on controller VendorContractManagement.API.Controllers.VendorsController (VendorContractManagement.API).
+2026-07-01 10:09:47.656 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Vendors] AS [v]
+WHERE [v].[Id] = @__id_0 AND [v].[IsDeleted] = CAST(0 AS bit)
+2026-07-01 10:09:47.662 +05:30 [INF] Executing OkObjectResult, writing value of type 'VendorContractManagement.Application.DTOs.VendorDto'.
+2026-07-01 10:09:47.663 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API) in 27.5844ms
+2026-07-01 10:09:47.665 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API)'
+2026-07-01 10:09:47.666 +05:30 [INF] HTTP GET /api/vendors/3 responded 200 in 44.7114 ms
+2026-07-01 10:09:47.668 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/vendors/3 - 200 null application/json; charset=utf-8 50.4896ms
+2026-07-01 10:11:32.767 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20&search=&sortBy=&sortDirection=&isActive= - null null
+2026-07-01 10:11:32.781 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:11:32.782 +05:30 [INF] HTTP OPTIONS /api/vendors/paged responded 204 in 1.2497 ms
+2026-07-01 10:11:32.784 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20&search=&sortBy=&sortDirection=&isActive= - 204 null null 17.0753ms
+2026-07-01 10:11:32.786 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20&search=&sortBy=&sortDirection=&isActive= - null null
+2026-07-01 10:11:32.794 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:11:32.795 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetPaged (VendorContractManagement.API)'
+2026-07-01 10:11:32.796 +05:30 [INF] Route matched with {action = "GetPaged", controller = "Vendors"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetPaged(VendorContractManagement.Application.DTOs.VendorQueryParams) on controller VendorContractManagement.API.Controllers.VendorsController (VendorContractManagement.API).
+2026-07-01 10:11:32.818 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Vendors] AS [v]
+WHERE [v].[IsDeleted] = CAST(0 AS bit)
+2026-07-01 10:11:32.824 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__p_0='?' (DbType = Int32), @__p_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Vendors] AS [v]
+WHERE [v].[IsDeleted] = CAST(0 AS bit)
+ORDER BY [v].[Id]
+OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+2026-07-01 10:11:32.828 +05:30 [INF] Executing OkObjectResult, writing value of type 'VendorContractManagement.Application.DTOs.PagedResponse`1[[VendorContractManagement.Application.DTOs.VendorDto, VendorContractManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-01 10:11:32.830 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.VendorsController.GetPaged (VendorContractManagement.API) in 30.7952ms
+2026-07-01 10:11:32.832 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetPaged (VendorContractManagement.API)'
+2026-07-01 10:11:32.833 +05:30 [INF] HTTP GET /api/vendors/paged responded 200 in 39.6608 ms
+2026-07-01 10:11:32.835 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20&search=&sortBy=&sortDirection=&isActive= - 200 null application/json; charset=utf-8 49.3261ms
+2026-07-01 10:11:36.517 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/vendors/3 - null null
+2026-07-01 10:11:36.523 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:11:36.525 +05:30 [INF] HTTP OPTIONS /api/vendors/3 responded 204 in 2.2730 ms
+2026-07-01 10:11:36.528 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/vendors/3 - 204 null null 11.0266ms
+2026-07-01 10:11:36.532 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/vendors/3 - null null
+2026-07-01 10:11:36.536 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:11:36.537 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API)'
+2026-07-01 10:11:36.539 +05:30 [INF] Route matched with {action = "GetById", controller = "Vendors"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(Int32) on controller VendorContractManagement.API.Controllers.VendorsController (VendorContractManagement.API).
+2026-07-01 10:11:36.547 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Vendors] AS [v]
+WHERE [v].[Id] = @__id_0 AND [v].[IsDeleted] = CAST(0 AS bit)
+2026-07-01 10:11:36.550 +05:30 [INF] Executing OkObjectResult, writing value of type 'VendorContractManagement.Application.DTOs.VendorDto'.
+2026-07-01 10:11:36.552 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API) in 11.0226ms
+2026-07-01 10:11:36.553 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API)'
+2026-07-01 10:11:36.555 +05:30 [INF] HTTP GET /api/vendors/3 responded 200 in 18.8933 ms
+2026-07-01 10:11:36.557 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/vendors/3 - 200 null application/json; charset=utf-8 25.7631ms
+2026-07-01 10:11:41.364 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20&search=&sortBy=&sortDirection=&isActive= - null null
+2026-07-01 10:11:41.370 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:11:41.372 +05:30 [INF] HTTP OPTIONS /api/vendors/paged responded 204 in 1.9011 ms
+2026-07-01 10:11:41.375 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20&search=&sortBy=&sortDirection=&isActive= - 204 null null 11.3768ms
+2026-07-01 10:11:41.378 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20&search=&sortBy=&sortDirection=&isActive= - null null
+2026-07-01 10:11:41.387 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:11:41.388 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetPaged (VendorContractManagement.API)'
+2026-07-01 10:11:41.390 +05:30 [INF] Route matched with {action = "GetPaged", controller = "Vendors"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetPaged(VendorContractManagement.Application.DTOs.VendorQueryParams) on controller VendorContractManagement.API.Controllers.VendorsController (VendorContractManagement.API).
+2026-07-01 10:11:41.399 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Vendors] AS [v]
+WHERE [v].[IsDeleted] = CAST(0 AS bit)
+2026-07-01 10:11:41.409 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__p_0='?' (DbType = Int32), @__p_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Vendors] AS [v]
+WHERE [v].[IsDeleted] = CAST(0 AS bit)
+ORDER BY [v].[Id]
+OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+2026-07-01 10:11:41.412 +05:30 [INF] Executing OkObjectResult, writing value of type 'VendorContractManagement.Application.DTOs.PagedResponse`1[[VendorContractManagement.Application.DTOs.VendorDto, VendorContractManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-01 10:11:41.413 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.VendorsController.GetPaged (VendorContractManagement.API) in 21.299ms
+2026-07-01 10:11:41.416 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetPaged (VendorContractManagement.API)'
+2026-07-01 10:11:41.417 +05:30 [INF] HTTP GET /api/vendors/paged responded 200 in 30.6073 ms
+2026-07-01 10:11:41.420 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/vendors/paged?pageNumber=1&pageSize=20&search=&sortBy=&sortDirection=&isActive= - 200 null application/json; charset=utf-8 42.0186ms
+2026-07-01 10:11:42.992 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/vendors/3 - null null
+2026-07-01 10:11:42.996 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:11:42.998 +05:30 [INF] HTTP OPTIONS /api/vendors/3 responded 204 in 2.0739 ms
+2026-07-01 10:11:43.002 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/vendors/3 - 204 null null 10.0878ms
+2026-07-01 10:11:43.004 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/vendors/3 - null null
+2026-07-01 10:11:43.014 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:11:43.015 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API)'
+2026-07-01 10:11:43.016 +05:30 [INF] Route matched with {action = "GetById", controller = "Vendors"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(Int32) on controller VendorContractManagement.API.Controllers.VendorsController (VendorContractManagement.API).
+2026-07-01 10:11:43.023 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Vendors] AS [v]
+WHERE [v].[Id] = @__id_0 AND [v].[IsDeleted] = CAST(0 AS bit)
+2026-07-01 10:11:43.026 +05:30 [INF] Executing OkObjectResult, writing value of type 'VendorContractManagement.Application.DTOs.VendorDto'.
+2026-07-01 10:11:43.028 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API) in 9.5581ms
+2026-07-01 10:11:43.029 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API)'
+2026-07-01 10:11:43.031 +05:30 [INF] HTTP GET /api/vendors/3 responded 200 in 17.0797 ms
+2026-07-01 10:11:43.033 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/vendors/3 - 200 null application/json; charset=utf-8 30.1376ms
+2026-07-01 10:11:44.819 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/vendors/3 - null null
+2026-07-01 10:11:44.824 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:11:44.825 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API)'
+2026-07-01 10:11:44.827 +05:30 [INF] Route matched with {action = "GetById", controller = "Vendors"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(Int32) on controller VendorContractManagement.API.Controllers.VendorsController (VendorContractManagement.API).
+2026-07-01 10:11:44.837 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Vendors] AS [v]
+WHERE [v].[Id] = @__id_0 AND [v].[IsDeleted] = CAST(0 AS bit)
+2026-07-01 10:11:44.850 +05:30 [INF] Executing OkObjectResult, writing value of type 'VendorContractManagement.Application.DTOs.VendorDto'.
+2026-07-01 10:11:44.852 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API) in 21.7684ms
+2026-07-01 10:11:44.853 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API)'
+2026-07-01 10:11:44.854 +05:30 [INF] HTTP GET /api/vendors/3 responded 200 in 31.2090 ms
+2026-07-01 10:11:44.856 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/vendors/3 - 200 null application/json; charset=utf-8 37.3144ms
+2026-07-01 10:11:53.419 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/vendors/3 - null null
+2026-07-01 10:11:53.423 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:11:53.425 +05:30 [INF] HTTP OPTIONS /api/vendors/3 responded 204 in 1.8079 ms
+2026-07-01 10:11:53.428 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/vendors/3 - 204 null null 8.9811ms
+2026-07-01 10:11:53.431 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/vendors/3 - null null
+2026-07-01 10:11:53.439 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:11:53.441 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API)'
+2026-07-01 10:11:53.442 +05:30 [INF] Route matched with {action = "GetById", controller = "Vendors"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(Int32) on controller VendorContractManagement.API.Controllers.VendorsController (VendorContractManagement.API).
+2026-07-01 10:11:53.449 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Vendors] AS [v]
+WHERE [v].[Id] = @__id_0 AND [v].[IsDeleted] = CAST(0 AS bit)
+2026-07-01 10:11:53.452 +05:30 [INF] Executing OkObjectResult, writing value of type 'VendorContractManagement.Application.DTOs.VendorDto'.
+2026-07-01 10:11:53.454 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API) in 10.2517ms
+2026-07-01 10:11:53.457 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API)'
+2026-07-01 10:11:53.458 +05:30 [INF] HTTP GET /api/vendors/3 responded 200 in 19.3123 ms
+2026-07-01 10:11:53.460 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/vendors/3 - 200 null application/json; charset=utf-8 29.6307ms
+2026-07-01 10:13:26.726 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/vendors/3 - null null
+2026-07-01 10:13:26.740 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:13:26.741 +05:30 [INF] HTTP OPTIONS /api/vendors/3 responded 204 in 2.0613 ms
+2026-07-01 10:13:26.744 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/vendors/3 - 204 null null 18.1935ms
+2026-07-01 10:13:26.747 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/vendors/3 - null null
+2026-07-01 10:13:26.752 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:13:26.754 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API)'
+2026-07-01 10:13:26.755 +05:30 [INF] Route matched with {action = "GetById", controller = "Vendors"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(Int32) on controller VendorContractManagement.API.Controllers.VendorsController (VendorContractManagement.API).
+2026-07-01 10:13:26.762 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Vendors] AS [v]
+WHERE [v].[Id] = @__id_0 AND [v].[IsDeleted] = CAST(0 AS bit)
+2026-07-01 10:13:26.765 +05:30 [INF] Executing OkObjectResult, writing value of type 'VendorContractManagement.Application.DTOs.VendorDto'.
+2026-07-01 10:13:26.766 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API) in 9.2284ms
+2026-07-01 10:13:26.769 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API)'
+2026-07-01 10:13:26.770 +05:30 [INF] HTTP GET /api/vendors/3 responded 200 in 18.5071 ms
+2026-07-01 10:13:26.772 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/vendors/3 - 200 null application/json; charset=utf-8 25.0543ms
+2026-07-01 10:14:13.626 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/vendors/3 - null null
+2026-07-01 10:14:13.640 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:14:13.642 +05:30 [INF] HTTP OPTIONS /api/vendors/3 responded 204 in 2.2656 ms
+2026-07-01 10:14:13.646 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/vendors/3 - 204 null null 19.5484ms
+2026-07-01 10:14:13.648 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/vendors/3 - null null
+2026-07-01 10:14:13.654 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:14:13.655 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API)'
+2026-07-01 10:14:13.656 +05:30 [INF] Route matched with {action = "GetById", controller = "Vendors"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetById(Int32) on controller VendorContractManagement.API.Controllers.VendorsController (VendorContractManagement.API).
+2026-07-01 10:14:13.665 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Vendors] AS [v]
+WHERE [v].[Id] = @__id_0 AND [v].[IsDeleted] = CAST(0 AS bit)
+2026-07-01 10:14:13.668 +05:30 [INF] Executing OkObjectResult, writing value of type 'VendorContractManagement.Application.DTOs.VendorDto'.
+2026-07-01 10:14:13.669 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API) in 9.5649ms
+2026-07-01 10:14:13.671 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetById (VendorContractManagement.API)'
+2026-07-01 10:14:13.672 +05:30 [INF] HTTP GET /api/vendors/3 responded 200 in 18.8729 ms
+2026-07-01 10:14:13.674 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/vendors/3 - 200 null application/json; charset=utf-8 26.3539ms
+2026-07-01 10:14:13.678 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/vendors/3/contracts - null null
+2026-07-01 10:14:13.681 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:14:13.682 +05:30 [INF] HTTP OPTIONS /api/vendors/3/contracts responded 204 in 0.9411 ms
+2026-07-01 10:14:13.684 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/vendors/3/contracts - 204 null null 6.7384ms
+2026-07-01 10:14:13.686 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/vendors/3/contracts - null null
+2026-07-01 10:14:13.691 +05:30 [INF] CORS policy execution successful.
+2026-07-01 10:14:13.692 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetContracts (VendorContractManagement.API)'
+2026-07-01 10:14:13.697 +05:30 [INF] Route matched with {action = "GetContracts", controller = "Vendors"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetContracts(Int32) on controller VendorContractManagement.API.Controllers.VendorsController (VendorContractManagement.API).
+2026-07-01 10:14:13.706 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Vendors] AS [v]
+WHERE [v].[Id] = @__id_0 AND [v].[IsDeleted] = CAST(0 AS bit)
+2026-07-01 10:14:13.729 +05:30 [INF] Executed DbCommand (10ms) [Parameters=[@__vendorId_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ApprovedBy], [c].[ApprovedOn], [c].[ContractNumber], [c].[ContractValue], [c].[CreatedOn], [c].[Description], [c].[EndDate], [c].[IsDeleted], [c].[IsRenewal], [c].[ParentContractId], [c].[RejectionReason], [c].[RenewalApprovedBy], [c].[RenewalApprovedOn], [c].[RenewalRequestedOn], [c].[StartDate], [c].[Status], [c].[SubmittedOn], [c].[TerminatedBy], [c].[TerminatedOn], [c].[TerminationReason], [c].[UpdatedOn], [c].[VendorId], [v].[Id], [v].[Address], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IsActive], [v].[IsDeleted], [v].[PANNumber], [v].[Phone], [v].[UpdatedOn], [v].[VendorName]
+FROM [Contracts] AS [c]
+INNER JOIN [Vendors] AS [v] ON [c].[VendorId] = [v].[Id]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[VendorId] = @__vendorId_0
+2026-07-01 10:14:13.735 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[VendorContractManagement.Application.DTOs.ContractDto, VendorContractManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-01 10:14:13.752 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.VendorsController.GetContracts (VendorContractManagement.API) in 52.4653ms
+2026-07-01 10:14:13.753 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetContracts (VendorContractManagement.API)'
+2026-07-01 10:14:13.754 +05:30 [INF] HTTP GET /api/vendors/3/contracts responded 200 in 64.0268 ms
+2026-07-01 10:14:13.756 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/vendors/3/contracts - 200 null application/json; charset=utf-8 70.5881ms
