@@ -9,6 +9,8 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System.Text;
 using Serilog;
+using Microsoft.AspNetCore.Identity;
+using VendorContractManagement.Domain.Entities;
 using VendorContractManagement.API.Mappings;
 using VendorContractManagement.API.Middlewares;
 using VendorContractManagement.API.Services;
@@ -25,6 +27,7 @@ using VendorContractManagement.Infrastructure.Repository;
 using VendorContractManagement.Infrastructure.Repository.Implementations;
 using VendorContractManagement.Infrastructure.Repository.Interfaces;
 using VendorContractManagement.Infrastructure.Services;
+using VendorContractManagement.Infrastructure.Persistence.Seed;
 
 
 Log.Logger = new LoggerConfiguration()
@@ -188,6 +191,15 @@ builder.Services.AddScoped<IRecentActivityService,RecentActivityService>();
 builder.Services.AddScoped<IRecentActivityRepository,RecentActivityRepository>();
 
 var app = builder.Build();
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var context = services.GetRequiredService<AppDbContext>();
+
+    await DbSeeder.SeedAdminAsync(context);
+}
 
 
 app.UseSerilogRequestLogging();
