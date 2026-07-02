@@ -1,1 +1,83 @@
-<p>contract-details works!</p>
+<div class="page-container" *ngIf="contract">
+
+  <div class="page-header">
+
+    <div>
+      <h2>Contract Details</h2>
+      <p>{{ contract.title }}</p>
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary">
+      Edit Contract
+    </button>
+
+  </div>
+
+  <mat-card>
+
+    <mat-card-content>
+
+      <div class="details-grid">
+
+        <div class="detail-item">
+          <label>Contract Number</label>
+          <span>{{ contract.contractNumber }}</span>
+        </div>
+
+        <div class="detail-item">
+          <label>Title</label>
+          <span>{{ contract.title }}</span>
+        </div>
+
+        <div class="detail-item">
+          <label>Vendor Id</label>
+          <span>{{ contract.vendorId }}</span>
+        </div>
+
+        <div class="detail-item">
+          <label>Contract Value</label>
+          <span>
+            {{ contract.contractValue | currency:'INR' }}
+          </span>
+        </div>
+
+        <div class="detail-item">
+          <label>Start Date</label>
+          <span>
+            {{ contract.startDate | date }}
+          </span>
+        </div>
+
+        <div class="detail-item">
+          <label>End Date</label>
+          <span>
+            {{ contract.endDate | date }}
+          </span>
+        </div>
+
+        <div class="detail-item">
+          <label>Status</label>
+          <span>{{ contract.status }}</span>
+        </div>
+
+      </div>
+
+      <div class="description">
+
+        <h3>Description</h3>
+
+        <p>
+
+          {{ contract.description }}
+
+        </p>
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

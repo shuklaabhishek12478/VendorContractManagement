@@ -1,6 +1,12 @@
+import { ContractStatus } from "./contract-status.enum";
+
 export interface Contract {
 
   id: number;
+
+  contractNumber: string;
+
+  title: string;
 
   startDate: string;
 
@@ -10,7 +16,7 @@ export interface Contract {
 
   description: string;
 
-  status: number;
+  status: ContractStatus;
 
   vendorId: number;
 
@@ -25,5 +31,7 @@ export interface Contract {
   terminatedOn?: string;
 
   terminatedBy?: string;
+
+  submittedOn?: string;
 
 }

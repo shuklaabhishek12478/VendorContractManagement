@@ -18,6 +18,7 @@ import { VendorQuery } from '../../../../core/models/vendor-query.model';
 import { SnackbarService } from '../../../../core/services/snackbar.service';
 @Component({
   selector: 'app-vendor-list',
+  standalone:true,
   imports: [AgGridAngular,
   MatIconModule,
   MatButtonModule,

@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ContractCreate } from './contract-create';
+import { ContractForm } from './contract-form';
 
-describe('ContractCreate', () => {
-  let component: ContractCreate;
-  let fixture: ComponentFixture<ContractCreate>;
+describe('ContractForm', () => {
+  let component: ContractForm;
+  let fixture: ComponentFixture<ContractForm>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ContractCreate],
+      imports: [ContractForm],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ContractCreate);
+    fixture = TestBed.createComponent(ContractForm);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

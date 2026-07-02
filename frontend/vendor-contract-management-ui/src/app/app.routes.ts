@@ -10,6 +10,9 @@ import { authGuard } from './core/guards/auth.guard';
 import { VendorDetailsComponent } from './features/vendors/pages/vendor-details/vendor-details';
 import { EditVendorComponent } from './features/vendors/pages/vendor-edit/vendor-edit';
 import { pendingChangesGuard } from './core/guards/pending-changes.guard';
+import { ContractListComponent } from './features/contracts/pages/contract-list/contract-list';
+import { AddContractComponent } from './features/contracts/pages/add-contract/add-contract';
+import { ContractDetailsComponent } from './features/contracts/pages/contract-details/contract-details';
 
 
 
@@ -45,7 +48,24 @@ export const routes: Routes = [
       {
         path: 'vendors/:id',
         component: VendorDetailsComponent
-      }
+      },
+     {
+  path: 'contracts',
+  component: ContractListComponent
+},
+{
+  path: 'contracts/add',
+  component: AddContractComponent
+},
+{
+  path: 'contracts/:id',
+  component: ContractDetailsComponent
+},
+/*{
+  path: 'contracts/edit/:id',
+  component: EditContractComponent,
+  canDeactivate: [pendingChangesGuard]
+},*/
     ]
   },
 

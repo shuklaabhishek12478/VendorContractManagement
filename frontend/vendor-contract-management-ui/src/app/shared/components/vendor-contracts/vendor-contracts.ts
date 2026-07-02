@@ -9,7 +9,7 @@ import {
   ColDef
 } from 'ag-grid-community';
 
-import { Contract } from '../../../core/models/contract.model';
+import { Contracts } from '../../../core/models/contracts.model';
 
 @Component({
   selector: 'app-vendor-contracts',
@@ -24,7 +24,7 @@ import { Contract } from '../../../core/models/contract.model';
 export class VendorContractsComponent {
 
   @Input()
-  contracts: Contract[] = [];
+  contracts: Contracts[] = [];
 
   
 

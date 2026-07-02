@@ -8,18 +8,18 @@ namespace VendorContractManagement.Domain.Enums
 {
     public enum ContractStatus
     {
-        Draft = 1,
-        PendingApproval = 2,
-        Approved = 3,
-        Rejected = 4,
-        Active = 5,
-        Expired = 6,
-
+        Draft = 0,
+        PendingApproval = 1,
+        Approved = 2,
+        Rejected = 3,
+        Active = 4,
+        Expired = 5,
+        Renewed = 6,
         RenewalPendingApproval = 7,
         RenewalApproved = 8,
         RenewalRejected = 9,
 
-        Renewed = 10,
-        Terminated = 11
+        
+        Terminated = 10
     }
 }

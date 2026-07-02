@@ -9,7 +9,7 @@ import { VendorGeneralInfoComponent } from '../../../../shared/components/vendor
 import { VendorContactInfoComponent } from '../../../../shared/components/vendor-contact-info/vendor-contact-info';
 import { VendorComplianceInfoComponent } from '../../../../shared/components/vendor-compliance-info/vendor-compliance-info';
 import { VendorContractsComponent } from '../../../../shared/components/vendor-contracts/vendor-contracts';
-import { Contract } from '../../../../core/models/contract.model';
+import { Contracts } from '../../../../core/models/contracts.model';
 
 @Component({
   selector: 'app-vendor-details',
@@ -38,7 +38,7 @@ export class VendorDetailsComponent implements OnInit {
 
   isLoading = true;
 
-  contracts: Contract[] = [];
+  contracts: Contracts[] = [];
   
   constructor() {
   console.log('VendorDetails Constructor', Math.random());

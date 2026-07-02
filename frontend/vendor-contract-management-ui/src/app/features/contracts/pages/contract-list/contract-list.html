@@ -1,1 +1,143 @@
-<p>contract-list works!</p>
+
+<div class="p-6">
+
+  <!-- Toolbar -->
+
+  <div class="flex justify-between items-center mb-5">
+
+    <h2 class="text-2xl font-semibold">
+      Contracts
+    </h2>
+
+    <button
+  mat-raised-button
+  color="primary"
+  (click)="addContract()">
+
+  <mat-icon>add</mat-icon>
+
+  Add Contract
+
+</button>
+
+  </div>
+
+  <!-- Filters -->
+
+  <div class="grid grid-cols-12 gap-4 mb-5">
+
+    <mat-form-field
+      appearance="outline"
+      class="col-span-6">
+
+      <mat-label>
+        Search
+      </mat-label>
+
+      <input
+        matInput
+        placeholder="Search contracts..."
+        [(ngModel)]="query.search">
+
+    </mat-form-field>
+
+    <mat-form-field
+      appearance="outline"
+      class="col-span-3">
+
+      <mat-label>Status</mat-label>
+
+      <mat-select [(ngModel)]="query.status">
+
+        <mat-option [value]="null">
+          All
+        </mat-option>
+
+        <mat-option [value]="0">
+          Draft
+        </mat-option>
+
+        <mat-option [value]="1">
+          Pending Approval
+        </mat-option>
+
+        <mat-option [value]="2">
+          Approved
+        </mat-option>
+
+        <mat-option [value]="3">
+          Active
+        </mat-option>
+
+        <mat-option [value]="4">
+          Expired
+        </mat-option>
+
+        <mat-option [value]="5">
+          Rejected
+        </mat-option>
+
+        <mat-option [value]="6">
+          Renewed
+        </mat-option>
+
+        <mat-option [value]="7">
+          Renewal Pending
+        </mat-option>
+
+        <mat-option [value]="8">
+          Renewal Approved
+        </mat-option>
+
+        <mat-option [value]="9">
+          Renewal Rejected
+        </mat-option>
+
+        <mat-option [value]="10">
+          Terminated
+        </mat-option>
+
+      </mat-select>
+
+    </mat-form-field>
+
+    <div class="col-span-3 flex items-center">
+
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="loadContracts()">
+
+        Search
+
+      </button>
+
+    </div>
+
+  </div>
+
+  <!-- Grid -->
+
+  <ag-grid-angular
+
+      class="ag-theme-quartz"
+
+      style="height:600px;width:100%;"
+
+      [rowData]="contracts"
+
+      [columnDefs]="columnDefs"
+
+      [pagination]="true"
+
+      [paginationPageSize]="10"
+
+      [animateRows]="true"
+
+      [rowSelection]="'single'"
+
+      (gridReady)="onGridReady($event)">
+
+  </ag-grid-angular>
+
+</div>

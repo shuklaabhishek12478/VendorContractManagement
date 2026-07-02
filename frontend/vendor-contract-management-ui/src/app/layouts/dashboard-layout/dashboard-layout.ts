@@ -6,6 +6,7 @@ import { Topbar } from '../../shared/components/topbar/topbar';
 
 @Component({
   selector: 'app-dashboard-layout',
+  standalone:true,
   imports: [
     RouterOutlet,
     Sidebar,

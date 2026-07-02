@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-vendor-actions-renderer',
+  standalone:true,
   imports: [],
   templateUrl: './vendor-actions-renderer.html',
   styleUrl: './vendor-actions-renderer.scss',
