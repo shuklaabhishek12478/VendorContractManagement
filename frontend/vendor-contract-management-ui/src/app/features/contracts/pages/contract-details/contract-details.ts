@@ -20,6 +20,9 @@ import { ContractWorkflowCardComponent } from '../../components/contract-workflo
 import { RenewContractComponent } from '../../dialogs/renew-contract/renew-contract';
 import { RejectRenewalComponent } from '../../dialogs/reject-renewal/reject-renewal';
 import { TerminateContractComponent } from '../../dialogs/terminate-contract/terminate-contract';
+import { getContractStatusLabel} from '../../../../core/constants/contract-status-options';
+
+
 @Component({
   selector: 'app-contract-details',
   standalone:true,
@@ -534,13 +537,37 @@ private loadRenewals(contractId: number): void {
 
           next: data => {
 
+              console.log("Renewals API Response:", data);
+
               this.renewals = data;
 
           },
 
-          error: err => console.error(err)
+          error: (err: any) => {
+
+              console.error(err);
+
+          }
 
       });
+
+}
+
+getStatus(status: number): string {
+
+  return getContractStatusLabel(status);
+
+}
+
+openRenewal(id:number):void{
+
+this.router.navigate([
+
+'/contracts',
+
+id
+
+]);
 
 }
 }

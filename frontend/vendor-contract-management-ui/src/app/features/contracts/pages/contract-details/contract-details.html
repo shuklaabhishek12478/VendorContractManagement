@@ -184,7 +184,7 @@
 
     <mat-card-content>
 
-        <table class="table-auto w-full">
+        <table class="renewal-table">
 
             <thead>
 
@@ -192,9 +192,9 @@
 
                     <th>Contract No</th>
 
-                    <th>Start</th>
+                    <th>Start Date</th>
 
-                    <th>End</th>
+                    <th>End Date</th>
 
                     <th>Status</th>
 
@@ -205,7 +205,10 @@
             <tbody>
 
                 <tr
-                    *ngFor="let renewal of renewals">
+
+                    *ngFor="let renewal of renewals"
+
+                    (click)="openRenewal(renewal.id)">
 
                     <td>
 
@@ -215,19 +218,23 @@
 
                     <td>
 
-                        {{ renewal.startDate | date }}
+                        {{ renewal.startDate | date:'mediumDate' }}
 
                     </td>
 
                     <td>
 
-                        {{ renewal.endDate | date }}
+                        {{ renewal.endDate | date:'mediumDate' }}
 
                     </td>
 
                     <td>
 
-                        {{ renewal.status }}
+                        <span class="status-chip">
+
+                            {{ getStatus(renewal.status) }}
+
+                        </span>
 
                     </td>
 
@@ -238,10 +245,12 @@
         </table>
 
         <div
-            *ngIf="renewals.length===0"
-            class="text-gray-500">
 
-            No renewals found.
+            *ngIf="renewals.length===0"
+
+            class="empty-state">
+
+            No renewal history available.
 
         </div>
 

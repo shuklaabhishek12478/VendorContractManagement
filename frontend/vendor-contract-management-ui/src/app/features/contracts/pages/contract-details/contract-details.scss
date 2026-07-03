@@ -134,3 +134,91 @@
 .secondary-btn:hover {
     background: #f8fafc;
 }
+
+.status-chip{
+
+display:inline-block;
+
+padding:4px 12px;
+
+border-radius:20px;
+
+background:#e3f2fd;
+
+color:#1565c0;
+
+font-size:12px;
+
+font-weight:600;
+
+}
+
+.renewal-table{
+
+width:100%;
+
+border-collapse:collapse;
+
+}
+
+.renewal-table th{
+
+text-align:left;
+
+padding:14px;
+
+font-weight:600;
+
+border-bottom:1px solid #ddd;
+
+}
+
+.renewal-table td{
+
+padding:14px;
+
+border-bottom:1px solid #f0f0f0;
+
+}
+
+.renewal-table tbody tr{
+
+cursor:pointer;
+
+transition:.2s;
+
+}
+
+.renewal-table tbody tr:hover{
+
+background:#f8f9fb;
+
+}
+
+.status-chip{
+
+display:inline-block;
+
+padding:4px 12px;
+
+border-radius:16px;
+
+background:#E3F2FD;
+
+color:#1565C0;
+
+font-weight:600;
+
+font-size:12px;
+
+}
+
+.empty-state{
+
+padding:20px;
+
+text-align:center;
+
+color:#777;
+
+}

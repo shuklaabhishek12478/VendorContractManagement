@@ -8,6 +8,16 @@ export interface ContractStatusOption {
 
 }
 
+export function getContractStatusLabel(status: number): string {
+
+  return CONTRACT_STATUS_OPTIONS.find(
+
+    x => x.value === status
+
+  )?.label ?? "Unknown";
+
+}
+
 export const CONTRACT_STATUS_OPTIONS: ContractStatusOption[] = [
 
     {
