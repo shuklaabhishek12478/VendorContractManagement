@@ -1,1 +1,32 @@
-<p>approve-contract works!</p>
+<h2 mat-dialog-title>
+
+    Approve Contract
+
+</h2>
+
+<mat-dialog-content>
+
+    Are you sure you want to approve this contract?
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+    <button
+        mat-button
+        (click)="cancel()">
+
+        Cancel
+
+    </button>
+
+    <button
+        mat-raised-button
+        color="primary"
+        (click)="approve()">
+
+        Approve
+
+    </button>
+
+</mat-dialog-actions>

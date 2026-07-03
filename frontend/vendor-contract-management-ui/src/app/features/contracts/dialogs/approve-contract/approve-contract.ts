@@ -1,10 +1,38 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
+import {
+  MatDialogRef,
+  MatDialogModule
+} from '@angular/material/dialog';
+
+import {
+  MatButtonModule
+} from '@angular/material/button';
 @Component({
-  selector: 'app-approve-contract',
-  standalone:true,
-  imports: [],
+  selector: 'app-approve-contract-dialog',
+  standalone: true,
+  imports: [
+    MatDialogModule,
+    MatButtonModule
+  ],
   templateUrl: './approve-contract.html',
-  styleUrl: './approve-contract.scss',
+  styleUrls: ['./approve-contract.scss']
 })
-export class ApproveContract {}
+export class ApproveContractComponent {
+
+  private dialogRef =
+    inject(MatDialogRef<ApproveContractComponent>);
+
+  approve(): void {
+
+    this.dialogRef.close(true);
+
+  }
+
+  cancel(): void {
+
+    this.dialogRef.close(false);
+
+  }
+
+}

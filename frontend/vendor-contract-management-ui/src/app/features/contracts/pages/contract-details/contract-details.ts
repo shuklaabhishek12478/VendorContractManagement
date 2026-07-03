@@ -11,6 +11,14 @@ import { ContractGeneralInfoComponent } from '../../contract-general-info/contra
 import { ContractStatusInfoComponent } from '../../contract-status-info/contract-status-info';
 import { ContractLifecycleInfoComponent } from '../../contract-lifecycle-info/contract-lifecycle-info';
 import { ChangeDetectorRef } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+
+import { ApproveContractComponent }
+from '../../dialogs/approve-contract/approve-contract';
+
+import { RejectContractComponent }
+from '../../dialogs/reject-contract/reject-contract';
+
 
 @Component({
   selector: 'app-contract-details',
@@ -33,6 +41,7 @@ export class ContractDetailsComponent implements OnInit {
   private contractService = inject(ContractService);
   private vendorService = inject(VendorService);
   private cdr = inject(ChangeDetectorRef);
+  private dialog = inject(MatDialog);
 
  
 
@@ -132,7 +141,91 @@ private loadVendor(vendorId: number): void {
 
   }
 
-  
+ submitContract(): void {
 
+  this.contractService
+      .submit(this.contract.id)
+      .subscribe({
+
+        next: () => {
+
+          this.loadContract(this.contract.id);
+
+        },
+
+        error: err => {
+
+          console.error(err);
+
+        }
+
+      });
+
+} 
+
+approveContract(): void {
+
+  const dialogRef =
+      this.dialog.open(
+          ApproveContractComponent
+      );
+
+  dialogRef.afterClosed()
+      .subscribe(result => {
+
+        if (!result)
+            return;
+
+        this.contractService
+            .approve(this.contract.id)
+            .subscribe({
+
+              next: () => {
+
+                this.loadContract(
+                    this.contract.id
+                );
+
+              }
+
+            });
+
+      });
+
+}
+
+rejectContract(): void {
+
+  const dialogRef =
+      this.dialog.open(
+          RejectContractComponent
+      );
+
+  dialogRef.afterClosed()
+      .subscribe(reason => {
+
+        if (!reason)
+            return;
+
+        this.contractService
+            .reject(
+                this.contract.id,
+                reason
+            )
+            .subscribe({
+
+              next: () => {
+
+                this.loadContract(
+                    this.contract.id
+                );
+
+              }
+
+            });
+
+      });
+
+}
 
 }
