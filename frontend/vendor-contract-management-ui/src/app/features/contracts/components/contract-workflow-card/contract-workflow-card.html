@@ -1,0 +1,196 @@
+<mat-card>
+
+    <mat-card-header>
+
+        <mat-card-title>
+
+            Workflow
+
+        </mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <div class="workflow-container">
+
+            <div>
+
+                <div class="label">
+                    Current Status
+                </div>
+
+                <div class="status">
+                    {{ statusLabel }}
+                </div>
+
+                <div class="description">
+
+                    <ng-container [ngSwitch]="contract.status">
+
+                        <span *ngSwitchCase="ContractStatus.Draft">
+                            This contract is still in draft state.
+                            Submit it to begin the approval process.
+                        </span>
+
+                        <span *ngSwitchCase="ContractStatus.PendingApproval">
+                            Waiting for approval from an authorized approver.
+                        </span>
+
+                        <span *ngSwitchCase="ContractStatus.Approved">
+                            Contract approved successfully.
+                            Activate it to make it effective.
+                        </span>
+
+                        <span *ngSwitchCase="ContractStatus.Active">
+                            Contract is currently active.
+                        </span>
+
+                        <span *ngSwitchCase="ContractStatus.Expired">
+                            Contract has expired.
+                            It may be renewed or terminated.
+                        </span>
+
+                        <span *ngSwitchCase="ContractStatus.Rejected">
+                            Contract was rejected.
+                        </span>
+
+                        <span *ngSwitchCase="ContractStatus.Terminated">
+                            Contract has been terminated.
+                        </span>
+
+                        <span *ngSwitchCase="ContractStatus.RenewalPendingApproval">
+                            Renewal request is waiting for approval.
+                        </span>
+
+                        <span *ngSwitchCase="ContractStatus.RenewalApproved">
+                            Renewal approved.
+                            Activate the renewed contract.
+                        </span>
+
+                        <span *ngSwitchDefault>
+                            Workflow completed.
+                        </span>
+
+                    </ng-container>
+
+                </div>
+
+            </div>
+
+            <div class="actions">
+
+                <!-- Draft -->
+
+                <button
+                    *ngIf="contract.status === ContractStatus.Draft"
+                    mat-raised-button
+                    color="primary"
+                    (click)="submit.emit()">
+
+                    Submit for Approval
+
+                </button>
+
+                <!-- Pending Approval -->
+
+                <button
+                    *ngIf="contract.status === ContractStatus.PendingApproval"
+                    mat-raised-button
+                    color="primary"
+                    (click)="approve.emit()">
+
+                    Approve
+
+                </button>
+
+                <button
+                    *ngIf="contract.status === ContractStatus.PendingApproval"
+                    mat-raised-button
+                    color="warn"
+                    (click)="reject.emit()">
+
+                    Reject
+
+                </button>
+
+                <!-- Approved -->
+
+                <button
+                    *ngIf="contract.status === ContractStatus.Approved"
+                    mat-raised-button
+                    color="accent"
+                    (click)="activate.emit()">
+
+                    Activate
+
+                </button>
+
+                <!-- Active OR Expired -->
+
+                <button
+                    *ngIf="
+                        contract.status === ContractStatus.Active ||
+                        contract.status === ContractStatus.Expired
+                    "
+                    mat-raised-button
+                    color="primary"
+                    (click)="onRenew()">
+
+                    Renew
+
+                </button>
+
+                <!-- Renewal Pending -->
+
+                <button
+                    *ngIf="contract.status === ContractStatus.RenewalPendingApproval"
+                    mat-raised-button
+                    color="primary"
+                    (click)="onApproveRenewal()">
+
+                    Approve Renewal
+
+                </button>
+
+                <button
+                    *ngIf="contract.status === ContractStatus.RenewalPendingApproval"
+                    mat-raised-button
+                    color="warn"
+                    (click)="onRejectRenewal()">
+
+                    Reject Renewal
+
+                </button>
+
+                <!-- Renewal Approved -->
+
+                <button
+                    *ngIf="contract.status === ContractStatus.RenewalApproved"
+                    mat-raised-button
+                    color="accent"
+                    (click)="onActivateRenewal()">
+
+                    Activate Renewal
+
+                </button>
+
+                <!-- Terminate -->
+
+                <button
+                    *ngIf="contract.status === ContractStatus.Active"
+                    mat-raised-button
+                    color="warn"
+                    (click)="onTerminate()">
+
+                    Terminate
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </mat-card-content>
+
+</mat-card>

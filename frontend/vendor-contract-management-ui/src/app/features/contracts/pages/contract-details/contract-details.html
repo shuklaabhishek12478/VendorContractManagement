@@ -44,6 +44,21 @@
   
   <div class="flex flex-wrap gap-3 mb-5">
 
+    <app-contract-workflow-card
+
+            [contract]="contract"
+            (submit)="submitContract()"
+            (approve)="approveContract()"
+            (reject)="rejectContract()"
+            (activate)="activateContract()"
+            (renew)="renewContract()"
+            (approveRenewal)="approveRenewal()"
+            (activateRenewal)="activateRenewal()"
+            (rejectRenewal)="rejectRenewal()"
+            (terminate)="terminateContract()">
+
+    </app-contract-workflow-card>
+
   <button
       mat-raised-button
       color="primary"
@@ -154,6 +169,85 @@
     </mat-card-content>
 
   </mat-card>
+
+  <mat-card class="mt-5">
+
+    <mat-card-header>
+
+        <mat-card-title>
+
+            Renewal History
+
+        </mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <table class="table-auto w-full">
+
+            <thead>
+
+                <tr>
+
+                    <th>Contract No</th>
+
+                    <th>Start</th>
+
+                    <th>End</th>
+
+                    <th>Status</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                <tr
+                    *ngFor="let renewal of renewals">
+
+                    <td>
+
+                        {{ renewal.contractNumber }}
+
+                    </td>
+
+                    <td>
+
+                        {{ renewal.startDate | date }}
+
+                    </td>
+
+                    <td>
+
+                        {{ renewal.endDate | date }}
+
+                    </td>
+
+                    <td>
+
+                        {{ renewal.status }}
+
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+        <div
+            *ngIf="renewals.length===0"
+            class="text-gray-500">
+
+            No renewals found.
+
+        </div>
+
+    </mat-card-content>
+
+</mat-card>
 
 </div>
 

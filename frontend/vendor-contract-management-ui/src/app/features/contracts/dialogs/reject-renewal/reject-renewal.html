@@ -1,6 +1,6 @@
 <h2 mat-dialog-title>
 
-Terminate Contract
+Reject Renewal
 
 </h2>
 
@@ -14,7 +14,7 @@ class="w-full">
 
 <mat-label>
 
-Termination Reason
+Reason
 
 </mat-label>
 
@@ -42,8 +42,11 @@ Reason is required
 <mat-dialog-actions align="end">
 
 <button
+
 mat-button
+
 type="button"
+
 (click)="cancel()">
 
 Cancel
@@ -51,12 +54,16 @@ Cancel
 </button>
 
 <button
+
 mat-raised-button
+
 color="warn"
+
 type="button"
+
 (click)="save()">
 
-Terminate
+Reject
 
 </button>
 

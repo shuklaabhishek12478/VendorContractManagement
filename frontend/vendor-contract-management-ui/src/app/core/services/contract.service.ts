@@ -10,6 +10,7 @@ import { CreateContract } from '../models/create-contract.model';
 import { UpdateContract } from '../models/update-contract.model';
 import { PagedResponse } from '../models/paged-response.model';
 import { ContractQuery } from '../models/contract-query.model';
+import { CreateRenewal } from '../models/create-renewal.model';
 
 
 @Injectable({
@@ -61,9 +62,9 @@ deleteContract(id: number): Observable<any> {
   );
 }
 
-  // ============================
+ 
   // PAGING
-  // ============================
+
 
   getPaged(
     query: ContractQuery
@@ -95,9 +96,9 @@ deleteContract(id: number): Observable<any> {
 
   }
 
-  // ============================
+  
   // WORKFLOW
-  // ============================
+
 
   submit(id: number) {
 
@@ -140,18 +141,36 @@ deleteContract(id: number): Observable<any> {
 
   }
 
-  // ============================
+  //active 
+
+  activate(id: number) {
+
+  return this.http.post(
+
+    `${this.apiUrl}/${id}/activate`,
+
+    {},
+
+    {
+
+      responseType: 'text'
+
+    }
+
+  );
+
+}
   // RENEWAL
-  // ============================
+  
 
   renew(
     id: number,
-    data: any
+    renewal:CreateRenewal
   ) {
 
     return this.http.post(
       `${this.apiUrl}/${id}/renew`,
-      data,
+      renewal,
       {
         responseType: 'text'
       }
@@ -214,9 +233,9 @@ deleteContract(id: number): Observable<any> {
 
   }
 
-  // ============================
+
   // TERMINATION
-  // ============================
+
 
   terminate(
     id: number,
@@ -235,9 +254,9 @@ deleteContract(id: number): Observable<any> {
 
   }
 
-  // ============================
+ 
   // REPORTS
-  // ============================
+
 
   exportReport(filter: any) {
 

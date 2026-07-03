@@ -86,6 +86,10 @@ selectedContracts: Contract[] = [];
   componentParent: this
 };
 
+rowData: Contract[] = [
+    
+  ];
+
 getRowId = (params: any) => params.data.id;
 
   query: ContractQuery = {
@@ -162,7 +166,15 @@ getRowId = (params: any) => params.data.id;
   private initializeColumns(): void {
 
   this.columnDefs = [
-
+    
+    {
+  field: 'id',
+  headerName: 'ID',
+  width: 100,
+  checkboxSelection: true,
+  headerCheckboxSelection: true,
+  
+},
     {
       headerName: 'Contract No.',
       field: 'contractNumber',
@@ -177,18 +189,8 @@ getRowId = (params: any) => params.data.id;
       flex: 1,
       sortable: true,
       filter: true,
-
-      cellStyle: {
-  color:'#1976d2',
-  cursor:'pointer',
-  textDecoration:'underline'
-},
-onCellClicked: params=>{
-   this.router.navigate([
-      '/contracts',
-      params.data.id
-   ]);
-}
+      minWidth: 120
+   
 
     },
 

@@ -1,52 +1,55 @@
 import { Component, inject } from '@angular/core';
 
 import {
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogModule
+} from '@angular/material/dialog';
+
+import {
   FormBuilder,
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
 
-import {
-  MatDialogModule,
-  MatDialogRef
-} from '@angular/material/dialog';
-
-import { MatButtonModule } from '@angular/material/button';
-
+import { CommonModule } from '@angular/common';
 import { MatInputModule } from '@angular/material/input';
-
+import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-reject-contract',
   standalone: true,
   imports: [
+    CommonModule,
     ReactiveFormsModule,
     MatDialogModule,
-    MatButtonModule,
     MatInputModule,
+    MatButtonModule,
     MatFormFieldModule
   ],
-  templateUrl: './reject-contract.html',
-  styleUrls: ['./reject-contract.scss']
+  templateUrl: './reject-contract.html'
 })
 export class RejectContractComponent {
 
   private fb = inject(FormBuilder);
 
-  private dialogRef =
-    inject(MatDialogRef<RejectContractComponent>);
+  dialogRef = inject(MatDialogRef<RejectContractComponent>);
 
-  form = this.fb.group({
+  data = inject(MAT_DIALOG_DATA);
 
+  form = this.fb.nonNullable.group({
     reason: [
       '',
-      Validators.required
+      [
+        Validators.required,
+        Validators.minLength(5)
+      ]
     ]
 
   });
 
-  reject(): void {
+  save() {
 
     if (this.form.invalid) {
 
@@ -56,15 +59,11 @@ export class RejectContractComponent {
 
     }
 
-    this.dialogRef.close(
-
-      this.form.value.reason
-
-    );
+    this.dialogRef.close(this.form.value.reason);
 
   }
 
-  cancel(): void {
+  cancel() {
 
     this.dialogRef.close();
 

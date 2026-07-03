@@ -74,32 +74,19 @@
     <ag-grid-angular
 
       class="ag-theme-quartz"
-
-      style="width:100%;height:100%;"
-
-      [rowData]="contracts"
-
-      [columnDefs]="columnDefs"
-
-      rowSelection="multiple"
-
-      [rowSelection]="'single'"
-
-      [pagination]="true"
-
-      [paginationPageSize]="10"
-
-      [paginationPageSizeSelector]="[10,20,50,100]"
-
-      [getRowId]="getRowId"
-
-      (gridReady)="onGridReady($event)"
-
-      (selectionChanged)="onSelectionChanged()"
-
-      (rowDoubleClicked)="onRowDoubleClicked($event)"
-
-      (sortChanged)="onSortChanged()">
+  style="width:100%; height:100%;"
+  [rowData]="rowData"
+  rowSelection="multiple"
+  [columnDefs]="columnDefs"
+  [pagination]="true"
+  [paginationPageSize]="10"
+  (sortChanged)="onSortChanged()"
+  [paginationPageSizeSelector]="[10,20,50,100]"
+  (gridReady)="onGridReady($event)"
+  (rowDoubleClicked)="onRowDoubleClicked($event)"
+  (selectionChanged)="onSelectionChanged()"
+  [getRowId]="getRowId"
+  [context]="context">
 
     </ag-grid-angular>
 

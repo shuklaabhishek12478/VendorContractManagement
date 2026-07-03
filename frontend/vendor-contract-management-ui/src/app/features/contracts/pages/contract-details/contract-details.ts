@@ -12,14 +12,14 @@ import { ContractStatusInfoComponent } from '../../contract-status-info/contract
 import { ContractLifecycleInfoComponent } from '../../contract-lifecycle-info/contract-lifecycle-info';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-
-import { ApproveContractComponent }
-from '../../dialogs/approve-contract/approve-contract';
-
-import { RejectContractComponent }
-from '../../dialogs/reject-contract/reject-contract';
-
-
+import { ApproveContractComponent } from '../../dialogs/approve-contract/approve-contract';
+import { RejectContractComponent } from '../../dialogs/reject-contract/reject-contract';
+import { SubmitContractComponent } from '../../dialogs/submit-contract/submit-contract';
+import { ActivateContractComponent } from '../../dialogs/activate-contract/activate-contract';
+import { ContractWorkflowCardComponent } from '../../components/contract-workflow-card/contract-workflow-card';
+import { RenewContractComponent } from '../../dialogs/renew-contract/renew-contract';
+import { RejectRenewalComponent } from '../../dialogs/reject-renewal/reject-renewal';
+import { TerminateContractComponent } from '../../dialogs/terminate-contract/terminate-contract';
 @Component({
   selector: 'app-contract-details',
   standalone:true,
@@ -29,7 +29,8 @@ from '../../dialogs/reject-contract/reject-contract';
   MatButtonModule,
   ContractGeneralInfoComponent,
   ContractStatusInfoComponent,
-  ContractLifecycleInfoComponent
+  ContractLifecycleInfoComponent,
+   ContractWorkflowCardComponent,
 ],
   templateUrl: './contract-details.html',
   styleUrls: ['./contract-details.scss']
@@ -47,7 +48,7 @@ export class ContractDetailsComponent implements OnInit {
 
   contract!: Contract;
   vendor?: Vendor;
-
+   renewals: Contract[] = [];
   loading = false;
 
   ngOnInit(): void {
@@ -77,7 +78,7 @@ export class ContractDetailsComponent implements OnInit {
         this.contract = contract;
 
         this.loadVendor(contract.vendorId);
-
+        this.loadRenewals(contract.id);
       },
 
       error: err => {
@@ -143,7 +144,23 @@ private loadVendor(vendorId: number): void {
 
  submitContract(): void {
 
-  this.contractService
+  const dialogRef = this.dialog.open(
+    SubmitContractComponent,
+    {
+      width: '420px'
+    });
+
+  dialogRef.afterClosed().subscribe(result => {
+
+    if (!result) {
+
+      return;
+
+    }
+
+    this.loading = true;
+
+    this.contractService
       .submit(this.contract.id)
       .subscribe({
 
@@ -157,11 +174,15 @@ private loadVendor(vendorId: number): void {
 
           console.error(err);
 
+          this.loading = false;
+
         }
 
       });
 
-} 
+  });
+
+}
 
 approveContract(): void {
 
@@ -194,38 +215,332 @@ approveContract(): void {
 
 }
 
-rejectContract(): void {
+rejectContract() {
 
-  const dialogRef =
-      this.dialog.open(
-          RejectContractComponent
-      );
+  const dialogRef = this.dialog.open(
+    RejectContractComponent,
+    {
+      width: '500px'
+    }
+  );
+
+  dialogRef.afterClosed().subscribe(reason => {
+
+    if (!reason) {
+
+      return;
+
+    }
+
+    this.loading = true;
+
+    this.contractService
+      .reject(this.contract.id, reason)
+      .subscribe({
+
+        next: () => {
+
+          this.loadContract(this.contract.id);
+
+        },
+
+        error: (err: any) => {
+
+          console.error(err);
+
+          this.loading = false;
+
+        }
+
+      });
+
+  });
+
+}
+
+activateContract(): void {
+
+  const dialogRef = this.dialog.open(
+
+    ActivateContractComponent,
+
+    {
+      width: '420px'
+    }
+
+  );
 
   dialogRef.afterClosed()
-      .subscribe(reason => {
 
-        if (!reason)
-            return;
+    .subscribe(result => {
 
-        this.contractService
-            .reject(
-                this.contract.id,
-                reason
-            )
-            .subscribe({
+      if (!result)
 
-              next: () => {
+        return;
 
-                this.loadContract(
-                    this.contract.id
-                );
+      this.loading = true;
 
-              }
+      this.contractService
 
-            });
+        .activate(this.contract.id)
+
+        .subscribe({
+
+          next: () => {
+
+            this.loadContract(this.contract.id);
+
+          },
+
+          error: err => {
+
+            console.error(err);
+
+            this.loading = false;
+
+          }
+
+        });
+
+    });
+
+}
+
+
+renewContract(): void {
+
+  const dialogRef = this.dialog.open(
+    RenewContractComponent,
+    {
+      width: '500px',
+      data: this.contract
+    }
+  );
+
+  dialogRef.afterClosed().subscribe(result => {
+
+    if (!result)
+      return;
+
+    this.loading = true;
+
+    this.contractService
+      .renew(
+        this.contract.id,
+        result
+      )
+      .subscribe({
+
+        next: () => {
+
+          this.loadContract(
+            this.contract.id
+          );
+
+        },
+
+        error: (err: any) => {
+
+          console.error(err);
+
+          this.loading = false;
+
+        }
+
+      });
+
+  });
+
+}
+
+
+approveRenewal(): void {
+
+  this.loading = true;
+
+  this.contractService
+      .approveRenewal(this.contract.id)
+      .subscribe({
+
+          next: () => {
+
+              this.loadContract(this.contract.id);
+
+          },
+
+          error: (err: any) => {
+
+              console.error(err);
+
+              this.loading = false;
+
+          }
 
       });
 
 }
 
+
+activateRenewal(): void {
+
+  this.loading = true;
+
+  this.contractService
+      .activateRenewal(this.contract.id)
+      .subscribe({
+
+          next: () => {
+
+              this.loadContract(this.contract.id);
+
+          },
+
+          error: (err: any) => {
+
+              console.error(err);
+
+              this.loading = false;
+
+          }
+
+      });
+
+}
+
+
+rejectRenewal(): void {
+
+  const dialogRef = this.dialog.open(
+
+    RejectRenewalComponent,
+
+    {
+
+      width: '500px'
+
+    }
+
+  );
+
+  dialogRef.afterClosed()
+
+    .subscribe(reason => {
+
+      if (!reason)
+        return;
+
+      this.loading = true;
+
+      this.contractService
+
+        .rejectRenewal(
+
+          this.contract.id,
+
+          reason
+
+        )
+
+        .subscribe({
+
+          next: () => {
+
+            this.loadContract(
+
+              this.contract.id
+
+            );
+
+          },
+
+          error: (err: any) => {
+
+            console.error(err);
+
+            this.loading = false;
+
+          }
+
+        });
+
+    });
+
+}
+
+terminateContract(): void {
+
+    const dialogRef = this.dialog.open(
+
+        TerminateContractComponent,
+
+        {
+
+            width: '500px'
+
+        }
+
+    );
+
+    dialogRef.afterClosed()
+
+        .subscribe(reason => {
+
+            if (!reason)
+                return;
+
+            this.loading = true;
+
+            this.contractService
+
+                .terminate(
+
+                    this.contract.id,
+
+                    reason
+
+                )
+
+                .subscribe({
+
+                    next: () => {
+
+                        this.loadContract(
+
+                            this.contract.id
+
+                        );
+
+                    },
+
+                    error: (err: any) => {
+
+                        console.error(err);
+
+                        this.loading = false;
+
+                    }
+
+                });
+
+        });
+
+}
+
+private loadRenewals(contractId: number): void {
+
+  this.contractService
+      .getRenewals(contractId)
+      .subscribe({
+
+          next: data => {
+
+              this.renewals = data;
+
+          },
+
+          error: err => console.error(err)
+
+      });
+
+}
 }

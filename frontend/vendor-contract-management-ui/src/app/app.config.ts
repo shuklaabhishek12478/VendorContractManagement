@@ -7,11 +7,13 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 
 
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { provideNativeDateAdapter } from '@angular/material/core';
 export const appConfig: ApplicationConfig = {
   providers: [
   provideBrowserGlobalErrorListeners(),
   provideRouter(routes),
-
+  provideNativeDateAdapter(),
+  
   provideAnimations(),
   provideHttpClient(
     withInterceptors([

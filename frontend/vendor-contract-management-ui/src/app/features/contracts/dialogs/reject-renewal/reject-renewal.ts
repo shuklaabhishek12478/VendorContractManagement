@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 
 import {
+  MAT_DIALOG_DATA,
   MatDialogModule,
   MatDialogRef
 } from '@angular/material/dialog';
@@ -13,31 +14,44 @@ import {
 
 import { CommonModule } from '@angular/common';
 
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
+import { MatInputModule } from '@angular/material/input';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+
 @Component({
-  selector: 'app-terminate-contract',
+  selector: 'app-reject-renewal',
   standalone: true,
 
   imports: [
+
     CommonModule,
+
     ReactiveFormsModule,
+
     MatDialogModule,
-    MatFormFieldModule,
+
+    MatButtonModule,
+
     MatInputModule,
-    MatButtonModule
+
+    MatFormFieldModule
+
   ],
 
-  templateUrl: './terminate-contract.html'
+  templateUrl: './reject-renewal.html'
+
 })
-export class TerminateContractComponent {
+export class RejectRenewalComponent {
 
   private fb = inject(FormBuilder);
 
   dialogRef =
-    inject(MatDialogRef<TerminateContractComponent>);
+    inject(MatDialogRef<RejectRenewalComponent>);
+
+  data =
+    inject(MAT_DIALOG_DATA);
 
   form = this.fb.group({
 
