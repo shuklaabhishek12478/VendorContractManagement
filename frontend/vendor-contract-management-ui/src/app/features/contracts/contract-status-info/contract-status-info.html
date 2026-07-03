@@ -1,0 +1,55 @@
+<div class="grid grid-cols-2 gap-6">
+
+    <div>
+
+        <label>Status</label>
+
+        <div>
+
+            <span class="status-badge">
+
+                {{ statusName }}
+
+            </span>
+
+        </div>
+
+    </div>
+
+    <div>
+
+        <label>Approved By</label>
+
+        <div>
+
+            {{ contract.approvedBy || '-' }}
+
+        </div>
+
+    </div>
+
+    <div>
+
+        <label>Approved On</label>
+
+        <div>
+
+            {{ contract.approvedOn | date:'medium' }}
+
+        </div>
+
+    </div>
+
+    <div>
+
+        <label>Submitted On</label>
+
+        <div>
+
+            {{ contract.submittedOn | date:'medium' }}
+
+        </div>
+
+    </div>
+
+</div>

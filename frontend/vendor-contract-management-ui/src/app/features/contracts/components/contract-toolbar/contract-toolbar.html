@@ -1,0 +1,23 @@
+<div class="flex items-center gap-3 mb-6">
+
+    <app-add-contract-button
+        [disabled]="!canAdd"
+        (add)="add.emit()">
+    </app-add-contract-button>
+
+    <app-edit-contract-button
+        [disabled]="!canEdit"
+        (edit)="edit.emit()">
+    </app-edit-contract-button>
+
+    <app-archive-contract-button
+        [disabled]="!canArchive"
+        (archive)="archive.emit()">
+    </app-archive-contract-button>
+
+    <app-remove-contract-button
+        [disabled]="!canRemove"
+        (remove)="remove.emit()">
+    </app-remove-contract-button>
+
+</div>

@@ -1,0 +1,51 @@
+<div class="grid grid-cols-2 gap-6">
+
+    <div>
+
+        <label>Rejection Reason</label>
+
+        <div>
+
+            {{ contract.rejectionReason || '-' }}
+
+        </div>
+
+    </div>
+
+    <div>
+
+        <label>Termination Reason</label>
+
+        <div>
+
+            {{ contract.terminationReason || '-' }}
+
+        </div>
+
+    </div>
+
+    <div>
+
+        <label>Terminated By</label>
+
+        <div>
+
+            {{ contract.terminatedBy || '-' }}
+
+        </div>
+
+    </div>
+
+    <div>
+
+        <label>Terminated On</label>
+
+        <div>
+
+            {{ contract.terminatedOn | date:'medium' }}
+
+        </div>
+
+    </div>
+
+</div>

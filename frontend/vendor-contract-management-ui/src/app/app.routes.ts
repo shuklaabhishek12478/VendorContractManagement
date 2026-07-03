@@ -13,6 +13,7 @@ import { pendingChangesGuard } from './core/guards/pending-changes.guard';
 import { ContractListComponent } from './features/contracts/pages/contract-list/contract-list';
 import { AddContractComponent } from './features/contracts/pages/add-contract/add-contract';
 import { ContractDetailsComponent } from './features/contracts/pages/contract-details/contract-details';
+import { EditContractComponent } from './features/contracts/pages/edit-contract/edit-contract';
 
 
 
@@ -49,23 +50,26 @@ export const routes: Routes = [
         path: 'vendors/:id',
         component: VendorDetailsComponent
       },
-     {
+      {
   path: 'contracts',
   component: ContractListComponent
 },
+
 {
   path: 'contracts/add',
   component: AddContractComponent
+ 
 },
+
+{
+  path: 'contracts/edit/:id',
+  component: EditContractComponent
+},
+
 {
   path: 'contracts/:id',
   component: ContractDetailsComponent
-},
-/*{
-  path: 'contracts/edit/:id',
-  component: EditContractComponent,
-  canDeactivate: [pendingChangesGuard]
-},*/
+}
     ]
   },
 

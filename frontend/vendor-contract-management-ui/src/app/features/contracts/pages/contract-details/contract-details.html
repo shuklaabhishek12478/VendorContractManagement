@@ -1,83 +1,131 @@
-<div class="page-container" *ngIf="contract">
 
-  <div class="page-header">
+<div class="page-container" *ngIf="contract && !loading">
+
+  <div class="flex justify-between items-center mb-6">
 
     <div>
-      <h2>Contract Details</h2>
-      <p>{{ contract.title }}</p>
+
+      <h2 class="text-2xl font-bold">
+        Contract Details
+      </h2>
+
+      <p class="text-gray-500">
+        {{ contract.contractNumber }}
+      </p>
+
     </div>
 
-    <button
-      mat-raised-button
-      color="primary">
-      Edit Contract
-    </button>
+    <div class="flex gap-3">
+
+      <button
+        mat-raised-button
+        class="primary-btn"
+        color="primary"
+        (click)="edit()">
+
+         ✏ Edit Contract
+
+      </button>
+
+      <button
+        mat-stroked-button
+         class="secondary-btn"
+        (click)="back()">
+
+        ← Back
+
+      </button>
+
+    </div>
 
   </div>
 
+  <!-- cards -->
+  
+
+  <!-- General Information -->
+
   <mat-card>
+
+    <mat-card-header>
+
+      <mat-card-title>
+
+        General Information
+
+      </mat-card-title>
+
+    </mat-card-header>
 
     <mat-card-content>
 
-      <div class="details-grid">
+      <app-contract-general-info
 
-        <div class="detail-item">
-          <label>Contract Number</label>
-          <span>{{ contract.contractNumber }}</span>
-        </div>
+        [contract]="contract"
+        [vendor]="vendor">
 
-        <div class="detail-item">
-          <label>Title</label>
-          <span>{{ contract.title }}</span>
-        </div>
-
-        <div class="detail-item">
-          <label>Vendor Id</label>
-          <span>{{ contract.vendorId }}</span>
-        </div>
-
-        <div class="detail-item">
-          <label>Contract Value</label>
-          <span>
-            {{ contract.contractValue | currency:'INR' }}
-          </span>
-        </div>
-
-        <div class="detail-item">
-          <label>Start Date</label>
-          <span>
-            {{ contract.startDate | date }}
-          </span>
-        </div>
-
-        <div class="detail-item">
-          <label>End Date</label>
-          <span>
-            {{ contract.endDate | date }}
-          </span>
-        </div>
-
-        <div class="detail-item">
-          <label>Status</label>
-          <span>{{ contract.status }}</span>
-        </div>
-
-      </div>
-
-      <div class="description">
-
-        <h3>Description</h3>
-
-        <p>
-
-          {{ contract.description }}
-
-        </p>
-
-      </div>
+      </app-contract-general-info>
 
     </mat-card-content>
 
   </mat-card>
+
+  <!-- Status -->
+
+  <mat-card class="mt-5">
+
+    <mat-card-header>
+
+      <mat-card-title>
+
+        Status & Approval
+
+      </mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <app-contract-status-info
+
+        [contract]="contract">
+
+      </app-contract-status-info>
+
+    </mat-card-content>
+
+  </mat-card>
+
+  <!-- Lifecycle -->
+
+  <mat-card class="mt-5">
+
+    <mat-card-header>
+
+      <mat-card-title>
+
+        Lifecycle Information
+
+      </mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+      <app-contract-lifecycle-info
+
+        [contract]="contract">
+
+      </app-contract-lifecycle-info>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>
+
+<div *ngIf="loading">
+
+  Loading...
 
 </div>

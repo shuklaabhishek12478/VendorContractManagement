@@ -21,6 +21,7 @@ import { ContractService } from '../../../../core/services/contract.service';
 
 import { Vendor } from '../../../../core/models/vendor.model';
 import { CreateContract } from '../../../../core/models/create-contract.model';
+import { ContractFormComponent } from '../../components/contract-form/contract-form';
 
 @Component({
   selector: 'app-add-contract',
@@ -35,7 +36,8 @@ import { CreateContract } from '../../../../core/models/create-contract.model';
   MatSelectModule,
   MatButtonModule,
   MatDatepickerModule,
-  MatNativeDateModule
+  MatNativeDateModule,
+  ContractFormComponent
 ],
   templateUrl: './add-contract.html',
   styleUrls: ['./add-contract.scss']

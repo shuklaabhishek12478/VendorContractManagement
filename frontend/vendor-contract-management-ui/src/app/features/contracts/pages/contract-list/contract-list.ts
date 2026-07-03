@@ -13,6 +13,8 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from '@angular/material/select';
+import { CONTRACT_STATUS_OPTIONS } from "../../../../core/constants/contract-status-options";
+import { ContractToolbarComponent } from "../../components/contract-toolbar/contract-toolbar";
 @Component({
   selector: 'app-contract-list',
   standalone: true,
@@ -27,7 +29,8 @@ import { MatSelectModule } from '@angular/material/select';
     MatIconModule,
     MatFormFieldModule,
     MatInputModule,
-    MatSelectModule
+    MatSelectModule,
+    ContractToolbarComponent
   ],
 
   templateUrl: './contract-list.html',
@@ -37,14 +40,53 @@ export class ContractListComponent implements OnInit {
 
   private contractService = inject(ContractService);
   private router = inject(Router);
-
+  
+  statusOptions = CONTRACT_STATUS_OPTIONS;
   contracts: Contract[] = [];
+  selectedContract: Contract | null = null;
+
+selectedContracts: Contract[] = [];
+  selectedContractId: number | null = null;
 
   totalRecords = 0;
 
   loading = false;
 
+  ContractStatusOption = [
+
+  { value: null, label: 'All' },
+
+  { value: 0, label: 'Draft' },
+
+  { value: 1, label: 'Pending Approval' },
+
+  { value: 2, label: 'Approved' },
+
+  { value: 3, label: 'Active' },
+
+  { value: 4, label: 'Expired' },
+
+  { value: 5, label: 'Rejected' },
+
+  { value: 6, label: 'Renewed' },
+
+  { value: 7, label: 'Renewal Pending' },
+
+  { value: 8, label: 'Renewal Approved' },
+
+  { value: 9, label: 'Renewal Rejected' },
+
+  { value: 10, label: 'Terminated' }
+
+];
+
   private gridApi!: GridApi;
+
+  context = {
+  componentParent: this
+};
+
+getRowId = (params: any) => params.data.id;
 
   query: ContractQuery = {
 
@@ -92,6 +134,15 @@ export class ContractListComponent implements OnInit {
 
           this.totalRecords = response.totalRecords;
 
+          if (this.gridApi) {
+
+        this.gridApi.setGridOption(
+            'rowData',
+            this.contracts
+        );
+
+    }
+
           this.loading = false;
 
         },
@@ -128,13 +179,16 @@ export class ContractListComponent implements OnInit {
       filter: true,
 
       cellStyle: {
-       color: '#1976d2',
-       cursor: 'pointer',
-       textDecoration: 'underline'
-      },
-      onCellClicked: params => {
-        this.viewContract(params.data.id);
-      }
+  color:'#1976d2',
+  cursor:'pointer',
+  textDecoration:'underline'
+},
+onCellClicked: params=>{
+   this.router.navigate([
+      '/contracts',
+      params.data.id
+   ]);
+}
 
     },
 
@@ -195,11 +249,27 @@ export class ContractListComponent implements OnInit {
     },
 
     {
-      headerName: 'Status',
-      field: 'status',
-      sortable: true,
-      width: 170
-    },
+    headerName: 'Status',
+
+    field: 'status',
+
+    sortable: true,
+
+    width: 180,
+
+    valueFormatter: params => {
+
+        const status = CONTRACT_STATUS_OPTIONS.find(
+
+            x => x.value === params.value
+
+        );
+
+        return status?.label ?? '';
+
+    }
+
+},
 
     {
        headerName: 'Actions',
@@ -241,4 +311,131 @@ viewContract(id: number): void {
 
 }
 
+editContract(): void {
+
+  if (!this.selectedContractId)
+    return;
+
+  this.router.navigate([
+    '/contracts/edit',
+    this.selectedContractId
+  ]);
+
+}
+
+
+onSelectionChanged(): void {
+
+  const rows =
+    this.gridApi.getSelectedRows();
+
+  this.selectedContracts = rows;
+
+  this.selectedContract =
+    rows.length === 1
+      ? rows[0]
+      : null;
+
+}
+
+onAddContract(): void {
+
+  this.router.navigate([
+    '/contracts/add'
+  ]);
+
+}
+
+onEditContract(): void {
+
+  if (!this.selectedContract) {
+
+    return;
+
+  }
+
+  this.router.navigate([
+    '/contracts/edit',
+    this.selectedContract.id
+  ]);
+
+}
+
+archiveContracts(): void {
+
+  console.log('Archive');
+
+}
+
+removeContracts(): void {
+
+  console.log('Remove');
+
+
+}
+
+
+onSearch(event: Event): void {
+
+  const value =
+    (event.target as HTMLInputElement).value;
+
+  this.query.search = value;
+
+  this.query.pageNumber = 1;
+
+  this.loadContracts();
+
+}
+
+onStatusFilterChanged(event: Event): void {
+
+  const value =
+    (event.target as HTMLSelectElement).value;
+
+  this.query.status =
+    value === ''
+      ? null
+      : Number(value);
+
+  this.query.pageNumber = 1;
+
+  this.loadContracts();
+
+}
+
+onRowDoubleClicked(event: any): void {
+
+  this.router.navigate([
+    '/contracts',
+    event.data.id
+  ]);
+
+}
+
+onSortChanged(): void {
+
+  const sortModel =
+    this.gridApi.getColumnState()
+      .find(c => c.sort);
+
+  if (sortModel) {
+
+    this.query.sortBy =
+      sortModel.colId;
+
+    this.query.sortDirection =
+      sortModel.sort ?? '';
+
+  } else {
+
+    this.query.sortBy = '';
+
+    this.query.sortDirection = '';
+
+  }
+
+  this.loadContracts();
+
+}
 }

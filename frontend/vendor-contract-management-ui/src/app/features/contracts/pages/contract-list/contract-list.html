@@ -1,143 +1,108 @@
+<div class="space-y-6">
 
-<div class="p-6">
+  <div class="flex items-center justify-between">
 
-  <!-- Toolbar -->
+    <div>
 
-  <div class="flex justify-between items-center mb-5">
+      <h1 class="text-3xl font-bold">
+        Contracts
+      </h1>
 
-    <h2 class="text-2xl font-semibold">
-      Contracts
-    </h2>
-
-    <button
-  mat-raised-button
-  color="primary"
-  (click)="addContract()">
-
-  <mat-icon>add</mat-icon>
-
-  Add Contract
-
-</button>
-
-  </div>
-
-  <!-- Filters -->
-
-  <div class="grid grid-cols-12 gap-4 mb-5">
-
-    <mat-form-field
-      appearance="outline"
-      class="col-span-6">
-
-      <mat-label>
-        Search
-      </mat-label>
-
-      <input
-        matInput
-        placeholder="Search contracts..."
-        [(ngModel)]="query.search">
-
-    </mat-form-field>
-
-    <mat-form-field
-      appearance="outline"
-      class="col-span-3">
-
-      <mat-label>Status</mat-label>
-
-      <mat-select [(ngModel)]="query.status">
-
-        <mat-option [value]="null">
-          All
-        </mat-option>
-
-        <mat-option [value]="0">
-          Draft
-        </mat-option>
-
-        <mat-option [value]="1">
-          Pending Approval
-        </mat-option>
-
-        <mat-option [value]="2">
-          Approved
-        </mat-option>
-
-        <mat-option [value]="3">
-          Active
-        </mat-option>
-
-        <mat-option [value]="4">
-          Expired
-        </mat-option>
-
-        <mat-option [value]="5">
-          Rejected
-        </mat-option>
-
-        <mat-option [value]="6">
-          Renewed
-        </mat-option>
-
-        <mat-option [value]="7">
-          Renewal Pending
-        </mat-option>
-
-        <mat-option [value]="8">
-          Renewal Approved
-        </mat-option>
-
-        <mat-option [value]="9">
-          Renewal Rejected
-        </mat-option>
-
-        <mat-option [value]="10">
-          Terminated
-        </mat-option>
-
-      </mat-select>
-
-    </mat-form-field>
-
-    <div class="col-span-3 flex items-center">
-
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="loadContracts()">
-
-        Search
-
-      </button>
+      <p class="text-slate-500">
+        Manage all contracts
+      </p>
 
     </div>
 
+    <app-contract-toolbar
+
+      [selectedContract]="selectedContract"
+
+      [selectedContracts]="selectedContracts"
+
+      (add)="onAddContract()"
+
+      (edit)="onEditContract()"
+
+      (archive)="archiveContracts()"
+
+    (remove)="removeContracts()">
+
+    </app-contract-toolbar>
+
   </div>
 
-  <!-- Grid -->
+  <div class="flex items-center gap-3 mb-4">
 
-  <ag-grid-angular
+    <input
+
+      type="text"
+
+      placeholder="Search contracts..."
+
+      (input)="onSearch($event)"
+
+      class="w-full border rounded-xl px-4 py-3"/>
+
+    <select
+    class="border rounded px-3 py-2"
+    (change)="onStatusFilterChanged($event)">
+
+    <option value="">
+        All Contracts
+    </option>
+
+    @for(status of ContractStatusOption; track status.value){
+
+        <option
+            [value]="status.value">
+
+            {{ status.label }}
+
+        </option>
+
+    }
+
+</select>
+
+  </div>
+
+  <div
+    class="rounded-2xl overflow-hidden shadow-sm border"
+    style="height:600px;width:100%;">
+
+    <ag-grid-angular
 
       class="ag-theme-quartz"
 
-      style="height:600px;width:100%;"
+      style="width:100%;height:100%;"
 
       [rowData]="contracts"
 
       [columnDefs]="columnDefs"
 
+      rowSelection="multiple"
+
+      [rowSelection]="'single'"
+
       [pagination]="true"
 
       [paginationPageSize]="10"
 
-      [animateRows]="true"
+      [paginationPageSizeSelector]="[10,20,50,100]"
 
-      [rowSelection]="'single'"
+      [getRowId]="getRowId"
 
-      (gridReady)="onGridReady($event)">
+      (gridReady)="onGridReady($event)"
 
-  </ag-grid-angular>
+      (selectionChanged)="onSelectionChanged()"
+
+      (rowDoubleClicked)="onRowDoubleClicked($event)"
+
+      (sortChanged)="onSortChanged()">
+
+    </ag-grid-angular>
+
+  </div>
 
 </div>
