@@ -313,6 +313,55 @@ namespace VendorContractManagement.Application.Services.Implementations
 
         }
 
+        public async Task ActivateAsync(int id)
+        {
+            var contract =
+                await _contractRepository.GetByIdAsync(id);
+
+            if (contract == null)
+                throw new Exception("Contract not found");
+
+            if (contract.Status != ContractStatus.Approved)
+                throw new Exception(
+                    "Only approved contracts can be activated");
+
+            ContractStateMachine.ValidateTransition(
+                contract.Status,
+                ContractStatus.Active);
+
+            contract.Status = ContractStatus.Active;
+
+            _contractRepository.Update(contract);
+
+            await _unitOfWork.SaveChangesAsync();
+
+            await _auditLogRepository.AddAsync(
+                new AuditLog
+                {
+                    Action = "ACTIVATE",
+                    EntityName = "Contract",
+                    EntityId = contract.Id,
+                    PerformedBy = _userContext.UserId
+                });
+
+            await _recentActivityService.LogAsync(
+                module: "Contract",
+                action: "Activated",
+                description: $"Contract {contract.Title} ({contract.ContractNumber}) activated",
+                entityId: contract.Id,
+                entityName: contract.ContractNumber,
+                entityType: "Contract",
+                performedBy: _userContext.UserId
+            );
+
+            await _unitOfWork.SaveChangesAsync();
+
+            await _emailHelper.SendActivatedEmail(
+                contract,
+                contract.Vendor.Email
+            );
+        }
+
         public async Task RejectAsync(int id, string reason)
         {
             var contract =
@@ -400,6 +449,49 @@ namespace VendorContractManagement.Application.Services.Implementations
             };
         }
 
+        public async Task ExpireContractsAsync()
+        {
+            var contracts =
+                await _contractRepository.GetActiveAsync();
+
+            var expiredContracts = contracts
+                .Where(x =>
+                    x.EndDate.Date < DateTime.UtcNow.Date)
+                .ToList();
+
+            foreach (var contract in expiredContracts)
+            {
+                ContractStateMachine.ValidateTransition(
+                    contract.Status,
+                    ContractStatus.Expired);
+
+                contract.Status = ContractStatus.Expired;
+
+                _contractRepository.Update(contract);
+
+                await _auditLogRepository.AddAsync(
+                    new AuditLog
+                    {
+                        Action = "EXPIRE",
+                        EntityName = "Contract",
+                        EntityId = contract.Id,
+                        PerformedBy = "System"
+                    });
+
+                await _recentActivityService.LogAsync(
+                    module: "Contract",
+                    action: "Expired",
+                    description:
+                        $"Contract {contract.Title} expired automatically",
+                    entityId: contract.Id,
+                    entityName: contract.ContractNumber,
+                    entityType: "Contract",
+                    performedBy: "System"
+                );
+            }
+
+            await _unitOfWork.SaveChangesAsync();
+        }
 
         public async Task RenewAsync(int contractId,RenewContractDto dto)
         {

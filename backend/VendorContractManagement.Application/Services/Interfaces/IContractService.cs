@@ -46,6 +46,10 @@ namespace VendorContractManagement.Application.Services.Interfaces
 
         Task RejectRenewalAsync(int id,string reason);
 
-       
+        Task ActivateAsync(int id);
+
+        Task ExpireContractsAsync();
+
+
     }
 }

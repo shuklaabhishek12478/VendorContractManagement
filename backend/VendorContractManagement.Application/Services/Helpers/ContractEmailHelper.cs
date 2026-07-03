@@ -30,6 +30,31 @@ namespace VendorContractManagement.Application.Services.Helpers
             );
         }
 
+        public async Task SendActivatedEmail(
+    Contract contract,
+    string email)
+        {
+            var subject =
+                $"Contract Activated - {contract.ContractNumber}";
+
+            var body = $@"
+Hello,
+
+Your contract <b>{contract.Title}</b> has been activated.
+
+Contract Number:
+{contract.ContractNumber}
+
+Regards,
+Vendor Contract Management Team";
+
+            await _emailService.SendEmailAsync(
+                email,
+                subject,
+                body
+            );
+        }
+
         public async Task SendRejectedEmail(Contract contract, string email, string reason)
         {
             await _emailService.SendEmailAsync(

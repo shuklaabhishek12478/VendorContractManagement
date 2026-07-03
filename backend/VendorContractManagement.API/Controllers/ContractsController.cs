@@ -92,6 +92,23 @@ namespace VendorContractManagement.API.Controllers
                 await _contractService.GetActiveAsync());
         }
 
+        [Authorize(Roles = "Admin,Manager")]
+        [HttpPost("{id}/activate")]
+        public async Task<IActionResult> Activate(int id)
+        {
+            await _contractService.ActivateAsync(id);
+
+            return Ok("Contract activated successfully.");
+        }
+
+        [HttpPost("expire")]
+        public async Task<IActionResult> Expire()
+        {
+            await _contractService.ExpireContractsAsync();
+
+            return Ok("Expired contracts updated.");
+        }
+
 
         [Authorize(Roles = "Admin,Manager")]
         [HttpPost("{id}/submit")]
