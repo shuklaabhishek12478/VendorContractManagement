@@ -21,6 +21,10 @@ import { RenewContractComponent } from '../../dialogs/renew-contract/renew-contr
 import { RejectRenewalComponent } from '../../dialogs/reject-renewal/reject-renewal';
 import { TerminateContractComponent } from '../../dialogs/terminate-contract/terminate-contract';
 import { getContractStatusLabel} from '../../../../core/constants/contract-status-options';
+import { ContractVersionHistoryComponent } from '../../components/contract-version-history/contract-version-history';
+import { SnackbarService } from '../../../../core/services/snackbar.service';
+import { forkJoin } from 'rxjs';
+
 
 
 @Component({
@@ -34,6 +38,7 @@ import { getContractStatusLabel} from '../../../../core/constants/contract-statu
   ContractStatusInfoComponent,
   ContractLifecycleInfoComponent,
    ContractWorkflowCardComponent,
+   ContractVersionHistoryComponent
 ],
   templateUrl: './contract-details.html',
   styleUrls: ['./contract-details.scss']
@@ -46,7 +51,7 @@ export class ContractDetailsComponent implements OnInit {
   private vendorService = inject(VendorService);
   private cdr = inject(ChangeDetectorRef);
   private dialog = inject(MatDialog);
-
+  private snackbar = inject(SnackbarService);
  
 
   contract!: Contract;
@@ -258,6 +263,36 @@ rejectContract() {
       });
 
   });
+
+}
+
+submitAgainContract(): void {
+
+  if (!this.contract) {
+    return;
+  }
+
+  this.contractService
+    .submitAgain(this.contract.id)
+    .subscribe({
+
+      next: () => {
+
+        this.snackbar.success(
+          'Contract submitted again successfully.'
+        );
+
+        this.loadContract(this.contract.id);
+
+      },
+
+      error: (err: any) => {
+
+        console.error(err);
+
+      }
+
+    });
 
 }
 

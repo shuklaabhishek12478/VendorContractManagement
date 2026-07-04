@@ -69,6 +69,7 @@ namespace VendorContractManagement.Application.Services.Implementations
             return _mapper.Map<ContractDto>(contract);
         }
 
+
         public async Task CreateAsync(CreateContractDto dto)
         {
             var contract = _mapper.Map<Contract>(dto);
@@ -79,19 +80,24 @@ namespace VendorContractManagement.Application.Services.Implementations
             contract.ContractNumber =
                 $"CNT-{DateTime.UtcNow.Year}-{(count + 1):D4}";
 
-            // Default values
             contract.Status = ContractStatus.Draft;
+
             contract.SubmittedOn = DateTime.UtcNow;
 
+            contract.IsActive = true;
+            contract.IsDeleted = false;
+
             await _contractRepository.AddAsync(contract);
+
             await _unitOfWork.SaveChangesAsync();
 
-            await _auditLogRepository.AddAsync(new AuditLog
-            {
-                Action = "CREATE",
-                EntityName = "Contract",
-                EntityId = contract.Id,
-                PerformedBy = _userContext.UserId
+            await _auditLogRepository.AddAsync(
+             new AuditLog
+             {
+        Action = "CREATE",
+        EntityName = "Contract",
+        EntityId = contract.Id,
+        PerformedBy = _userContext.UserId
             });
 
             await _unitOfWork.SaveChangesAsync();
@@ -105,7 +111,54 @@ namespace VendorContractManagement.Application.Services.Implementations
     entityType: "Contract",
     performedBy: _userContext.UserId
 );
+            return;
         }
+        /*public async Task CreateAsync(CreateContractDto dto)
+        {
+
+
+            var contract = _mapper.Map<Contract>(dto);
+
+            await _contractRepository.AddAsync(contract);
+
+            await _unitOfWork.SaveChangesAsync();
+
+            return;
+
+              var contract = _mapper.Map<Contract>(dto);
+
+             var count =
+                 await _contractRepository.GetContractCountAsync();
+
+             contract.ContractNumber =
+                 $"CNT-{DateTime.UtcNow.Year}-{(count + 1):D4}";
+
+             // Default values
+             contract.Status = ContractStatus.Draft;
+             contract.SubmittedOn = DateTime.UtcNow;
+
+             await _contractRepository.AddAsync(contract);
+             await _unitOfWork.SaveChangesAsync();
+
+             await _auditLogRepository.AddAsync(new AuditLog
+             {
+                 Action = "CREATE",
+                 EntityName = "Contract",
+                 EntityId = contract.Id,
+                 PerformedBy = _userContext.UserId
+             });
+
+             await _unitOfWork.SaveChangesAsync();
+  await _recentActivityService.LogAsync(
+     module: "Contract",
+     action: "Created",
+     description: $"Contract {contract.Title} ({contract.ContractNumber}) created",
+     entityId: contract.Id,
+     entityName: contract.ContractNumber,
+     entityType: "Contract",
+     performedBy: _userContext.UserId
+ );
+        }*/
 
         public async Task UpdateAsync(int id, UpdateContractDto dto)
         {
@@ -152,6 +205,44 @@ namespace VendorContractManagement.Application.Services.Implementations
 );
         }
 
+        public async Task ArchiveAsync(int id)
+        {
+            var contract =
+                await _contractRepository.GetByIdAsync(id);
+
+            if (contract == null)
+                throw new Exception("Contract not found");
+
+            if (!contract.IsActive)
+                throw new Exception("Contract already archived");
+
+            contract.IsActive = false;
+
+            _contractRepository.Update(contract);
+
+            await _unitOfWork.SaveChangesAsync();
+
+            await _auditLogRepository.AddAsync(
+                new AuditLog
+                {
+                    Action = "ARCHIVE",
+                    EntityName = "Contract",
+                    EntityId = contract.Id,
+                    PerformedBy = _userContext.UserId
+                });
+
+            await _recentActivityService.LogAsync(
+                module: "Contract",
+                action: "Archived",
+                description:
+                    $"Contract {contract.Title} archived",
+                entityId: contract.Id,
+                entityName: contract.ContractNumber,
+                entityType: "Contract",
+                performedBy: _userContext.UserId);
+
+            await _unitOfWork.SaveChangesAsync();
+        }
         public async Task DeleteAsync(int id)
         {
             var contract = await _contractRepository.GetByIdAsync(id);
@@ -402,13 +493,13 @@ namespace VendorContractManagement.Application.Services.Implementations
                 });
 
             await _recentActivityService.LogAsync(
-    module: "Contract",
-    action: "Rejected",
-    description: $"Contract {contract.Title} ({contract.ContractNumber}) rejected",
-    entityId: contract.Id,
-    entityName: contract.ContractNumber,
-    entityType: "Contract",
-    performedBy: _userContext.UserId
+                module: "Contract",
+                action: "Rejected",
+                description: $"Contract {contract.Title} ({contract.ContractNumber}) rejected",
+                entityId: contract.Id,
+                entityName: contract.ContractNumber,
+                entityType: "Contract",
+                performedBy: _userContext.UserId
 );
 
             await _unitOfWork.SaveChangesAsync();
@@ -447,6 +538,56 @@ namespace VendorContractManagement.Application.Services.Implementations
 
                 Data = data
             };
+        }
+
+        public async Task SubmitAgainAsync(int id)
+        {
+            var contract =
+                await _contractRepository.GetByIdAsync(id);
+
+            if (contract == null)
+                throw new Exception("Contract not found");
+
+            if (contract.Status != ContractStatus.Rejected)
+            {
+                throw new InvalidOperationException(
+                    "Only rejected contracts can be submitted again.");
+            }
+
+            ContractStateMachine.ValidateTransition(
+                contract.Status,
+                ContractStatus.PendingApproval);
+
+            contract.Status = ContractStatus.PendingApproval;
+
+            contract.SubmittedOn = DateTime.UtcNow;
+
+            contract.RejectionReason = null;
+
+            _contractRepository.Update(contract);
+
+            await _unitOfWork.SaveChangesAsync();
+
+            await _auditLogRepository.AddAsync(
+                new AuditLog
+                {
+                    Action = "SUBMIT_AGAIN",
+                    EntityName = "Contract",
+                    EntityId = contract.Id,
+                    PerformedBy = _userContext.UserId
+                });
+
+            await _recentActivityService.LogAsync(
+                module: "Contract",
+                action: "Submitted Again",
+                description:
+                    $"Contract {contract.Title} submitted again for approval",
+                entityId: contract.Id,
+                entityName: contract.ContractNumber,
+                entityType: "Contract",
+                performedBy: _userContext.UserId);
+
+            await _unitOfWork.SaveChangesAsync();
         }
 
         public async Task ExpireContractsAsync()
@@ -517,13 +658,11 @@ namespace VendorContractManagement.Application.Services.Implementations
             var renewalNumber =
                 existingRenewals.Count() + 1;
 
-            var renewalContractNumber =
-                $"{contract.ContractNumber}-R{renewalNumber}";
+            var renewalContractNumber = $"{contract.ContractNumber}-R{renewalNumber}";
 
             var renewedContract = new Contract
             {
-                ContractNumber =
-                    renewalContractNumber,
+                ContractNumber = renewalContractNumber,
                 Title = contract.Title,
                 VendorId = contract.VendorId,
 
@@ -535,16 +674,13 @@ namespace VendorContractManagement.Application.Services.Implementations
 
                 Description = dto.Description,
 
-                Status =
-        ContractStatus.RenewalPendingApproval,
+                Status = ContractStatus.RenewalPendingApproval,
 
-                ParentContractId =
-        contract.Id,
+                ParentContractId = contract.Id,
 
                 IsRenewal = true,
 
-                RenewalRequestedOn =
-        DateTime.UtcNow
+                RenewalRequestedOn = DateTime.UtcNow
             };
 
             await _contractRepository
@@ -569,13 +705,13 @@ namespace VendorContractManagement.Application.Services.Implementations
         });
 
             await _recentActivityService.LogAsync(
-    module: "Renewal",
-    action: "Created",
-    description: $"Renewal {renewedContract.Title} ({renewedContract.ContractNumber}) created",
-    entityId: renewedContract.Id,
-    entityName: renewedContract.ContractNumber,
-    entityType: "Contract",
-    performedBy: _userContext.UserId
+                 module: "Renewal",
+                 action: "Created",
+                 description: $"Renewal {renewedContract.Title} ({renewedContract.ContractNumber}) created",
+                 entityId: renewedContract.Id,
+                 entityName: renewedContract.ContractNumber,
+                 entityType: "Contract",
+                 performedBy: _userContext.UserId
 );
 
             await _unitOfWork.SaveChangesAsync();
@@ -661,14 +797,14 @@ namespace VendorContractManagement.Application.Services.Implementations
               });
 
             await _recentActivityService.LogAsync(
-    module: "Renewal",
-    action: "Approved",
-    description: $"Renewal {renewal.Title} ({renewal.ContractNumber}) approved",
-    entityId: renewal.Id,
-    entityName: renewal.ContractNumber,
-    entityType: "Contract",
-    performedBy: _userContext.UserId
-);
+                module: "Renewal",
+                action: "Approved",
+                description: $"Renewal {renewal.Title} ({renewal.ContractNumber}) approved",
+                entityId: renewal.Id,
+                entityName: renewal.ContractNumber,
+                entityType: "Contract",
+                performedBy: _userContext.UserId
+             );
 
             await _unitOfWork.SaveChangesAsync();
         }
@@ -901,8 +1037,7 @@ namespace VendorContractManagement.Application.Services.Implementations
         }
 
 
-        public async Task<byte[]> ExportContractsAsync(
-    ContractReportFilterDto filter)
+        public async Task<byte[]> ExportContractsAsync(ContractReportFilterDto filter)
         {
             ExcelPackage.License.SetNonCommercialPersonal("Abhishek");
 

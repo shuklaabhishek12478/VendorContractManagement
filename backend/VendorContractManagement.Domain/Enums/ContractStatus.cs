@@ -18,8 +18,6 @@ namespace VendorContractManagement.Domain.Enums
         RenewalPendingApproval = 7,
         RenewalApproved = 8,
         RenewalRejected = 9,
-
-        
         Terminated = 10
     }
 }

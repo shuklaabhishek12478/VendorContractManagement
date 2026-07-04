@@ -63,14 +63,26 @@ namespace VendorContractManagement.API.Middlewares
                     HttpStatusCode.BadRequest,
                     ex.Message);
             }
+            /* catch (Exception ex)
+             {
+                 _logger.LogError(ex, ex.Message);
+
+                 await HandleExceptionAsync(
+                     context,
+                     HttpStatusCode.InternalServerError,
+                     ex.Message);
+             }*/
+
             catch (Exception ex)
             {
-                _logger.LogError(ex, ex.Message);
+                _logger.LogError(ex, ex.ToString());
+
+                var message = ex.InnerException?.ToString() ?? ex.ToString();
 
                 await HandleExceptionAsync(
                     context,
                     HttpStatusCode.InternalServerError,
-                    ex.Message);
+                    message);
             }
         }
 

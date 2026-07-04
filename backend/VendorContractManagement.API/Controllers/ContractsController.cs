@@ -60,12 +60,21 @@ namespace VendorContractManagement.API.Controllers
         }
 
         [Authorize(Roles = "Admin")]
+        [HttpPost("{id}/archive")]
+        public async Task<IActionResult> Archive(int id)
+        {
+            await _contractService.ArchiveAsync(id);
+
+            return NoContent();
+        }
+
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
             await _contractService.DeleteAsync(id);
 
-            return Ok("Contract Deleted Successfully");
+            return NoContent();
         }
 
         [Authorize(Roles = "Admin,Manager,Vendor")]
@@ -98,7 +107,7 @@ namespace VendorContractManagement.API.Controllers
         {
             await _contractService.ActivateAsync(id);
 
-            return Ok("Contract activated successfully.");
+            return NoContent();
         }
 
         [HttpPost("expire")]
@@ -106,7 +115,7 @@ namespace VendorContractManagement.API.Controllers
         {
             await _contractService.ExpireContractsAsync();
 
-            return Ok("Expired contracts updated.");
+            return NoContent();
         }
 
 
@@ -117,7 +126,7 @@ namespace VendorContractManagement.API.Controllers
             await _contractService
                 .SubmitAsync(id);
 
-            return Ok("Submitted successfully");
+            return NoContent();
         }
 
 
@@ -128,7 +137,7 @@ namespace VendorContractManagement.API.Controllers
             await _contractService
                 .ApproveAsync(id);
 
-            return Ok("Approved successfully");
+            return NoContent();
         }
 
 
@@ -158,6 +167,14 @@ namespace VendorContractManagement.API.Controllers
             return Ok(result);
         }
 
+        [HttpPost("{id}/submit-again")]
+        public async Task<IActionResult> SubmitAgain(int id)
+        {
+            await _contractService.SubmitAgainAsync(id);
+
+            return NoContent();
+        }
+
         [Authorize(Roles = "Admin,Manager")]
         [HttpPost("{id}/renew")]
         public async Task<IActionResult> Renew(int id,RenewContractDto dto)
@@ -165,8 +182,7 @@ namespace VendorContractManagement.API.Controllers
             await _contractService
                 .RenewAsync(id, dto);
 
-            return Ok(
-                "Contract renewed successfully");
+            return NoContent();
         }
 
         [Authorize(Roles = "Admin,Manager")]
@@ -186,8 +202,7 @@ namespace VendorContractManagement.API.Controllers
             await _contractService
                 .ApproveRenewalAsync(id);
 
-            return Ok(
-                "Renewal approved successfully");
+            return NoContent();
         }
 
 
@@ -198,8 +213,7 @@ namespace VendorContractManagement.API.Controllers
             await _contractService
                 .ActivateRenewalAsync(id);
 
-            return Ok(
-                "Renewal activated successfully");
+            return NoContent();
         }
 
         [Authorize(Roles = "Admin")]
@@ -211,8 +225,7 @@ namespace VendorContractManagement.API.Controllers
                     id,
                     dto.Reason);
 
-            return Ok(
-                "Renewal rejected successfully");
+            return NoContent();
         }
 
         [Authorize(Roles = "Admin")]
@@ -222,7 +235,7 @@ namespace VendorContractManagement.API.Controllers
             await _contractService
                 .TerminateAsync(id, dto.Reason);
 
-            return Ok("Contract terminated successfully");
+            return NoContent();
         }
 
 

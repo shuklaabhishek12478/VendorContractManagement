@@ -36,5 +36,11 @@ namespace VendorContractManagement.Application.DTOs
         public string? TerminatedBy { get; set; }
 
         public DateTime? SubmittedOn { get; set; }
+
+        public bool IsActive { get; set; }
+
+        public bool IsDeleted { get; set; }
+
+
     }
 }

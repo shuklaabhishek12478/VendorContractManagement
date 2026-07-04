@@ -37,6 +37,9 @@ export class ContractWorkflowCardComponent {
   reject = new EventEmitter<void>();
 
   @Output()
+  submitAgain = new EventEmitter<void>();
+
+  @Output()
   renew = new EventEmitter<void>();
   
   @Output()

@@ -50,6 +50,7 @@
             (submit)="submitContract()"
             (approve)="approveContract()"
             (reject)="rejectContract()"
+            (submitAgain)="submitAgainContract()"
             (activate)="activateContract()"
             (renew)="renewContract()"
             (approveRenewal)="approveRenewal()"
@@ -255,6 +256,30 @@
         </div>
 
     </mat-card-content>
+
+</mat-card>
+
+<mat-card class="mt-5">
+
+<mat-card-header>
+
+<mat-card-title>
+
+Contract Version History
+
+</mat-card-title>
+
+</mat-card-header>
+
+<mat-card-content>
+
+<app-contract-version-history
+
+[contracts]="renewals">
+
+</app-contract-version-history>
+
+</mat-card-content>
 
 </mat-card>
 

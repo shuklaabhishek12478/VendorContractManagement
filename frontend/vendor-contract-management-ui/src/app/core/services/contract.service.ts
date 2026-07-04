@@ -55,11 +55,27 @@ updateContract(
   );
 }
 
-deleteContract(id: number): Observable<any> {
+archive(id: number) {
+
+    return this.http.post(
+        `${this.apiUrl}/${id}/archive`,
+        {},
+        {
+            responseType: 'text'
+        }
+    );
+
+}
+
+deleteContract(id: number) {
 
   return this.http.delete(
-    `${this.apiUrl}/${id}`
+    `${this.apiUrl}/${id}`,
+    {
+      observe: 'response'
+    }
   );
+
 }
 
  
@@ -140,6 +156,20 @@ deleteContract(id: number): Observable<any> {
     );
 
   }
+
+  //submit again 
+
+  submitAgain(id: number) {
+
+  return this.http.post(
+    `${this.apiUrl}/${id}/submit-again`,
+    {},
+    {
+      responseType: 'text'
+    }
+  );
+
+}
 
   //active 
 

@@ -60,7 +60,7 @@ namespace VendorContractManagement.Domain.Entities
         public DateTime? TerminatedOn { get; set; }
 
         public string? TerminatedBy { get; set; }
-
+        public bool IsActive { get; set; }  = true;
 
     }
 }

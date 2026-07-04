@@ -57,11 +57,22 @@ namespace VendorContractManagement.Application.Rules
                     break;
 
                 case ContractStatus.Rejected:
-                case ContractStatus.Expired:
-                    if (newStatus != ContractStatus.Renewed)
+
+                    if (newStatus != ContractStatus.PendingApproval)
                     {
                         Throw(currentStatus, newStatus);
                     }
+
+                    break;
+
+                case ContractStatus.Expired:
+
+                    if (newStatus != ContractStatus.RenewalPendingApproval &&
+                        newStatus != ContractStatus.Terminated)
+                    {
+                        Throw(currentStatus, newStatus);
+                    }
+
                     break;
                 case ContractStatus.Terminated:
                     // final states

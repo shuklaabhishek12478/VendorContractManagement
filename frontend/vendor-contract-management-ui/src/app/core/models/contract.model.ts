@@ -34,4 +34,8 @@ export interface Contract {
 
   submittedOn?: string;
 
+  isActive: boolean;
+
+isDeleted: boolean;
+
 }

@@ -49,6 +49,11 @@ namespace VendorContractManagement.Application.Services.Interfaces
         Task ActivateAsync(int id);
 
         Task ExpireContractsAsync();
+        Task ArchiveAsync(int id);
+
+        Task SubmitAgainAsync(int id);
+
+        // Task ArchiveAsync(int id);
 
 
     }

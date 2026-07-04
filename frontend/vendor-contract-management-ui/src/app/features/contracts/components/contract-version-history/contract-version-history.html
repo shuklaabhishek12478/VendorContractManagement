@@ -1,0 +1,75 @@
+<div class="version-container">
+
+<table class="version-table">
+
+<thead>
+
+<tr>
+
+<th>Version</th>
+
+<th>Contract No</th>
+
+<th>Start</th>
+
+<th>End</th>
+
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr *ngFor="let contract of contracts;let i=index">
+
+<td>
+
+V{{ i + 1 }}
+
+</td>
+
+<td>
+
+{{ contract.contractNumber }}
+
+</td>
+
+<td>
+
+{{ contract.startDate | date:'mediumDate' }}
+
+</td>
+
+<td>
+
+{{ contract.endDate | date:'mediumDate' }}
+
+</td>
+
+<td>
+
+<span class="status-chip">
+
+{{ getStatus(contract.status) }}
+
+</span>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+<div
+class="empty"
+*ngIf="contracts.length===0">
+
+No versions found.
+
+</div>
+
+</div>

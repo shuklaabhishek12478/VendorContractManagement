@@ -1,0 +1,57 @@
+.version-table{
+
+width:100%;
+
+border-collapse:collapse;
+
+}
+
+.version-table th{
+
+padding:12px;
+
+text-align:left;
+
+font-weight:600;
+
+border-bottom:1px solid #ddd;
+
+}
+
+.version-table td{
+
+padding:12px;
+
+border-bottom:1px solid #eee;
+
+}
+
+.version-table tr:hover{
+
+background:#fafafa;
+
+}
+
+.status-chip{
+
+padding:4px 10px;
+
+border-radius:20px;
+
+background:#e3f2fd;
+
+font-size:12px;
+
+font-weight:600;
+
+}
+
+.empty{
+
+padding:20px;
+
+text-align:center;
+
+color:#888;
+
+}

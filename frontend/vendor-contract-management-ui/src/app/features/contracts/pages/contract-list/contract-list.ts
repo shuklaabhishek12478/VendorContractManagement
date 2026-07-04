@@ -1,4 +1,4 @@
-
+import {RowDoubleClickedEvent, SelectionChangedEvent } from 'ag-grid-community';
 import { Contract } from "../../../../core/models/contract.model";
 import { Component, inject, OnInit } from "@angular/core";
 import { ContractService } from "../../../../core/services/contract.service";
@@ -15,6 +15,11 @@ import { MatInputModule } from "@angular/material/input";
 import { MatSelectModule } from '@angular/material/select';
 import { CONTRACT_STATUS_OPTIONS } from "../../../../core/constants/contract-status-options";
 import { ContractToolbarComponent } from "../../components/contract-toolbar/contract-toolbar";
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog';
+import { forkJoin } from 'rxjs';
+import { SnackbarService } from '../../../../core/services/snackbar.service';
+
 @Component({
   selector: 'app-contract-list',
   standalone: true,
@@ -24,7 +29,7 @@ import { ContractToolbarComponent } from "../../components/contract-toolbar/cont
     FormsModule,
 
     AgGridAngular,
-
+    
     MatButtonModule,
     MatIconModule,
     MatFormFieldModule,
@@ -40,14 +45,20 @@ export class ContractListComponent implements OnInit {
 
   private contractService = inject(ContractService);
   private router = inject(Router);
+  private dialog = inject(MatDialog);
+  private snackbar = inject(SnackbarService);
+  private gridApi!: GridApi;
   
+
   statusOptions = CONTRACT_STATUS_OPTIONS;
   contracts: Contract[] = [];
   selectedContract: Contract | null = null;
 
 selectedContracts: Contract[] = [];
   selectedContractId: number | null = null;
-
+  rowSelection = {
+    mode: 'singleRow'
+};
   totalRecords = 0;
 
   loading = false;
@@ -80,7 +91,7 @@ selectedContracts: Contract[] = [];
 
 ];
 
-  private gridApi!: GridApi;
+
 
   context = {
   componentParent: this
@@ -89,6 +100,10 @@ selectedContracts: Contract[] = [];
 rowData: Contract[] = [
     
   ];
+
+
+
+
 
 getRowId = (params: any) => params.data.id;
 
@@ -109,6 +124,7 @@ getRowId = (params: any) => params.data.id;
   };
 
   columnDefs: ColDef[] = [];
+  
 
   ngOnInit(): void {
 
@@ -313,17 +329,7 @@ viewContract(id: number): void {
 
 }
 
-editContract(): void {
 
-  if (!this.selectedContractId)
-    return;
-
-  this.router.navigate([
-    '/contracts/edit',
-    this.selectedContractId
-  ]);
-
-}
 
 
 onSelectionChanged(): void {
@@ -365,14 +371,139 @@ onEditContract(): void {
 
 archiveContracts(): void {
 
-  console.log('Archive');
+  if (this.selectedContracts.length === 0) {
+
+    return;
+
+  }
+
+  const dialogRef = this.dialog.open(
+    ConfirmationDialogComponent,
+    {
+      width: '420px',
+      data: {
+
+        title: 'Archive Contracts',
+
+        message:
+          `Archive ${this.selectedContracts.length} selected contract(s)?`
+
+      }
+    }
+  );
+
+  dialogRef.afterClosed().subscribe(result => {
+
+    if (!result) {
+
+      return;
+
+    }
+
+    const requests =
+      this.selectedContracts.map(c =>
+
+        this.contractService.archive(c.id)
+
+      );
+
+    forkJoin(requests).subscribe({
+
+      next: (res) => {
+
+  console.log(res);
+
+  this.loadContracts();
+
+  this.selectedContract = null;
+
+  this.selectedContracts = [];
+
+
+        this.snackbar.success(
+          'Selected contracts archived successfully.',
+          
+        );
+
+      },
+
+      error: (err: any) => {
+
+        console.error(err);
+
+      }
+
+    });
+
+  });
 
 }
 
 removeContracts(): void {
 
-  console.log('Remove');
+  if (this.selectedContracts.length === 0) {
 
+    return;
+
+  }
+
+  const dialogRef = this.dialog.open(
+    ConfirmationDialogComponent,
+    {
+      width: '420px',
+      data: {
+
+        title: 'Remove Contracts',
+
+        message:
+          `Delete ${this.selectedContracts.length} selected contract(s)?`
+
+      }
+    }
+  );
+
+  dialogRef.afterClosed().subscribe(result => {
+
+    if (!result) {
+
+      return;
+
+    }
+
+    const requests =
+      this.selectedContracts.map(c =>
+
+        this.contractService.deleteContract(c.id)
+
+      );
+
+    forkJoin(requests).subscribe({
+
+      next: (res) => {
+
+  console.log(res);
+
+  this.loadContracts();
+
+  this.selectedContract = null;
+
+  this.selectedContracts = [];
+
+  this.snackbar.success(
+    'Selected contracts removed successfully'
+  );
+
+},
+
+      error: (err: any) => {
+
+        console.error(err);
+
+      }
+
+    });
+
+  });
 
 }
 
@@ -406,12 +537,14 @@ onStatusFilterChanged(event: Event): void {
 
 }
 
-onRowDoubleClicked(event: any): void {
+onRowDoubleClicked(
+    event: RowDoubleClickedEvent<Contract>
+): void {
 
-  this.router.navigate([
-    '/contracts',
-    event.data.id
-  ]);
+    this.router.navigate([
+        '/contracts',
+        event.data!.id
+    ]);
 
 }
 

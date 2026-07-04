@@ -114,6 +114,17 @@
 
                 </button>
 
+
+                <button
+    mat-raised-button
+    color="primary"
+    *ngIf="contract.status === ContractStatus.Rejected"
+    (click)="submitAgain.emit()">
+
+    Submit Again
+
+</button>
+
                 <!-- Approved -->
 
                 <button
