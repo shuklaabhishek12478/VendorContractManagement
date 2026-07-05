@@ -1,3 +1,5 @@
+
+
 <form
   [formGroup]="form"
   (ngSubmit)="onSave()">
@@ -6,14 +8,31 @@
 
     <mat-form-field appearance="outline">
 
-    <mat-label>Contract Number</mat-label>
+        <mat-label>Contract Number</mat-label>
 
-    <input
-        matInput
-        formControlName="contractNumber"
-        readonly>
+        <input
+            matInput
+            [value]="contractNumber"
+            readonly>
 
-</mat-form-field>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+
+        <mat-label>Current Status</mat-label>
+
+        <input
+            matInput
+            [value]="statusLabel"
+            readonly>
+
+    </mat-form-field>
+
+</div>
+
+  <div class="form-grid">
+
+  
 
     <!-- Title -->
 

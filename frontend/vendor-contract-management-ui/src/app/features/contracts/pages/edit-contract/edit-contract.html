@@ -22,6 +22,8 @@
     [form]="form"
     [vendors]="vendors"
     [loading]="loading"
+    [contractNumber]="contract.contractNumber"
+    [statusLabel]="contract.status.toString()"
     (save)="save()"
     (cancel)="cancel()">
 </app-contract-form>

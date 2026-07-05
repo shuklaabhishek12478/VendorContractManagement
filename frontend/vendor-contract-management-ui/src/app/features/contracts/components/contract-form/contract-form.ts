@@ -60,6 +60,10 @@ export class ContractFormComponent {
   @Output()
   cancel = new EventEmitter<void>();
 
+  @Input()contractNumber = '';
+
+  @Input()statusLabel = '';
+
   onSave(): void {
 
     this.save.emit();
