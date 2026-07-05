@@ -786,6 +786,40 @@ downloadDocument(
     id: number
 ): void {
 
+    this.documentService
+
+        .download(id)
+
+        .subscribe({
+
+            next: blob => {
+
+                const url = window.URL.createObjectURL(blob);
+
+                const link = document.createElement('a');
+
+                link.href = url;
+
+                link.download = '';
+
+                link.click();
+
+                window.URL.revokeObjectURL(url);
+
+            },
+
+            error: err => {
+
+                console.error(err);
+
+                this.snackbar.error(
+                    'Unable to download document.'
+                );
+
+            }
+
+        });
+
 }
 
 deleteDocument(
