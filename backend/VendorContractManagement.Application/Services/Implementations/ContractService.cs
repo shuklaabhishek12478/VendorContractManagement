@@ -180,6 +180,8 @@ namespace VendorContractManagement.Application.Services.Implementations
                 throw new Exception(
                     "This contract can no longer be modified");
             }
+
+
             _mapper.Map(dto, contract);
 
             _contractRepository.Update(contract);
@@ -998,7 +1000,12 @@ namespace VendorContractManagement.Application.Services.Implementations
                 reason);*/
         }
 
-
+        private bool CanEditContract(ContractStatus status)
+        {
+            return status == ContractStatus.Draft
+                || status == ContractStatus.Rejected
+                || status == ContractStatus.RenewalRejected;
+        }
         public async Task<ContractReportDto> GetReportAsync(ContractReportFilterDto filter)
         {
             var contracts =

@@ -5,6 +5,7 @@ import { EditContractButtonComponent } from '../edit-contract-button/edit-contra
 import { ArchiveContractButtonComponent } from '../archive-contract-button/archive-contract-button';
 import { RemoveContractButtonComponent } from '../remove-contract-button/remove-contract-button';
 import { Contract } from '../../../../core/models/contract.model';
+import { ContractStatus } from '../../../../core/models/contract-status.enum';
 
 
 @Component({
@@ -20,6 +21,7 @@ import { Contract } from '../../../../core/models/contract.model';
   styleUrls: ['./contract-toolbar.scss']
 })
 export class ContractToolbarComponent {
+  protected readonly ContractStatus = ContractStatus;
 
   @Input()
   selectedContract: Contract | null = null;
@@ -32,7 +34,14 @@ export class ContractToolbarComponent {
   }
 
   get canEdit(): boolean {
-    return this.selectedContract !== null;
+     if (!this.selectedContract) {
+    return false;
+     }
+     return this.selectedContract.status === ContractStatus.Draft ||
+
+         this.selectedContract.status === ContractStatus.Rejected ||
+
+         this.selectedContract.status === ContractStatus.RenewalRejected;
   }
 
   get canArchive(): boolean {
@@ -54,5 +63,6 @@ export class ContractToolbarComponent {
 
   @Output()
   remove = new EventEmitter<void>();
+  
 
 }

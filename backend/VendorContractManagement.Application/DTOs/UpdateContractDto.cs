@@ -4,8 +4,8 @@ namespace VendorContractManagement.Application.DTOs
 {
     public class UpdateContractDto
     {
-        [Required]
-        public string ContractNumber { get; set; } = string.Empty;
+       // [Required]
+       // public string ContractNumber { get; set; } = string.Empty;
 
         [Required]
         public string Title { get; set; } = string.Empty;

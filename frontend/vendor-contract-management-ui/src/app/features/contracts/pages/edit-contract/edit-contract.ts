@@ -15,6 +15,7 @@ import {
 import { Vendor } from '../../../../core/models/vendor.model';
 import { ContractFormComponent } from '../../components/contract-form/contract-form';
 import { CommonModule } from '@angular/common';
+import { SnackbarService } from '../../../../core/services/snackbar.service';
 @Component({
   selector: 'app-edit-contract',
   standalone: true,
@@ -31,7 +32,7 @@ export class EditContractComponent implements OnInit {
   private router = inject(Router);
 
   private contractService = inject(ContractService);
-
+   private snackbar = inject(SnackbarService);
   private vendorService = inject(VendorService);
   form!: FormGroup;
 
@@ -41,6 +42,7 @@ private fb = inject(FormBuilder);
   vendors: Vendor[] = [];
 
   loading = false;
+  
 
   ngOnInit(): void {
 
@@ -59,7 +61,7 @@ private fb = inject(FormBuilder);
 private buildForm(): void {
 
   this.form = this.fb.group({
-
+    contractNumber: [{ value: '', disabled: true }],
     title: [
       '',
       Validators.required
@@ -128,6 +130,8 @@ private buildForm(): void {
 
 this.form.patchValue({
 
+  contractNumber: contract.contractNumber,
+
   title:
     contract.title,
 
@@ -148,6 +152,7 @@ this.form.patchValue({
 
 });
 
+this.form.markAsPristine();
           this.loading = false;
 
         },
@@ -174,6 +179,16 @@ this.form.patchValue({
 
   }
 
+  if (!this.form.dirty) {
+
+  this.snackbar.warning(
+    'No changes detected.'
+  );
+
+  return;
+
+}
+
   this.loading = true;
 
   this.contractService
@@ -183,30 +198,38 @@ this.form.patchValue({
 
       this.form.value
 
+      
+
     )
     .subscribe({
 
       next: () => {
 
-        this.loading = false;
+  this.loading = false;
 
-        this.router.navigate([
+  this.snackbar.success(
+    'Contract updated successfully.'
+  );
 
-          '/contracts',
+  this.router.navigate([
+    '/contracts',
+    this.contract.id
+  ]);
 
-          this.contract.id
+},
 
-        ]);
+      error: (err:any)=>{
 
-      },
+  console.error(err);
 
-      error: (err: any) => {
+  this.loading=false;
 
-        console.error(err);
+  this.snackbar.error(
+    err.error?.message ??
+    'Unable to update contract.'
+  );
 
-        this.loading = false;
-
-      }
+}
 
     });
 

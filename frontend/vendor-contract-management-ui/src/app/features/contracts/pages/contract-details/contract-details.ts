@@ -24,6 +24,7 @@ import { getContractStatusLabel} from '../../../../core/constants/contract-statu
 import { ContractVersionHistoryComponent } from '../../components/contract-version-history/contract-version-history';
 import { SnackbarService } from '../../../../core/services/snackbar.service';
 import { forkJoin } from 'rxjs';
+import { ContractStatus } from '../../../../core/models/contract-status.enum';
 
 
 
@@ -130,6 +131,17 @@ private loadVendor(vendorId: number): void {
     });
 
 }
+
+get canEdit(): boolean {
+
+  return this.contract.status === ContractStatus.Draft ||
+
+         this.contract.status === ContractStatus.Rejected ||
+
+         this.contract.status === ContractStatus.RenewalRejected;
+
+}
+
   edit(): void {
 
   this.router.navigate([
@@ -603,6 +615,67 @@ this.router.navigate([
 id
 
 ]);
+
+}
+
+
+canSubmit(): boolean {
+
+  return this.contract?.status === 0;
+
+}
+
+canSubmitAgain(): boolean {
+
+  return this.contract?.status === 3;
+
+}
+
+canApprove(): boolean {
+
+  return this.contract?.status === 1;
+
+}
+
+canReject(): boolean {
+
+  return this.contract?.status === 1;
+
+}
+
+canActivate(): boolean {
+
+  return this.contract?.status === 2;
+
+}
+
+canRenew(): boolean {
+
+  return this.contract?.status === 4;
+
+}
+
+canTerminate(): boolean {
+
+  return this.contract?.status === 4;
+
+}
+
+canApproveRenewal(): boolean {
+
+  return this.contract?.status === 7;
+
+}
+
+canRejectRenewal(): boolean {
+
+  return this.contract?.status === 7;
+
+}
+
+canActivateRenewal(): boolean {
+
+  return this.contract?.status === 8;
 
 }
 }

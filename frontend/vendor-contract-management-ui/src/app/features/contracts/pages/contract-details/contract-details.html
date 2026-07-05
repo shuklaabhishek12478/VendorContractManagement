@@ -21,6 +21,7 @@
         mat-raised-button
         class="primary-btn"
         color="primary"
+        *ngIf="canEdit"
         (click)="edit()">
 
          ✏ Edit Contract
@@ -59,36 +60,6 @@
             (terminate)="terminateContract()">
 
     </app-contract-workflow-card>
-
-  <button
-      mat-raised-button
-      color="primary"
-      *ngIf="contract.status === 0"
-      (click)="submitContract()">
-
-      Submit
-
-  </button>
-
-  <button
-      mat-raised-button
-      color="primary"
-      *ngIf="contract.status === 1"
-      (click)="approveContract()">
-
-      Approve
-
-  </button>
-
-  <button
-      mat-raised-button
-      color="warn"
-      *ngIf="contract.status === 1"
-      (click)="rejectContract()">
-
-      Reject
-
-  </button>
 
 </div>
 

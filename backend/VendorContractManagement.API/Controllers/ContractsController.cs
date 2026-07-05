@@ -45,7 +45,7 @@ namespace VendorContractManagement.API.Controllers
         {
             await _contractService.CreateAsync(dto);
 
-            return Ok("Contract Created Successfully");
+            return NoContent();
         }
 
         [Authorize(Roles = "Admin,Manager")]
@@ -56,7 +56,7 @@ namespace VendorContractManagement.API.Controllers
         {
             await _contractService.UpdateAsync(id, dto);
 
-            return Ok("Contract Updated Successfully");
+            return NoContent();
         }
 
         [Authorize(Roles = "Admin")]

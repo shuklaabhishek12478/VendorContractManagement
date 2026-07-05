@@ -63,7 +63,10 @@ export const routes: Routes = [
 
 {
   path: 'contracts/edit/:id',
-  component: EditContractComponent
+  component: EditContractComponent,
+  canDeactivate:[
+         pendingChangesGuard
+        ]
 },
 
 {

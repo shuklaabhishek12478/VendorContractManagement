@@ -8,9 +8,9 @@ namespace VendorContractManagement.Application.Validators
     {
         public UpdateContractDtoValidator()
         {
-            RuleFor(x => x.ContractNumber)
+           /* RuleFor(x => x.ContractNumber)
                 .NotEmpty()
-                .MaximumLength(100);
+                .MaximumLength(100);*/
 
             RuleFor(x => x.Title)
                 .NotEmpty()

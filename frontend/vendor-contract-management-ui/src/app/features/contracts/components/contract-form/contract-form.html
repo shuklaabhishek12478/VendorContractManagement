@@ -4,6 +4,17 @@
 
   <div class="form-grid">
 
+    <mat-form-field appearance="outline">
+
+    <mat-label>Contract Number</mat-label>
+
+    <input
+        matInput
+        formControlName="contractNumber"
+        readonly>
+
+</mat-form-field>
+
     <!-- Title -->
 
     <mat-form-field appearance="outline">
@@ -124,8 +135,8 @@
     <button
     mat-raised-button
     color="primary"
-    type="button"
-    [disabled]="loading"
+    type="submit"
+    [disabled]="loading || form.invalid"
     (click)="onSave()">
 
     Save

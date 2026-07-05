@@ -20,9 +20,29 @@
                     Current Status
                 </div>
 
-                <div class="status">
-                    {{ statusLabel }}
-                </div>
+                <div
+    class="status"
+    [ngClass]="{
+
+      'text-blue-600': contract.status===ContractStatus.Draft,
+
+      'text-orange-600': contract.status===ContractStatus.PendingApproval,
+
+      'text-green-600': contract.status===ContractStatus.Active,
+
+      'text-red-600':
+          contract.status===ContractStatus.Rejected
+          || contract.status===ContractStatus.Terminated,
+
+      'text-purple-600':
+          contract.status===ContractStatus.RenewalPendingApproval
+          || contract.status===ContractStatus.RenewalApproved
+
+    }">
+
+    {{ statusLabel }}
+
+</div>
 
                 <div class="description">
 
@@ -53,6 +73,19 @@
 
                         <span *ngSwitchCase="ContractStatus.Rejected">
                             Contract was rejected.
+                            Review the rejection reason and submit it again.
+                        </span>
+
+                        <span *ngSwitchCase="ContractStatus.Renewed">
+
+                            This contract has been superseded by a renewed contract.
+
+                        </span>
+
+                        <span *ngSwitchCase="ContractStatus.RenewalRejected">
+
+                              Renewal request was rejected.
+
                         </span>
 
                         <span *ngSwitchCase="ContractStatus.Terminated">
