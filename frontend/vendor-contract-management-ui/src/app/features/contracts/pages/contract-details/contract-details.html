@@ -148,6 +148,38 @@
 
         <mat-card-title>
 
+            Contract Documents
+
+        </mat-card-title>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <app-contract-documents
+
+            [documents]="documents"
+
+            [loading]="documentsLoading"
+
+            (upload)="uploadDocument()"
+
+            (download)="downloadDocument($event)"
+
+            (delete)="deleteDocument($event)">
+
+        </app-contract-documents>
+
+    </mat-card-content>
+
+</mat-card>
+
+  <mat-card class="mt-5">
+
+    <mat-card-header>
+
+        <mat-card-title>
+
             Renewal History
 
         </mat-card-title>

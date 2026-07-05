@@ -1,0 +1,122 @@
+<div class="flex justify-between items-center mb-4">
+
+    <h3 class="text-lg font-semibold">
+
+        Documents
+
+    </h3>
+
+    <button
+        mat-raised-button
+        color="primary"
+        (click)="upload.emit()">
+
+        Upload Document
+
+    </button>
+
+</div>
+
+@if(loading){
+
+<div>
+
+    Loading documents...
+
+</div>
+
+}
+
+@else {
+
+@if(documents.length===0){
+
+<div class="text-gray-500">
+
+    No documents uploaded.
+
+</div>
+
+}
+
+@else{
+
+<table class="w-full border">
+
+    <thead>
+
+        <tr>
+
+            <th class="text-left p-3">
+
+                File Name
+
+            </th>
+
+            <th class="text-left p-3">
+
+                Uploaded On
+
+            </th>
+
+            <th class="text-center p-3">
+
+                Actions
+
+            </th>
+
+        </tr>
+
+    </thead>
+
+    <tbody>
+
+        @for(doc of documents; track doc.id){
+
+        <tr>
+
+            <td class="p-3">
+
+                {{doc.fileName}}
+
+            </td>
+
+            <td class="p-3">
+
+                {{doc.uploadedOn | date:'medium'}}
+
+            </td>
+
+            <td class="text-center">
+
+                <button
+                    mat-button
+                    color="primary"
+                    (click)="download.emit(doc.id)">
+
+                    Download
+
+                </button>
+
+                <button
+                    mat-button
+                    color="warn"
+                    (click)="delete.emit(doc.id)">
+
+                    Delete
+
+                </button>
+
+            </td>
+
+        </tr>
+
+        }
+
+    </tbody>
+
+</table>
+
+}
+
+}

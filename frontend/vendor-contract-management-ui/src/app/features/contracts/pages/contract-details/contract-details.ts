@@ -25,7 +25,9 @@ import { ContractVersionHistoryComponent } from '../../components/contract-versi
 import { SnackbarService } from '../../../../core/services/snackbar.service';
 import { forkJoin } from 'rxjs';
 import { ContractStatus } from '../../../../core/models/contract-status.enum';
-
+import { DocumentService } from '../../../../core/services/document.service';
+import { ContractDocumentsComponent } from '../../components/contract-documents/contract-documents';
+import { Document } from '../../../../core/models/document.model';
 
 
 @Component({
@@ -39,7 +41,8 @@ import { ContractStatus } from '../../../../core/models/contract-status.enum';
   ContractStatusInfoComponent,
   ContractLifecycleInfoComponent,
    ContractWorkflowCardComponent,
-   ContractVersionHistoryComponent
+   ContractVersionHistoryComponent,
+   ContractDocumentsComponent
 ],
   templateUrl: './contract-details.html',
   styleUrls: ['./contract-details.scss']
@@ -53,12 +56,14 @@ export class ContractDetailsComponent implements OnInit {
   private cdr = inject(ChangeDetectorRef);
   private dialog = inject(MatDialog);
   private snackbar = inject(SnackbarService);
- 
+  private documentService = inject(DocumentService);
 
   contract!: Contract;
   vendor?: Vendor;
    renewals: Contract[] = [];
   loading = false;
+  documents: Document[] = [];
+  documentsLoading = false;
 
   ngOnInit(): void {
     
@@ -85,7 +90,7 @@ export class ContractDetailsComponent implements OnInit {
         console.log('Contract received:', contract);
 
         this.contract = contract;
-
+        this.loadDocuments(contract.id);
         this.loadVendor(contract.vendorId);
         this.loadRenewals(contract.id);
       },
@@ -676,6 +681,55 @@ canRejectRenewal(): boolean {
 canActivateRenewal(): boolean {
 
   return this.contract?.status === 8;
+
+}
+
+
+private loadDocuments(
+    contractId: number
+): void {
+
+    this.documentsLoading = true;
+
+    this.documentService
+
+        .getByContract(contractId)
+
+        .subscribe({
+
+            next: docs => {
+
+                this.documents = docs;
+
+                this.documentsLoading = false;
+
+            },
+
+            error: err => {
+
+                console.error(err);
+
+                this.documentsLoading = false;
+
+            }
+
+        });
+
+}
+
+uploadDocument(): void {
+
+}
+
+downloadDocument(
+    id: number
+): void {
+
+}
+
+deleteDocument(
+    id: number
+): void {
 
 }
 }

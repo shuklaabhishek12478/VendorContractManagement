@@ -19,7 +19,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog';
 import { forkJoin } from 'rxjs';
 import { SnackbarService } from '../../../../core/services/snackbar.service';
-import { ContractStatus } from '../../../../core/models/contract-status.enum';
 
 @Component({
   selector: 'app-contract-list',
@@ -538,34 +537,17 @@ onStatusFilterChanged(event: Event): void {
 
 }
 
-onRowDoubleClicked(event: any): void {
+onRowDoubleClicked(
+    event: RowDoubleClickedEvent<Contract>
+): void {
 
-  const contract = event.data;
-
-  if (
-
-      contract.status !== ContractStatus.Draft &&
-
-      contract.status !== ContractStatus.Rejected &&
-
-      contract.status !== ContractStatus.RenewalRejected
-
-  ) {
-
-      this.snackbar.warning(
-  'Only Draft, Rejected and Renewal Rejected contracts can be edited.'
-);
-
-      return;
-
-  }
-
-  this.router.navigate([
-      '/contracts',
-      contract.id
-  ]);
+    this.router.navigate([
+        '/contracts',
+        event.data!.id
+    ]);
 
 }
+
 onSortChanged(): void {
 
   const sortModel =
