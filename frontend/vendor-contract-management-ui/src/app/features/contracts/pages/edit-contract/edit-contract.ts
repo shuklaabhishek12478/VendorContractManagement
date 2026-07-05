@@ -237,15 +237,24 @@ this.form.markAsPristine();
 
   cancel(): void {
 
-    this.router.navigate([
+  if (this.form.dirty) {
 
-      '/contracts',
+    const ok = confirm(
+      'You have unsaved changes. Discard them?'
+    );
 
-      this.contract.id
-
-    ]);
+    if (!ok) {
+      return;
+    }
 
   }
+
+  this.router.navigate([
+    '/contracts',
+    this.contract.id
+  ]);
+
+}
 
 
   canDeactivate(): boolean {

@@ -135,8 +135,8 @@
     <button
     mat-raised-button
     color="primary"
-    type="submit"
-    [disabled]="loading || form.invalid"
+    type="button"
+    [disabled]="loading || form.invalid || !form.dirty"
     (click)="onSave()">
 
     Save
