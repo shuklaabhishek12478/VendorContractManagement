@@ -28,7 +28,7 @@ import { ContractStatus } from '../../../../core/models/contract-status.enum';
 import { DocumentService } from '../../../../core/services/document.service';
 import { ContractDocumentsComponent } from '../../components/contract-documents/contract-documents';
 import { Document } from '../../../../core/models/document.model';
-
+import { ViewChild, ElementRef } from '@angular/core';
 
 @Component({
   selector: 'app-contract-details',
@@ -64,6 +64,8 @@ export class ContractDetailsComponent implements OnInit {
   loading = false;
   documents: Document[] = [];
   documentsLoading = false;
+  @ViewChild('fileInput')
+  fileInput!: ElementRef<HTMLInputElement>;
 
   ngOnInit(): void {
     
@@ -718,6 +720,65 @@ private loadDocuments(
 }
 
 uploadDocument(): void {
+
+    this.fileInput.nativeElement.click();
+
+}
+
+onFileSelected(
+    event: Event
+): void {
+
+    const input =
+        event.target as HTMLInputElement;
+
+    if (!input.files?.length) {
+
+        return;
+
+    }
+
+    const file =
+        input.files[0];
+
+    this.documentService
+
+        .upload(
+            this.contract.id,
+            file
+        )
+
+        .subscribe({
+
+            next: () => {
+
+                this.snackbar.success(
+
+                    'Document uploaded successfully.'
+
+                );
+
+                this.loadDocuments(
+                    this.contract.id
+                );
+
+                input.value = '';
+
+            },
+
+            error: err => {
+
+                console.error(err);
+
+                this.snackbar.error(
+
+                    'Unable to upload document.'
+
+                );
+
+            }
+
+        });
 
 }
 
