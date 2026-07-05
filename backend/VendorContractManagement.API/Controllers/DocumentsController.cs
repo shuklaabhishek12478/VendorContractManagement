@@ -74,5 +74,20 @@ namespace VendorContractManagement.API.Controllers
 
             return Ok("Deleted successfully");
         }
+
+        [Authorize]
+        [HttpGet("preview/{id}")]
+        public async Task<IActionResult> Preview(int id)
+        {
+            var result = await _documentService.DownloadAsync(id);
+
+            if (result == null)
+                return NotFound();
+
+            return File(
+                result.Value.file,
+                result.Value.contentType
+            );
+        }
     }
 }
