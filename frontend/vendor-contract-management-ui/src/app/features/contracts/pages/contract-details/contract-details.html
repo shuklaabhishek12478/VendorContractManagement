@@ -158,15 +158,12 @@
 
         <app-contract-documents
 
-            [documents]="documents"
-
-            [loading]="documentsLoading"
-
-            (upload)="uploadDocument()"
-
-            (download)="downloadDocument($event)"
-
-            (delete)="deleteDocument($event)">
+            [contract]="contract"
+    [documents]="documents"
+    [loading]="documentsLoading"
+    (upload)="uploadDocument()"
+    (download)="downloadDocument($event)"
+    (delete)="deleteDocument($event)">
 
         </app-contract-documents>
 

@@ -687,35 +687,39 @@ canActivateRenewal(): boolean {
 }
 
 
-private loadDocuments(
-    contractId: number
-): void {
+private loadDocuments(contractId: number): void {
 
-    this.documentsLoading = true;
+  this.documentsLoading = true;
 
-    this.documentService
+  this.documentService
+    .getByContract(contractId)
+    .subscribe({
 
-        .getByContract(contractId)
+      next: docs => {
 
-        .subscribe({
+        console.log('Documents API Response:', docs);
 
-            next: docs => {
+        // New array reference
+        this.documents = [...docs];
 
-                this.documents = docs;
+        console.log('Documents bound to UI:', this.documents);
 
-                this.documentsLoading = false;
+        this.documentsLoading = false;
 
-            },
+        // Force change detection
+        this.cdr.detectChanges();
 
-            error: err => {
+      },
 
-                console.error(err);
+      error: err => {
 
-                this.documentsLoading = false;
+        console.error('Documents API Error:', err);
 
-            }
+        this.documentsLoading = false;
 
-        });
+      }
+
+    });
 
 }
 
@@ -752,19 +756,17 @@ onFileSelected(
 
             next: () => {
 
-                this.snackbar.success(
+    this.snackbar.success(
+        'Document uploaded successfully.'
+    );
 
-                    'Document uploaded successfully.'
+    this.loadDocuments(this.contract.id);
 
-                );
+    this.cdr.detectChanges();
 
-                this.loadDocuments(
-                    this.contract.id
-                );
+    input.value = '';
 
-                input.value = '';
-
-            },
+},
 
             error: err => {
 
@@ -825,6 +827,46 @@ downloadDocument(
 deleteDocument(
     id: number
 ): void {
+
+    const ok = confirm(
+        'Are you sure you want to delete this document?'
+    );
+
+    if (!ok) {
+
+        return;
+
+    }
+
+    this.documentService
+
+        .delete(id)
+
+        .subscribe({
+
+            next: () => {
+
+                this.snackbar.success(
+                    'Document deleted successfully.'
+                );
+
+                this.loadDocuments(
+                    this.contract.id
+                );
+
+            },
+
+            error: err => {
+
+                console.error(err);
+
+                this.snackbar.error(
+                    'Unable to delete document.'
+                );
+
+            }
+
+        });
 
 }
 }

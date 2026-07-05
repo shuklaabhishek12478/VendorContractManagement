@@ -27,20 +27,23 @@ namespace VendorContractManagement.API.Controllers
 
         [Authorize(Roles = "Admin,Manager")]
         [HttpPost("upload")]
-        public async Task<IActionResult> Upload(int contractId, IFormFile file)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Upload([FromForm] DocumentUploadRequest request)
         {
             using var ms = new MemoryStream();
-            await file.CopyToAsync(ms);
+
+            await request.File.CopyToAsync(ms);
 
             var dto = new DocumentUploadDto
             {
-                ContractId = contractId,
-                FileName = file.FileName,
+                ContractId = request.ContractId,
+                FileName = request.File.FileName,
                 FileContent = ms.ToArray(),
-                ContentType = file.ContentType
+                ContentType = request.File.ContentType
             };
 
             var result = await _documentService.UploadAsync(dto);
+
             return Ok(result);
         }
 

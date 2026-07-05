@@ -174,12 +174,12 @@ namespace VendorContractManagement.Application.Services.Implementations
              {
                  throw new Exception(
                      "This contract can no longer be modified");
-             }*/
+             }
             if (!CanEditContract(contract.Status))
             {
                 throw new Exception(
                     "This contract can no longer be modified");
-            }
+            }*/
 
 
             _mapper.Map(dto, contract);
@@ -512,11 +512,6 @@ namespace VendorContractManagement.Application.Services.Implementations
 
         }
 
-        private static bool CanEditContract(ContractStatus status)
-        {
-            return status == ContractStatus.Draft
-                || status == ContractStatus.Rejected;
-        }
 
         public async Task<PagedResponse<ContractDto>>GetPagedAsync(ContractQueryParams query)
         {

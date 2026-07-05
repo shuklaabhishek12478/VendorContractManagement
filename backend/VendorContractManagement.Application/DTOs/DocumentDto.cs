@@ -15,5 +15,7 @@
         public int ContractId { get; set; }
 
         public string DownloadUrl { get; set; } = string.Empty;
+
+        public DateTime UploadedOn { get; set; }
     }
 }

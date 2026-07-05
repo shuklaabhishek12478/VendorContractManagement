@@ -22,5 +22,7 @@ namespace VendorContractManagement.Domain.Entities
         public int ContractId { get; set; }
 
         public Contract Contract { get; set; } = null!;
+
+        public DateTime UploadedOn { get; set; } = DateTime.UtcNow;
     }
 }

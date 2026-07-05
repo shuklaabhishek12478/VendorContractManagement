@@ -123,7 +123,8 @@ namespace VendorContractManagement.Application.Services.Implementations
                 OriginalFileName = dto.FileName,
                 FilePath = filePath,
                 ContentType = dto.ContentType,
-                FileSize = dto.FileContent.Length
+                FileSize = dto.FileContent.Length,
+                UploadedOn = DateTime.UtcNow
             };
 
             await _documentRepository.AddAsync(document);

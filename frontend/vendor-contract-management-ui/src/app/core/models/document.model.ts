@@ -4,10 +4,16 @@ export interface Document {
 
   fileName: string;
 
-  filePath: string;
+  originalFileName: string;
 
-  uploadedOn: string;
+  fileSize: number;
+
+  contentType: string;
 
   contractId: number;
+
+  downloadUrl: string;
+
+  uploadedOn: string;
 
 }

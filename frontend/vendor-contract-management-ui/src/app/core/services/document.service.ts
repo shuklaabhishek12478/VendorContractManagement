@@ -29,63 +29,39 @@ export class DocumentService {
 
   }
 
-  upload(
+  upload(contractId: number, file: File) {
 
-    contractId: number,
+  const formData = new FormData();
 
-    file: File
+  formData.append('contractId', contractId.toString());
+  formData.append('file', file);
 
-  ) {
+  return this.http.post(
 
-    const formData = new FormData();
+    `${this.apiUrl}/upload`,
 
-    formData.append(
+    formData,
 
-      'contractId',
+    {
+      responseType: 'text'
+    }
 
-      contractId.toString()
-
-    );
-
-    formData.append(
-
-      'file',
-
-      file
-
-    );
-
-    return this.http.post(
-
-      this.apiUrl,
-
-      formData,
-
-      {
-
-        responseType: 'text'
-
-      }
-
-    );
-
-  }
+  );
+}
 
   download(id: number) {
 
-    return this.http.get(
+  return this.http.get(
 
-      `${this.apiUrl}/${id}/download`,
+    `${this.apiUrl}/download/${id}`,
 
-      {
+    {
+      responseType: 'blob'
+    }
 
-        responseType: 'blob'
+  );
 
-      }
-
-    );
-
-  }
+}
 
   delete(id: number) {
 
