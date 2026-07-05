@@ -56,12 +56,13 @@ export class DocumentService {
     `${this.apiUrl}/download/${id}`,
 
     {
+      observe: 'response',
       responseType: 'blob'
     }
 
   );
 
-}
+} 
 
   delete(id: number) {
 

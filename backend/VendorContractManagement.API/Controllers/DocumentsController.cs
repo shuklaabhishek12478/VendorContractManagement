@@ -56,7 +56,11 @@ namespace VendorContractManagement.API.Controllers
             if (result == null)
                 return NotFound();
 
-            return File(result.Value.file, result.Value.contentType, result.Value.fileName);
+            return File(
+    fileContents: result.Value.file,
+    contentType: result.Value.contentType,
+    fileDownloadName: result.Value.fileName
+);
         }
 
         [Authorize(Roles = "Admin")]

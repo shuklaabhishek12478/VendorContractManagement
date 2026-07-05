@@ -55,6 +55,10 @@
 
             </th>
 
+            <th class="text-left p-3">
+    Size
+</th>
+
             <th class="text-center p-3">
 
                 Actions
@@ -73,15 +77,33 @@
 
             <td class="p-3">
 
-                {{ doc.originalFileName }}
+    <div class="flex items-center gap-2">
 
-            </td>
+        <mat-icon>
+
+            {{ getFileIcon(doc.contentType) }}
+
+        </mat-icon>
+
+        <span>
+
+            {{ doc.originalFileName }}
+
+        </span>
+
+    </div>
+
+</td>
 
             <td class="p-3">
 
                 {{doc.uploadedOn | date:'medium'}}
 
             </td>
+
+            <td class="p-3">
+    {{ doc.fileSize | fileSize }}
+</td>
 
             <td class="text-center">
 

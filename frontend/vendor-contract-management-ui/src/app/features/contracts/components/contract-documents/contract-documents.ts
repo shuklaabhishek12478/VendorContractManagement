@@ -16,6 +16,7 @@ import { Document } from '../../../../core/models/document.model';
 import { ContractStatus } from '../../../../core/models/contract-status.enum';
 import { Contract } from '../../../../core/models/contract.model';
 import { AuthService } from '../../../../core/services/auth.service';
+import { FileSizePipe } from '../../../../shared/pipes/file-size-pipe';
 
 @Component({
   selector: 'app-contract-documents',
@@ -23,14 +24,16 @@ import { AuthService } from '../../../../core/services/auth.service';
   imports: [
     CommonModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    FileSizePipe
   ],
   templateUrl: './contract-documents.html',
   styleUrls: ['./contract-documents.scss']
 })
 export class ContractDocumentsComponent {
 private authService = inject(AuthService);
-  
+ 
+
   @Input({ required: true })
 contract!: Contract;
 
@@ -68,5 +71,23 @@ contract!: Contract;
 
 canDelete(): boolean {
     return this.authService.isAdmin();
+}
+
+getFileIcon(contentType: string): string {
+
+  if (contentType.includes('pdf')) {
+    return 'picture_as_pdf';
+  }
+
+  if (contentType.includes('word')) {
+    return 'description';
+  }
+
+  if (contentType.includes('image')) {
+    return 'image';
+  }
+
+  return 'insert_drive_file';
+
 }
 }

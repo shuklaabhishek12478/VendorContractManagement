@@ -784,25 +784,47 @@ onFileSelected(
 
 }
 
-downloadDocument(
-    id: number
-): void {
+downloadDocument(id: number): void {
 
     this.documentService
-
         .download(id)
-
         .subscribe({
 
-            next: blob => {
+            next: response => {
 
-                const url = window.URL.createObjectURL(blob);
+                console.log(response.headers.keys());
 
-                const link = document.createElement('a');
+    console.log(response.headers.get('Content-Disposition'));
+
+                const blob = response.body!;
+
+                const disposition =
+                    response.headers.get('Content-Disposition');
+
+                let fileName = 'document';
+
+                if (disposition) {
+
+                    const match =
+                        disposition.match(/filename="?([^"]+)"?/);
+
+                    if (match) {
+
+                        fileName = match[1];
+
+                    }
+
+                }
+
+                const url =
+                    window.URL.createObjectURL(blob);
+
+                const link =
+                    document.createElement('a');
 
                 link.href = url;
 
-                link.download = '';
+                link.download = fileName;
 
                 link.click();
 
