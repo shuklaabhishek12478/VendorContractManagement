@@ -11,11 +11,69 @@
         *ngIf="canUpload()"
         mat-raised-button
         color="primary"
-        (click)="upload.emit()">
+        [disabled]="uploading"
+        (click)="upload.emit(null)">
 
-        Upload Document
+        {{ uploading ? 'Uploading...' : 'Upload Document' }}
 
     </button>
+
+</div>
+
+<div
+
+    class="upload-drop-zone"
+
+    [class.dragging]="isDragging"
+
+    (dragover)="onDragOver($event)"
+
+    (dragleave)="onDragLeave($event)"
+
+    (drop)="onDrop($event)">
+
+    <mat-icon>
+
+        cloud_upload
+
+    </mat-icon>
+
+    <p>
+
+        Drag & Drop your document here
+
+    </p>
+
+    <small>
+
+        or click Upload Document
+
+    </small>
+
+</div>
+
+<div *ngIf="uploading" class="mb-4">
+
+    <div class="flex justify-between items-center mb-2">
+
+        <span class="text-sm font-medium">
+
+            Uploading document...
+
+        </span>
+
+        <span class="text-sm">
+
+            {{ uploadProgress }}%
+
+        </span>
+
+    </div>
+
+    <mat-progress-bar
+        mode="determinate"
+        [value]="uploadProgress">
+    </mat-progress-bar>
 
 </div>
 
@@ -106,6 +164,15 @@
 </td>
 
             <td class="text-center">
+
+               <button
+    mat-button
+    color="accent"
+    (click)="preview.emit(doc.id)">
+
+    Preview
+
+</button>
 
                 <button
                     mat-button

@@ -161,7 +161,10 @@
             [contract]="contract"
     [documents]="documents"
     [loading]="documentsLoading"
-    (upload)="uploadDocument()"
+    [uploading]="uploading"
+    [uploadProgress]="uploadProgress"
+    (upload)="uploadDocument($event)"
+    (preview)="previewDocument($event)"
     (download)="downloadDocument($event)"
     (delete)="deleteDocument($event)">
 

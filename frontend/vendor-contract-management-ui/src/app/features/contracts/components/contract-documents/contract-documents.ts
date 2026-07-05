@@ -17,15 +17,17 @@ import { ContractStatus } from '../../../../core/models/contract-status.enum';
 import { Contract } from '../../../../core/models/contract.model';
 import { AuthService } from '../../../../core/services/auth.service';
 import { FileSizePipe } from '../../../../shared/pipes/file-size-pipe';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 
 @Component({
   selector: 'app-contract-documents',
   standalone: true,
   imports: [
     CommonModule,
-    MatButtonModule,
-    MatIconModule,
-    FileSizePipe
+  MatButtonModule,
+  MatIconModule,
+  MatProgressBarModule,
+  FileSizePipe
   ],
   templateUrl: './contract-documents.html',
   styleUrls: ['./contract-documents.scss']
@@ -33,7 +35,7 @@ import { FileSizePipe } from '../../../../shared/pipes/file-size-pipe';
 export class ContractDocumentsComponent {
 private authService = inject(AuthService);
  
-
+isDragging = false;
   @Input({ required: true })
 contract!: Contract;
 
@@ -43,8 +45,11 @@ contract!: Contract;
   @Input()
   loading = false;
 
-  @Output()
-  upload = new EventEmitter<void>();
+  //@Output()
+ // upload = new EventEmitter<void>();
+
+ @Output()
+upload = new EventEmitter<File | null>();
 
   @Output()
   download = new EventEmitter<number>();
@@ -52,6 +57,13 @@ contract!: Contract;
   @Output()
   delete = new EventEmitter<number>();
   
+  @Output()
+preview = new EventEmitter<number>();
+
+  @Input() uploading = false;
+
+  @Input() uploadProgress = 0;
+
   trackByDocumentId(index: number, doc: Document): number {
   return doc.id;
 }
@@ -75,19 +87,86 @@ canDelete(): boolean {
 
 getFileIcon(contentType: string): string {
 
-  if (contentType.includes('pdf')) {
-    return 'picture_as_pdf';
-  }
+    if (!contentType) {
 
-  if (contentType.includes('word')) {
-    return 'description';
-  }
+        return 'insert_drive_file';
 
-  if (contentType.includes('image')) {
-    return 'image';
-  }
+    }
 
-  return 'insert_drive_file';
+    if (contentType.includes('pdf')) {
+
+        return 'picture_as_pdf';
+
+    }
+
+    if (
+        contentType.includes('word') ||
+        contentType.includes('officedocument')
+    ) {
+
+        return 'description';
+
+    }
+
+    if (contentType.includes('image')) {
+
+        return 'image';
+
+    }
+
+    return 'insert_drive_file';
+
+}
+
+onDragOver(event: DragEvent): void {
+
+  event.preventDefault();
+
+  this.isDragging = true;
+
+}
+
+onDragLeave(event: DragEvent): void {
+
+  event.preventDefault();
+
+  this.isDragging = false;
+
+}
+
+onDrop(event: DragEvent): void {
+
+    event.preventDefault();
+
+    this.isDragging = false;
+
+    const files = event.dataTransfer?.files;
+
+    if (!files || files.length === 0) {
+
+        return;
+
+    }
+
+    this.upload.emit(files[0]);
+
+}
+
+formatFileSize(bytes: number): string {
+
+    if (bytes < 1024) {
+
+        return bytes + ' B';
+
+    }
+
+    if (bytes < 1024 * 1024) {
+
+        return (bytes / 1024).toFixed(1) + ' KB';
+
+    }
+
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
 
 }
 }

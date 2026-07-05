@@ -22,3 +22,64 @@ mat-icon {
     font-size: 22px;
 
 }
+
+mat-progress-bar {
+    margin-top: 6px;
+    border-radius: 4px;
+}
+
+.upload-progress {
+    margin-bottom: 16px;
+}
+
+.upload-drop-zone {
+
+    border: 2px dashed #bdbdbd;
+
+    border-radius: 8px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    margin-bottom: 20px;
+
+    transition: .25s;
+
+    cursor: pointer;
+
+}
+
+.upload-drop-zone mat-icon {
+
+    font-size: 48px;
+
+    width: 48px;
+
+    height: 48px;
+
+    color: #757575;
+
+}
+
+.upload-drop-zone.dragging {
+
+    border-color: #1976d2;
+
+    background: #e3f2fd;
+
+}
+
+.upload-drop-zone p {
+
+    margin: 10px 0 4px;
+
+    font-weight: 600;
+
+}
+
+.upload-drop-zone small {
+
+    color: #757575;
+
+}

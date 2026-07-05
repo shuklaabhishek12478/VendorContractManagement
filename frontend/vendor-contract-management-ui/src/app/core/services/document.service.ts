@@ -43,10 +43,13 @@ export class DocumentService {
     formData,
 
     {
+      observe: 'events',
+      reportProgress: true,
       responseType: 'text'
     }
 
   );
+
 }
 
   download(id: number) {
@@ -79,5 +82,21 @@ export class DocumentService {
     );
 
   }
+
+  preview(id: number) {
+
+  return this.http.get(
+
+    `${this.apiUrl}/preview/${id}`,
+
+    {
+
+      responseType: 'blob'
+
+    }
+
+  );
+
+}
 
 }

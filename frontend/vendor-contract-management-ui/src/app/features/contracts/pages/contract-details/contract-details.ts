@@ -29,6 +29,8 @@ import { DocumentService } from '../../../../core/services/document.service';
 import { ContractDocumentsComponent } from '../../components/contract-documents/contract-documents';
 import { Document } from '../../../../core/models/document.model';
 import { ViewChild, ElementRef } from '@angular/core';
+import { HttpEventType } from '@angular/common/http';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-contract-details',
@@ -66,6 +68,9 @@ export class ContractDetailsComponent implements OnInit {
   documentsLoading = false;
   @ViewChild('fileInput')
   fileInput!: ElementRef<HTMLInputElement>;
+  uploading = false;
+  uploadProgress = 0;
+
 
   ngOnInit(): void {
     
@@ -723,15 +728,27 @@ private loadDocuments(contractId: number): void {
 
 }
 
-uploadDocument(): void {
+/*uploadDocument(): void {
+
+    this.fileInput.nativeElement.click();
+
+}*/
+
+uploadDocument(file: File | null): void {
+
+    if (file) {
+
+        this.uploadFile(file);
+
+        return;
+
+    }
 
     this.fileInput.nativeElement.click();
 
 }
 
-onFileSelected(
-    event: Event
-): void {
+onFileSelected(event: Event): void {
 
     const input =
         event.target as HTMLInputElement;
@@ -742,40 +759,133 @@ onFileSelected(
 
     }
 
-    const file =
-        input.files[0];
+    const file = input.files[0];
 
-    this.documentService
-
-        .upload(
-            this.contract.id,
-            file
-        )
-
-        .subscribe({
-
-            next: () => {
-
-    this.snackbar.success(
-        'Document uploaded successfully.'
-    );
-
-    this.loadDocuments(this.contract.id);
-
-    this.cdr.detectChanges();
+    this.uploadFile(file);
 
     input.value = '';
 
-},
+}
+private uploadFile(file: File): void {
+
+    // Allowed extensions
+    const allowedExtensions = [
+        'pdf',
+        'docx',
+        'png',
+        'jpg',
+        'jpeg'
+    ];
+
+    const extension =
+        file.name
+            .split('.')
+            .pop()
+            ?.toLowerCase();
+
+    if (!extension ||
+        !allowedExtensions.includes(extension)) {
+
+        this.snackbar.error(
+            'Only PDF, DOCX, PNG and JPG files are allowed.'
+        );
+
+        return;
+
+    }
+
+    const maxSize = 5 * 1024 * 1024;
+
+    if (file.size > maxSize) {
+
+        this.snackbar.error(
+            'Maximum allowed file size is 5 MB.'
+        );
+
+        return;
+
+    }
+
+    this.uploading = true;
+
+    this.uploadProgress = 0;
+
+    this.documentService
+        .upload(this.contract.id, file)
+        .subscribe({
+
+            next: event => {
+
+                if (event.type === HttpEventType.UploadProgress) {
+
+                    if (event.total) {
+
+                        this.uploadProgress = Math.round(
+                            event.loaded * 100 / event.total
+                        );
+
+                    }
+
+                }
+
+                if (event.type === HttpEventType.Response) {
+
+                    this.uploading = false;
+
+                    this.uploadProgress = 100;
+
+                    this.snackbar.success(
+                        'Document uploaded successfully.'
+                    );
+
+                    this.loadDocuments(this.contract.id);
+
+                }
+
+            },
+
+            error: err => {
+
+                console.error(err);
+
+                this.uploading = false;
+
+                this.uploadProgress = 0;
+
+                this.snackbar.error(
+                    'Unable to upload document.'
+                );
+
+            }
+
+        });
+
+}
+
+previewDocument(id: number): void {
+
+    this.documentService
+        .preview(id)
+        .subscribe({
+
+            next: blob => {
+
+                const url =
+                    window.URL.createObjectURL(blob);
+
+                window.open(
+                    url,
+                    '_blank'
+                );
+
+            },
 
             error: err => {
 
                 console.error(err);
 
                 this.snackbar.error(
-
-                    'Unable to upload document.'
-
+                    'Unable to preview document.'
                 );
 
             }
