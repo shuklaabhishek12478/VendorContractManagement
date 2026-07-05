@@ -12,12 +12,16 @@
 
     </div>
 
+    <div class="page-header">
+<h2 class="page-title">Edit Contract</h2>
 
-<h2 class="page-title">Edit Contract Page</h2>
+<p class="text-gray-500">
 
+        {{ contract.contractNumber }}
 
+    </p>
 
-
+</div>
 <app-contract-form
     [form]="form"
     [vendors]="vendors"
@@ -27,3 +31,5 @@
     (save)="save()"
     (cancel)="cancel()">
 </app-contract-form>
+
+</div>
