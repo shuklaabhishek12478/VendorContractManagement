@@ -10,17 +10,22 @@ import { VendorContactInfoComponent } from '../../../../shared/components/vendor
 import { VendorComplianceInfoComponent } from '../../../../shared/components/vendor-compliance-info/vendor-compliance-info';
 import { VendorContractsComponent } from '../../../../shared/components/vendor-contracts/vendor-contracts';
 import { Contracts } from '../../../../core/models/contracts.model';
-
+import { VendorFinancialInfoComponent } from '../../../../shared/components/vendor-financial-info/vendor-financial-info';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatIconModule } from '@angular/material/icon';
 @Component({
   selector: 'app-vendor-details',
   standalone: true,
   imports: [
     CommonModule,
     MatTabsModule,
+    MatExpansionModule,
     VendorGeneralInfoComponent,
     VendorContactInfoComponent,
     VendorComplianceInfoComponent,
-    VendorContractsComponent
+    VendorContractsComponent,
+    VendorFinancialInfoComponent,
+    MatIconModule,
   ],
   templateUrl: './vendor-details.html',
   styleUrl: './vendor-details.scss'
@@ -35,11 +40,16 @@ export class VendorDetailsComponent implements OnInit {
   private vendorService = inject(VendorService);
 
   vendor: Vendor | null = null;
-
+  readonly defaultExpanded = 'general';
   isLoading = true;
 
   contracts: Contracts[] = [];
-  
+  step = 0;
+
+setStep(index: number): void {
+  this.step = index;
+}
+
   constructor() {
   console.log('VendorDetails Constructor', Math.random());
 }

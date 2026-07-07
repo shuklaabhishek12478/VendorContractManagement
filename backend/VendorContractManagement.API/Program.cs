@@ -200,6 +200,7 @@ builder.Services.AddScoped<ContractEmailHelper>();
 builder.Services.AddScoped<INotificationService,NotificationService>();
 builder.Services.AddScoped<IRecentActivityService,RecentActivityService>();
 builder.Services.AddScoped<IRecentActivityRepository,RecentActivityRepository>();
+builder.Services.AddValidatorsFromAssemblyContaining<CreateVendorDtoValidator>();
 
 var app = builder.Build();
 

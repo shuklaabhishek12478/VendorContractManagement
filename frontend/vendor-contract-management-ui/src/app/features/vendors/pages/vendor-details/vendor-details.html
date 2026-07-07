@@ -56,84 +56,209 @@
 
     </div>
 
-    <mat-tab-group
-        animationDuration="200ms">
+    <mat-accordion
+    class="vendor-accordion"
+    multi="false">
 
-        <mat-tab
-            label="General">
+    <!-- General -->
 
-            <div class="mt-5">
+    <mat-expansion-panel
+        [expanded]="step === 0"
+        (opened)="setStep(0)">
 
-                <app-vendor-general-info
-                    [vendor]="vendor">
-                </app-vendor-general-info>
+        <mat-expansion-panel-header>
 
-            </div>
+            <mat-panel-title>
 
-        </mat-tab>
+    <mat-icon class="mr-3">
 
-        <mat-tab
-            label="Contact">
+        business
 
-            <div class="mt-5">
+    </mat-icon>
 
-                <app-vendor-contact-info
-                    [vendor]="vendor">
-                </app-vendor-contact-info>
+    General Information
 
-            </div>
+</mat-panel-title>
 
-        </mat-tab>
+        </mat-expansion-panel-header>
 
-        <mat-tab
-            label="Compliance">
+        <app-vendor-general-info
+            [vendor]="vendor">
+        </app-vendor-general-info>
 
-            <div class="mt-5">
+    </mat-expansion-panel>
 
-                <app-vendor-compliance-info
-                    [vendor]="vendor">
-                </app-vendor-compliance-info>
+    <!-- Contact -->
 
-            </div>
+    <mat-expansion-panel
+        [expanded]="step === 1"
+        (opened)="setStep(1)">
 
-        </mat-tab>
+        <mat-expansion-panel-header>
 
-        <mat-tab
-            label="Contracts">
+            <mat-panel-title>
 
-            <div class="mt-5">
+    <mat-icon class="mr-3">
 
-               <app-vendor-contracts
-                  [contracts]="contracts">
-               </app-vendor-contracts>
+        contact_phone
 
-            </div>
+    </mat-icon>
 
-        </mat-tab>
+    Contact Information
 
-        <mat-tab
-            label="Documents">
+</mat-panel-title>
+        </mat-expansion-panel-header>
 
-            <div class="mt-5">
+        <app-vendor-contact-info
+            [vendor]="vendor">
+        </app-vendor-contact-info>
 
-                Coming Soon...
+    </mat-expansion-panel>
 
-            </div>
+    <!-- Compliance -->
 
-        </mat-tab>
+    <mat-expansion-panel
+        [expanded]="step === 2"
+        (opened)="setStep(2)">
 
-        <mat-tab
-            label="Activity">
+        <mat-expansion-panel-header>
 
-            <div class="mt-5">
+            <mat-panel-title>
 
-                Coming Soon...
+    <mat-icon class="mr-3">
 
-            </div>
+        verified_user
 
-        </mat-tab>
+    </mat-icon>
 
-    </mat-tab-group>
+    Compliance
+
+</mat-panel-title>
+
+        </mat-expansion-panel-header>
+
+        <app-vendor-compliance-info
+            [vendor]="vendor">
+        </app-vendor-compliance-info>
+
+    </mat-expansion-panel>
+
+    <!-- Financial -->
+
+    <mat-expansion-panel
+        [expanded]="step === 3"
+        (opened)="setStep(3)">
+
+        <mat-expansion-panel-header>
+
+            <mat-panel-title>
+
+    <mat-icon class="mr-3">
+
+        account_balance
+
+    </mat-icon>
+
+    Financial Information
+
+</mat-panel-title>
+
+        </mat-expansion-panel-header>
+
+        <app-vendor-financial-info
+            [vendor]="vendor">
+        </app-vendor-financial-info>
+
+    </mat-expansion-panel>
+
+    <!-- Contracts -->
+
+    <mat-expansion-panel
+        [expanded]="step === 4"
+        (opened)="setStep(4)">
+
+        <mat-expansion-panel-header>
+
+            <mat-panel-title>
+
+    <mat-icon class="mr-3">
+
+        description
+
+    </mat-icon>
+
+    Contracts
+
+</mat-panel-title>
+
+        </mat-expansion-panel-header>
+
+        <app-vendor-contracts
+            [contracts]="contracts">
+        </app-vendor-contracts>
+
+    </mat-expansion-panel>
+
+    <!-- Documents -->
+
+    <mat-expansion-panel
+        [expanded]="step === 5"
+        (opened)="setStep(5)">
+
+        <mat-expansion-panel-header>
+
+            <mat-panel-title>
+
+    <mat-icon class="mr-3">
+
+        folder
+
+    </mat-icon>
+
+    Documents
+
+</mat-panel-title>
+
+        </mat-expansion-panel-header>
+
+        <div class="py-4 text-gray-500">
+
+            Coming Soon...
+
+        </div>
+
+    </mat-expansion-panel>
+
+    <!-- Activity -->
+
+    <mat-expansion-panel
+        [expanded]="step === 6"
+        (opened)="setStep(6)">
+
+        <mat-expansion-panel-header>
+
+            <mat-panel-title>
+
+    <mat-icon class="mr-3">
+
+        history
+
+    </mat-icon>
+
+    Activity
+
+</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="py-4 text-gray-500">
+
+            Coming Soon...
+
+        </div>
+
+    </mat-expansion-panel>
+
+</mat-accordion>
 
 </div>
 

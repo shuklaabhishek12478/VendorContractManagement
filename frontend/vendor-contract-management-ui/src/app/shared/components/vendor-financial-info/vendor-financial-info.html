@@ -1,0 +1,113 @@
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+    <div>
+
+        <label>Bank Name</label>
+
+        <p>{{ vendor.bankName || '-' }}</p>
+
+    </div>
+
+    <div>
+
+        <label>Account Holder Name</label>
+
+        <p>{{ vendor.accountHolderName || '-' }}</p>
+
+    </div>
+
+    <div>
+
+    <label>
+
+        Account Number
+
+    </label>
+
+    <div class="flex items-center gap-2">
+
+        <p>
+
+            {{ maskAccountNumber(vendor.accountNumber) }}
+
+        </p>
+
+        <button
+            mat-icon-button
+            type="button"
+            (click)="toggleAccountNumber()">
+
+            <mat-icon>
+
+                {{ showAccountNumber ? 'visibility_off' : 'visibility' }}
+
+            </mat-icon>
+
+        </button>
+
+        <button
+    mat-icon-button
+    type="button"
+    (click)="copyAccountNumber()">
+
+    <mat-icon>
+
+        content_copy
+
+    </mat-icon>
+
+</button>
+
+    </div>
+
+</div>
+
+    <div>
+
+        <label>IFSC Code</label>
+
+        <p>{{ vendor.ifscCode || '-' }}</p>
+
+    </div>
+
+    <div>
+
+        <label>Branch Name</label>
+
+        <p>{{ vendor.branchName || '-' }}</p>
+
+    </div>
+
+    <div>
+
+        <label>SWIFT Code</label>
+
+        <p>{{ vendor.swiftCode || '-' }}</p>
+
+    </div>
+
+    <div>
+
+        <label>Payment Method</label>
+
+        <p>{{ getPaymentMethodName(vendor.paymentMethod) }}</p>
+
+    </div>
+
+    <div>
+
+        <label>Payment Terms</label>
+
+        <p>{{ vendor.paymentTerms || '-' }}</p>
+
+    </div>
+
+    <div>
+
+        <label>Preferred Currency</label>
+
+        <p>{{ getCurrencyName(vendor.preferredCurrency) }}</p>
+
+    </div>
+
+</div>

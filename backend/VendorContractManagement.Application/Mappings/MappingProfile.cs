@@ -8,9 +8,11 @@ namespace VendorContractManagement.Application.Mappings
     {
         public MappingProfile()
         {
-            CreateMap<Vendor, VendorDto>();
+            CreateMap<Vendor, VendorDto>().ReverseMap();
 
             CreateMap<CreateVendorDto, Vendor>();
+
+            CreateMap<UpdateVendorDto, Vendor>();
 
             CreateMap<AuditLog, AuditLogDto>().ReverseMap();
 

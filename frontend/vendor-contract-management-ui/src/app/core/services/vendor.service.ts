@@ -73,7 +73,7 @@ export class VendorService {
   vendor: CreateVendor
 ): Observable<any> {
 
-  return this.http.post(
+  return this.http.post<number>(
     this.apiUrl,
     vendor
   );

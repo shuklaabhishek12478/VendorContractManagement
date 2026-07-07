@@ -2,6 +2,30 @@
   [formGroup]="vendorForm"
   class="grid gap-4 pt-4">
 
+  <div class="col-span-full mb-2">
+
+  <h3 class="text-lg font-semibold flex items-center gap-2">
+
+    <mat-icon color="primary">
+
+      business
+
+    </mat-icon>
+
+    General Information
+
+  </h3>
+
+  <p class="text-sm text-gray-500 mt-1">
+
+    Basic vendor and company information.
+
+  </p>
+
+  <mat-divider class="mt-3 mb-4"></mat-divider>
+
+</div>
+
   <mat-form-field appearance="outline">
     <mat-label>Vendor Name</mat-label>
 
@@ -81,6 +105,31 @@
     
   </mat-form-field>
 
+
+  <div class="col-span-full mt-6 mb-2">
+
+  <h3 class="text-lg font-semibold flex items-center gap-2">
+
+    <mat-icon color="primary">
+
+      contact_phone
+
+    </mat-icon>
+
+    Contact Information
+
+  </h3>
+
+  <p class="text-sm text-gray-500 mt-1">
+
+    Primary contact details for this vendor.
+
+  </p>
+
+  <mat-divider class="mt-3 mb-4"></mat-divider>
+
+</div>
+
   <mat-form-field appearance="outline">
 
     <mat-label>Contact Person</mat-label>
@@ -151,6 +200,174 @@
     </textarea>
 
   </mat-form-field>
+
+  <div class="col-span-full mt-6 mb-2">
+
+  <h3 class="text-lg font-semibold flex items-center gap-2">
+
+    <mat-icon color="primary">
+
+      account_balance
+
+    </mat-icon>
+
+    Financial Information
+
+  </h3>
+
+  <p class="text-sm text-gray-500 mt-1">
+
+    Banking and payment details for vendor transactions.
+
+  </p>
+
+  <mat-divider class="mt-3"></mat-divider>
+
+</div>
+
+  <h3 class="text-xl font-semibold mt-6 mb-2">
+    Financial Information
+</h3>
+
+<div class="grid grid-cols-2 gap-4">
+
+    <mat-form-field appearance="outline">
+
+        <mat-label>Bank Name</mat-label>
+
+        <input
+            matInput
+            formControlName="bankName">
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+
+        <mat-label>Account Holder Name</mat-label>
+
+        <input
+            matInput
+            formControlName="accountHolderName">
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+
+        <mat-label>Account Number</mat-label>
+
+        <input
+            matInput
+            formControlName="accountNumber">
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+
+        <mat-label>IFSC Code</mat-label>
+
+        <input
+            matInput
+            formControlName="ifscCode">
+
+        @if (vendorForm.get('ifscCode')?.hasError('pattern')) {
+
+        <mat-error>
+
+            Invalid IFSC Code.
+
+        </mat-error>
+
+        }
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+
+        <mat-label>Branch Name</mat-label>
+
+        <input
+            matInput
+            formControlName="branchName">
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+
+        <mat-label>SWIFT Code</mat-label>
+
+        <input
+            matInput
+            formControlName="swiftCode">
+
+    </mat-form-field>
+
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>Payment Method</mat-label>
+
+    <mat-select formControlName="paymentMethod">
+
+      @for (method of paymentMethods; track method.value) {
+
+        <mat-option [value]="method.value">
+
+          {{ method.label }}
+
+        </mat-option>
+
+      }
+
+    </mat-select>
+
+  </mat-form-field>
+
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>Payment Terms</mat-label>
+
+    <mat-select formControlName="paymentTerms">
+
+      @for (term of paymentTerms; track term) {
+
+        <mat-option [value]="term">
+
+          {{ term }}
+
+        </mat-option>
+
+      }
+
+    </mat-select>
+
+  </mat-form-field>
+
+
+  <mat-form-field appearance="outline">
+
+    <mat-label>Preferred Currency</mat-label>
+
+    <mat-select formControlName="preferredCurrency">
+
+      @for (currency of currencies; track currency.value) {
+
+        <mat-option [value]="currency.value">
+
+          {{ currency.label }}
+
+        </mat-option>
+
+      }
+
+    </mat-select>
+
+  </mat-form-field>
+
+</div>
 
   <div class="flex justify-end gap-3">
 

@@ -17,10 +17,6 @@ namespace VendorContractManagement.API.Mappings
 
             CreateMap<Contract, ContractDto>();
 
-            CreateMap<CreateContractDto, Contract>();
-
-            CreateMap<Contract, ContractDto>();
-
             CreateMap<CreateContractDto, Contract>()
                 .ForMember(
                     dest => dest.Status,
@@ -41,8 +37,6 @@ namespace VendorContractManagement.API.Mappings
             CreateMap<User, UserDto>();
 
             CreateMap<CreateUserDto, User>();
-
-            CreateMap<Contract, ContractDto>();
 
             CreateMap<RecentActivity, RecentActivityDto>();
         }

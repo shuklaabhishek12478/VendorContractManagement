@@ -48,7 +48,7 @@ namespace VendorContractManagement.Application.Services.Implementations
             return _mapper.Map<VendorDto>(vendor);
         }
 
-        public async Task CreateAsync(CreateVendorDto dto)
+        public async Task<int> CreateAsync(CreateVendorDto dto)
         {
             var vendor = _mapper.Map<Vendor>(dto);
 
@@ -83,6 +83,7 @@ namespace VendorContractManagement.Application.Services.Implementations
             });
 
             await _unitOfWork.SaveChangesAsync();
+            return vendor.Id;
         }
 
         public async Task UpdateAsync(int id, UpdateVendorDto dto)

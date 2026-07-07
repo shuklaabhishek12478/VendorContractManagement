@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 
 import { DashboardLayout } from './layouts/dashboard-layout/dashboard-layout';
 import { AuthLayout } from './layouts/auth-layout/auth-layout';
-
+import { AddVendorComponent } from './features/vendors/pages/add-vendor/add-vendor';
 import { DashboardComponent } from './features/dashboard/pages/dashboard/dashboard';
 import { LoginComponent } from './features/auth/pages/login/login';
 import { VendorListComponent } from './features/vendors/pages/vendor-list/vendor-list';
@@ -37,7 +37,11 @@ export const routes: Routes = [
       {
         path: 'vendors',
         component: VendorListComponent
-      },      
+      },   
+      {
+        path: 'vendors/add',
+        component: AddVendorComponent
+      },   
       {
         path:'vendors/edit/:id',
         component:EditVendorComponent,

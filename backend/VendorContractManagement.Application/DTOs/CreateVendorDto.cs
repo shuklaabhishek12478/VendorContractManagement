@@ -1,4 +1,6 @@
-﻿namespace VendorContractManagement.Application.DTOs;
+﻿using VendorContractManagement.Domain.Enums;
+
+namespace VendorContractManagement.Application.DTOs;
 
 public class CreateVendorDto
 {
@@ -17,4 +19,22 @@ public class CreateVendorDto
     public string Phone { get; set; } = string.Empty;
 
     public string Address { get; set; } = string.Empty;
+
+    public string? BankName { get; set; }
+
+    public string? AccountHolderName { get; set; }
+
+    public string? AccountNumber { get; set; }
+
+    public string? IFSCCode { get; set; }
+
+    public string? BranchName { get; set; }
+
+    public string? SwiftCode { get; set; }
+
+    public string? PaymentTerms { get; set; }
+
+    public Currency? PreferredCurrency { get; set; }
+
+    public PaymentMethod? PaymentMethod { get; set; }
 }

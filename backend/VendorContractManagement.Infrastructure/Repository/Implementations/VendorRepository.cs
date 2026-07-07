@@ -43,7 +43,7 @@ namespace VendorContractManagement.Infrastructure.Repository.Implementations
         public void Update(Vendor vendor)
         {
             _context.Vendors.Update(vendor);
-            _context.SaveChanges();
+          //  _context.SaveChanges();
         }
 
         public void Delete(Vendor vendor)

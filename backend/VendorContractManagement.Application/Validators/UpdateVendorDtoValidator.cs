@@ -3,19 +3,30 @@ using VendorContractManagement.Application.DTOs;
 
 namespace VendorContractManagement.Application.Validators
 {
-    public class CreateVendorDtoValidator
-        : AbstractValidator<CreateVendorDto>
+    public class UpdateVendorDtoValidator
+        : AbstractValidator<UpdateVendorDto>
     {
-        public CreateVendorDtoValidator()
+        public UpdateVendorDtoValidator()
         {
             RuleFor(x => x.VendorName)
                 .NotEmpty()
-                .WithMessage("Vendor Name is required")
                 .MaximumLength(100);
 
             RuleFor(x => x.CompanyName)
                 .NotEmpty()
-                .WithMessage("Company Name is required");
+                .MaximumLength(100);
+
+            RuleFor(x => x.GSTNumber)
+                .NotEmpty()
+                .Length(15);
+
+            RuleFor(x => x.PANNumber)
+                .NotEmpty()
+                .Length(10);
+
+            RuleFor(x => x.ContactPerson)
+                .NotEmpty()
+                .MaximumLength(100);
 
             RuleFor(x => x.Email)
                 .NotEmpty()
@@ -23,16 +34,14 @@ namespace VendorContractManagement.Application.Validators
 
             RuleFor(x => x.Phone)
                 .NotEmpty()
-                .MinimumLength(10);
+                .Matches(@"^[0-9]{10}$");
 
-            RuleFor(x => x.GSTNumber)
-                .NotEmpty();
-
-            RuleFor(x => x.PANNumber)
-                .NotEmpty();
+            RuleFor(x => x.Address)
+                .NotEmpty()
+                .MaximumLength(500);
 
             RuleFor(x => x.BankName)
-    .MaximumLength(100);
+                .MaximumLength(100);
 
             RuleFor(x => x.AccountHolderName)
                 .MaximumLength(100);

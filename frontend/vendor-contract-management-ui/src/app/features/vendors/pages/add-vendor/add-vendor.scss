@@ -1,0 +1,39 @@
+.page-container {
+
+    max-width: 1400px;
+
+    margin: auto;
+
+    padding: 24px;
+
+}
+
+.card {
+
+    background: #fff;
+
+    border-radius: 16px;
+
+    padding: 32px;
+
+    box-shadow: 0 2px 12px rgba(0,0,0,.06);
+
+    border: 1px solid #e5e7eb;
+
+}
+
+@media (max-width:768px) {
+
+    .page-container {
+
+        padding: 16px;
+
+    }
+
+    .card {
+
+        padding: 20px;
+
+    }
+
+}

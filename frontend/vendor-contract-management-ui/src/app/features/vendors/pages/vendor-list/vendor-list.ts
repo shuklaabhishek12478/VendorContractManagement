@@ -5,8 +5,6 @@ import { Vendor } from '../../../../core/models/vendor.model';
 import { OnInit, inject } from '@angular/core';
 import { VendorService } from '../../../../core/services/vendor.service';
 import { MatDialog } from '@angular/material/dialog';
-import { AddVendorDialog } from '../../../../shared/components/add-vendor-dialog/add-vendor-dialog';
-import { CreateVendor } from '../../../../core/models/create-vendor.model';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { VendorActionsRenderer } from '../../../../shared/components/vendor-actions-renderer/vendor-actions-renderer';
@@ -16,6 +14,7 @@ import { ConfirmationDialogComponent } from '../../../../shared/components/confi
 import { forkJoin } from 'rxjs';
 import { VendorQuery } from '../../../../core/models/vendor-query.model';
 import { SnackbarService } from '../../../../core/services/snackbar.service';
+import { AddVendorDialog } from '../../../../shared/components/add-vendor-dialog/add-vendor-dialog';
 @Component({
   selector: 'app-vendor-list',
   standalone:true,
@@ -198,63 +197,12 @@ loadVendors(): void {
 }
 
 
-openAddVendorDialog(): void {
+openAddVendor(): void {
 
-  const dialogRef =
-    this.dialog.open(
-      AddVendorDialog,
-      {
-        width: '800px'
-      }
-    );
+  this.router.navigate([
+    '/vendors/add'
+  ]);
 
-  dialogRef.afterClosed()
-    .subscribe(result => {
-
-      if (!result) {
-        return;
-      }
-
-      this.vendorService
-  .createVendor(result)
-  .subscribe({
-
-    next: (response) => {
-
-  console.log('Reloaded Vendors', response);
-
- // this.rowData = [...response.data];
-
- // console.log('Current Row Data', this.rowData);
-
-  if (this.gridApi) {
-
- //   this.gridApi.setGridOption(
-   //   'rowData',
-   //   [...response.data]
-   // );
-
-    this.gridApi.refreshCells({
-      force: true
-    });
-  }
-
-      setTimeout(() => {
-    this.loadVendors();
-  }, 500);
-
-
-      this.snackbar.success(
-  'Vendor created successfully'
-);
-    },
-
-    error: (error) => {
-
-      console.error(error);
-    }
-  });
-    });
 }
 
 

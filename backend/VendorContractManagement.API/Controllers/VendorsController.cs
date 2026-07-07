@@ -47,9 +47,12 @@ namespace VendorContractManagement.API.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateVendorDto dto)
         {
-            await _vendorService.CreateAsync(dto);
+            // await _vendorService.CreateAsync(dto);
 
-            return Ok();
+            //return Ok();
+            var vendorId = await _vendorService.CreateAsync(dto);
+
+            return Ok(vendorId);
         }
 
 

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VendorContractManagement.Domain.Common;
+using VendorContractManagement.Domain.Enums;
 
 namespace VendorContractManagement.Domain.Entities
 {
@@ -33,6 +34,23 @@ namespace VendorContractManagement.Domain.Entities
 
         public bool IsDeleted { get; set; } = false;
 
+        public string? BankName { get; set; }
+
+        public string? AccountHolderName { get; set; }
+
+        public string? AccountNumber { get; set; }
+
+        public string? IFSCCode { get; set; }
+
+        public string? BranchName { get; set; }
+
+        public string? SwiftCode { get; set; }
+
+        public string? PaymentTerms { get; set; }
+
+        public Currency? PreferredCurrency { get; set; }
+
+        public PaymentMethod? PaymentMethod { get; set; }
         public ICollection<User> Users { get; set; }
              = new List<User>();
     }

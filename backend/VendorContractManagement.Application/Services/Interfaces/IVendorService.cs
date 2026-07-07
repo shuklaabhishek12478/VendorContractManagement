@@ -10,7 +10,9 @@ namespace VendorContractManagement.Application.Services.Interfaces
 
         Task<VendorDto?> GetByIdAsync(int id);
 
-        Task CreateAsync(CreateVendorDto dto);
+       // Task CreateAsync(CreateVendorDto dto);
+
+        Task<int> CreateAsync(CreateVendorDto dto);
 
         Task UpdateAsync(int id, UpdateVendorDto dto);
 

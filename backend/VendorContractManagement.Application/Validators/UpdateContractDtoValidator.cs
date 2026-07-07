@@ -32,6 +32,8 @@ namespace VendorContractManagement.Application.Validators
 
             RuleFor(x => x.Description)
                 .MaximumLength(1000);
+
+
         }
     }
 }

@@ -1,0 +1,51 @@
+<div class="page-container">
+
+    <div class="flex items-center justify-between mb-6">
+
+        <div>
+
+            <div class="text-sm text-slate-500 mb-1">
+
+                Vendors / Add Vendor
+
+            </div>
+
+            <h1 class="text-3xl font-bold">
+
+                Add Vendor
+
+            </h1>
+
+            <p class="text-slate-500 mt-1">
+
+                Register a new vendor with company, contact and financial information.
+
+            </p>
+
+        </div>
+
+        <button
+            class="secondary-btn"
+            (click)="cancel()">
+
+            ← Back
+
+        </button>
+
+    </div>
+
+    <div class="card">
+
+        <app-vendor-form
+
+            [isEditMode]="false"
+
+            (formSubmitted)="saveVendor($event)"
+
+            (formCancelled)="cancel()">
+
+        </app-vendor-form>
+
+    </div>
+
+</div>
