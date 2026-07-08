@@ -1,34 +1,376 @@
 <form
   [formGroup]="vendorForm"
   class="grid gap-4 pt-4">
+  <div class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden">
 
-  <div class="col-span-full mb-2">
+    <!-- Header -->
 
-  <h3 class="text-lg font-semibold flex items-center gap-2">
+    <div class="bg-gradient-to-r from-blue-700 via-blue-600 to-indigo-700 px-8 py-8 shadow-2xl rounded-b-3xl">
+      <div class="flex items-center gap-5">
 
-    <mat-icon color="primary">
+            <div
+            class="w-16 h-16
+            rounded-2xl
+            bg-white/20
+            backdrop-blur
+            flex items-center justify-center">
 
-      business
+                <mat-icon
+                class="text-white !text-4xl">
 
-    </mat-icon>
+                    business
 
-    General Information
+                </mat-icon>
 
-  </h3>
+            </div>
 
-  <p class="text-sm text-gray-500 mt-1">
+            <div>
 
-    Basic vendor and company information.
+                <h1
+                class="text-3xl font-bold text-white">
 
-  </p>
+                    {{ isEditMode
+                        ? 'Edit Vendor'
+                        : 'Create Vendor' }}
 
-  <mat-divider class="mt-3 mb-4"></mat-divider>
+                </h1>
+
+                <p
+                class="text-blue-100 mt-1">
+
+                    Manage vendor profile, contact and financial information.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    
+
+    <div class="p-8 bg-gradient-to-br from-slate-50 to-white">
+
+      <!--  progress bar -->
+ 
+<div class="mb-8 rounded-2xl bg-gradient-to-r from-slate-50 via-blue-50 to-indigo-50 border border-sky-200 p-6 shadow-md">
+<div class="flex justify-between items-center mb-3">
+
+<h3 class="font-semibold text-slate-700">
+
+Profile Completion
+
+</h3>
+
+<span class="font-bold text-indigo-700">
+
+{{ completionPercentage }}%
+
+</span>
+
+
+
+<mat-progress-bar
+
+mode="determinate"
+
+[value]="completionPercentage">
+
+</mat-progress-bar>
+
+</div>
+</div>
+<!--progress bar end-->
+   
+@if (validationErrors.length > 0) {
+
+<div
+class="mb-8
+rounded-2xl
+border
+border-red-200
+bg-red-50
+p-5">
+
+<div class="flex items-center gap-2 mb-3">
+
+<mat-icon class="text-red-600">
+
+error
+
+</mat-icon>
+
+<h3 class="font-bold text-red-700">
+
+Please fix the following errors
+
+</h3>
 
 </div>
 
-  <mat-form-field appearance="outline">
-    <mat-label>Vendor Name</mat-label>
+<ul class="list-disc ml-8 text-red-700 space-y-1">
 
+@for (error of validationErrors; track error) {
+
+<li>
+
+{{ error }}
+
+</li>
+
+}
+
+</ul>
+
+</div>
+
+}
+
+<div
+class="sticky top-0 z-20
+bg-gradient-to-r
+from-white
+to-slate-50
+rounded-2xl
+shadow-lg
+border
+border-slate-200
+backdrop-blur
+p-3
+mb-8">
+
+<div class="flex flex-wrap gap-3">
+
+<button
+mat-stroked-button
+type="button"
+(click)="scrollTo('general-section')"
+[class.!bg-blue-600]="activeSection==='general-section'"
+[class.!text-white]="activeSection==='general-section'">
+
+🏢 General
+</button>
+<button
+mat-stroked-button
+type="button"
+(click)="scrollTo('contact-section')"
+[class.!bg-emerald-600]="activeSection==='contact-section'"
+[class.!text-white]="activeSection==='contact-section'">
+
+📞 Contact
+
+</button>
+
+<button
+mat-stroked-button
+type="button"
+(click)="scrollTo('compliance-section')"
+[class.!bg-amber-600]="activeSection==='compliance-section'"
+[class.!text-white]="activeSection==='compliance-section'">
+
+🛡 Compliance
+
+</button>
+
+<button
+mat-stroked-button
+type="button"
+(click)="scrollTo('financial-section')"
+[class.!bg-violet-600]="activeSection==='financial-section'"
+[class.!text-white]="activeSection==='financial-section'">
+
+🏦 Financial
+
+</button>
+</div>
+</div>
+
+      <div
+class="
+grid
+grid-cols-2
+md:grid-cols-4
+gap-4
+mb-10">
+
+<button
+type="button"
+class="
+rounded-xl
+border
+border-blue-300
+bg-gradient-to-br
+from-blue-50
+to-indigo-100
+p-4
+hover:bg-blue-100
+transition-all
+duration-300"
+(click)="scrollToSection('general')">
+
+🏢
+
+<div class="font-semibold mt-2">
+
+General
+
+</div>
+
+</button>
+
+<button
+type="button"
+class="
+rounded-xl
+border
+border-cyan-300
+bg-gradient-to-br
+from-cyan-50
+to-sky-100
+p-4
+hover:bg-emerald-100
+transition-all
+duration-300"
+(click)="scrollToSection('contact')">
+
+👤
+
+<div class="font-semibold mt-2">
+
+Contact
+
+</div>
+
+</button>
+
+<button
+type="button"
+class="
+rounded-xl
+border
+border-orange-300
+bg-gradient-to-br
+from-orange-50
+to-amber-100
+p-4
+hover:bg-amber-100
+transition-all
+duration-300"
+(click)="scrollToSection('compliance')">
+
+🛡
+
+<div class="font-semibold mt-2">
+
+Compliance
+
+</div>
+
+</button>
+
+<button
+type="button"
+class="
+rounded-xl
+border
+border-violet-300
+bg-gradient-to-br
+from-violet-50
+to-purple-100
+p-4
+hover:bg-indigo-100
+transition-all
+duration-300"
+(click)="scrollToSection('financial')">
+
+🏦
+
+<div class="font-semibold mt-2">
+
+Financial
+
+</div>
+
+</button>
+      </div>
+
+
+<!--Form fields start-->
+      
+  <div id="general-section"
+class="col-span-full
+mb-8
+rounded-2xl
+bg-gradient-to-r
+from-sky-50
+via-blue-50
+to-indigo-100
+border
+border-blue-100
+p-6 transition-all
+duration-300
+hover:shadow-xl
+hover:scale-[1.01]
+hover:-translate-y-1" #generalSection>
+
+
+
+<div class="flex items-center">
+
+<div
+class="w-14
+h-14
+rounded-2xl
+bg-gradient-to-br
+from-sky-600
+to-blue-700
+text-white
+flex
+items-center
+justify-center
+shadow-lg">
+
+<mat-icon>
+
+business
+
+</mat-icon>
+
+</div>
+
+<div class="ml-5">
+
+<h2
+class="text-xl
+font-bold
+text-slate-800">
+
+General Information
+
+</h2>
+
+<p
+class="text-slate-500 mt-1">
+
+Basic vendor and company details.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+<mat-form-field appearance="outline" class="w-full transition-all duration-300">
+    <mat-label>Vendor Name</mat-label>
+     <mat-icon matPrefix>
+
+store
+
+</mat-icon>
     <input
       matInput
       formControlName="vendorName">
@@ -55,95 +397,109 @@
 
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" class="w-full transition-all duration-300">
 
     <mat-label>Company Name</mat-label>
+<mat-icon matPrefix>
 
+apartment
+
+</mat-icon>
     <input
       matInput
       formControlName="companyName">
 
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
+  
+</div>
+  
 
-    <mat-label>GST Number</mat-label>
+  <div
+class="col-span-full
+mt-10
+mb-8
+rounded-2xl
+bg-gradient-to-r
+from-green-50
+to-emerald-50
+border
+border-green-100
+border-emerald-100
+p-6 transition-all
+duration-300
+hover:shadow-xl
+hover:scale-[1.01]
+hover:-translate-y-1">
 
-    <input
-      matInput
-      formControlName="gstNumber">
+<div class="flex items-center">
 
-    @if (vendorForm.get('gstNumber')?.hasError('pattern')) {
+<div id="contact-section"
+class="w-14
+h-14
+rounded-2xl
+bg-emerald-700
+text-white
+flex
+items-center
+justify-center
+shadow-lg" #contactSection>
 
-<mat-error>
+<mat-icon>
 
-    Invalid GST Number.
+contact_phone
 
-</mat-error>
-
-}
-
-  </mat-form-field>
-
-  <mat-form-field appearance="outline">
-
-    <mat-label>PAN Number</mat-label>
-
-    <input
-      matInput
-      formControlName="panNumber">
-    
-    @if (vendorForm.get('panNumber')?.hasError('pattern')) {
-
-<mat-error>
-
-    Invalid PAN Number.
-
-</mat-error>
-
-}
-    
-  </mat-form-field>
-
-
-  <div class="col-span-full mt-6 mb-2">
-
-  <h3 class="text-lg font-semibold flex items-center gap-2">
-
-    <mat-icon color="primary">
-
-      contact_phone
-
-    </mat-icon>
-
-    Contact Information
-
-  </h3>
-
-  <p class="text-sm text-gray-500 mt-1">
-
-    Primary contact details for this vendor.
-
-  </p>
-
-  <mat-divider class="mt-3 mb-4"></mat-divider>
+</mat-icon>
 
 </div>
 
-  <mat-form-field appearance="outline">
+<div class="ml-5">
+
+<h2
+class="text-xl
+font-bold
+text-slate-800">
+
+Contact Information
+
+</h2>
+
+<p
+class="text-slate-500 mt-1">
+
+Primary communication details for this vendor.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<mat-form-field appearance="outline" class="w-full transition-all duration-300">
 
     <mat-label>Contact Person</mat-label>
+    <mat-icon matPrefix>
 
+person
+
+</mat-icon>
     <input
       matInput
       formControlName="contactPerson">
 
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" class="w-full transition-all duration-300">
 
     <mat-label>Email</mat-label>
+    <mat-icon matPrefix>
 
+mail
+
+</mat-icon>
     <input
       matInput
       formControlName="email">
@@ -170,10 +526,14 @@
 
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" class="w-full transition-all duration-300">
 
     <mat-label>Phone</mat-label>
+    <mat-icon matPrefix>
 
+call
+
+</mat-icon>
     <input
       matInput
       formControlName="phone">
@@ -189,49 +549,228 @@
 
   </mat-form-field>
 
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" class="w-full transition-all duration-300 md:col-span-2">
 
     <mat-label>Address</mat-label>
+    <mat-icon matPrefix>
 
+location_on
+
+</mat-icon>
     <textarea
-      rows="4"
+      rows="5"
       matInput
       formControlName="address">
     </textarea>
 
   </mat-form-field>
 
-  <div class="col-span-full mt-6 mb-2">
+</div>
 
-  <h3 class="text-lg font-semibold flex items-center gap-2">
 
-    <mat-icon color="primary">
+<div
+class="col-span-full
+mt-10
+mb-8
+rounded-2xl
+bg-gradient-to-r
+from-yellow-50
+via-amber-50
+to-orange-100
+border
+border-amber-100
+p-6 transition-all
+duration-300
+hover:shadow-xl
+hover:scale-[1.01]
+hover:-translate-y-1">
 
-      account_balance
+<div class="flex items-center">
 
-    </mat-icon>
+<div id="compliance-section"
+class="w-14
+h-14
+rounded-2xl
+bg-gradient-to-br
+from-amber-500
+to-orange-600
+text-white
+flex
+items-center
+justify-center
+shadow-lg" #complianceSection>
 
-    Financial Information
+<mat-icon>
 
-  </h3>
+verified_user
 
-  <p class="text-sm text-gray-500 mt-1">
-
-    Banking and payment details for vendor transactions.
-
-  </p>
-
-  <mat-divider class="mt-3"></mat-divider>
+</mat-icon>
 
 </div>
 
-  <h3 class="text-xl font-semibold mt-6 mb-2">
-    Financial Information
-</h3>
+<div class="ml-5">
 
-<div class="grid grid-cols-2 gap-4">
+<h2
+class="text-xl
+font-bold
+text-slate-800">
 
-    <mat-form-field appearance="outline">
+Compliance Information
+
+</h2>
+
+<p
+class="text-slate-500 mt-1">
+
+Tax registration and statutory compliance details.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+<mat-form-field
+appearance="outline"
+class="w-full transition-all duration-300">
+
+<mat-label>
+
+GST Number
+
+</mat-label>
+
+<mat-icon matPrefix>
+
+receipt_long
+
+</mat-icon>
+
+<input
+matInput
+formControlName="gstNumber">
+
+@if (vendorForm.get('gstNumber')?.hasError('pattern')) {
+
+<mat-error>
+
+Invalid GST Number.
+
+</mat-error>
+
+}
+
+</mat-form-field>
+
+
+<mat-form-field
+appearance="outline"
+class="w-full transition-all duration-300">
+
+<mat-label>
+
+PAN Number
+
+</mat-label>
+
+<mat-icon matPrefix>
+
+badge
+
+</mat-icon>
+
+<input
+matInput
+formControlName="panNumber">
+
+@if (vendorForm.get('panNumber')?.hasError('pattern')) {
+
+<mat-error>
+
+Invalid PAN Number.
+
+</mat-error>
+
+}
+
+</mat-form-field>
+
+</div>
+  
+
+  <div
+class="col-span-full
+mt-10
+mb-8
+rounded-2xl
+bg-gradient-to-r
+from-violet-50
+via-purple-50
+to-fuchsia-100
+border
+border-emerald-100
+p-6 transition-all
+duration-300
+hover:shadow-xl
+hover:scale-[1.01]
+hover:-translate-y-1">
+
+<div class="flex items-center">
+
+<div id="financial-section"
+class="w-14
+h-14
+rounded-2xl
+bg-gradient-to-br
+from-violet-600
+to-purple-700
+text-white
+flex
+items-center
+justify-center
+shadow-lg" #financialSection>
+
+<mat-icon>
+
+account_balance
+
+</mat-icon>
+
+</div>
+
+<div class="ml-5">
+
+<h2
+class="text-xl
+font-bold
+text-slate-800">
+
+Financial Information
+
+</h2>
+
+<p
+class="text-slate-500
+mt-1">
+
+Bank account and payment preferences used for vendor transactions.
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+    <mat-form-field appearance="outline" class="w-full transition-all duration-300">
 
         <mat-label>Bank Name</mat-label>
 
@@ -241,30 +780,36 @@
 
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" class="w-full transition-all duration-300">
 
         <mat-label>Account Holder Name</mat-label>
-
+        <mat-icon matPrefix>
+person
+</mat-icon>
         <input
             matInput
             formControlName="accountHolderName">
 
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" class="w-full transition-all duration-300">
 
         <mat-label>Account Number</mat-label>
 
         <input
             matInput
             formControlName="accountNumber">
-
+  <mat-icon matPrefix>
+credit_card
+</mat-icon>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" class="w-full transition-all duration-300">
 
         <mat-label>IFSC Code</mat-label>
-
+<mat-icon matPrefix>
+pin
+</mat-icon>
         <input
             matInput
             formControlName="ifscCode">
@@ -281,18 +826,22 @@
 
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline" class="w-full transition-all duration-300">
 
         <mat-label>Branch Name</mat-label>
-
+<mat-icon matPrefix>
+location_city
+</mat-icon>
         <input
             matInput
             formControlName="branchName">
 
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
-
+    <mat-form-field appearance="outline" class="w-full transition-all duration-300">
+<mat-icon matPrefix>
+language
+</mat-icon>
         <mat-label>SWIFT Code</mat-label>
 
         <input
@@ -303,12 +852,14 @@
 
 </div>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
 
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" class="w-full transition-all duration-300">
 
     <mat-label>Payment Method</mat-label>
-
+<mat-icon matPrefix>
+payments
+</mat-icon>
     <mat-select formControlName="paymentMethod">
 
       @for (method of paymentMethods; track method.value) {
@@ -326,10 +877,12 @@
   </mat-form-field>
 
 
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" class="w-full transition-all duration-300">
 
     <mat-label>Payment Terms</mat-label>
-
+<mat-icon matPrefix>
+schedule
+</mat-icon>
     <mat-select formControlName="paymentTerms">
 
       @for (term of paymentTerms; track term) {
@@ -347,15 +900,17 @@
   </mat-form-field>
 
 
-  <mat-form-field appearance="outline">
+  <mat-form-field appearance="outline" class="w-full transition-all duration-300">
 
     <mat-label>Preferred Currency</mat-label>
-
+<mat-icon matPrefix>
+currency_exchange
+</mat-icon>
     <mat-select formControlName="preferredCurrency">
 
-      @for (currency of currencies; track currency.value) {
+      @for (currency of currencies; track currency) {
 
-        <mat-option [value]="currency.value">
+        <mat-option [value]="currency">
 
           {{ currency.label }}
 
@@ -369,37 +924,174 @@
 
 </div>
 
-  <div class="flex justify-end gap-3">
+<!--Form Field End-->
+<!--Fields marked with validation Start-->
+  <div
+class="
+sticky
+bottom-0
+z-20
+mt-12
+-ml-8
+-mr-8
+px-8
+py-5
+bg-gradient-to-r
+from-white
+via-slate-50
+to-white
+backdrop-blur-md
+border-t
+border-slate-200
+flex
+justify-between
+items-center">
 
-    <button
-      mat-stroked-button
-      type="button"
-      (click)="cancel()">
+<div>
 
-      Cancel
+    <div class="flex items-center gap-2">
 
-    </button>
+        <span
+        class="w-3 h-3 rounded-full"
+        [class.bg-orange-500]="hasUnsavedChanges"
+        [class.bg-emerald-500]="!hasUnsavedChanges">
+        </span>
 
-    <button
-    mat-raised-button
-    color="primary"
-    type="button"
-    [disabled]="isSubmitting"
-    (click)="submit()">
+        <span
+        class="font-semibold"
+        [class.text-orange-600]="hasUnsavedChanges"
+        [class.text-emerald-600]="!hasUnsavedChanges">
 
-    @if(isSubmitting){
+            {{ hasUnsavedChanges
+                ? 'Unsaved Changes'
+                : 'All Changes Saved' }}
 
-        Updating...
+        </span>
 
-    }
-    @else{
+    </div>
 
-        {{ isEditMode ? 'Update Vendor' : 'Save Vendor' }}
+    <p class="text-sm text-slate-500 mt-1">
+
+        Profile Completion :
+        <strong>{{ completionPercentage }}%</strong>
+        @if (lastAutoSaved) {
+
+<p class="text-xs text-slate-500 mt-1">
+
+💾 Auto Saved :
+{{ lastAutoSaved | date:'shortTime' }}
+
+</p>
 
 }
+    </p>
+ 
+</div>  
+
+ @if (isAutoSaving) {
+
+<div class="flex items-center gap-2 text-blue-600">
+
+<mat-spinner diameter="18"></mat-spinner>
+
+<span>Auto Saving...</span>
+
+</div>
+
+}
+<!--Buttons Start-->
+<div class="flex gap-4">
+
+<button
+mat-stroked-button
+type="button"
+class="
+!rounded-xl
+!px-8
+!py-6
+hover:bg-slate-100
+hover:scale-105
+transition-all
+duration-300"
+(click)="cancel()">
+<mat-icon>
+
+close
+
+</mat-icon>
+Cancel
 
 </button>
 
-  </div>
+<button
+mat-stroked-button
+type="button"
+color="warn"
+class="
+!rounded-xl
+!px-8
+!py-6
+hover:scale-105
+transition-all
+duration-300"
+(click)="resetForm()">
+
+<mat-icon>
+
+restart_alt
+
+</mat-icon>
+
+Reset
+
+</button>
+
+<button
+mat-raised-button
+color="primary"
+type="button"
+class="
+!rounded-xl
+!px-8
+!py-6
+!bg-gradient-to-r
+!from-blue-600
+!to-indigo-700
+!text-white
+shadow-lg
+hover:shadow-2xl
+transition-all
+duration-300
+hover:scale-105"
+[disabled]="isSubmitting"
+(click)="submit()">
+
+@if (isSubmitting) {
+
+    <ng-container>
+        Saving...
+    </ng-container>
+
+}
+@else {
+
+    <ng-container>
+
+        <mat-icon>save</mat-icon>
+
+        {{ isEditMode ? 'Update Vendor' : 'Create Vendor' }}
+
+    </ng-container>
+
+}
+</button>
+</div>
+<!-- Buttons end -->
+
+</div> <!-- sticky footer -->
+
+</div> <!-- p-8 bg-gradient-to-br from-slate-50 to-white -->
+
+</div> <!-- bg-white rounded-3xl -->
 
 </form>

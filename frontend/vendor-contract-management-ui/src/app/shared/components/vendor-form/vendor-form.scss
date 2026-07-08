@@ -1,0 +1,77 @@
+.mat-mdc-form-field:hover {
+    transform: translateY(-2px);
+}
+
+.mat-mdc-form-field {
+    transition: all .25s ease;
+}
+
+:host {
+
+    display: block;
+
+}
+
+.mat-mdc-form-field {
+
+    transition: all .3s ease;
+
+}
+
+.mat-mdc-form-field:hover {
+
+    transform: translateY(-2px);
+
+}
+
+.mat-mdc-text-field-wrapper {
+
+    border-radius: 14px !important;
+
+    transition: all .3s ease;
+
+}
+
+.mat-mdc-form-field:hover .mat-mdc-text-field-wrapper {
+
+    box-shadow: 0 10px 24px rgba(37, 99, 235, .10);
+
+}
+
+.mat-mdc-form-field.mat-focused .mat-mdc-text-field-wrapper {
+
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, .12);
+
+}
+
+.mat-mdc-form-field .mat-icon {
+
+    color: #64748b;
+
+    transition: color .3s ease;
+
+}
+
+.mat-mdc-form-field.mat-focused .mat-icon {
+
+    color: #2563eb;
+
+}
+
+button {
+
+    transition: all .3s ease;
+
+}
+
+button:hover {
+
+    transform: translateY(-2px);
+
+}
+
+button:active {
+
+    transform: scale(.98);
+
+}

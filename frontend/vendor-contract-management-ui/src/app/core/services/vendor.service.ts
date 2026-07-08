@@ -69,14 +69,13 @@ export class VendorService {
   );
 }
 
-  createVendor(
-  vendor: CreateVendor
-): Observable<any> {
+createVendor(data: CreateVendor) {
 
   return this.http.post<number>(
-    this.apiUrl,
-    vendor
+    `${this.apiUrl}`,
+    data
   );
+
 }
 
 updateVendor(

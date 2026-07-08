@@ -30,31 +30,21 @@ export class AddVendorComponent {
     .createVendor(data)
     .subscribe({
 
-      next: (vendorId) => {
+      next: (vendorId: number) => {
 
         this.snackBar.open(
-
           'Vendor created successfully.',
-
           'Close',
-
           {
-
             duration: 3000,
-
             horizontalPosition: 'right',
-
             verticalPosition: 'top'
-
           }
-
         );
 
         this.router.navigate([
-
           '/vendors',
           vendorId
-
         ]);
 
       },
