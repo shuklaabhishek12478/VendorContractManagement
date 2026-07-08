@@ -82,6 +82,85 @@ mode="determinate"
 </div>
 </div>
 <!--progress bar end-->
+
+<!--Required Fields Progress start-->
+<div
+class="
+mt-6
+grid
+grid-cols-1
+md:grid-cols-3
+gap-4">
+
+<div
+class="
+rounded-2xl
+bg-emerald-50
+border
+border-emerald-200
+p-5">
+
+<div class="text-emerald-700 text-sm">
+
+Completed
+
+</div>
+
+<div class="text-3xl font-bold text-emerald-600">
+
+{{ requiredFieldsCompleted }}
+
+</div>
+
+</div>
+
+<div
+class="
+rounded-2xl
+bg-red-50
+border
+border-red-200
+p-5">
+
+<div class="text-red-700 text-sm">
+
+Remaining
+
+</div>
+
+<div class="text-3xl font-bold text-red-600">
+
+{{ requiredFieldsRemaining }}
+
+</div>
+
+</div>
+
+<div
+class="
+rounded-2xl
+bg-blue-50
+border
+border-blue-200
+p-5">
+
+<div class="text-blue-700 text-sm">
+
+Completion
+
+</div>
+
+<div class="text-3xl font-bold text-blue-700">
+
+{{ completionPercentage }}%
+
+</div>
+
+</div>
+
+</div>
+<!--Required Fields Progress end-->
+
    
 @if (validationErrors.length > 0) {
 

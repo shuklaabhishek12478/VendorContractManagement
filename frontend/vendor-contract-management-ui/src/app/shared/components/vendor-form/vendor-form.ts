@@ -68,6 +68,8 @@ financialSection!: ElementRef;
 lastAutoSaved: Date | null = null;
 isAutoSaving = false;
 validationErrors: string[] = [];
+requiredFieldsCompleted = 0;
+requiredFieldsRemaining = 0;
 
   paymentMethods = [
 
@@ -274,6 +276,32 @@ calculateCompletion(): void {
     (filledFields / totalFields) * 100
 
   );
+
+   const requiredControls = [
+
+    'vendorName',
+    'companyName',
+    'contactPerson',
+    'email',
+    'phone',
+    'address',
+    'gstNumber',
+    'panNumber'
+
+  ];
+
+  this.requiredFieldsCompleted = requiredControls.filter(control => {
+
+    const value = this.vendorForm.get(control)?.value;
+
+    return value !== null &&
+           value !== undefined &&
+           value !== '';
+
+  }).length;
+
+  this.requiredFieldsRemaining =
+    requiredControls.length - this.requiredFieldsCompleted;
 
 }
 
