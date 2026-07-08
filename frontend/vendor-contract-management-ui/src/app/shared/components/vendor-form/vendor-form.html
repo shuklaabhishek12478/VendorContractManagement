@@ -1065,17 +1065,24 @@ items-center">
 
         Profile Completion :
         <strong>{{ completionPercentage }}%</strong>
+
+    </p>
         @if (lastAutoSaved) {
 
-<p class="text-xs text-slate-500 mt-1">
+<p class="text-xs text-slate-400 mt-1 flex items-center gap-1">
 
-💾 Auto Saved :
-{{ lastAutoSaved | date:'shortTime' }}
+    <mat-icon class="!text-base">
+        schedule
+    </mat-icon>
+
+    Last Auto Saved :
+    {{ lastAutoSaved | date:'hh:mm:ss a' }}
 
 </p>
 
+
 }
-    </p>
+    
  
 </div>  
 

@@ -15,12 +15,15 @@ import { Currency } from '../../../core/models/currency.enum';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { HostListener} from '@angular/core';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-vendor-form',
   standalone: true,
   imports: [
     CommonModule,
+    DatePipe,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
@@ -29,7 +32,8 @@ import { HostListener} from '@angular/core';
       MatIconModule,
   MatDividerModule,
   MatProgressBarModule,
-   MatProgressSpinnerModule
+   MatProgressSpinnerModule,
+   MatSnackBarModule
   ],
   templateUrl: './vendor-form.html',
   styleUrl: './vendor-form.scss'
@@ -37,7 +41,9 @@ import { HostListener} from '@angular/core';
 export class VendorFormComponent implements OnInit, OnChanges {
 
   private fb = inject(FormBuilder);
+  private snackBar = inject(MatSnackBar);
 
+  
   @ViewChild('generalSection')
 generalSection!: ElementRef;
 
@@ -359,7 +365,7 @@ this.calculateCompletion();
       
       this.buildValidationSummary();
       this.vendorForm.markAllAsTouched();
-
+      this.focusFirstInvalidField();
       return;
 
     }
@@ -556,6 +562,15 @@ private autoSaveDraft(): void {
   );
 
   this.lastAutoSaved = new Date();
+  this.snackBar.open(
+  'Draft auto-saved',
+  'OK',
+  {
+    duration: 2000,
+    horizontalPosition: 'end',
+    verticalPosition: 'top'
+  }
+);
 
   this.isAutoSaving = false;
 
@@ -619,5 +634,34 @@ private buildValidationSummary(): void {
   }
 
 }
+
+private focusFirstInvalidField(): void {
+
+  const firstInvalidControl = document.querySelector(
+
+    'form .ng-invalid'
+
+  ) as HTMLElement;
+
+  if (!firstInvalidControl) {
+    return;
+  }
+
+  firstInvalidControl.scrollIntoView({
+
+    behavior: 'smooth',
+
+    block: 'center'
+
+  });
+
+  setTimeout(() => {
+
+    firstInvalidControl.focus();
+
+  }, 300);
+
+}
+
 
 }
