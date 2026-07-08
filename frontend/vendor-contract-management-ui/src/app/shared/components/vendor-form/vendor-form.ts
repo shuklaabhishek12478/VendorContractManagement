@@ -584,10 +584,40 @@ private restoreDraft(): void {
     return;
   }
 
-  this.vendorForm.patchValue(JSON.parse(draft),
- {
-    emitEvent: false
-  });
+  const restore = confirm(
+    'A saved draft was found.\n\nDo you want to restore it?'
+  );
+
+  if (restore) {
+
+    this.vendorForm.patchValue(JSON.parse(draft));
+
+    this.snackBar.open(
+      'Draft restored successfully',
+      'OK',
+      {
+        duration: 2500,
+        horizontalPosition: 'end',
+        verticalPosition: 'top'
+      }
+    );
+
+  }
+  else {
+
+    localStorage.removeItem('vendor-draft');
+
+    this.snackBar.open(
+      'Draft discarded',
+      'OK',
+      {
+        duration: 2000,
+        horizontalPosition: 'end',
+        verticalPosition: 'top'
+      }
+    );
+
+  }
 
 }
 
