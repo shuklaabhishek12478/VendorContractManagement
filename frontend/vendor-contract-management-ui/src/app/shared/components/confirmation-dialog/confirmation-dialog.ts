@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 
 import {
   MAT_DIALOG_DATA,
@@ -13,7 +14,8 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ],
   templateUrl: './confirmation-dialog.html',
   styleUrl: './confirmation-dialog.scss'

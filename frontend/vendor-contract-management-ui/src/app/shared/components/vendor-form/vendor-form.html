@@ -89,8 +89,8 @@ class="
 mt-6
 grid
 grid-cols-1
-md:grid-cols-3
-gap-4">
+md:grid-cols-3 
+gap-4 mb-0">
 
 <div
 class="
@@ -98,7 +98,8 @@ rounded-2xl
 bg-emerald-50
 border
 border-emerald-200
-p-5">
+p-5" 
+>
 
 <div class="text-emerald-700 text-sm">
 
@@ -205,8 +206,9 @@ Please fix the following errors
 </div>
 
 }
+<div class="h-10"></div>
 
-<div
+<!--<div
 class="sticky top-0 z-20
 bg-gradient-to-r
 from-white
@@ -263,15 +265,28 @@ type="button"
 
 </button>
 </div>
-</div>
+</div>-->
+<!--From Section heading for completion start-->
+<div class="mb-5">
 
+    <h3 class="text-lg font-semibold text-slate-700">
+        Form Sections
+    </h3>
+
+    <p class="text-sm text-slate-500">
+        Complete each section to finish vendor registration.
+    </p>
+
+</div>
+<!--From Section heading for completion end-->
+<!--Cards Buttons for form section navigation start-->
       <div
 class="
 grid
 grid-cols-2
 md:grid-cols-4
 gap-4
-mb-10">
+mb-10 mb-12">
 
 <button
 type="button"
@@ -282,19 +297,133 @@ border-blue-300
 bg-gradient-to-br
 from-blue-50
 to-indigo-100
-p-4
-hover:bg-blue-100
+p-6
+flex
+flex-col
+items-center
+justify-center
+hover:shadow-2xl
+hover:-translate-y-1
+hover:scale-[1.02]
 transition-all
-duration-300"
+duration-300
+ease-out
+opacity-90"
+
+[class.border-blue-600]="activeSection==='general-section'"
+[class.to-indigo-200]="activeSection==='general-section'"
+[class.shadow-blue-300]="activeSection==='general-section'"
+[class.shadow-xl]="activeSection==='general-section'"
+[class.ring-2]="activeSection==='general-section'"
+[class.ring-blue-200]="activeSection==='general-section'"
+[class.scale-[1.03]]="activeSection==='general-section'"
+[class.border-l-4]="activeSection==='general-section'"
+[class.border-l-blue-600]="activeSection==='general-section'"
+[class.border-emerald-400]="isSectionComplete('general')"
+[class.bg-emerald-50]="isSectionComplete('general')"
+[class.border-emerald-400]="isSectionComplete('general') && activeSection!=='general-section'"
+
+[class.bg-emerald-50]="
+isSectionComplete('general') &&
+activeSection!=='general-section'"
+[class.opacity-75]="
+!isSectionComplete('general') &&
+activeSection!=='general-section'
+"
 (click)="scrollToSection('general')">
 
-🏢
+@if (activeSection === 'general-section') {
 
-<div class="font-semibold mt-2">
+<div
+class="
+w-16
+h-1.5
+rounded-full
+bg-blue-600
+mb-4">
+</div>
+
+}
+<div class="text-4xl">
+    🏢
+</div>
+
+<div class="text-xl
+font-bold
+tracking-tight mt-2">
 
 General
 
 </div>
+<!--Section Completion Progress Bar start-->
+<div
+class="
+text-xs
+text-slate-500
+mt-1">
+
+{{ getSectionProgress('general') }}
+Fields Completed
+
+</div>
+<!--Section Completion Progress Bar end-->
+<div
+class="
+mt-3
+h-2
+w-full
+rounded-full
+bg-slate-200">
+
+<div
+class="
+h-2
+rounded-full
+bg-blue-600
+transition-all
+duration-500"
+
+[style.width.%]="getSectionPercentage('general')">
+
+</div>
+
+</div>
+<div class="mt-4 flex justify-center">
+
+  @if (isSectionComplete('general')) {
+
+    <span
+      class="w-8
+h-8
+rounded-full
+bg-emerald-500
+text-white
+flex
+items-center
+justify-center
+text-sm
+font-bold
+shadow-md">
+      ✓
+    </span>
+
+  }
+
+  @else {
+
+    <span
+      class="w-8
+h-8
+rounded-full
+border-2
+border-blue-400
+bg-white
+shadow-sm">
+    </span>
+
+  }
+
+</div>
 
 </button>
 
@@ -303,21 +432,134 @@ type="button"
 class="
 rounded-xl
 border
-border-cyan-300
+border-teal-300
 bg-gradient-to-br
-from-cyan-50
-to-sky-100
-p-4
-hover:bg-emerald-100
+from-teal-50
+to-cyan-100
+p-6
+flex
+flex-col
+items-center
+justify-center
+hover:shadow-2xl
+hover:-translate-y-1
+hover:scale-[1.02]
 transition-all
-duration-300"
+duration-300
+ease-out
+opacity-90"
+
+[class.border-teal-600]="activeSection==='contact-section'"
+[class.to-cyan-200]="activeSection==='contact-section'"
+[class.ring-2]="activeSection==='contact-section'"
+[class.ring-teal-200]="activeSection==='contact-section'"
+[class.shadow-teal-300]="activeSection==='contact-section'"
+[class.shadow-xl]="activeSection==='contact-section'"
+[class.scale-[1.03]]="activeSection==='contact-section'"
+[class.border-teal-600]="activeSection==='contact-section'"
+[class.border-l-4]="activeSection==='contact-section'"
+[class.opacity-100]="activeSection==='contact-section'"
+
+[class.border-emerald-400]="
+isSectionComplete('contact') &&
+activeSection!=='contact-section'
+"
+
+[class.bg-emerald-50]="
+isSectionComplete('contact') &&
+activeSection!=='contact-section'
+"
+
+[class.opacity-75]="
+!isSectionComplete('contact') &&
+activeSection!=='contact-section'
+"
 (click)="scrollToSection('contact')">
 
+@if (activeSection === 'contact-section') {
+
+<div class="w-16 h-1.5 rounded-full bg-teal-600 mb-4"></div>
+
+}
+
+<div class="text-teal-600 text-4xl">
 👤
+</div>
 
-<div class="font-semibold mt-2">
-
+<div class="text-xl font-bold tracking-tight mt-2">
 Contact
+</div>
+
+<div
+class="
+text-xs
+text-slate-500
+mt-1">
+
+{{ getSectionProgress('contact') }}
+Fields Completed
+
+</div>
+
+<!--Section Completion Progress Bar start-->
+<div
+class="
+mt-3
+h-2
+w-full
+rounded-full
+bg-slate-200">
+
+<div
+class="
+h-2
+rounded-full
+bg-teal-600
+transition-all
+duration-500"
+
+[style.width.%]="getSectionPercentage('contact')">
+
+</div>
+
+</div>
+<!--Section Completion Progress Bar end-->
+<div class="mt-4 flex justify-center">
+
+@if (isSectionComplete('contact')) {
+
+<span
+class="
+w-8
+h-8
+rounded-full
+bg-emerald-500
+text-white
+flex
+items-center
+justify-center
+text-sm
+font-bold
+shadow-md">
+✓
+</span>
+
+}
+
+@else {
+
+<span
+class="
+w-8
+h-8
+rounded-full
+border-2
+border-teal-400
+bg-white
+shadow-sm">
+</span>
+
+}
 
 </div>
 
@@ -328,24 +570,135 @@ type="button"
 class="
 rounded-xl
 border
-border-orange-300
+border-amber-300
 bg-gradient-to-br
-from-orange-50
-to-amber-100
-p-4
-hover:bg-amber-100
+from-amber-50
+to-yellow-100
+p-6
+flex
+flex-col
+items-center
+justify-center
+hover:shadow-2xl
+hover:-translate-y-1
+hover:scale-[1.02]
 transition-all
-duration-300"
+duration-300
+ease-out
+opacity-90"
+
+[class.border-amber-600]="activeSection==='compliance-section'"
+[class.border-l-4]="activeSection==='compliance-section'"
+[class.border-l-amber-600]="activeSection==='compliance-section'"
+
+[class.ring-2]="activeSection==='compliance-section'"
+[class.ring-amber-200]="activeSection==='compliance-section'"
+[class.shadow-amber-300]="activeSection==='compliance-section'"
+[class.shadow-xl]="activeSection==='compliance-section'"
+[class.scale-[1.03]]="activeSection==='compliance-section'"
+[class.opacity-100]="activeSection==='compliance-section'"
+
+[class.border-emerald-400]="
+isSectionComplete('compliance') &&
+activeSection!=='compliance-section'
+"
+
+[class.bg-emerald-50]="
+isSectionComplete('compliance') &&
+activeSection!=='compliance-section'
+"
+
+[class.opacity-75]="
+!isSectionComplete('compliance') &&
+activeSection!=='compliance-section'
+"
 (click)="scrollToSection('compliance')">
 
+@if (activeSection === 'compliance-section') {
+
+<div class="w-16 h-1.5 rounded-full bg-amber-500 mb-4"></div>
+
+}
+
+<div class="text-4xl">
 🛡
+</div>
 
-<div class="font-semibold mt-2">
-
+<div class="text-xl font-bold tracking-tight mt-2">
 Compliance
+</div>
+
+<div
+class="
+text-xs
+text-slate-500
+mt-1">
+
+{{ getSectionProgress('compliance') }}
+Fields Completed
 
 </div>
 
+<!--Section Completion Progress Bar start-->
+<div
+class="
+mt-3
+h-2
+w-full
+rounded-full
+bg-slate-200">
+
+<div
+class="
+h-2
+rounded-full
+bg-amber-500
+transition-all
+duration-500"
+
+[style.width.%]="getSectionPercentage('compliance')">
+
+</div>
+
+</div>
+<!--Section Completion Progress Bar end-->
+<div class="mt-4 flex justify-center">
+
+@if (isSectionComplete('compliance')) {
+
+<span
+class="
+w-8
+h-8
+rounded-full
+bg-emerald-500
+text-white
+flex
+items-center
+justify-center
+text-sm
+font-bold
+shadow-md">
+✓
+</span>
+
+}
+
+@else {
+
+<span
+class="
+w-8
+h-8
+rounded-full
+border-2
+border-amber-400
+bg-white
+shadow-sm">
+</span>
+
+}
+</div>
 </button>
 
 <button
@@ -357,23 +710,136 @@ border-violet-300
 bg-gradient-to-br
 from-violet-50
 to-purple-100
-p-4
-hover:bg-indigo-100
+p-6
+flex
+flex-col
+items-center
+justify-center
+hover:shadow-2xl
+hover:-translate-y-1
+hover:scale-[1.02]
 transition-all
-duration-300"
+duration-300
+ease-out
+opacity-90"
+
+[class.border-violet-600]="activeSection==='financial-section'"
+[class.to-purple-200]="activeSection==='financial-section'"
+[class.border-l-4]="activeSection==='financial-section'"
+[class.border-l-violet-600]="activeSection==='financial-section'"
+[class.ring-2]="activeSection==='financial-section'"
+[class.ring-violet-200]="activeSection==='financial-section'"
+[class.shadow-violet-300]="activeSection==='financial-section'"
+[class.shadow-xl]="activeSection==='financial-section'"
+[class.scale-[1.03]]="activeSection==='financial-section'"
+[class.opacity-100]="activeSection==='financial-section'"
+
+[class.border-emerald-400]="
+isSectionComplete('financial') &&
+activeSection!=='financial-section'
+"
+
+[class.bg-emerald-50]="
+isSectionComplete('financial') &&
+activeSection!=='financial-section'
+"
+
+[class.opacity-75]="
+!isSectionComplete('financial') &&
+activeSection!=='financial-section'
+"
+
 (click)="scrollToSection('financial')">
 
+@if (activeSection === 'financial-section') {
+
+<div class="w-16 h-1.5 rounded-full bg-violet-600 mb-4"></div>
+
+}
+
+<div class="text-4xl">
 🏦
+</div>
 
-<div class="font-semibold mt-2">
-
+<div class="text-xl font-bold tracking-tight mt-2">
 Financial
+</div>
+
+<div
+class="
+text-xs
+text-slate-500
+mt-1">
+
+{{ getSectionProgress('financial') }}
+Fields Completed
 
 </div>
 
-</button>
-      </div>
+<!--Section Completion Progress Bar start-->
+<div
+class="
+mt-3
+h-2
+w-full
+rounded-full
+bg-slate-200">
 
+<div
+class="
+h-2
+rounded-full
+bg-violet-600
+transition-all
+duration-500"
+
+[style.width.%]="getSectionPercentage('financial')">
+
+</div>
+
+</div>
+<!--Section Completion Progress Bar end-->
+
+<div class="mt-4 flex justify-center">
+
+@if (isSectionComplete('financial')) {
+
+<span
+class="
+w-8
+h-8
+rounded-full
+bg-emerald-500
+text-white
+flex
+items-center
+justify-center
+text-sm
+font-bold
+shadow-md">
+✓
+</span>
+
+}
+
+@else {
+
+<span
+class="
+w-8
+h-8
+rounded-full
+border-2
+border-violet-400
+bg-white
+shadow-sm">
+</span>
+
+}
+</div>
+</button>     
+ </div>
+<!--cards buttons ends-->
 
 <!--Form fields start-->
       
@@ -499,35 +965,36 @@ apartment
 </div>
   
 
-  <div
+  <div id="contact-section"
 class="col-span-full
 mt-10
 mb-8
 rounded-2xl
 bg-gradient-to-r
-from-green-50
-to-emerald-50
+from-teal-50
+via-cyan-50
+to-sky-50
 border
-border-green-100
-border-emerald-100
+border-teal-200
 p-6 transition-all
 duration-300
 hover:shadow-xl
 hover:scale-[1.01]
-hover:-translate-y-1">
+hover:-translate-y-1" #contactSection>
 
 <div class="flex items-center">
 
-<div id="contact-section"
+<div
 class="w-14
 h-14
 rounded-2xl
-bg-emerald-700
+bg-teal-600
 text-white
 flex
 items-center
 justify-center
-shadow-lg" #contactSection>
+shadow-lg
+shadow-teal-200">
 
 <mat-icon>
 
@@ -657,7 +1124,7 @@ location_on
 </div>
 
 
-<div
+<div id="compliance-section"
 class="col-span-full
 mt-10
 mb-8
@@ -672,11 +1139,11 @@ p-6 transition-all
 duration-300
 hover:shadow-xl
 hover:scale-[1.01]
-hover:-translate-y-1">
+hover:-translate-y-1" #complianceSection>
 
 <div class="flex items-center">
 
-<div id="compliance-section"
+<div
 class="w-14
 h-14
 rounded-2xl
@@ -687,7 +1154,7 @@ text-white
 flex
 items-center
 justify-center
-shadow-lg" #complianceSection>
+shadow-lg">
 
 <mat-icon>
 
@@ -790,7 +1257,7 @@ Invalid PAN Number.
 </div>
   
 
-  <div
+  <div id="financial-section"
 class="col-span-full
 mt-10
 mb-8
@@ -800,16 +1267,16 @@ from-violet-50
 via-purple-50
 to-fuchsia-100
 border
-border-emerald-100
+border-violet-200
 p-6 transition-all
 duration-300
 hover:shadow-xl
 hover:scale-[1.01]
-hover:-translate-y-1">
+hover:-translate-y-1" #financialSection>
 
 <div class="flex items-center">
 
-<div id="financial-section"
+<div
 class="w-14
 h-14
 rounded-2xl
@@ -820,7 +1287,7 @@ text-white
 flex
 items-center
 justify-center
-shadow-lg" #financialSection>
+shadow-lg">
 
 <mat-icon>
 
@@ -867,7 +1334,7 @@ Bank account and payment preferences used for vendor transactions.
             matInput maxlength="100"
             formControlName="bankName">
         <mat-hint align="end">
-{{ vendorForm.get('branchName')?.value?.length || 0 }}/100
+{{ vendorForm.get('bankName')?.value?.length || 0 }}/100
 </mat-hint>
     </mat-form-field>
 
@@ -880,7 +1347,11 @@ person
         <input
             matInput
             formControlName="accountHolderName">
+        <mat-hint align="end">
 
+{{ vendorForm.get('accountHolderName')?.value?.length || 0 }}/100
+
+</mat-hint>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="w-full transition-all duration-300">
@@ -926,7 +1397,11 @@ location_city
         <input
             matInput
             formControlName="branchName">
+        <mat-hint align="end">
 
+{{ vendorForm.get('branchName')?.value?.length || 0 }}/100
+
+</mat-hint>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="w-full transition-all duration-300">
@@ -1105,6 +1580,7 @@ mat-stroked-button
 type="button"
 class="
 !rounded-xl
+
 !px-8
 !py-6
 hover:bg-slate-100

@@ -1,4 +1,8 @@
-<h2 mat-dialog-title>
+<h2 mat-dialog-title class="flex items-center gap-3 text-xl font-bold">
+
+    <mat-icon class="text-amber-500">
+        warning_amber
+    </mat-icon>
 
     {{ data.title }}
 
@@ -6,7 +10,7 @@
 
 <mat-dialog-content>
 
-    <p>
+    <p class="text-slate-600 leading-6 mt-2">
 
         {{ data.message }}
 
@@ -14,10 +18,10 @@
 
 </mat-dialog-content>
 
-<mat-dialog-actions align="end">
+<mat-dialog-actions align="end" class="pt-4">
 
     <button
-        mat-button
+        mat-stroked-button
         (click)="cancel()">
 
         Cancel
@@ -29,7 +33,9 @@
         color="warn"
         (click)="confirm()">
 
-        Confirm
+        <mat-icon>delete_forever</mat-icon>
+
+        {{ data.confirmText || 'Confirm' }}
 
     </button>
 
