@@ -83,6 +83,14 @@ generalCompleted = false;
 contactCompleted = false;
 complianceCompleted = false;
 financialCompleted = false;
+emailExists = false;
+gstExists = false;
+panExists = false;
+checkingEmail = false;
+checkingGst = false;
+checkingPan = false;
+
+
 
   paymentMethods = [
 
@@ -216,7 +224,7 @@ currencies = [
     '',
     [
       Validators.required,
-      Validators.pattern(/^[6-9]\d{9}$/)
+      Validators.pattern(/^\d{5}\s\d{5}[6-9]\d{9}$/)
     ]
   ],
 
@@ -228,7 +236,11 @@ currencies = [
 
 accountHolderName: [''],
 
-accountNumber: [''],
+accountNumber: ['',
+  [
+        Validators.pattern(/^\d{9,18}$/)
+    ]
+],
 
 ifscCode: [
   '',
@@ -239,7 +251,11 @@ ifscCode: [
 
 branchName: [''],
 
-swiftCode: [''],
+swiftCode: ['',
+  [
+    Validators.pattern(/^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$/)
+  ]
+],
 
 paymentMethod: this.fb.control<PaymentMethod | null>(null),
 
@@ -265,6 +281,11 @@ ngOnInit(): void {
   });
 
   this.enableAutoSave();
+  this.convertToUpperCase('gstNumber');
+this.convertToUpperCase('panNumber');
+this.convertToUpperCase('ifscCode');
+this.convertToUpperCase('swiftCode');
+
 
 }
  
@@ -391,6 +412,7 @@ this.calculateCompletion();
       this.buildValidationSummary();
       this.vendorForm.markAllAsTouched();
       this.focusFirstInvalidField();
+      this.scrollToFirstInvalidField();
       return;
 
     }
@@ -883,6 +905,142 @@ private calculateSectionPercentage(
   }).length;
 
   return Math.round((filled / total) * 100);
+
+}
+
+private convertToUpperCase(controlName: string): void {
+
+  const control = this.vendorForm.get(controlName);
+
+  if (!control) return;
+
+  control.valueChanges.subscribe(value => {
+
+    if (!value) return;
+
+
+        const formatted = value
+      .toUpperCase()
+      .replace(/\s+/g, '');
+
+    if (formatted !== value) {
+
+      control.setValue(formatted, {
+        emitEvent: false
+      });
+
+    }
+
+    
+
+  });
+
+}
+
+private scrollToFirstInvalidField(): void {
+
+  const firstInvalid = document.querySelector(
+    '.mat-mdc-form-field.mat-form-field-invalid'
+  ) as HTMLElement;
+
+  if (!firstInvalid) {
+    return;
+  }
+
+  const firstInvalidControl =
+    document.querySelector(
+      'input.ng-invalid, textarea.ng-invalid, mat-select.ng-invalid'
+    ) as HTMLElement;
+
+  if (!firstInvalidControl) {
+    return;
+  }
+
+  firstInvalidControl.scrollIntoView({
+    behavior: 'smooth',
+    block: 'center'
+  });
+
+  setTimeout(() => {
+
+    firstInvalidControl.focus();
+
+  }, 500);
+
+}
+
+formatPhoneNumber(event: Event): void {
+
+  const input = event.target as HTMLInputElement;
+
+  let value = input.value.replace(/\D/g, '');
+
+  value = value.substring(0, 10);
+
+  if (value.length > 5) {
+
+    value =
+      value.substring(0, 5) +
+      ' ' +
+      value.substring(5);
+
+  }
+
+  input.value = value;
+
+  this.vendorForm
+      .get('phone')
+      ?.setValue(value, { emitEvent: false });
+
+}
+
+formatAccountNumber(event: Event): void {
+
+  const input = event.target as HTMLInputElement;
+
+  let value = input.value.replace(/\D/g, '');
+
+  value = value.substring(0, 18);
+
+  input.value = value;
+
+  this.vendorForm
+      .get('accountNumber')
+      ?.setValue(value, { emitEvent: false });
+
+}
+
+formatIfscCode(event: Event): void {
+
+  const input = event.target as HTMLInputElement;
+
+  const formatted = input.value
+    .toUpperCase()
+    .replace(/\s+/g, '')
+    .substring(0, 11);
+
+  input.value = formatted;
+
+  this.vendorForm
+      .get('ifscCode')
+      ?.setValue(formatted, { emitEvent: false });
+
+}
+
+formatSwiftCode(event: Event): void {
+
+  const input = event.target as HTMLInputElement;
+
+  const formatted = input.value
+    .toUpperCase()
+    .replace(/\s+/g, '')
+    .substring(0, 11);
+
+  input.value = formatted;
+
+  this.vendorForm
+      .get('swiftCode')
+      ?.setValue(formatted, { emitEvent: false });
 
 }
 }

@@ -1044,40 +1044,79 @@ person
   {{ vendorForm.get('contactPerson')?.value?.length || 0 }}/100
 </mat-hint>
   </mat-form-field>
-
+ 
   <mat-form-field appearance="outline" class="w-full transition-all duration-300">
 
     <mat-label>Email</mat-label>
+
     <mat-icon matPrefix>
+        mail
+    </mat-icon>
 
-mail
-
-</mat-icon>
     <input
-      matInput
-      formControlName="email">
+        matInput
+        formControlName="email">
+
+    @if (checkingEmail) {
+
+        <mat-hint class="text-amber-600 flex items-center gap-2">
+
+            <mat-spinner diameter="14"></mat-spinner>
+
+            Checking email...
+
+        </mat-hint>
+
+    }
+
+    @else if (emailExists) {
+
+        <mat-hint class="text-red-600 flex items-center gap-1">
+
+            <mat-icon class="!text-base">
+                cancel
+            </mat-icon>
+
+            Email already registered
+
+        </mat-hint>
+
+    }
+
+    @else if (
+        vendorForm.get('email')?.valid &&
+        vendorForm.get('email')?.value
+    ) {
+
+        <mat-hint class="flex items-center gap-1 text-emerald-600">
+
+    <span class="material-symbols-outlined text-[16px] leading-none">
+        check_circle
+    </span>
+
+    Email available
+
+</mat-hint>
+
+    }
 
     @if (vendorForm.get('email')?.hasError('required')) {
 
-<mat-error>
+        <mat-error>
+            Email is required.
+        </mat-error>
 
-    Email is required.
+    }
 
-</mat-error>
+    @if (vendorForm.get('email')?.hasError('email')) {
 
-}
+        <mat-error>
+            Invalid Email is Address.
+        </mat-error>
 
-@if (vendorForm.get('email')?.hasError('email')) {
+    }
 
-<mat-error>
-
-    Invalid Email Address.
-
-</mat-error>
-
-}
-
-  </mat-form-field>
+</mat-form-field>
 
   <mat-form-field appearance="outline" class="w-full transition-all duration-300">
 
@@ -1088,8 +1127,9 @@ call
 
 </mat-icon>
     <input
-      matInput
-      formControlName="phone">
+      matInput inputmode="numeric"
+    autocomplete="tel"
+      formControlName="phone" (input)="formatPhoneNumber($event)">
     @if (vendorForm.get('phone')?.hasError('pattern')) {
 
 <mat-error>
@@ -1189,71 +1229,143 @@ Tax registration and statutory compliance details.
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-<mat-form-field
-appearance="outline"
-class="w-full transition-all duration-300">
-
-<mat-label>
-
-GST Number
-
-</mat-label>
-
-<mat-icon matPrefix>
-
-receipt_long
-
-</mat-icon>
-
-<input
-matInput
-formControlName="gstNumber">
-
-@if (vendorForm.get('gstNumber')?.hasError('pattern')) {
-
-<mat-error>
-
-Invalid GST Number.
-
-</mat-error>
-
-}
-
-</mat-form-field>
-
+<div class="flex flex-col">
 
 <mat-form-field
 appearance="outline"
 class="w-full transition-all duration-300">
 
-<mat-label>
+    <mat-label>
+        GST Number
+    </mat-label>
 
-PAN Number
+    <mat-icon matPrefix>
+        receipt_long
+    </mat-icon>
 
-</mat-label>
+    <input
+        matInput
+        formControlName="gstNumber">
 
-<mat-icon matPrefix>
+    @if (checkingGst) {
 
-badge
+        <mat-hint class="text-amber-600">
 
-</mat-icon>
+            ⏳ Checking GST Number...
 
-<input
-matInput
-formControlName="panNumber">
+        </mat-hint>
 
-@if (vendorForm.get('panNumber')?.hasError('pattern')) {
+    }
 
-<mat-error>
+    @else if (gstExists) {
 
-Invalid PAN Number.
+        <mat-hint class="text-red-600">
 
-</mat-error>
+            ✖ GST Number already registered
 
-}
+        </mat-hint>
+
+    }
+
+    @else if (
+        vendorForm.get('gstNumber')?.valid &&
+        vendorForm.get('gstNumber')?.value
+    ) {
+
+         <mat-hint class="flex items-center gap-1 text-emerald-600">
+
+    <span class="material-symbols-outlined text-[16px] leading-none">
+        check_circle
+    </span>
+
+    GST Number is available
+
+</mat-hint>
+
+    }
+
+    @if (vendorForm.get('gstNumber')?.hasError('pattern')) {
+
+        <mat-error>
+
+            Invalid GST Number.
+
+        </mat-error>
+
+    }
 
 </mat-form-field>
 
+</div>
+
+<div class="flex flex-col">
+
+<mat-form-field
+appearance="outline"
+class="w-full transition-all duration-300">
+
+    <mat-label>
+        PAN Number
+    </mat-label>
+
+    <mat-icon matPrefix>
+        badge
+    </mat-icon>
+
+    <input
+        matInput
+        formControlName="panNumber">
+
+    @if (checkingPan) {
+
+        <mat-hint class="text-amber-600">
+
+            ⏳ Checking PAN Number...
+
+        </mat-hint>
+
+    }
+
+    @else if (panExists) {
+
+        <mat-hint class="text-red-600">
+
+            ✖ PAN Number already registered
+
+        </mat-hint>
+
+    }
+
+    @else if (
+        vendorForm.get('panNumber')?.valid &&
+        vendorForm.get('panNumber')?.value
+    ) {
+
+        <mat-hint class="flex items-center gap-1 text-emerald-600">
+
+    <span class="material-symbols-outlined text-[16px] leading-none">
+        check_circle
+    </span>
+
+    PAN Number is available
+
+</mat-hint>
+
+    }
+
+    @if (vendorForm.get('panNumber')?.hasError('pattern')) {
+
+        <mat-error>
+
+            Invalid PAN Number.
+
+        </mat-error>
+
+    }
+
+</mat-form-field>
+
+</div>
 </div>
   
 
@@ -1360,10 +1472,19 @@ person
 
         <input
             matInput
-            formControlName="accountNumber">
+            formControlName="accountNumber" inputmode="numeric" autocomplete="off" maxlength="18" (input)="formatAccountNumber($event)">
   <mat-icon matPrefix>
 credit_card
 </mat-icon>
+@if (vendorForm.get('accountNumber')?.hasError('pattern')) {
+
+<mat-error>
+
+Account Number must contain only digits (9–18 digits).
+
+</mat-error>
+
+}
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="w-full transition-all duration-300">
@@ -1374,8 +1495,13 @@ pin
 </mat-icon>
         <input
             matInput
-            formControlName="ifscCode">
-
+            formControlName="ifscCode" maxlength="11"
+    autocomplete="off"
+    autocapitalize="characters"
+    (input)="formatIfscCode($event)">
+      <mat-hint align="end">
+{{ vendorForm.get('ifscCode')?.value?.length || 0 }}/11
+</mat-hint>
         @if (vendorForm.get('ifscCode')?.hasError('pattern')) {
 
         <mat-error>
@@ -1412,8 +1538,25 @@ language
 
         <input
             matInput
-            formControlName="swiftCode">
+            formControlName="swiftCode" maxlength="11"
+    autocomplete="off"
+    autocapitalize="characters"
+    (input)="formatSwiftCode($event)">
+    <mat-hint align="end">
 
+{{ vendorForm.get('swiftCode')?.value?.length || 0 }}/11
+
+</mat-hint>
+
+@if (vendorForm.get('swiftCode')?.hasError('pattern')) {
+
+<mat-error>
+
+Invalid SWIFT Code.
+
+</mat-error>
+
+}
     </mat-form-field>
 
 </div>
@@ -1637,7 +1780,7 @@ hover:shadow-2xl
 transition-all
 duration-300
 hover:scale-105"
-[disabled]="isSubmitting"
+[disabled]="isSubmitting || emailExists || gstExists || panExists"
 (click)="submit()">
 
 @if (isSubmitting) {
