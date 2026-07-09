@@ -17,6 +17,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { HostListener} from '@angular/core';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { DatePipe } from '@angular/common';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog';
 
 @Component({
   selector: 'app-vendor-form',
@@ -42,7 +44,7 @@ export class VendorFormComponent implements OnInit, OnChanges {
 
   private fb = inject(FormBuilder);
   private snackBar = inject(MatSnackBar);
-
+  private dialog = inject(MatDialog);
   
   @ViewChild('generalSection')
 generalSection!: ElementRef;
@@ -73,9 +75,14 @@ financialSection!: ElementRef;
  private autoSaveEnabled = true;
 lastAutoSaved: Date | null = null;
 isAutoSaving = false;
+autoSaveStatus = 'All Changes Saved';
 validationErrors: string[] = [];
 requiredFieldsCompleted = 0;
 requiredFieldsRemaining = 0;
+generalCompleted = false;
+contactCompleted = false;
+complianceCompleted = false;
+financialCompleted = false;
 
   paymentMethods = [
 
@@ -238,7 +245,7 @@ paymentMethod: this.fb.control<PaymentMethod | null>(null),
 
   paymentTerms: this.fb.control<string>(''),
 
-  preferredCurrency: this.fb.control<Currency | null>(Currency.INR)
+  preferredCurrency: this.fb.control<Currency | null>(null)
 
 });
 
@@ -252,7 +259,7 @@ ngOnInit(): void {
   this.vendorForm.valueChanges.subscribe(() => {
 
     this.hasUnsavedChanges = true;
-
+    this.autoSaveStatus = 'Unsaved Changes';
     this.calculateCompletion();
 
   });
@@ -308,7 +315,25 @@ calculateCompletion(): void {
 
   this.requiredFieldsRemaining =
     requiredControls.length - this.requiredFieldsCompleted;
+  
+  this.generalCompleted =
+  !!this.vendorForm.get('vendorName')?.value &&
+  !!this.vendorForm.get('companyName')?.value;
 
+this.contactCompleted =
+  !!this.vendorForm.get('contactPerson')?.value &&
+  !!this.vendorForm.get('email')?.value &&
+  !!this.vendorForm.get('phone')?.value &&
+  !!this.vendorForm.get('address')?.value;
+
+this.complianceCompleted =
+  !!this.vendorForm.get('gstNumber')?.value &&
+  !!this.vendorForm.get('panNumber')?.value;
+
+this.financialCompleted =
+  !!this.vendorForm.get('bankName')?.value &&
+  !!this.vendorForm.get('accountHolderName')?.value &&
+  !!this.vendorForm.get('accountNumber')?.value;
 }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -390,27 +415,45 @@ this.calculateCompletion();
 
   resetForm(): void {
 
-  const confirmReset = confirm(
-    'Are you sure you want to clear all entered data?'
+  const dialogRef = this.dialog.open(
+    ConfirmationDialogComponent,
+    {
+      width: '430px',
+      disableClose: true,
+      data: {
+        title: 'Reset Form',
+        message:
+          'Are you sure you want to clear all entered data?\n\nAll unsaved changes will be permanently removed.',
+        confirmText: 'Reset Form'
+      }
+    }
   );
 
-  if (!confirmReset) {
-    return;
-  }
+  dialogRef.afterClosed().subscribe(result => {
 
-  this.vendorForm.reset({
-    preferredCurrency: Currency.INR,
-    paymentMethod: null,
-    paymentTerms: ''
+    if (!result) {
+      return;
+    }
+
+    this.vendorForm.reset({
+      preferredCurrency: null,
+      paymentMethod: null,
+      paymentTerms: ''
+    });
+
+    localStorage.removeItem('vendor-draft');
+
+    this.lastAutoSaved = null;
+
+    this.autoSaveStatus = 'All Changes Saved';
+
+    this.calculateCompletion();
+
+    this.validationErrors = [];
+
+    this.hasUnsavedChanges = false;
+
   });
-
-  localStorage.removeItem('vendor-draft');
-
-  this.calculateCompletion();
-
-  this.validationErrors = [];
-
-  this.hasUnsavedChanges = false;
 
 }
 
@@ -434,52 +477,74 @@ scrollToSection(section: string): void {
   switch (section) {
 
     case 'general':
-
+      this.activeSection = 'general-section';
       this.generalSection.nativeElement.scrollIntoView({
-
         behavior: 'smooth',
-
         block: 'start'
-
       });
-
       break;
 
     case 'contact':
-
+      this.activeSection = 'contact-section';
       this.contactSection.nativeElement.scrollIntoView({
-
         behavior: 'smooth',
-
         block: 'start'
-
       });
-
       break;
 
     case 'compliance':
-
+      this.activeSection = 'compliance-section';
       this.complianceSection.nativeElement.scrollIntoView({
-
         behavior: 'smooth',
-
         block: 'start'
-
       });
-
       break;
 
     case 'financial':
-
+      this.activeSection = 'financial-section';
       this.financialSection.nativeElement.scrollIntoView({
-
         behavior: 'smooth',
-
         block: 'start'
-
       });
-
       break;
+  }
+
+}
+
+isSectionComplete(section: string): boolean {
+
+  switch (section) {
+
+    case 'general':
+      return !!(
+        this.vendorForm.get('vendorName')?.value &&
+        this.vendorForm.get('companyName')?.value
+      );
+
+    case 'contact':
+      return !!(
+        this.vendorForm.get('contactPerson')?.value &&
+        this.vendorForm.get('email')?.value &&
+        this.vendorForm.get('phone')?.value &&
+        this.vendorForm.get('address')?.value
+      );
+
+    case 'compliance':
+      return !!(
+        this.vendorForm.get('gstNumber')?.value &&
+        this.vendorForm.get('panNumber')?.value
+      );
+
+    case 'financial':
+      return !!(
+        this.vendorForm.get('bankName')?.value &&
+        this.vendorForm.get('accountHolderName')?.value &&
+        this.vendorForm.get('accountNumber')?.value &&
+        this.vendorForm.get('ifscCode')?.value
+      );
+
+    default:
+      return false;
 
   }
 
@@ -503,16 +568,13 @@ scrollTo(sectionId: string): void {
 onWindowScroll(): void {
 
   const sections = [
-
     'general-section',
-
     'contact-section',
-
     'compliance-section',
-
     'financial-section'
-
   ];
+
+  const scrollPosition = window.scrollY + 180;
 
   for (const section of sections) {
 
@@ -522,12 +584,15 @@ onWindowScroll(): void {
       continue;
     }
 
-    const rect = element.getBoundingClientRect();
+    const offsetTop = element.offsetTop;
+    const offsetBottom = offsetTop + element.offsetHeight;
 
-    if (rect.top <= 150 && rect.bottom >= 150) {
+    if (
+      scrollPosition >= offsetTop &&
+      scrollPosition < offsetBottom
+    ) {
 
       this.activeSection = section;
-
       break;
 
     }
@@ -555,6 +620,7 @@ private enableAutoSave(): void {
 private autoSaveDraft(): void {
 
   this.isAutoSaving = true;
+  this.autoSaveStatus = 'Auto Saving...';
 
   localStorage.setItem(
     'vendor-draft',
@@ -573,6 +639,7 @@ private autoSaveDraft(): void {
 );
 
   this.isAutoSaving = false;
+  this.autoSaveStatus = 'All Changes Saved';
 
 }
 
@@ -693,5 +760,129 @@ private focusFirstInvalidField(): void {
 
 }
 
+getSectionProgress(section: string): string {
 
+  switch (section) {
+
+    case 'general':
+
+      return `${this.countFilled([
+        'vendorName',
+        'companyName'
+      ])}/2`;
+
+    case 'contact':
+
+      return `${this.countFilled([
+        'contactPerson',
+        'email',
+        'phone',
+        'address'
+      ])}/4`;
+
+    case 'compliance':
+
+      return `${this.countFilled([
+        'gstNumber',
+        'panNumber'
+      ])}/2`;
+
+    case 'financial':
+
+      return `${this.countFilled([
+        'bankName',
+        'accountHolderName',
+        'accountNumber',
+        'ifscCode',
+        'branchName',
+        'swiftCode',
+        'paymentMethod',
+        'paymentTerms',
+        'preferredCurrency'
+      ])}/9`;
+
+    default:
+
+      return '';
+
+  }
+
+}
+
+private countFilled(fields: string[]): number {
+
+  return fields.filter(field => {
+
+    const value = this.vendorForm.get(field)?.value;
+
+    return value !== null &&
+           value !== undefined &&
+           value !== '';
+
+  }).length;
+
+}
+
+getSectionPercentage(section: string): number {
+
+  switch (section) {
+
+    case 'general':
+      return this.calculateSectionPercentage(2, [
+        'vendorName',
+        'companyName'
+      ]);
+
+    case 'contact':
+      return this.calculateSectionPercentage(4, [
+        'contactPerson',
+        'email',
+        'phone',
+        'address'
+      ]);
+
+    case 'compliance':
+      return this.calculateSectionPercentage(2, [
+        'gstNumber',
+        'panNumber'
+      ]);
+
+    case 'financial':
+      return this.calculateSectionPercentage(9, [
+        'bankName',
+        'accountHolderName',
+        'accountNumber',
+        'ifscCode',
+        'branchName',
+        'swiftCode',
+        'paymentMethod',
+        'paymentTerms',
+        'preferredCurrency'
+      ]);
+
+    default:
+      return 0;
+
+  }
+
+}
+
+private calculateSectionPercentage(
+  total: number,
+  fields: string[]
+): number {
+
+  const filled = fields.filter(field => {
+
+    const value = this.vendorForm.get(field)?.value;
+
+    return value !== null &&
+           value !== undefined &&
+           value !== '';
+
+  }).length;
+
+  return Math.round((filled / total) * 100);
+
+}
 }
