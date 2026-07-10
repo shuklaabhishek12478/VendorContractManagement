@@ -34,38 +34,48 @@ namespace VendorContractManagement.Application.Validators
 
             RuleFor(x => x.Phone)
                 .NotEmpty()
-                .Matches(@"^[0-9]{10}$");
+                .Matches(@"^[6-9]\d{4}\s?\d{5}$")
+                .WithMessage("Phone number must be a valid 10-digit Indian mobile number.");
 
             RuleFor(x => x.Address)
                 .NotEmpty()
                 .MaximumLength(500);
 
             RuleFor(x => x.BankName)
-                .MaximumLength(100);
+    .NotEmpty()
+    .MaximumLength(100);
 
             RuleFor(x => x.AccountHolderName)
+                .NotEmpty()
                 .MaximumLength(100);
 
             RuleFor(x => x.AccountNumber)
+                .NotEmpty()
                 .Matches(@"^[0-9]{9,18}$")
-                .When(x => !string.IsNullOrWhiteSpace(x.AccountNumber))
                 .WithMessage("Account Number must be between 9 and 18 digits.");
 
             RuleFor(x => x.IFSCCode)
+                .NotEmpty()
                 .Matches(@"^[A-Z]{4}0[A-Z0-9]{6}$")
-                .When(x => !string.IsNullOrWhiteSpace(x.IFSCCode))
                 .WithMessage("Invalid IFSC Code.");
 
             RuleFor(x => x.BranchName)
+                .NotEmpty()
                 .MaximumLength(100);
 
             RuleFor(x => x.SwiftCode)
                 .Matches(@"^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$")
-                .When(x => !string.IsNullOrWhiteSpace(x.SwiftCode))
-                .WithMessage("Invalid SWIFT Code.");
+                .When(x => !string.IsNullOrWhiteSpace(x.SwiftCode));
+
+            RuleFor(x => x.PaymentMethod)
+                .NotNull();
 
             RuleFor(x => x.PaymentTerms)
+                .NotEmpty()
                 .MaximumLength(100);
+
+            RuleFor(x => x.PreferredCurrency)
+                .NotNull();
         }
     }
 }

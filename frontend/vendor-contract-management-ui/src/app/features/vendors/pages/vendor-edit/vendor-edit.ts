@@ -92,6 +92,15 @@ loadVendor(id: number): void {
 }
 
 updateVendor(data: any): void {
+    console.log(data);
+
+  console.log(typeof data.preferredCurrency);
+
+  console.log(data.preferredCurrency);
+
+  console.log(typeof data.paymentMethod);
+
+  console.log(data.paymentMethod);
 
   if (!this.vendor) {
 

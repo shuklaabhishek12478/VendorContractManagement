@@ -89,6 +89,7 @@ panExists = false;
 checkingEmail = false;
 checkingGst = false;
 checkingPan = false;
+hideAccountNumber = true;
 
 
 
@@ -224,7 +225,7 @@ currencies = [
     '',
     [
       Validators.required,
-      Validators.pattern(/^\d{5}\s\d{5}[6-9]\d{9}$/)
+      Validators.pattern(/^[6-9]\d{4}\s\d{5}$/)
     ]
   ],
 
@@ -232,37 +233,68 @@ currencies = [
     '',
     Validators.required
   ],
-  bankName: [''],
-
-accountHolderName: [''],
-
-accountNumber: ['',
+  bankName: [
+  '',
   [
-        Validators.pattern(/^\d{9,18}$/)
-    ]
+    Validators.required,
+    Validators.maxLength(100)
+  ]
+],
+
+accountHolderName: [
+  '',
+  [
+    Validators.required,
+    Validators.maxLength(100)
+  ]
+],
+
+accountNumber: [
+  '',
+  [
+    Validators.required,
+    Validators.pattern(/^\d{9,18}$/)
+  ]
 ],
 
 ifscCode: [
   '',
   [
+    Validators.required,
     Validators.pattern(/^[A-Z]{4}0[A-Z0-9]{6}$/)
   ]
 ],
 
-branchName: [''],
-
-swiftCode: ['',
+branchName: [
+  '',
   [
+    Validators.required,
+    Validators.maxLength(100)
+  ]
+],
+
+swiftCode: [
+  '',
+  [
+    Validators.required,
     Validators.pattern(/^[A-Z]{4}[A-Z]{2}[A-Z0-9]{2}([A-Z0-9]{3})?$/)
   ]
 ],
 
-paymentMethod: this.fb.control<PaymentMethod | null>(null),
+paymentMethod: this.fb.control<PaymentMethod | null>(
+  null,
+  Validators.required
+),
 
-  paymentTerms: this.fb.control<string>(''),
+paymentTerms: this.fb.control(
+  '',
+  Validators.required
+),
 
-  preferredCurrency: this.fb.control<Currency | null>(null)
-
+preferredCurrency: this.fb.control<Currency | null>(
+  null,
+  Validators.required
+),
 });
 
 
@@ -281,6 +313,7 @@ ngOnInit(): void {
   });
 
   this.enableAutoSave();
+  this.restoreDraft();
   this.convertToUpperCase('gstNumber');
 this.convertToUpperCase('panNumber');
 this.convertToUpperCase('ifscCode');
@@ -320,7 +353,16 @@ calculateCompletion(): void {
     'phone',
     'address',
     'gstNumber',
-    'panNumber'
+    'panNumber',
+    'bankName',
+    'accountHolderName',
+    'accountNumber',
+    'ifscCode',
+    'branchName',
+    'swiftCode',
+    'paymentMethod',
+    'paymentTerms',
+    'preferredCurrency'
 
   ];
 
@@ -354,7 +396,13 @@ this.complianceCompleted =
 this.financialCompleted =
   !!this.vendorForm.get('bankName')?.value &&
   !!this.vendorForm.get('accountHolderName')?.value &&
-  !!this.vendorForm.get('accountNumber')?.value;
+  !!this.vendorForm.get('accountNumber')?.value &&
+  !!this.vendorForm.get('ifscCode')?.value &&
+  !!this.vendorForm.get('branchName')?.value &&
+  !!this.vendorForm.get('swiftCode')?.value &&
+  !!this.vendorForm.get('paymentMethod')?.value &&
+  !!this.vendorForm.get('paymentTerms')?.value &&
+  !!this.vendorForm.get('preferredCurrency')?.value;
 }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -562,7 +610,12 @@ isSectionComplete(section: string): boolean {
         this.vendorForm.get('bankName')?.value &&
         this.vendorForm.get('accountHolderName')?.value &&
         this.vendorForm.get('accountNumber')?.value &&
-        this.vendorForm.get('ifscCode')?.value
+        this.vendorForm.get('ifscCode')?.value &&
+        this.vendorForm.get('branchName')?.value &&
+        this.vendorForm.get('swiftCode')?.value &&
+        this.vendorForm.get('paymentMethod')?.value &&
+        this.vendorForm.get('paymentTerms')?.value &&
+        this.vendorForm.get('preferredCurrency')?.value
       );
 
     default:
@@ -679,7 +732,17 @@ private restoreDraft(): void {
 
   if (restore) {
 
-    this.vendorForm.patchValue(JSON.parse(draft));
+    const draftData = JSON.parse(draft);
+
+    this.vendorForm.patchValue(draftData);
+
+    this.vendorForm.updateValueAndValidity();
+
+    this.calculateCompletion();
+
+    this.vendorForm.markAsDirty();
+
+    this.hasUnsavedChanges = true;
 
     this.snackBar.open(
       'Draft restored successfully',
@@ -691,20 +754,9 @@ private restoreDraft(): void {
       }
     );
 
-  }
-  else {
+  } else {
 
     localStorage.removeItem('vendor-draft');
-
-    this.snackBar.open(
-      'Draft discarded',
-      'OK',
-      {
-        duration: 2000,
-        horizontalPosition: 'end',
-        verticalPosition: 'top'
-      }
-    );
 
   }
 
@@ -748,8 +800,39 @@ private buildValidationSummary(): void {
     this.validationErrors.push('PAN Number is invalid.');
   }
 
+   if (controls.bankName.invalid) {
+    this.validationErrors.push('Bank Name is required.');
+  }
+
+  if (controls.accountHolderName.invalid) {
+    this.validationErrors.push('Account Holder Name is invalid.');
+  }
+
+  if (controls.accountNumber.invalid) {
+    this.validationErrors.push('Account Number is invalid.');
+  }
+
   if (controls.ifscCode.invalid) {
     this.validationErrors.push('IFSC Code is invalid.');
+  }
+  if (controls.branchName.invalid) {
+    this.validationErrors.push('Branch Name is required.');
+  }
+
+  if (controls.swiftCode.invalid) {
+    this.validationErrors.push('Swift Code is required.');
+  }
+
+  if (controls.paymentMethod.invalid) {
+    this.validationErrors.push('Payment Method is invalid.');
+  }
+
+  if (controls.paymentTerms.invalid) {
+    this.validationErrors.push('Payment Terms is invalid.');
+  }
+
+  if (controls.preferredCurrency.invalid) {
+    this.validationErrors.push('Preferred Currency is invalid.');
   }
 
 }
@@ -1041,6 +1124,98 @@ formatSwiftCode(event: Event): void {
   this.vendorForm
       .get('swiftCode')
       ?.setValue(formatted, { emitEvent: false });
+
+}
+
+hasSectionErrors(section: string): boolean {
+
+  switch (section) {
+
+    case 'general':
+      return ['vendorName', 'companyName']
+        .some(field =>
+          this.vendorForm.get(field)?.invalid &&
+          this.vendorForm.get(field)?.touched
+        );
+
+    case 'contact':
+      return ['contactPerson', 'email', 'phone', 'address']
+        .some(field =>
+          this.vendorForm.get(field)?.invalid &&
+          this.vendorForm.get(field)?.touched
+        );
+
+    case 'compliance':
+      return ['gstNumber', 'panNumber']
+        .some(field =>
+          this.vendorForm.get(field)?.invalid &&
+          this.vendorForm.get(field)?.touched
+        );
+
+    case 'financial':
+      return [
+        'bankName',
+        'accountHolderName',
+        'accountNumber',
+        'ifscCode',
+        'branchName',
+        'swiftCode',
+        'paymentMethod',
+        'paymentTerms',
+        'preferredCurrency'
+      ]
+      .some(field =>
+        this.vendorForm.get(field)?.invalid &&
+        this.vendorForm.get(field)?.touched
+      );
+
+    default:
+      return false;
+  }
+
+}
+isSectionStarted(section: string): boolean {
+
+  let fields: string[] = [];
+
+  switch (section) {
+
+    case 'general':
+      fields = ['vendorName', 'companyName'];
+      break;
+
+    case 'contact':
+      fields = ['contactPerson', 'email', 'phone', 'address'];
+      break;
+
+    case 'compliance':
+      fields = ['gstNumber', 'panNumber'];
+      break;
+
+    case 'financial':
+      fields = [
+        'bankName',
+        'accountHolderName',
+        'accountNumber',
+        'ifscCode',
+        'branchName',
+        'swiftCode',
+        'paymentMethod',
+        'paymentTerms',
+        'preferredCurrency'
+      ];
+      break;
+  }
+
+  return fields.some(field => {
+
+    const value = this.vendorForm.get(field)?.value;
+
+    return value !== null &&
+           value !== undefined &&
+           value.toString().trim() !== '';
+
+  });
 
 }
 }

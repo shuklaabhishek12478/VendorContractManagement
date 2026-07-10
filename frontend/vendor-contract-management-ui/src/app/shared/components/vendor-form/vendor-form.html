@@ -50,7 +50,7 @@
 
     
 
-    <div class="p-8 bg-gradient-to-br from-slate-50 to-white">
+    <div class="p-8 bg-gradient-to-br from-slate-50 to-white h-[calc(100vh-140px)] overflow-hidden flex flex-col">
 
       <!--  progress bar -->
  
@@ -390,10 +390,11 @@ duration-500"
 </div>
 <div class="mt-4 flex justify-center">
 
-  @if (isSectionComplete('general')) {
+@if (isSectionComplete('general')) {
 
-    <span
-      class="w-8
+<span
+class="
+w-8
 h-8
 rounded-full
 bg-emerald-500
@@ -404,24 +405,77 @@ justify-center
 text-sm
 font-bold
 shadow-md">
-      ✓
-    </span>
 
-  }
+✓
 
-  @else {
+</span>
 
-    <span
-      class="w-8
+}
+
+@else if (hasSectionErrors('general')) {
+
+<span
+class="
+w-8
+h-8
+rounded-full
+bg-blue-500
+text-white
+flex
+items-center
+justify-center
+shadow-md">
+
+<mat-icon class="!text-lg">
+
+priority_high
+
+</mat-icon>
+
+</span>
+
+}
+
+@else if (isSectionStarted('general')) {
+
+<span
+class="
+w-8
+h-8
+rounded-full
+bg-blue-100
+border-2
+border-blue-500
+text-blue-600
+flex
+items-center
+justify-center
+shadow-sm">
+
+<mat-icon class="!text-lg">
+
+pending
+
+</mat-icon>
+
+</span>
+
+}
+
+@else {
+
+<span
+class="
+w-8
 h-8
 rounded-full
 border-2
 border-blue-400
 bg-white
 shadow-sm">
-    </span>
+</span>
 
-  }
+}
 
 </div>
 
@@ -541,7 +595,59 @@ justify-center
 text-sm
 font-bold
 shadow-md">
+
 ✓
+
+</span>
+
+}
+
+@else if (hasSectionErrors('contact')) {
+
+<span
+class="
+w-8
+h-8
+rounded-full
+bg-teal-500
+text-white
+flex
+items-center
+justify-center
+shadow-md">
+
+<mat-icon class="!text-lg">
+
+priority_high
+
+</mat-icon>
+
+</span>
+
+}
+
+@else if (isSectionStarted('contact')) {
+
+<span
+class="
+w-8
+h-8
+rounded-full
+bg-teal-500
+border-2
+border-teal-500
+text-teal-600
+flex
+items-center
+justify-center
+shadow-sm">
+
+<mat-icon class="!text-lg">
+
+pending
+
+</mat-icon>
+
 </span>
 
 }
@@ -679,7 +785,59 @@ justify-center
 text-sm
 font-bold
 shadow-md">
+
 ✓
+
+</span>
+
+}
+
+@else if (hasSectionErrors('compliance')) {
+
+<span
+class="
+w-8
+h-8
+rounded-full
+bg-amber-500
+text-white
+flex
+items-center
+justify-center
+shadow-md">
+
+<mat-icon class="!text-lg">
+
+priority_high
+
+</mat-icon>
+
+</span>
+
+}
+
+@else if (isSectionStarted('compliance')) {
+
+<span
+class="
+w-8
+h-8
+rounded-full
+bg-amber-500
+border-2
+border-amber-500
+text-amber-600
+flex
+items-center
+justify-center
+shadow-sm">
+
+<mat-icon class="!text-lg">
+
+pending
+
+</mat-icon>
+
 </span>
 
 }
@@ -698,6 +856,7 @@ shadow-sm">
 </span>
 
 }
+
 </div>
 </button>
 
@@ -706,7 +865,7 @@ type="button"
 class="
 rounded-xl
 border
-border-violet-300
+
 bg-gradient-to-br
 from-violet-50
 to-purple-100
@@ -724,9 +883,9 @@ ease-out
 opacity-90"
 
 [class.border-violet-600]="activeSection==='financial-section'"
-[class.to-purple-200]="activeSection==='financial-section'"
 [class.border-l-4]="activeSection==='financial-section'"
 [class.border-l-violet-600]="activeSection==='financial-section'"
+
 [class.ring-2]="activeSection==='financial-section'"
 [class.ring-violet-200]="activeSection==='financial-section'"
 [class.shadow-violet-300]="activeSection==='financial-section'"
@@ -748,12 +907,11 @@ activeSection!=='financial-section'
 !isSectionComplete('financial') &&
 activeSection!=='financial-section'
 "
-
 (click)="scrollToSection('financial')">
 
 @if (activeSection === 'financial-section') {
 
-<div class="w-16 h-1.5 rounded-full bg-violet-600 mb-4"></div>
+<div class="w-16 h-1.5 rounded-full bg-violet-500 mb-4"></div>
 
 }
 
@@ -817,7 +975,59 @@ justify-center
 text-sm
 font-bold
 shadow-md">
+
 ✓
+
+</span>
+
+}
+
+@else if (hasSectionErrors('financial')) {
+
+<span
+class="
+w-8
+h-8
+rounded-full
+bg-violet-500
+text-white
+flex
+items-center
+justify-center
+shadow-md">
+
+<mat-icon class="!text-lg">
+
+priority_high
+
+</mat-icon>
+
+</span>
+
+}
+
+@else if (isSectionStarted('financial')) {
+
+<span
+class="
+w-8
+h-8
+rounded-full
+bg-violet-100
+border-2
+border-violet-500
+text-violet-600
+flex
+items-center
+justify-center
+shadow-sm">
+
+<mat-icon class="!text-lg">
+
+pending
+
+</mat-icon>
+
 </span>
 
 }
@@ -836,6 +1046,7 @@ shadow-sm">
 </span>
 
 }
+
 </div>
 </button>     
  </div>
@@ -1448,6 +1659,24 @@ Bank account and payment preferences used for vendor transactions.
         <mat-hint align="end">
 {{ vendorForm.get('bankName')?.value?.length || 0 }}/100
 </mat-hint>
+    @if (vendorForm.get('bankName')?.hasError('maxlength')) {
+
+        <mat-error>
+
+            Maximum 100 characters allowed.
+
+        </mat-error>
+
+
+
+    }
+    @if (vendorForm.get('bankName')?.hasError('required')) {
+
+        <mat-error>
+            Bank Name is required.
+        </mat-error>
+
+    }
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="w-full transition-all duration-300">
@@ -1457,35 +1686,87 @@ Bank account and payment preferences used for vendor transactions.
 person
 </mat-icon>
         <input
-            matInput
+            matInput maxlength="100"
             formControlName="accountHolderName">
         <mat-hint align="end">
 
 {{ vendorForm.get('accountHolderName')?.value?.length || 0 }}/100
 
 </mat-hint>
+      @if (vendorForm.get('accountHolderName')?.hasError('maxlength')) {
+
+        <mat-error>
+
+            Maximum 100 characters allowed.
+
+        </mat-error>
+
+    }
+    @if (vendorForm.get('accountHolderName')?.hasError('required')) {
+
+        <mat-error>
+            Account Holder Name is required.
+        </mat-error>
+
+    }
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="w-full transition-all duration-300">
 
-        <mat-label>Account Number</mat-label>
+    <mat-label>Account Number</mat-label>
 
-        <input
-            matInput
-            formControlName="accountNumber" inputmode="numeric" autocomplete="off" maxlength="18" (input)="formatAccountNumber($event)">
-  <mat-icon matPrefix>
-credit_card
-</mat-icon>
-@if (vendorForm.get('accountNumber')?.hasError('pattern')) {
+    <mat-icon matPrefix>
+        credit_card
+    </mat-icon>
 
-<mat-error>
+    <input
+        matInput
+        [type]="hideAccountNumber ? 'password' : 'text'"
+        formControlName="accountNumber"
+        inputmode="numeric"
+        autocomplete="off"
+        maxlength="18"
+        (input)="formatAccountNumber($event)">
 
-Account Number must contain only digits (9–18 digits).
+    <button
+        mat-icon-button
+        matSuffix
+        type="button"
+        (mousedown)="$event.preventDefault()"
+        (click)="hideAccountNumber = !hideAccountNumber">
 
-</mat-error>
+        <mat-icon>
 
-}
-    </mat-form-field>
+            {{ hideAccountNumber ? 'visibility_off' : 'visibility' }}
+
+        </mat-icon>
+
+    </button>
+
+    <mat-hint align="end">
+
+        {{ vendorForm.get('accountNumber')?.value?.length || 0 }}/18
+
+    </mat-hint>
+
+    @if (vendorForm.get('accountNumber')?.hasError('pattern')) {
+
+        <mat-error>
+
+            Account Number must contain only digits (9–18 digits).
+
+        </mat-error>
+
+    }
+    @if (vendorForm.get('accountNumber')?.hasError('required')) {
+
+        <mat-error>
+            Account Number is required.
+        </mat-error>
+
+    }
+
+</mat-form-field>
 
     <mat-form-field appearance="outline" class="w-full transition-all duration-300">
 
@@ -1511,6 +1792,13 @@ pin
         </mat-error>
 
         }
+        @if (vendorForm.get('ifscCode')?.hasError('required')) {
+
+        <mat-error>
+            IFSC Code is required.
+        </mat-error>
+
+    }
 
     </mat-form-field>
 
@@ -1521,13 +1809,29 @@ pin
 location_city
 </mat-icon>
         <input
-            matInput
+            matInput maxlength="100"
             formControlName="branchName">
         <mat-hint align="end">
 
 {{ vendorForm.get('branchName')?.value?.length || 0 }}/100
 
 </mat-hint>
+       @if (vendorForm.get('branchName')?.hasError('maxlength')) {
+
+        <mat-error>
+
+            Maximum 100 characters allowed.
+
+        </mat-error>
+
+    }
+     @if (vendorForm.get('branchName')?.hasError('required')) {
+
+        <mat-error>
+            Branch Name Name is required.
+        </mat-error>
+
+    }
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="w-full transition-all duration-300">
@@ -1557,6 +1861,13 @@ Invalid SWIFT Code.
 </mat-error>
 
 }
+    @if (vendorForm.get('swiftCode')?.hasError('required')) {
+
+        <mat-error>
+           Swift Code is required.
+        </mat-error>
+
+    }
     </mat-form-field>
 
 </div>
@@ -1582,6 +1893,16 @@ payments
       }
 
     </mat-select>
+    @if (vendorForm.get('paymentMethod')?.hasError('required')) {
+
+<mat-error>
+
+Payment Method is required.
+
+</mat-error>
+
+}
+
 
   </mat-form-field>
 
@@ -1605,6 +1926,16 @@ schedule
       }
 
     </mat-select>
+        @if (vendorForm.get('paymentTerms')?.hasError('required')) {
+
+<mat-error>
+
+Payment Terms are required.
+
+</mat-error>
+
+}
+
 
   </mat-form-field>
 
@@ -1617,9 +1948,9 @@ currency_exchange
 </mat-icon>
     <mat-select formControlName="preferredCurrency">
 
-      @for (currency of currencies; track currency) {
+      @for (currency of currencies; track currency.value) {
 
-        <mat-option [value]="currency">
+        <mat-option [value]="currency.value">
 
           {{ currency.label }}
 
@@ -1628,6 +1959,16 @@ currency_exchange
       }
 
     </mat-select>
+         @if (vendorForm.get('preferredCurrency')?.hasError('required')) {
+
+<mat-error>
+
+Preferred Currency is required.
+
+</mat-error>
+
+}
+
 
   </mat-form-field>
 
