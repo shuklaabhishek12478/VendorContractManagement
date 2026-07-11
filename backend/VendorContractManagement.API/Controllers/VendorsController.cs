@@ -118,5 +118,13 @@ namespace VendorContractManagement.API.Controllers
 
             return Ok(result);
         }
+
+        [HttpGet("{id}/documents")]
+        public async Task<IActionResult> GetDocuments(int id)
+        {
+            return Ok(
+                await _vendorService
+                    .GetDocumentsAsync(id));
+        }
     }
 }

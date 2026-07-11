@@ -20,5 +20,18 @@ namespace VendorContractManagement.API.Controllers
             var result = await _service.GetRecentAsync(count);
             return Ok(result);
         }
+
+        [HttpGet("vendor/{vendorId}")]
+        public async Task<IActionResult> GetVendorActivities(
+    int vendorId,
+    [FromQuery] int count = 20)
+        {
+            var result =
+                await _service.GetByVendorIdAsync(
+                    vendorId,
+                    count);
+
+            return Ok(result);
+        }
     }
 }

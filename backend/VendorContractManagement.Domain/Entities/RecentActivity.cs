@@ -27,5 +27,7 @@ namespace VendorContractManagement.Domain.Entities
         public DateTime CreatedOn { get; set; } = DateTime.UtcNow;
 
         public string? PerformedBy { get; set; }
+
+        
     }
 }

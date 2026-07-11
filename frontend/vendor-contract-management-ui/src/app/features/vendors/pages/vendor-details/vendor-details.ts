@@ -13,6 +13,9 @@ import { Contracts } from '../../../../core/models/contracts.model';
 import { VendorFinancialInfoComponent } from '../../../../shared/components/vendor-financial-info/vendor-financial-info';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
+import { VendorDocumentsComponent } from '../../components/vendor-documents/vendor-documents';
+import { VendorRecentActivityComponent } from '../vendor-recent-activity/vendor-recent-activity';
+
 @Component({
   selector: 'app-vendor-details',
   standalone: true,
@@ -26,6 +29,8 @@ import { MatIconModule } from '@angular/material/icon';
     VendorContractsComponent,
     VendorFinancialInfoComponent,
     MatIconModule,
+    VendorDocumentsComponent,
+    VendorRecentActivityComponent
   ],
   templateUrl: './vendor-details.html',
   styleUrl: './vendor-details.scss'

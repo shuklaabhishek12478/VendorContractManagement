@@ -1,0 +1,211 @@
+<h2 mat-dialog-title>
+
+    Upload Document
+
+</h2>
+
+<mat-dialog-content>
+
+    <mat-form-field appearance="outline" class="w-full">
+
+        <mat-label>
+
+            Document Type
+
+        </mat-label>
+
+        <mat-select
+            [(ngModel)]="documentType">
+
+            <mat-option value="Agreement">
+
+                Agreement
+
+            </mat-option>
+
+            <mat-option value="GST">
+
+                GST
+
+            </mat-option>
+
+            <mat-option value="PAN">
+
+                PAN
+
+            </mat-option>
+
+            <mat-option value="Compliance">
+
+                Compliance
+
+            </mat-option>
+
+            <mat-option value="Invoice">
+
+                Invoice
+
+            </mat-option>
+
+            <mat-option value="Certificate">
+
+                Certificate
+
+            </mat-option>
+
+            <mat-option value="Other">
+
+                Other
+
+            </mat-option>
+
+        </mat-select>
+
+    </mat-form-field>
+
+    <div
+        class="upload-zone" [class.dragging]="dragOver">
+
+        <mat-icon>
+
+            cloud_upload
+
+        </mat-icon>
+
+        <h3>
+
+            Drag & Drop File
+
+        </h3>
+
+        <p>
+
+            or click below
+
+        </p>
+
+        <button
+mat-stroked-button
+color="primary"
+(click)="fileInput.click()">
+
+            Browse File
+
+        </button>
+
+        <input
+            hidden
+            #fileInput
+            type="file"
+            (change)="onFileSelected($event)">
+
+    </div>
+
+    <p
+class="text-xs text-slate-400 mt-4 text-center">
+
+Supported:
+
+PDF, DOC, DOCX, JPG, PNG, XLS, XLSX
+
+<br>
+
+Maximum Size:
+
+10 MB
+
+</p>
+
+    @if(selectedFile){
+
+<div
+class="selected-file flex items-center gap-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 mt-5">
+
+    <mat-icon class="text-emerald-600">
+
+    {{ getFileIcon(selectedFile) }}
+
+</mat-icon>
+
+    <div class="flex-1">
+
+        <div class="font-semibold">
+
+            {{ selectedFile.name }}
+
+        </div>
+
+        <div class="text-sm text-slate-500">
+
+            {{ (selectedFile.size / 1024).toFixed(2) }} KB
+
+        </div>
+
+    </div>
+
+    <mat-icon class="text-green-600">
+
+        check_circle
+
+    </mat-icon>
+
+</div>
+
+}
+
+@if(previewUrl){
+
+<div class="mt-5 flex justify-center">
+
+    <img
+        [src]="previewUrl"
+        class="rounded-xl border max-h-56 shadow">
+
+</div>
+
+}
+
+@if(uploading){
+
+<div class="mt-5">
+
+    <mat-progress-bar
+        mode="indeterminate">
+    </mat-progress-bar>
+
+    <div
+        class="text-center text-sm text-slate-500 mt-2">
+
+        Uploading...
+
+    </div>
+
+</div>
+
+}
+
+</mat-dialog-content>
+
+
+
+<mat-dialog-actions align="end">
+
+    <button
+        mat-button
+        (click)="dialogRef.close()">
+
+        Cancel
+
+    </button>
+
+    <button
+        mat-raised-button
+        color="primary"
+        [disabled]="!selectedFile || !documentType"
+        (click)="upload()">
+
+        Upload
+
+    </button>
+
+</mat-dialog-actions>

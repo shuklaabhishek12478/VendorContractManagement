@@ -1,0 +1,157 @@
+:host {
+
+    display: block;
+
+}
+
+/* Timeline */
+
+.timeline-line {
+
+    position: absolute;
+
+    left: 18px;
+
+    top: 0;
+
+    bottom: 0;
+
+    width: 2px;
+
+    background: linear-gradient(
+        to bottom,
+        #2563eb,
+        #cbd5e1
+    );
+
+}
+
+/* Timeline Circle */
+
+.timeline-dot {
+
+    width: 42px;
+
+    height: 42px;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    color: #fff;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #1d4ed8
+    );
+
+    box-shadow:
+        0 8px 20px rgba(37,99,235,.30);
+
+    transition: .3s;
+
+}
+
+.timeline-dot:hover {
+
+    transform: scale(1.12);
+
+}
+
+/* Cards */
+
+mat-card {
+
+    border-radius: 18px;
+
+    transition: .30s ease;
+
+    border: 1px solid #e2e8f0;
+
+}
+
+mat-card:hover {
+
+    transform: translateY(-4px);
+
+    box-shadow:
+        0 18px 35px rgba(15,23,42,.10);
+
+}
+
+/* Date */
+
+.activity-date {
+
+    font-size: 12px;
+
+    color: #64748b;
+
+    white-space: nowrap;
+
+}
+
+/* User */
+
+.activity-user {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+}
+
+/* Description */
+
+.activity-description {
+
+    color: #475569;
+
+    line-height: 1.6;
+
+}
+
+/* Empty State */
+
+.empty-state {
+
+    border-radius: 20px;
+
+}
+
+/* Responsive */
+
+@media (max-width:768px){
+
+    .timeline-line{
+
+        left:16px;
+
+    }
+
+    .timeline-dot{
+
+        width:36px;
+
+        height:36px;
+
+    }
+
+    mat-card{
+
+        margin-left:52px !important;
+
+    }
+
+}

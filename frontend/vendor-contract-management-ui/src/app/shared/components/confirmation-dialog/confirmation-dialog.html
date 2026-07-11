@@ -1,42 +1,52 @@
-<h2 mat-dialog-title class="flex items-center gap-3 text-xl font-bold">
+<div class="dialog-wrapper">
 
-    <mat-icon class="text-amber-500">
-        warning_amber
-    </mat-icon>
+    <div class="dialog-icon">
 
-    {{ data.title }}
+        <mat-icon>
 
-</h2>
+            warning_amber
 
-<mat-dialog-content>
+        </mat-icon>
 
-    <p class="text-slate-600 leading-6 mt-2">
+    </div>
+
+    <h2>
+
+        {{ data.title || 'Confirmation' }}
+
+    </h2>
+
+    <p>
 
         {{ data.message }}
 
     </p>
 
-</mat-dialog-content>
+    <div class="dialog-actions">
 
-<mat-dialog-actions align="end" class="pt-4">
+        <button
+            mat-stroked-button
+            (click)="cancel()">
 
-    <button
-        mat-stroked-button
-        (click)="cancel()">
+            Cancel
 
-        Cancel
+        </button>
 
-    </button>
+        <button
+            mat-raised-button
+            color="warn"
+            (click)="confirm()">
 
-    <button
-        mat-raised-button
-        color="warn"
-        (click)="confirm()">
+            <mat-icon>
 
-        <mat-icon>delete_forever</mat-icon>
+                {{ data.icon || 'delete' }}
 
-        {{ data.confirmText || 'Confirm' }}
+            </mat-icon>
 
-    </button>
+            {{ data.confirmText || 'Confirm' }}
 
-</mat-dialog-actions>
+        </button>
+
+    </div>
+
+</div>

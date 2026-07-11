@@ -39,6 +39,11 @@ namespace VendorContractManagement.API.Mappings
             CreateMap<CreateUserDto, User>();
 
             CreateMap<RecentActivity, RecentActivityDto>();
+
+            CreateMap<VendorDocument, VendorDocumentDto>();
+
+            CreateMap<VendorDocumentDto, VendorDocument>();
+            CreateMap<VendorDocumentUploadDto, VendorDocument>();
         }
 
     }

@@ -171,7 +171,7 @@ builder.Services.AddCors(options =>
 // Repository DI
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 builder.Services.AddScoped<IVendorRepository, VendorRepository>();
-builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddScoped<IVendorService, VendorService>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddFluentValidationAutoValidation();
@@ -201,6 +201,8 @@ builder.Services.AddScoped<INotificationService,NotificationService>();
 builder.Services.AddScoped<IRecentActivityService,RecentActivityService>();
 builder.Services.AddScoped<IRecentActivityRepository,RecentActivityRepository>();
 builder.Services.AddValidatorsFromAssemblyContaining<CreateVendorDtoValidator>();
+builder.Services.AddScoped<IVendorDocumentRepository,VendorDocumentRepository>();
+builder.Services.AddScoped<IVendorDocumentService,VendorDocumentService>();
 
 var app = builder.Build();
 

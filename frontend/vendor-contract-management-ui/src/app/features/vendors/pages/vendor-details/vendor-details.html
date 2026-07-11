@@ -221,11 +221,9 @@
 
         </mat-expansion-panel-header>
 
-        <div class="py-4 text-gray-500">
-
-            Coming Soon...
-
-        </div>
+        <app-vendor-documents
+    [vendorId]="vendor.id">
+</app-vendor-documents>
 
     </mat-expansion-panel>
 
@@ -250,11 +248,9 @@
 </mat-panel-title>
         </mat-expansion-panel-header>
 
-        <div class="py-4 text-gray-500">
-
-            Coming Soon...
-
-        </div>
+        <app-vendor-recent-activity
+    [vendorId]="vendor.id">
+</app-vendor-recent-activity>
 
     </mat-expansion-panel>
 

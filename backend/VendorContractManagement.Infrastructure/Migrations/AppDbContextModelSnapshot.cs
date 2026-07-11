@@ -386,6 +386,64 @@ namespace VendorContractManagement.Infrastructure.Migrations
                     b.ToTable("Vendors");
                 });
 
+            modelBuilder.Entity("VendorContractManagement.Domain.Entities.VendorDocument", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ContentType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DocumentType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<byte[]>("FileContent")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("FileSize")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("OriginalFileName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("UploadedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("VendorDocumentId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VendorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("VendorDocumentId");
+
+                    b.HasIndex("VendorId");
+
+                    b.ToTable("VendorDocuments");
+                });
+
             modelBuilder.Entity("VendorContractManagement.Domain.Entities.Contract", b =>
                 {
                     b.HasOne("VendorContractManagement.Domain.Entities.Contract", "ParentContract")
@@ -425,6 +483,21 @@ namespace VendorContractManagement.Infrastructure.Migrations
                     b.Navigation("Vendor");
                 });
 
+            modelBuilder.Entity("VendorContractManagement.Domain.Entities.VendorDocument", b =>
+                {
+                    b.HasOne("VendorContractManagement.Domain.Entities.VendorDocument", null)
+                        .WithMany("VendorDocuments")
+                        .HasForeignKey("VendorDocumentId");
+
+                    b.HasOne("VendorContractManagement.Domain.Entities.Vendor", "Vendor")
+                        .WithMany("VendorDocuments")
+                        .HasForeignKey("VendorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Vendor");
+                });
+
             modelBuilder.Entity("VendorContractManagement.Domain.Entities.Contract", b =>
                 {
                     b.Navigation("Documents");
@@ -437,6 +510,13 @@ namespace VendorContractManagement.Infrastructure.Migrations
                     b.Navigation("Contracts");
 
                     b.Navigation("Users");
+
+                    b.Navigation("VendorDocuments");
+                });
+
+            modelBuilder.Entity("VendorContractManagement.Domain.Entities.VendorDocument", b =>
+                {
+                    b.Navigation("VendorDocuments");
                 });
 #pragma warning restore 612, 618
         }

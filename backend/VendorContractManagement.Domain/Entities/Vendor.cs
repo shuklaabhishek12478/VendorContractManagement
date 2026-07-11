@@ -53,5 +53,8 @@ namespace VendorContractManagement.Domain.Entities
         public PaymentMethod? PaymentMethod { get; set; }
         public ICollection<User> Users { get; set; }
              = new List<User>();
+
+        public ICollection<VendorDocument> VendorDocuments { get; set; }
+        = new List<VendorDocument>();
     }
 }

@@ -10,6 +10,9 @@ namespace VendorContractManagement.Application.Interfaces
     public interface IRecentActivityRepository
     {
         Task AddAsync(RecentActivity activity);
+        Task<List<RecentActivity>> GetByVendorIdAsync(
+    int vendorId,
+    int count);
 
         Task<IEnumerable<RecentActivity>> GetRecentAsync(int count = 20);
     }

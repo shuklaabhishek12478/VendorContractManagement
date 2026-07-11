@@ -15,7 +15,7 @@ namespace VendorContractManagement.Application.Services.Implementations
         private readonly IUserContextService _userContext;
         private readonly IContractRepository _contractRepository;
         private readonly IRecentActivityService _recentActivityService;
-
+        private readonly IDocumentRepository _documentRepository;
         public VendorService(
              IVendorRepository vendorRepository,
              IMapper mapper,
@@ -23,7 +23,8 @@ namespace VendorContractManagement.Application.Services.Implementations
              IAuditLogRepository auditLogRepository,
              IUserContextService userContext,
              IContractRepository contractRepository,
-             IRecentActivityService recentActivityService)
+             IRecentActivityService recentActivityService,
+             IDocumentRepository documentRepository)
         {
             _vendorRepository = vendorRepository;
             _mapper = mapper;
@@ -32,6 +33,7 @@ namespace VendorContractManagement.Application.Services.Implementations
             _userContext = userContext;
             _contractRepository = contractRepository;
             _recentActivityService = recentActivityService;
+            _documentRepository = documentRepository;
         }
 
         public async Task<IEnumerable<VendorDto>> GetAllAsync()
@@ -238,6 +240,29 @@ namespace VendorContractManagement.Application.Services.Implementations
 
             return _mapper.Map<IEnumerable<ContractDto>>
                 (contracts);
+        }
+
+        public async Task<IEnumerable<DocumentDto>> GetDocumentsAsync(int vendorId)
+        {
+            var vendor =
+                await _vendorRepository.GetByIdAsync(vendorId);
+
+            if (vendor == null)
+                throw new Exception("Vendor not found");
+
+            var contracts =
+                await _contractRepository.GetByVendorIdAsync(vendorId);
+
+            var contractIds =
+                contracts
+                    .Select(x => x.Id)
+                    .ToList();
+
+            var documents =
+                await _documentRepository
+                    .GetByContractIdsAsync(contractIds);
+
+            return _mapper.Map<IEnumerable<DocumentDto>>(documents);
         }
     }
 }

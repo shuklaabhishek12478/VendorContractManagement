@@ -1,0 +1,122 @@
+
+.upload-zone:hover{
+
+background:#F8FAFC;
+
+border-color:#2563EB;
+
+}
+
+.upload-zone mat-icon{
+
+font-size:60px;
+
+width:60px;
+
+height:60px;
+
+color:#2563EB;
+
+margin-bottom:10px;
+
+}
+
+.selected-file{
+
+margin-top:20px;
+
+display:flex;
+
+gap:15px;
+
+align-items:center;
+
+padding:16px;
+
+border-radius:12px;
+
+background:#EFF6FF;
+
+border:1px solid #BFDBFE;
+
+}
+
+.selected-file mat-icon{
+
+color:#2563EB;
+
+}
+
+mat-dialog-content{
+
+min-width:500px;
+
+max-width:650px;
+
+}
+
+@media(max-width:768px){
+
+mat-dialog-content{
+
+min-width:auto;
+
+width:100%;
+
+}
+
+.upload-zone{
+
+padding:20px;
+
+}
+
+.dragging {
+
+  background: #DBEAFE;
+
+  border-color: #2563EB;
+
+  transform: scale(1.02);
+
+  box-shadow: 0 10px 30px rgba(37,99,235,.15);
+
+}
+
+
+.upload-zone {
+
+  border: 2px dashed #CBD5E1;
+
+  border-radius: 16px;
+
+  padding: 40px;
+
+  text-align: center;
+
+  cursor: pointer;
+
+  transition: .25s;
+
+}
+
+.upload-zone:hover {
+
+  border-color: #2563EB;
+
+  background: #F8FAFC;
+
+}
+
+.dragging {
+
+  background: #DBEAFE;
+
+  border-color: #2563EB;
+
+  transform: scale(1.02);
+
+  box-shadow: 0 10px 30px rgba(37,99,235,.15);
+
+}
+}

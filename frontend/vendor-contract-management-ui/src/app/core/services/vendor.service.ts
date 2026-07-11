@@ -9,6 +9,8 @@ import { PagedResponse } from '../models/paged-response.model';
 import { CreateVendor } from '../models/create-vendor.model';
 import { VendorQuery } from '../models/vendor-query.model';
 import { Contracts } from '../models/contracts.model';
+import { VendorDocument } from '../models/vendor-document';
+import { RecentActivity } from '../models/recent-activity.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,9 @@ export class VendorService {
   
   private apiUrl =
     `${environment.apiUrl}/vendors`;
+
+private vendorDocumentUrl =
+  `${environment.apiUrl}/VendorDocuments`;
 
   getAll(): Observable<Vendor[]> {
     return this.http.get<Vendor[]>(this.apiUrl);
@@ -121,5 +126,73 @@ getContracts(vendorId: number) {
   );
 
 }
+
+getVendorActivities(vendorId: number) {
+
+  return this.http.get<RecentActivity[]>(
+    `${environment.apiUrl}/RecentActivities/vendor/${vendorId}`
+  );
+
+}
+
+
+getVendorDocuments(vendorId: number) {
+
+  return this.http.get<VendorDocument[]>(
+    `${this.vendorDocumentUrl}/vendor/${vendorId}`
+  );
+
+}
+
+uploadVendorDocument(
+  vendorId: number,
+  file: File,
+  documentType: string
+) {
+
+  const formData = new FormData();
+
+  formData.append('vendorId', vendorId.toString());
+
+  formData.append('documentType', documentType);
+
+  formData.append('file', file);
+
+  return this.http.post(
+    `${this.vendorDocumentUrl}/upload`,
+    formData,
+    {
+      observe: 'events',
+      reportProgress: true
+    }
+  );
+
+}
+
+downloadVendorDocument(id: number) {
+
+  return this.http.get(
+    `${this.vendorDocumentUrl}/${id}/download`,
+    {
+      responseType: 'blob'
+    }
+  );
+
+}
+
+getVendorDocumentPreviewUrl(id: number) {
+
+  return `${environment.apiUrl}/VendorDocuments/${id}/preview`;
+
+}
+
+deleteVendorDocument(id: number) {
+
+  return this.http.delete(
+    `${this.vendorDocumentUrl}/${id}`
+  );
+
+}
+
 
 }

@@ -10,7 +10,8 @@ namespace VendorContractManagement.Application.Services.Interfaces
     {
        
         Task<IEnumerable<RecentActivityDto>> GetRecentAsync(int count);
-
+        Task<List<RecentActivityDto>> GetByVendorIdAsync(int vendorId, int count = 20);
+        
         Task LogAsync(
     string module,
     string action,

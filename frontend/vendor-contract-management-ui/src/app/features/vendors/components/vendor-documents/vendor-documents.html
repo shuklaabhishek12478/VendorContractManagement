@@ -1,0 +1,384 @@
+
+<div class="space-y-6">
+
+    <!-- Header -->
+
+    <div
+        class="flex
+               items-center
+               justify-between">
+
+        <div>
+
+            <h2
+                class="text-2xl
+                       font-bold
+                       text-slate-800">
+
+                Vendor Documents
+
+            </h2>
+
+            <p class="text-slate-500">
+
+                Upload and manage vendor related documents.
+
+            </p>
+
+        </div>
+
+        
+
+       
+
+<button
+    mat-raised-button
+    color="primary"
+    (click)="openUploadDialog()">
+
+    <mat-icon>
+        upload
+    </mat-icon>
+
+    Upload Document
+
+</button>
+
+@if(uploading){
+
+<div
+class="mt-5 rounded-xl border bg-white p-4">
+
+    <div
+    class="flex justify-between mb-2">
+
+        <span>
+
+            Uploading...
+
+        </span>
+
+        <strong>
+
+            {{uploadProgress}}%
+
+        </strong>
+
+    </div>
+
+    <mat-progress-bar
+
+        mode="determinate"
+
+        [value]="uploadProgress">
+
+    </mat-progress-bar>
+
+</div>
+
+}
+
+    </div>
+
+    <!-- Stats -->
+
+    <div
+        class="grid
+               md:grid-cols-4
+               gap-5">
+
+        <div
+            class="rounded-2xl
+                   bg-blue-50
+                   border
+                   border-blue-200
+                   p-5">
+
+            <div class="text-sm text-slate-500">
+
+                Total Documents
+
+            </div>
+
+            <div class="text-3xl font-bold">
+
+                {{documents.length}}
+
+            </div>
+
+        </div>
+
+        <div
+            class="rounded-2xl
+                   bg-emerald-50
+                   border
+                   border-emerald-200
+                   p-5">
+
+            <div class="text-sm text-slate-500">
+
+                Total Size
+
+            </div>
+
+            <div class="text-3xl font-bold">
+
+                {{totalSize}}
+
+            </div>
+
+        </div>
+
+        <div
+            class="rounded-2xl
+                   bg-orange-50
+                   border
+                   border-orange-200
+                   p-5">
+
+            <div class="text-sm text-slate-500">
+
+                PDF Files
+
+            </div>
+
+            <div class="text-3xl font-bold">
+
+                {{pdfCount}}
+
+            </div>
+
+        </div>
+
+        <div
+            class="rounded-2xl
+                   bg-violet-50
+                   border
+                   border-violet-200
+                   p-5">
+
+            <div class="text-sm text-slate-500">
+
+                Images
+
+            </div>
+
+            <div class="text-3xl font-bold">
+
+                {{imageCount}}
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Table -->
+
+    <div
+        class="rounded-2xl
+               border
+               overflow-hidden">
+
+        <table
+            mat-table
+            [dataSource]="documents"
+            class="w-full">
+
+            <!-- File -->
+
+            <ng-container matColumnDef="fileName">
+
+                <th mat-header-cell *matHeaderCellDef>
+
+                    File
+
+                </th>
+
+                <td mat-cell *matCellDef="let d">
+
+                    <div
+                        class="flex
+                               items-center
+                               gap-3">
+
+                        <mat-icon>
+
+                            description
+
+                        </mat-icon>
+
+                        <div>
+
+                            <div
+                                class="font-semibold">
+
+                                {{d.originalFileName}}
+
+                            </div>
+
+                            <div
+                                class="text-xs
+                                       text-slate-500">
+
+                                {{d.contentType}}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </td>
+
+            </ng-container>
+            
+           <ng-container matColumnDef="contentType">
+
+    <th mat-header-cell *matHeaderCellDef>
+
+        Type
+
+    </th>
+
+    <td mat-cell *matCellDef="let d">
+
+        {{ d.contentType }}
+
+    </td>
+
+</ng-container>
+
+            <!-- Size -->
+
+            <ng-container matColumnDef="size">
+
+                <th mat-header-cell *matHeaderCellDef>
+
+                    Size
+
+                </th>
+
+                <td mat-cell *matCellDef="let d">
+
+                    {{d.fileSize | fileSize}}
+
+                </td>
+
+            </ng-container>
+
+            <!-- Uploaded -->
+
+            <ng-container matColumnDef="uploadedOn">
+
+                <th mat-header-cell *matHeaderCellDef>
+
+                    uploadedOn
+
+                </th>
+
+                <td mat-cell *matCellDef="let d">
+
+                    {{d.uploadedOn | date:'dd MMM yyyy'}}
+
+                </td>
+
+            </ng-container>
+
+            <!-- Actions -->
+
+            <ng-container matColumnDef="actions">
+
+                <th mat-header-cell *matHeaderCellDef>
+
+                    Actions
+
+                </th>
+
+                <td mat-cell *matCellDef="let document">
+
+                   <button
+    mat-icon-button
+    color="primary"
+    matTooltip="Preview"
+    (click)="preview(document)">
+
+    <mat-icon>
+
+        visibility
+
+    </mat-icon>
+
+</button>
+
+                    <button
+                        mat-icon-button
+                        (click)="download(document)">
+
+                        <mat-icon>
+
+                            download
+
+                        </mat-icon>
+
+                    </button>
+
+                    <button
+                        mat-icon-button
+                        color="warn"
+                        (click)="delete(document)">
+
+                        <mat-icon>
+
+                            delete
+
+                        </mat-icon>
+
+                    </button>
+
+                </td>
+
+            </ng-container>
+
+            <tr
+                mat-header-row
+                *matHeaderRowDef="displayedColumns">
+            </tr>
+
+            <tr
+                mat-row
+                *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+
+        </table>
+
+        @if (!loading && documents.length === 0) {
+
+<div class="py-16 text-center">
+
+    <mat-icon
+        class="!text-6xl !w-16 !h-16 text-slate-300">
+
+        folder_open
+
+    </mat-icon>
+
+    <h3 class="mt-4 text-xl font-semibold text-slate-600">
+
+        No Documents Found
+
+    </h3>
+
+    <p class="mt-2 text-slate-500">
+
+        This vendor doesn't have any uploaded documents yet.
+
+    </p>
+
+</div>
+
+}
+
+    </div>
+
+</div>

@@ -17,5 +17,7 @@ namespace VendorContractManagement.Application.Interfaces
         Task<int> CountByVendorIdAsync(int vendorId);
 
         Task<Document?> GetByIdWithContractAsync(int id);
+
+        Task<List<Document>> GetByContractIdsAsync(List<int> contractIds);
     }
 }

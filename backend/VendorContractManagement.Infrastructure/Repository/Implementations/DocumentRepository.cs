@@ -60,5 +60,14 @@ namespace VendorContractManagement.Infrastructure.Repository.Implementations
                 .Include(x => x.Contract)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<List<Document>> GetByContractIdsAsync(
+    List<int> contractIds)
+        {
+            return await _context.Documents
+                .Where(x => contractIds.Contains(x.ContractId))
+                .OrderByDescending(x => x.UploadedOn)
+                .ToListAsync();
+        }
     }
 }

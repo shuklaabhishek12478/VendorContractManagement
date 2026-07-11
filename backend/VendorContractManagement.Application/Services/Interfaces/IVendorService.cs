@@ -23,5 +23,7 @@ namespace VendorContractManagement.Application.Services.Interfaces
 
         Task<PagedResponse<VendorDto>>GetPagedAsync(VendorQueryParams query);
         Task<IEnumerable<ContractDto>>GetContractsAsync(int vendorId);
+
+        Task<IEnumerable<DocumentDto>> GetDocumentsAsync(int vendorId);
     }
 }
