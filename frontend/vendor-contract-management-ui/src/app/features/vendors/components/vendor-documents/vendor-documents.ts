@@ -324,4 +324,18 @@ preview(document: VendorDocument): void {
     });
 
 }
+
+openInNewTab(document: VendorDocument): void {
+
+  const url =
+    this.vendorService.getVendorDocumentPreviewUrl(
+      document.id
+    );
+
+  window.open(
+    url,
+    '_blank'
+  );
+
+}
 }

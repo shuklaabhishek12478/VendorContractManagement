@@ -116,38 +116,36 @@ Maximum Size:
 
 </p>
 
-    @if(selectedFile){
+@if(selectedFile){
+
+<div class="space-y-3 mt-5">
 
 <div
-class="selected-file flex items-center gap-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4 mt-5">
+class="flex items-center gap-4 rounded-xl border border-emerald-200 bg-emerald-50 p-4">
 
-    <mat-icon class="text-emerald-600">
+<mat-icon>
 
-    {{ getFileIcon(selectedFile) }}
+{{ getFileIcon(selectedFile) }}
 
 </mat-icon>
 
-    <div class="flex-1">
+<div class="flex-1">
 
-        <div class="font-semibold">
+<div class="font-semibold">
 
-            {{ selectedFile.name }}
+{{ selectedFile.name }}
 
-        </div>
+</div>
 
-        <div class="text-sm text-slate-500">
+<div class="text-sm text-slate-500">
 
-            {{ (selectedFile.size / 1024).toFixed(2) }} KB
+{{ (selectedFile.size / 1024).toFixed(2) }} KB
 
-        </div>
+</div>
 
-    </div>
+</div>
 
-    <mat-icon class="text-green-600">
-
-        check_circle
-
-    </mat-icon>
+</div>
 
 </div>
 
