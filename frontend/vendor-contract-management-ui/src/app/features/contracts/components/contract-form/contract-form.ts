@@ -62,7 +62,7 @@ export class ContractFormComponent {
 
   @Input()contractNumber = '';
 
-  @Input()statusLabel = '';
+  @Input()status = '';
 
   onSave(): void {
 

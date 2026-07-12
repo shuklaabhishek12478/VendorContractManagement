@@ -1,35 +1,44 @@
+
+
+@if(contract){
+
 <div class="page-container">
 
    <div class="page-header">
 
-        <button
-            class="secondary-btn"
-            (click)="cancel()">
+      <button
+          class="secondary-btn"
+          (click)="cancel()">
 
-            ← Back
+          ← Back
 
-        </button>
+      </button>
 
-    </div>
+   </div>
 
-    <div class="page-header">
-<h2 class="page-title">Edit Contract</h2>
+   <div class="page-header">
 
-<p class="text-gray-500">
+      <h2 class="page-title">
+          Edit Contract
+      </h2>
 
-        {{ contract.contractNumber }}
+      <p class="text-gray-500">
+          {{ contract?.contractNumber }}
+      </p>
 
-    </p>
+   </div>
+
+   <app-contract-form
+      
+      [form]="form"
+      [vendors]="vendors"
+      [loading]="loading"
+      [contractNumber]="contract.contractNumber"
+      [status]="contract.status.toString()"
+      (save)="save()"
+      (cancel)="cancel()">
+   </app-contract-form>
 
 </div>
-<app-contract-form
-    [form]="form"
-    [vendors]="vendors"
-    [loading]="loading"
-    [contractNumber]="contract.contractNumber"
-    [statusLabel]="contract.status.toString()"
-    (save)="save()"
-    (cancel)="cancel()">
-</app-contract-form>
 
-</div>
+}

@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ContractService } from '../../../../core/services/contract.service';
@@ -30,7 +30,7 @@ export class EditContractComponent implements OnInit {
   private route = inject(ActivatedRoute);
 
   private router = inject(Router);
-
+private cdr = inject(ChangeDetectorRef);
   private contractService = inject(ContractService);
    private snackbar = inject(SnackbarService);
   private vendorService = inject(VendorService);
@@ -130,8 +130,8 @@ private buildForm(): void {
 
 this.form.patchValue({
 
-  contractNumber: contract.contractNumber,
-
+ // contractNumber: contract.contractNumber,
+ // status: contract.status,
   title:
     contract.title,
 
@@ -154,6 +154,7 @@ this.form.patchValue({
 
 this.form.markAsPristine();
           this.loading = false;
+           this.cdr.detectChanges();
 
         },
 
@@ -206,6 +207,8 @@ this.form.markAsPristine();
       next: () => {
 
   this.loading = false;
+
+  this.form.markAsPristine();
 
   this.snackbar.success(
     'Contract updated successfully.'

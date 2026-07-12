@@ -42,6 +42,7 @@ namespace VendorContractManagement.Application.Interfaces
         Task<ExpiryAnalyticsDto>GetExpiryAnalyticsAsync();
         Task<string> GenerateContractNumberAsync();
         Task<int> GetContractCountAsync();
+        Task<string?> GetLastContractNumberAsync();
 
     }
 }

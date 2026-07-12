@@ -45,7 +45,7 @@ export class DocumentUploadDialogComponent {
 
   dialogRef =
     inject(MatDialogRef<DocumentUploadDialogComponent>);
-
+  readonly maxFileSizeText = 'Maximum file size: 10 MB';
   selectedFile?: File;
   previewUrl?: string;
 dragOver = false;

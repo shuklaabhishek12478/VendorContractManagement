@@ -8,9 +8,10 @@ import {
 import { CommonModule } from '@angular/common';
 
 import { MatCardModule } from '@angular/material/card';
-
+import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -42,9 +43,10 @@ import { DocumentPreviewDialogComponent } from '../../../../shared/components/do
     CommonModule,
 
 MatCardModule,
-
+FormsModule,
 MatButtonModule,
-
+MatFormFieldModule,
+MatSelectModule,
 MatIconModule,
 
 MatTableModule,
@@ -66,9 +68,9 @@ export class VendorDocumentsComponent
 implements OnInit, OnChanges {
 
   @Input() vendorId!: number;
-
+  searchText = '';
   documents: VendorDocument[] = [];
-
+  selectedType = '';
   loading = true;
 
 uploading = false;
@@ -336,6 +338,48 @@ openInNewTab(document: VendorDocument): void {
     url,
     '_blank'
   );
+
+}
+
+get filteredDocuments(): VendorDocument[] {
+
+  let data = this.documents;
+
+  if (this.selectedType) {
+
+    data = data.filter(x =>
+      x.documentType === this.selectedType
+    );
+
+  }
+
+  if (this.searchText.trim()) {
+
+    const search = this.searchText.toLowerCase();
+
+    data = data.filter(x =>
+
+      x.originalFileName.toLowerCase().includes(search) ||
+
+      x.documentType.toLowerCase().includes(search) ||
+
+      x.contentType.toLowerCase().includes(search)
+
+    );
+
+  }
+
+  return data;
+
+}
+
+get documentTypes(): string[] {
+
+  return [
+    ...new Set(
+      this.documents.map(x => x.documentType)
+    )
+  ];
 
 }
 }

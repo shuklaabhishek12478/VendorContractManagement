@@ -350,6 +350,14 @@ namespace VendorContractManagement.Infrastructure.Repository
             return $"CNT-{DateTime.UtcNow.Year}-{(count + 1):D4}";
         }
 
+        public async Task<string?> GetLastContractNumberAsync()
+        {
+            return await _context.Contracts
+                .OrderByDescending(x => x.Id)
+                .Select(x => x.ContractNumber)
+                .FirstOrDefaultAsync();
+        }
+
     }
     
 }

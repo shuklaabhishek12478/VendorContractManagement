@@ -74,11 +74,20 @@ namespace VendorContractManagement.Application.Services.Implementations
         {
             var contract = _mapper.Map<Contract>(dto);
 
-            var count =
-                await _contractRepository.GetContractCountAsync();
+            var lastNumber =
+    await _contractRepository.GetLastContractNumberAsync();
+
+            int nextNumber = 1;
+
+            if (!string.IsNullOrWhiteSpace(lastNumber))
+            {
+                var lastPart = lastNumber.Split('-').Last();
+
+                nextNumber = int.Parse(lastPart) + 1;
+            }
 
             contract.ContractNumber =
-                $"CNT-{DateTime.UtcNow.Year}-{(count + 1):D4}";
+                $"CNT-{DateTime.UtcNow.Year}-{nextNumber:D4}";
 
             contract.Status = ContractStatus.Draft;
 
