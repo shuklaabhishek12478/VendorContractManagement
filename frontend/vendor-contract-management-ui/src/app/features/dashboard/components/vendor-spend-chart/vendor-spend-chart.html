@@ -1,0 +1,45 @@
+<apx-chart
+
+[series]="series"
+
+[chart]="chart"
+
+[plotOptions]="plotOptions"
+
+[dataLabels]="dataLabels"
+
+[grid]="grid"
+
+[xaxis]="xaxis"
+
+[tooltip]="tooltip">
+
+<div class="top-vendor-list">
+
+<div
+class="vendor-item"
+*ngFor="let vendor of vendors; let i=index">
+
+<div>
+
+<strong>
+
+#{{i+1}}
+
+</strong>
+
+{{vendor}}
+
+</div>
+
+<div>
+
+₹ {{amounts[i] | number}}
+
+</div>
+
+</div>
+
+</div>
+
+</apx-chart>

@@ -1,0 +1,50 @@
+<div
+  class="stats-card"
+  [class.loading]="loading">
+
+  <div
+    class="top-border"
+    [style.background]="color">
+  </div>
+
+  <div class="card-content">
+
+    <div class="left">
+
+      <div class="title">
+
+        {{ title }}
+
+      </div>
+
+      <div class="value">
+
+        {{ value }}
+
+      </div>
+
+      <div
+        class="trend"
+        *ngIf="trend">
+
+        {{ trend }}
+
+      </div>
+
+    </div>
+
+    <div
+      class="icon-box"
+      [style.background]="color">
+
+      <mat-icon>
+
+        {{ icon }}
+
+      </mat-icon>
+
+    </div>
+
+  </div>
+
+</div>

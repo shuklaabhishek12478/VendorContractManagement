@@ -1,0 +1,39 @@
+<apx-chart
+
+[series]="series"
+
+[chart]="chart"
+
+[labels]="labels"
+
+[legend]="legend"
+
+[responsive]="responsive">
+
+
+</apx-chart>
+<div class="dept-summary">
+
+<div
+class="dept-item"
+*ngFor="let dept of labels;let i=index">
+
+<div>
+
+<strong>
+
+{{dept}}
+
+</strong>
+
+</div>
+
+<div>
+
+₹ {{values[i] | number}}
+
+</div>
+
+</div>
+
+</div>

@@ -1,0 +1,32 @@
+<div class="insights">
+
+<div
+class="insight-card"
+*ngFor="let item of insights"
+[ngClass]="item.severity">
+
+<div class="icon">
+
+{{item.icon}}
+
+</div>
+
+<div class="content">
+
+<h4>
+
+{{item.title}}
+
+</h4>
+
+<p>
+
+{{item.message}}
+
+</p>
+
+</div>
+
+</div>
+
+</div>

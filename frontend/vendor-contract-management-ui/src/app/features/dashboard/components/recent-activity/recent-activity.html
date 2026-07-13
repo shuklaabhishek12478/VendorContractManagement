@@ -1,0 +1,50 @@
+<div
+    class="timeline">
+
+    <div
+
+        class="timeline-item"
+
+        *ngFor="let activity of activities">
+
+        <div class="timeline-icon">
+
+            {{ getIcon(activity.module) }}
+
+        </div>
+
+        <div class="timeline-content">
+
+            <div class="timeline-title">
+
+                {{ activity.action }}
+
+            </div>
+
+            <div class="timeline-description">
+
+                {{ activity.description }}
+
+            </div>
+
+            <div class="timeline-footer">
+
+                <span>
+
+                    {{ activity.performedBy }}
+
+                </span>
+
+                <span>
+
+                    {{ activity.createdOn | date:'medium' }}
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

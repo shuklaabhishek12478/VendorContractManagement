@@ -1,0 +1,59 @@
+<div class="approval-list">
+
+<div
+class="approval-card"
+*ngFor="let item of approvals">
+
+<div class="info">
+
+<h4>
+
+{{item.contractNumber}}
+
+</h4>
+
+<p>
+
+{{item.vendorName}}
+
+</p>
+
+<span>
+
+{{item.submittedOn}}
+
+</span>
+
+<div class="amount">
+
+₹ {{item.contractValue | number}}
+
+</div>
+
+</div>
+
+<div class="actions">
+
+<button
+mat-flat-button
+color="primary"
+(click)="approve.emit(item.id)">
+
+Approve
+
+</button>
+
+<button
+mat-stroked-button
+color="warn"
+(click)="reject.emit(item.id)">
+
+Reject
+
+</button>
+
+</div>
+
+</div>
+
+</div>

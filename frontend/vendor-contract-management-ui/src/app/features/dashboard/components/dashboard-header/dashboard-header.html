@@ -1,0 +1,71 @@
+<div
+  class="dashboard-header">
+
+  <div
+    class="header-left">
+
+    <div
+      class="welcome-chip">
+
+      Welcome Back 👋
+
+    </div>
+
+    <h1>
+
+      {{ title }}
+
+    </h1>
+
+    <p>
+
+      {{ subtitle }}
+
+    </p>
+
+    <span
+      class="username"
+      *ngIf="userName">
+
+      {{ userName }}
+
+    </span>
+
+  </div>
+
+  <div
+    class="header-right"
+    *ngIf="showQuickActions">
+
+    <button
+      mat-flat-button
+      color="primary"
+      (click)="addVendor.emit()">
+
+      <mat-icon>
+
+        business
+
+      </mat-icon>
+
+      Add Vendor
+
+    </button>
+
+    <button
+      mat-stroked-button
+      (click)="addContract.emit()">
+
+      <mat-icon>
+
+        description
+
+      </mat-icon>
+
+      Add Contract
+
+    </button>
+
+  </div>
+
+</div>

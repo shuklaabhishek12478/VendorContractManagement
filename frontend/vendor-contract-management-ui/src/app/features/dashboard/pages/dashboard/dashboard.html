@@ -1,4 +1,4 @@
-<div class="space-y-6">
+<!--<div class="space-y-6">
 
   <div>
     <h1 class="text-3xl font-bold text-slate-900">
@@ -33,5 +33,315 @@
     </div>
 
   </div>
+
+</div>-->
+
+<div class="dashboard-container">
+
+    <app-dashboard-header
+
+        title="Enterprise Dashboard"
+
+        subtitle="Vendor Contract Management System"
+
+        userName="Abhishek"
+
+     >
+
+    </app-dashboard-header>
+
+    <!-- KPI -->
+
+    <div class="stats-grid">
+
+        <app-stats-card
+
+            *ngFor="let card of cards"
+
+            [title]="card.title"
+
+            [value]="card.value"
+
+            [icon]="card.icon"
+
+            [color]="card.color"
+
+            [trend]="card.trend">
+
+        </app-stats-card>
+
+    </div>
+
+    <!-- Analytics -->
+
+    <div class="dashboard-grid">
+
+       <section class="dashboard-card large">
+
+    <h3>Contract Overview</h3>
+
+    <app-contract-overview-chart>
+    </app-contract-overview-chart>
+
+</section>
+
+<section class="dashboard-card">
+
+    <h3>Upcoming Expiring Contracts</h3>
+
+    <app-expiring-contracts
+        [contracts]="expiringContracts"
+        (open)="openContract($event)"
+        (renew)="renewContract($event)">
+    </app-expiring-contracts>
+
+</section>
+
+        <section class="dashboard-card">
+
+    <h3>
+
+        Vendor Distribution
+
+    </h3>
+
+    <app-vendor-distribution-chart>
+
+    </app-vendor-distribution-chart>
+
+</section>
+
+        <section class="dashboard-card">
+
+    <h3>
+
+        Recent Activity
+
+    </h3>
+
+    <app-recent-activity
+
+        [activities]="activities">
+
+    </app-recent-activity>
+
+</section>
+
+        <section class="dashboard-card">
+
+    <h3>
+
+        Notifications
+
+    </h3>
+
+    <app-notifications
+
+        [notifications]="notifications">
+
+    </app-notifications>
+
+</section>
+        <section class="dashboard-card large">
+
+<h3>
+
+Pending Approvals
+
+</h3>
+
+<app-pending-approvals
+
+[approvals]="pendingApprovals"
+
+(approve)="approve($event)"
+
+(reject)="reject($event)">
+
+</app-pending-approvals>
+
+</section>
+
+<section class="dashboard-card">
+
+<h3>
+
+Expenditure Summary
+
+</h3>
+
+<app-expenditure-summary
+
+[currentSpend]="currentSpend"
+
+[forecastSpend]="forecastSpend"
+
+[budget]="budget">
+
+</app-expenditure-summary>
+
+</section>
+
+<section class="dashboard-card">
+
+<h3>
+
+Monthly Expenditure Trend
+
+</h3>
+
+<app-expenditure-trend-chart
+
+[actual]="actual"
+
+[forecast]="forecast">
+
+</app-expenditure-trend-chart>
+
+</section>
+
+<section class="dashboard-card">
+
+<h3>
+
+Top Vendor Spend
+
+</h3>
+
+<app-vendor-spend-chart
+
+[vendors]="vendorNames"
+
+[amounts]="vendorSpend">
+
+</app-vendor-spend-chart>
+
+</section>
+
+
+<section class="dashboard-card">
+
+<h3>
+
+Department Spend Distribution
+
+</h3>
+
+<app-department-spend-chart
+
+[labels]="labels"
+
+[values]="departmentSpend">
+
+</app-department-spend-chart>
+
+
+</section>
+
+<section class="dashboard-card">
+
+<app-budget-health-card
+
+[budget]="budget"
+
+[spent]="spent">
+
+</app-budget-health-card>
+
+</section>
+
+<section class="dashboard-card">
+
+    <h3>
+
+        Quick Actions
+
+    </h3>
+
+    <app-quick-actions
+        (action)="handleQuickAction($event)">
+    </app-quick-actions>
+
+</section>
+
+<section class="dashboard-card">
+
+<h3>
+
+System Health
+
+</h3>
+
+<app-system-health>
+
+</app-system-health>
+
+</section>
+
+<section class="dashboard-card">
+
+    <h3>
+
+        Contract Status Analytics
+
+    </h3>
+
+    <app-contract-status-chart
+
+        [labels]="statusLabels"
+
+        [values]="statusValues">
+
+    </app-contract-status-chart>
+
+</section>
+
+<section class="dashboard-card large">
+
+    <app-budget-forecast-card
+
+        [budget]="budget"
+
+        [currentSpend]="currentSpend"
+
+        [forecastSpend]="forecastSpend">
+
+    </app-budget-forecast-card>
+
+</section>
+
+<section class="dashboard-card large">
+
+<h3>
+
+AI Insights
+
+</h3>
+
+<app-ai-insights
+
+[insights]="insights">
+
+</app-ai-insights>
+
+</section>
+
+<section class="dashboard-card">
+
+<h3>
+
+Upcoming Events
+
+</h3>
+
+<app-upcoming-events
+
+[events]="events">
+
+</app-upcoming-events>
+
+</section>
+        
+    </div>
 
 </div>

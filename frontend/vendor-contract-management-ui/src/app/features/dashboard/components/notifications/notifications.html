@@ -1,0 +1,41 @@
+<div class="notification-list">
+
+    <div
+
+        *ngFor="let item of notifications"
+
+        class="notification-card"
+
+        [ngClass]="item.type">
+
+        <div class="notification-dot"
+
+             *ngIf="item.unread">
+
+        </div>
+
+        <div class="notification-content">
+
+            <div class="notification-title">
+
+                {{item.title}}
+
+            </div>
+
+            <div class="notification-message">
+
+                {{item.message}}
+
+            </div>
+
+            <div class="notification-time">
+
+                {{item.time}}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

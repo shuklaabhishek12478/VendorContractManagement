@@ -1,0 +1,38 @@
+<div class="chart-container">
+
+    <apx-chart
+        [series]="series"
+        [chart]="chart"
+        [labels]="labels"
+        [legend]="legend"
+        [tooltip]="tooltip"
+        [dataLabels]="dataLabels"
+        [responsive]="responsive">
+
+    </apx-chart>
+
+</div>
+
+<div class="status-grid">
+
+    <div
+        class="status-item"
+        *ngFor="let item of labels; let i=index">
+
+        <div class="left">
+
+            <span class="dot"></span>
+
+            {{item}}
+
+        </div>
+
+        <strong>
+
+            {{values[i]}}
+
+        </strong>
+
+    </div>
+
+</div>

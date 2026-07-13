@@ -1,0 +1,43 @@
+<div class="health-list">
+
+<div
+class="health-item"
+*ngFor="let item of services">
+
+<div class="left">
+
+<div class="icon">
+
+{{item.icon}}
+
+</div>
+
+<div>
+
+<h4>
+
+{{item.name}}
+
+</h4>
+
+<p>
+
+Last Checked 2 min ago
+
+</p>
+
+</div>
+
+</div>
+
+<div
+class="badge"
+[ngClass]="item.status.toLowerCase()">
+
+{{item.status}}
+
+</div>
+
+</div>
+
+</div>

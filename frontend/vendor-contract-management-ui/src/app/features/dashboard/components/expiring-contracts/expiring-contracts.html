@@ -1,0 +1,86 @@
+<div class="contract-list">
+
+<div
+class="contract-card"
+*ngFor="let item of contracts">
+
+<div class="left">
+
+<h4>
+
+{{item.contractNumber}}
+
+</h4>
+
+<div>
+
+{{item.vendorName}}
+
+</div>
+
+<div>
+
+Expires :
+
+{{item.endDate}}
+
+</div>
+
+</div>
+
+<div class="right">
+
+<div
+class="days"
+
+[ngClass]="{
+
+danger:item.daysLeft<=7,
+
+warning:item.daysLeft>7 && item.daysLeft<=30,
+
+safe:item.daysLeft>30
+
+}">
+
+{{item.daysLeft}} Days
+
+</div>
+
+<div class="amount">
+
+₹ {{item.contractValue|number}}
+
+</div>
+
+<div class="buttons">
+
+<button
+
+mat-flat-button
+
+color="primary"
+
+(click)="renew.emit(item.id)">
+
+Renew
+
+</button>
+
+<button
+
+mat-stroked-button
+
+(click)="open.emit(item.id)">
+
+Open
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>

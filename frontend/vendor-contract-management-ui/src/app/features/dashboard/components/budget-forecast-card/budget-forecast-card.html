@@ -1,0 +1,104 @@
+<div class="forecast-card">
+
+    <div class="header">
+
+        <div>
+
+            <h2>
+
+                Budget Forecast
+
+            </h2>
+
+            <p>
+
+                Financial Overview
+
+            </p>
+
+        </div>
+
+        <span
+            class="badge"
+            [ngClass]="riskColor">
+
+            {{risk}}
+
+        </span>
+
+    </div>
+
+    <div class="numbers">
+
+        <div>
+
+            <label>Budget</label>
+
+            <h3>
+
+                ₹ {{budget | number}}
+
+            </h3>
+
+        </div>
+
+        <div>
+
+            <label>Current Spend</label>
+
+            <h3>
+
+                ₹ {{currentSpend | number}}
+
+            </h3>
+
+        </div>
+
+        <div>
+
+            <label>Forecast</label>
+
+            <h3>
+
+                ₹ {{forecastSpend | number}}
+
+            </h3>
+
+        </div>
+
+        <div>
+
+            <label>Remaining</label>
+
+            <h3>
+
+                ₹ {{remaining | number}}
+
+            </h3>
+
+        </div>
+
+    </div>
+
+    <div class="progress-wrapper">
+
+        <div
+            class="progress">
+
+            <div
+                class="progress-fill"
+                [style.width.%]="percentage">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="footer">
+
+        {{percentage | number:'1.0-0'}}% Budget Utilized
+
+    </div>
+
+</div>
