@@ -13,6 +13,12 @@ namespace VendorContractManagement.Domain.Enums
         IMPS = 3,
         UPI = 4,
         WireTransfer = 5,
-        Cheque = 6
+        Cheque = 6,
+
+        Cash = 7,
+        CreditCard = 8,
+        DebitCard = 9,
+        ACH = 10,
+        SWIFT = 11
     }
 }

@@ -203,6 +203,9 @@ builder.Services.AddScoped<IRecentActivityRepository,RecentActivityRepository>()
 builder.Services.AddValidatorsFromAssemblyContaining<CreateVendorDtoValidator>();
 builder.Services.AddScoped<IVendorDocumentRepository,VendorDocumentRepository>();
 builder.Services.AddScoped<IVendorDocumentService,VendorDocumentService>();
+builder.Services.AddScoped<IExpenditureRepository,ExpenditureRepository>();
+builder.Services.AddScoped<IExpenditureService,ExpenditureService>();
+
 
 var app = builder.Build();
 

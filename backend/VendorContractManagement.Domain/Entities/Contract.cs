@@ -62,5 +62,8 @@ namespace VendorContractManagement.Domain.Entities
         public string? TerminatedBy { get; set; }
         public bool IsActive { get; set; }  = true;
 
+
+        public ICollection<Expenditure> Expenditures { get; set; }
+    = new List<Expenditure>();
     }
 }

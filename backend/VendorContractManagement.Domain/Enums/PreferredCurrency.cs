@@ -9,9 +9,23 @@ namespace VendorContractManagement.Domain.Enums
     public enum Currency
     {
         INR = 1,
+
         USD = 2,
+
         EUR = 3,
+
         GBP = 4,
-        AED = 5
+
+        AED = 5,
+
+        SGD = 6,
+
+        AUD = 7,
+
+        CAD = 8,
+
+        JPY = 9,
+
+        CNY = 10
     }
 }

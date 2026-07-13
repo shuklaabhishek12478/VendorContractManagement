@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using VendorContractManagement.Application.DTOs;
+using VendorContractManagement.Application.DTOs.Expenditure;
 using VendorContractManagement.Domain.Entities;
 
 namespace VendorContractManagement.Application.Mappings
@@ -31,6 +32,12 @@ namespace VendorContractManagement.Application.Mappings
             CreateMap<RecentActivity, RecentActivityDto>();
 
             CreateMap<VendorDocument, VendorDocumentDto>();
+
+            CreateMap<Expenditure, ExpenditureDto>();
+
+            CreateMap<CreateExpenditureDto, Expenditure>();
+
+            CreateMap<UpdateExpenditureDto, Expenditure>();
 
             CreateMap<VendorDocumentDto, VendorDocument>();
         }

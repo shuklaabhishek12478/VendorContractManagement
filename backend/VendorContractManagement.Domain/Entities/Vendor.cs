@@ -56,5 +56,8 @@ namespace VendorContractManagement.Domain.Entities
 
         public ICollection<VendorDocument> VendorDocuments { get; set; }
         = new List<VendorDocument>();
+
+        public ICollection<Expenditure> Expenditures { get; set; }
+    = new List<Expenditure>();
     }
 }

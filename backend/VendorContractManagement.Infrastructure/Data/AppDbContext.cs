@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using VendorContractManagement.Domain.Entities;
+using VendorContractManagement.Infrastructure.Data.Configurations;
 
 namespace VendorContractManagement.Infrastructure.Data
 {
@@ -23,10 +24,14 @@ namespace VendorContractManagement.Infrastructure.Data
         public DbSet<AuditLog> AuditLogs { get; set; }
 
         public DbSet<RecentActivity> RecentActivities { get; set; }
+
+        public DbSet<Expenditure> Expenditures { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.ApplyConfigurationsFromAssembly(
+       typeof(AppDbContext).Assembly);
             modelBuilder.Entity<Vendor>()
                 .HasMany(v => v.Contracts)
                 .WithOne(c => c.Vendor)
@@ -52,6 +57,9 @@ namespace VendorContractManagement.Infrastructure.Data
                 .WithMany(c => c.Renewals)
                 .HasForeignKey(c => c.ParentContractId)
                 .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Expenditure>()
+    .HasIndex(x => x.InvoiceNumber)
+    .IsUnique();
         }
     }
 }
