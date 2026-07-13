@@ -33,4 +33,15 @@ export class RecentActivityService {
     `${this.apiUrl}/vendor/${vendorId}?count=${count}`
   );
 }
+
+getContractActivities(
+  contractId: number,
+  count: number = 20
+): Observable<RecentActivity[]> {
+
+  return this.http.get<RecentActivity[]>(
+    `${this.apiUrl}/contract/${contractId}?count=${count}`
+  );
+
+}
 }

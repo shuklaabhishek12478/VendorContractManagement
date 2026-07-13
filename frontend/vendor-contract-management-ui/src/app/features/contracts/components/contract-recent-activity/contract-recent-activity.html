@@ -1,0 +1,61 @@
+<div class="activity-list">
+
+  <div
+    class="activity-item"
+    *ngFor="let activity of activities">
+
+    <div class="activity-icon">
+
+      <span>📝</span>
+
+    </div>
+
+    <div class="activity-content">
+
+      <div class="activity-header">
+
+        <span class="activity-action">
+
+          {{ activity.action }}
+
+        </span>
+
+        <span class="activity-time">
+
+          {{ activity.createdOn | date:'medium' }}
+
+        </span>
+
+      </div>
+
+      <div class="activity-description">
+
+        {{ activity.description }}
+
+      </div>
+
+      <div class="activity-footer">
+
+        Performed by
+
+        <strong>
+
+          {{ activity.performedBy }}
+
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div
+    class="empty-state"
+    *ngIf="activities.length === 0">
+
+    No recent activity found.
+
+  </div>
+
+</div>

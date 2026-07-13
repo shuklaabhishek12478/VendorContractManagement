@@ -31,6 +31,9 @@ import { Document } from '../../../../core/models/document.model';
 import { ViewChild, ElementRef } from '@angular/core';
 import { HttpEventType } from '@angular/common/http';
 import { HttpResponse } from '@angular/common/http';
+import { ContractRecentActivityComponent } from '../../components/contract-recent-activity/contract-recent-activity';
+import { RecentActivityService } from '../../../../core/services/recent-activity.service';
+import { RecentActivity } from '../../../../core/models/recent-activity.model';
 
 @Component({
   selector: 'app-contract-details',
@@ -44,7 +47,8 @@ import { HttpResponse } from '@angular/common/http';
   ContractLifecycleInfoComponent,
    ContractWorkflowCardComponent,
    ContractVersionHistoryComponent,
-   ContractDocumentsComponent
+   ContractDocumentsComponent,
+   ContractRecentActivityComponent
 ],
   templateUrl: './contract-details.html',
   styleUrls: ['./contract-details.scss']
@@ -59,7 +63,7 @@ export class ContractDetailsComponent implements OnInit {
   private dialog = inject(MatDialog);
   private snackbar = inject(SnackbarService);
   private documentService = inject(DocumentService);
-
+  private recentActivityService = inject(RecentActivityService);
   contract!: Contract;
   vendor?: Vendor;
    renewals: Contract[] = [];
@@ -70,7 +74,7 @@ export class ContractDetailsComponent implements OnInit {
   fileInput!: ElementRef<HTMLInputElement>;
   uploading = false;
   uploadProgress = 0;
-
+  activities: RecentActivity[] = [];
 
   ngOnInit(): void {
     
@@ -100,6 +104,8 @@ export class ContractDetailsComponent implements OnInit {
         this.loadDocuments(contract.id);
         this.loadVendor(contract.vendorId);
         this.loadRenewals(contract.id);
+        this.loadRecentActivities();
+        this.loading = false;
       },
 
       error: err => {
@@ -999,6 +1005,28 @@ deleteDocument(
             }
 
         });
+
+}
+
+private loadRecentActivities(): void {
+
+  this.recentActivityService
+      .getContractActivities(this.contract.id)
+      .subscribe({
+
+        next: data => {
+
+          this.activities = data;
+
+        },
+
+        error: err => {
+
+          console.error(err);
+
+        }
+
+      });
 
 }
 }

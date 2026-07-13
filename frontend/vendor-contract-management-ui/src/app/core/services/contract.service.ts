@@ -300,4 +300,13 @@ deleteContract(id: number) {
 
   }
 
+  getRecentActivities(
+  contractId: number,
+  count: number = 20
+) {
+  return this.http.get<any[]>(
+    `${environment.apiUrl}/RecentActivities/contract/${contractId}?count=${count}`
+  );
+}
+
 }
