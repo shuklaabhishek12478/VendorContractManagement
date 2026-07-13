@@ -20,5 +20,11 @@ namespace VendorContractManagement.Application.Services.Interfaces
     string? entityName = null,
     string? entityType = null,
     string? performedBy = null);
+
+        Task<List<RecentActivityDto>> GetContractActivitiesAsync(
+    int contractId,
+    int count = 20);
     }
+
+
 }

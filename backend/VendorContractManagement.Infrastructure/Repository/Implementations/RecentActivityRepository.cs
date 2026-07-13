@@ -43,5 +43,17 @@ namespace VendorContractManagement.Infrastructure.Repository.Implementations
                 .Take(count)
                 .ToListAsync();
         }
+
+        public async Task<List<RecentActivity>> GetByContractIdAsync(
+    int contractId,
+    int count)
+        {
+            return await _context.RecentActivities
+                .Where(x => x.Module == "Contract")
+                .Where(x => x.EntityId == contractId)
+                .OrderByDescending(x => x.CreatedOn)
+                .Take(count)
+                .ToListAsync();
+        }
     }
 }

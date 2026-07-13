@@ -15,5 +15,9 @@ namespace VendorContractManagement.Application.Interfaces
     int count);
 
         Task<IEnumerable<RecentActivity>> GetRecentAsync(int count = 20);
+
+        Task<List<RecentActivity>> GetByContractIdAsync(
+    int contractId,
+    int count);
     }
 }

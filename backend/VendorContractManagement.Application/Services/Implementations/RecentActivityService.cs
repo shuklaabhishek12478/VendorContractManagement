@@ -68,5 +68,19 @@ namespace VendorContractManagement.Application.Services.Implementations
 
 
         }
+
+
+        public async Task<List<RecentActivityDto>> GetContractActivitiesAsync(
+    int contractId,
+    int count = 20)
+        {
+            var activities =
+                await _repo.GetByContractIdAsync(
+                    contractId,
+                    count);
+
+            return _mapper.Map<List<RecentActivityDto>>(
+                activities);
+        }
     }
 }
