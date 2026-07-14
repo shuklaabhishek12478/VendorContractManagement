@@ -17,8 +17,7 @@ namespace VendorContractManagement.API.Middlewares
             _logger = logger;
         }
 
-        public async Task InvokeAsync(
-            HttpContext context)
+        public async Task InvokeAsync(HttpContext context)
         {
             try
             {
@@ -26,6 +25,8 @@ namespace VendorContractManagement.API.Middlewares
             }
             catch (NotFoundException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
+
                 await HandleExceptionAsync(
                     context,
                     HttpStatusCode.NotFound,
@@ -33,6 +34,35 @@ namespace VendorContractManagement.API.Middlewares
             }
             catch (BadRequestException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
+
+                await HandleExceptionAsync(
+                    context,
+                    HttpStatusCode.BadRequest,
+                    ex.Message);
+            }
+            catch (ValidationException ex)
+            {
+                _logger.LogWarning(ex, ex.Message);
+
+                await HandleExceptionAsync(
+                    context,
+                    HttpStatusCode.BadRequest,
+                    ex.Message);
+            }
+            catch (ConflictException ex)
+            {
+                _logger.LogWarning(ex, ex.Message);
+
+                await HandleExceptionAsync(
+                    context,
+                    HttpStatusCode.Conflict,
+                    ex.Message);
+            }
+            catch (BusinessRuleException ex)
+            {
+                _logger.LogWarning(ex, ex.Message);
+
                 await HandleExceptionAsync(
                     context,
                     HttpStatusCode.BadRequest,
@@ -40,6 +70,8 @@ namespace VendorContractManagement.API.Middlewares
             }
             catch (ForbiddenException ex)
             {
+                _logger.LogWarning(ex, ex.Message);
+
                 await HandleExceptionAsync(
                     context,
                     HttpStatusCode.Forbidden,
@@ -51,7 +83,7 @@ namespace VendorContractManagement.API.Middlewares
 
                 await HandleExceptionAsync(
                     context,
-                    HttpStatusCode.Forbidden,
+                    HttpStatusCode.Unauthorized,
                     ex.Message);
             }
             catch (InvalidOperationException ex)
@@ -63,26 +95,14 @@ namespace VendorContractManagement.API.Middlewares
                     HttpStatusCode.BadRequest,
                     ex.Message);
             }
-            /* catch (Exception ex)
-             {
-                 _logger.LogError(ex, ex.Message);
-
-                 await HandleExceptionAsync(
-                     context,
-                     HttpStatusCode.InternalServerError,
-                     ex.Message);
-             }*/
-
             catch (Exception ex)
             {
                 _logger.LogError(ex, ex.ToString());
 
-                var message = ex.InnerException?.ToString() ?? ex.ToString();
-
                 await HandleExceptionAsync(
                     context,
                     HttpStatusCode.InternalServerError,
-                    message);
+                    "An unexpected error occurred.");
             }
         }
 
@@ -91,17 +111,16 @@ namespace VendorContractManagement.API.Middlewares
             HttpStatusCode statusCode,
             string message)
         {
-            context.Response.ContentType =
-                "application/json";
-
-            context.Response.StatusCode =
-                (int)statusCode;
+            context.Response.ContentType = "application/json";
+            context.Response.StatusCode = (int)statusCode;
 
             var response = new
             {
                 Success = false,
                 StatusCode = (int)statusCode,
-                Message = message
+                Message = message,
+                Timestamp = DateTime.UtcNow,
+                Path = context.Request.Path
             };
 
             await context.Response.WriteAsync(

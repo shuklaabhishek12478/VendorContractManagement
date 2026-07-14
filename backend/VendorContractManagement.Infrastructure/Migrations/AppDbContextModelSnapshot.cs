@@ -57,7 +57,7 @@ namespace VendorContractManagement.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedOn")
+                    b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -145,7 +145,7 @@ namespace VendorContractManagement.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<DateTime>("UpdatedOn")
+                    b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<int>("VendorId")
@@ -200,7 +200,7 @@ namespace VendorContractManagement.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedOn")
+                    b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("UploadedOn")
@@ -372,6 +372,50 @@ namespace VendorContractManagement.Infrastructure.Migrations
                     b.ToTable("Expenditures", (string)null);
                 });
 
+            modelBuilder.Entity("VendorContractManagement.Domain.Entities.Permission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Code")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Module")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Code")
+                        .IsUnique();
+
+                    b.ToTable("Permissions");
+                });
+
             modelBuilder.Entity("VendorContractManagement.Domain.Entities.RecentActivity", b =>
                 {
                     b.Property<int>("Id")
@@ -413,6 +457,77 @@ namespace VendorContractManagement.Infrastructure.Migrations
                     b.ToTable("RecentActivities");
                 });
 
+            modelBuilder.Entity("VendorContractManagement.Domain.Entities.Role", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsSystemRole")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("Priority")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("UpdatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Roles");
+                });
+
+            modelBuilder.Entity("VendorContractManagement.Domain.Entities.RolePermission", b =>
+                {
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PermissionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AssignedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("AssignedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("RoleId", "PermissionId");
+
+                    b.HasIndex("PermissionId");
+
+                    b.ToTable("RolePermissions");
+                });
+
             modelBuilder.Entity("VendorContractManagement.Domain.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -448,11 +563,7 @@ namespace VendorContractManagement.Infrastructure.Migrations
                     b.Property<DateTime?>("RefreshTokenExpiryTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Role")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("UpdatedOn")
+                    b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<int?>("VendorId")
@@ -463,6 +574,27 @@ namespace VendorContractManagement.Infrastructure.Migrations
                     b.HasIndex("VendorId");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("VendorContractManagement.Domain.Entities.UserRole", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoleId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("AssignedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("AssignedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("UserRoles");
                 });
 
             modelBuilder.Entity("VendorContractManagement.Domain.Entities.Vendor", b =>
@@ -539,7 +671,7 @@ namespace VendorContractManagement.Infrastructure.Migrations
                     b.Property<string>("SwiftCode")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("UpdatedOn")
+                    b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("VendorName")
@@ -593,7 +725,7 @@ namespace VendorContractManagement.Infrastructure.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<DateTime>("UpdatedOn")
+                    b.Property<DateTime?>("UpdatedOn")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime>("UploadedOn")
@@ -664,6 +796,25 @@ namespace VendorContractManagement.Infrastructure.Migrations
                     b.Navigation("Vendor");
                 });
 
+            modelBuilder.Entity("VendorContractManagement.Domain.Entities.RolePermission", b =>
+                {
+                    b.HasOne("VendorContractManagement.Domain.Entities.Permission", "Permission")
+                        .WithMany("RolePermissions")
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VendorContractManagement.Domain.Entities.Role", "Role")
+                        .WithMany("RolePermissions")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Permission");
+
+                    b.Navigation("Role");
+                });
+
             modelBuilder.Entity("VendorContractManagement.Domain.Entities.User", b =>
                 {
                     b.HasOne("VendorContractManagement.Domain.Entities.Vendor", "Vendor")
@@ -672,6 +823,25 @@ namespace VendorContractManagement.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.Navigation("Vendor");
+                });
+
+            modelBuilder.Entity("VendorContractManagement.Domain.Entities.UserRole", b =>
+                {
+                    b.HasOne("VendorContractManagement.Domain.Entities.Role", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("VendorContractManagement.Domain.Entities.User", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Role");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("VendorContractManagement.Domain.Entities.VendorDocument", b =>
@@ -692,6 +862,23 @@ namespace VendorContractManagement.Infrastructure.Migrations
                     b.Navigation("Expenditures");
 
                     b.Navigation("Renewals");
+                });
+
+            modelBuilder.Entity("VendorContractManagement.Domain.Entities.Permission", b =>
+                {
+                    b.Navigation("RolePermissions");
+                });
+
+            modelBuilder.Entity("VendorContractManagement.Domain.Entities.Role", b =>
+                {
+                    b.Navigation("RolePermissions");
+
+                    b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("VendorContractManagement.Domain.Entities.User", b =>
+                {
+                    b.Navigation("UserRoles");
                 });
 
             modelBuilder.Entity("VendorContractManagement.Domain.Entities.Vendor", b =>

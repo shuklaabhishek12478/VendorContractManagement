@@ -3,14 +3,13 @@ using FluentValidation.AspNetCore;
 using Hangfire;
 using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using System.Text;
 using Serilog;
-using Microsoft.AspNetCore.Identity;
-using VendorContractManagement.Domain.Entities;
+using System.Text;
 using VendorContractManagement.API.Mappings;
 using VendorContractManagement.API.Middlewares;
 using VendorContractManagement.API.Services;
@@ -21,14 +20,17 @@ using VendorContractManagement.Application.Services.Helpers;
 using VendorContractManagement.Application.Services.Implementations;
 using VendorContractManagement.Application.Services.Interfaces;
 using VendorContractManagement.Application.Validators;
+using VendorContractManagement.Domain.Entities;
 using VendorContractManagement.Infrastructure;
 using VendorContractManagement.Infrastructure.Data;
+using VendorContractManagement.Infrastructure.Data.Seed;
+using VendorContractManagement.Infrastructure.Persistence.Seed;
 using VendorContractManagement.Infrastructure.Repository;
 using VendorContractManagement.Infrastructure.Repository.Implementations;
 using VendorContractManagement.Infrastructure.Repository.Interfaces;
 using VendorContractManagement.Infrastructure.Services;
-using VendorContractManagement.Infrastructure.Persistence.Seed;
-
+using Microsoft.AspNetCore.Authorization;
+using VendorContractManagement.API.Authorization;
 
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
@@ -123,6 +125,9 @@ builder.Services.AddAuthentication(
                     new SymmetricSecurityKey(key)
             };
     });
+builder.Services.AddAuthorization(options =>
+{
+});
 
 builder.Services.AddStackExchangeRedisCache(options =>
 {
@@ -205,19 +210,17 @@ builder.Services.AddScoped<IVendorDocumentRepository,VendorDocumentRepository>()
 builder.Services.AddScoped<IVendorDocumentService,VendorDocumentService>();
 builder.Services.AddScoped<IExpenditureRepository,ExpenditureRepository>();
 builder.Services.AddScoped<IExpenditureService,ExpenditureService>();
+builder.Services.AddScoped<IRoleRepository,RoleRepository>();
+builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPermissionRepository, PermissionRepository>();
+builder.Services.AddScoped<IPermissionService, PermissionService>();
+builder.Services.AddScoped<IAuthorizationHandler,PermissionAuthorizationHandler>();
+builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProvider>();
 
 
 var app = builder.Build();
-
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-
-    var context = services.GetRequiredService<AppDbContext>();
-
-    await DbSeeder.SeedAdminAsync(context);
-}
-
 
 app.UseSerilogRequestLogging();
 
@@ -255,5 +258,16 @@ RecurringJob.AddOrUpdate<ContractActivationJob>(
   job => job.ActivateContractsAsync(),
   Cron.Daily
 );
+
+using (var scope = app.Services.CreateScope())
+{
+    var context =
+        scope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+    await DataSeeder.SeedAsync(context);
+
+    await DbSeeder.SeedAdminAsync(context);
+}
+
 
 app.Run();

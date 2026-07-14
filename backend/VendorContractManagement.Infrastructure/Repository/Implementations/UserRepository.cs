@@ -17,7 +17,9 @@ namespace VendorContractManagement.Infrastructure.Repository.Implementations
         public async Task<User?> GetByEmailAsync(string email)
         {
             return await _context.Users
-                .FirstOrDefaultAsync(x => x.Email == email);
+    .Include(x => x.UserRoles)
+        .ThenInclude(x => x.Role)
+    .FirstOrDefaultAsync(x => x.Email == email);
         }
 
         public async Task AddAsync(User user)
@@ -28,18 +30,33 @@ namespace VendorContractManagement.Infrastructure.Repository.Implementations
         public async Task<User?> GetByRefreshTokenAsync(string refreshToken)
         {
             return await _context.Users
+                .Include(x => x.UserRoles)
+        .ThenInclude(x => x.Role)
                 .FirstOrDefaultAsync(
                     x => x.RefreshToken == refreshToken);
         }
 
         public async Task<IEnumerable<User>> GetAllAsync()
         {
-            return await _context.Users.ToListAsync();
+            return await _context.Users
+    .Include(x => x.UserRoles)
+        .ThenInclude(x => x.Role)
+    .ToListAsync();
         }
 
         public async Task<User?> GetByIdAsync(int id)
         {
-            return await _context.Users.FindAsync(id);
+            return await _context.Users
+
+                .Include(x => x.UserRoles)
+
+                    .ThenInclude(x => x.Role)
+
+                        .ThenInclude(x => x.RolePermissions)
+
+                            .ThenInclude(x => x.Permission)
+
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public void Update(User user)

@@ -23,24 +23,32 @@ namespace VendorContractManagement.Application.Services.Implementations
         public string GenerateToken(User user)
         {
             var claims = new List<Claim>
+{
+    new Claim(
+        ClaimTypes.Name,
+        user.Email),
+
+    new Claim(
+        ClaimTypes.NameIdentifier,
+        user.Id.ToString()),
+
+    new Claim(
+        "VendorId",
+        user.VendorId?.ToString() ?? "")
+};
+
+            if (user.UserRoles != null)
             {
-                new Claim(
-                    ClaimTypes.Name,
-                    user.Email),
-
-                new Claim(
-                    ClaimTypes.Role,
-                    user.Role),
-
-                new Claim(
-                    ClaimTypes.NameIdentifier,
-                    user.Id.ToString()),
-
-                new Claim(
-                     "VendorId",
-                     user.VendorId?.ToString() ?? "")
-            };
-
+                foreach (var userRole in user.UserRoles)
+                {
+                    if (userRole.Role != null)
+                    {
+                        claims.Add(new Claim(
+                            ClaimTypes.Role,
+                            userRole.Role.Name));
+                    }
+                }
+            }
             var key =
                 new SymmetricSecurityKey(
                     Encoding.UTF8.GetBytes(

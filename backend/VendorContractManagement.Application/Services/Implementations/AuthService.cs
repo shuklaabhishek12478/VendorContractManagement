@@ -38,7 +38,7 @@ namespace VendorContractManagement.Application.Services.Implementations
                 PasswordHash =
                     BCrypt.Net.BCrypt.HashPassword(dto.Password),
 
-                Role = dto.Role,
+                UserRoles = new List<UserRole>(),
 
                 VendorId = dto.VendorId
             };

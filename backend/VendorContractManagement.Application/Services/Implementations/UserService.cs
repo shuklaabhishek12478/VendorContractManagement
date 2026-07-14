@@ -50,7 +50,7 @@ namespace VendorContractManagement.Application.Services.Implementations
                 FullName = dto.FullName,
                 Email = dto.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
-                Role = dto.Role,
+                UserRoles = new List<UserRole>(),
                 VendorId = dto.VendorId,
                 IsActive = true
             };
