@@ -282,4 +282,40 @@ public class RoleRepository : IRoleRepository
 
         await _context.SaveChangesAsync();
     }
+
+    public async Task<RoleStatisticsDto> GetStatisticsAsync()
+    {
+        var totalRoles = await _context.Roles.CountAsync();
+
+        var activeRoles = await _context.Roles
+            .CountAsync(x => x.IsActive);
+
+        var inactiveRoles = await _context.Roles
+            .CountAsync(x => !x.IsActive);
+
+        var systemRoles = await _context.Roles
+            .CountAsync(x => x.IsSystemRole);
+
+        var customRoles = await _context.Roles
+            .CountAsync(x => !x.IsSystemRole);
+
+        return new RoleStatisticsDto
+        {
+            TotalRoles = totalRoles,
+            ActiveRoles = activeRoles,
+            InactiveRoles = inactiveRoles,
+            SystemRoles = systemRoles,
+            CustomRoles = customRoles
+        };
+    }
+
+    public async Task<List<Role>> GetActiveRolesAsync()
+    {
+        return await _context.Roles
+            .AsNoTracking()
+            .Where(x => x.IsActive)
+            .OrderBy(x => x.Priority)
+            .ThenBy(x => x.Name)
+            .ToListAsync();
+    }
 }

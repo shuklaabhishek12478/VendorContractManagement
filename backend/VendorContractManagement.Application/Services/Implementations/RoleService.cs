@@ -422,4 +422,16 @@ public class RoleService : IRoleService
         _logger.LogInformation(
             "User removed from role successfully.");
     }
+
+    public async Task<RoleStatisticsDto> GetStatisticsAsync()
+    {
+        return await _unitOfWork.Roles.GetStatisticsAsync();
+    }
+
+    public async Task<List<RoleDto>> GetActiveRolesAsync()
+    {
+        var roles = await _unitOfWork.Roles.GetActiveRolesAsync();
+
+        return _mapper.Map<List<RoleDto>>(roles);
+    }
 }

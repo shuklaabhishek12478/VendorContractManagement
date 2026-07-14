@@ -39,4 +39,8 @@ public interface IRoleService
     Task RemoveUserAsync(
     int roleId,
     int userId);
+
+    Task<RoleStatisticsDto> GetStatisticsAsync();
+
+    Task<List<RoleDto>> GetActiveRolesAsync();
 }

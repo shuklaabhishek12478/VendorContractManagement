@@ -18,10 +18,7 @@ public class RoleController : ControllerBase
         _roleService = roleService;
     }
 
-    // ==========================
-    // CRUD
-    // ==========================
-
+    
     [HttpGet]
     [PermissionAuthorize("Role.View")]
     public async Task<IActionResult> GetAll()
@@ -77,10 +74,7 @@ public class RoleController : ControllerBase
         });
     }
 
-    // ==========================
-    // Activate / Deactivate
-    // ==========================
-
+    
     [HttpPut("{id:int}/activate")]
     [PermissionAuthorize("Role.Edit")]
     public async Task<IActionResult> Activate(int id)
@@ -115,10 +109,7 @@ public class RoleController : ControllerBase
         return Ok(result);
     }
 
-    // ==========================
-    // Permissions
-    // ==========================
-
+    
     [HttpPost("{id:int}/assign-permissions")]
     [PermissionAuthorize("Role.AssignPermissions")]
     public async Task<IActionResult> AssignPermissions(
@@ -195,5 +186,25 @@ public class RoleController : ControllerBase
         {
             Message = "User removed from role successfully."
         });
+    }
+
+
+    [HttpGet("statistics")]
+    [PermissionAuthorize("Role.View")]
+    public async Task<IActionResult> GetStatistics()
+    {
+        var statistics =
+            await _roleService.GetStatisticsAsync();
+
+        return Ok(statistics);
+    }
+
+    [HttpGet("active")]
+    [PermissionAuthorize("Role.View")]
+    public async Task<IActionResult> GetActiveRoles()
+    {
+        var result = await _roleService.GetActiveRolesAsync();
+
+        return Ok(result);
     }
 }
