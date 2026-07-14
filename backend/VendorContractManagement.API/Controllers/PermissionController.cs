@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VendorContractManagement.API.Authorization;
 using VendorContractManagement.Application.Services.Interfaces;
 
 namespace VendorContractManagement.API.Controllers
@@ -24,6 +25,60 @@ namespace VendorContractManagement.API.Controllers
                 await _permissionService.GetAllAsync();
 
             return Ok(permissions);
+        }
+
+        [HttpGet("{id:int}")]
+        [PermissionAuthorize("Role.View")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            var permission =
+                await _permissionService.GetByIdAsync(id);
+
+            if (permission == null)
+                return NotFound();
+
+            return Ok(permission);
+        }
+
+        [HttpGet("modules")]
+        [PermissionAuthorize("Role.View")]
+        public async Task<IActionResult> GetModules()
+        {
+            var modules =
+                await _permissionService.GetModulesAsync();
+
+            return Ok(modules);
+        }
+
+        [HttpGet("module/{module}")]
+        [PermissionAuthorize("Role.View")]
+        public async Task<IActionResult> GetByModule(string module)
+        {
+            var permissions =
+                await _permissionService.GetByModuleAsync(module);
+
+            return Ok(permissions);
+        }
+
+        [HttpGet("grouped")]
+        [PermissionAuthorize("Role.View")]
+        public async Task<IActionResult> GetGrouped()
+        {
+            var result =
+                await _permissionService.GetGroupedAsync();
+
+            return Ok(result);
+        }
+
+        [HttpPost("by-ids")]
+        [PermissionAuthorize("Role.View")]
+        public async Task<IActionResult> GetByIds(
+    List<int> permissionIds)
+        {
+            var result =
+                await _permissionService.GetByIdsAsync(permissionIds);
+
+            return Ok(result);
         }
     }
 }

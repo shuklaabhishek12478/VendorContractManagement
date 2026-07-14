@@ -17,4 +17,10 @@ public interface IPermissionRepository
 
     Task<Permission?> GetByIdAsync(int id);
 
+    Task<List<string>> GetModulesAsync();
+
+    Task<List<Permission>> GetByModuleAsync(string module);
+
+    Task<List<Permission>> GetByIdsAsync(
+    List<int> permissionIds);
 }

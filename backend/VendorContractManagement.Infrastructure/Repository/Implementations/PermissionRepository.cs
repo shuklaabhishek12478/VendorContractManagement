@@ -38,5 +38,34 @@ public class PermissionRepository : IPermissionRepository
             .FirstOrDefaultAsync(x => x.Id == id);
     }
 
+    public async Task<List<string>> GetModulesAsync()
+    {
+        return await _context.Permissions
+            .AsNoTracking()
+            .Select(x => x.Module)
+            .Distinct()
+            .OrderBy(x => x)
+            .ToListAsync();
+    }
+
+    public async Task<List<Permission>> GetByModuleAsync(string module)
+    {
+        return await _context.Permissions
+            .AsNoTracking()
+            .Where(x => x.Module == module)
+            .OrderBy(x => x.Name)
+            .ToListAsync();
+    }
+
+    public async Task<List<Permission>> GetByIdsAsync(
+    List<int> permissionIds)
+    {
+        return await _context.Permissions
+            .AsNoTracking()
+            .Where(x => permissionIds.Contains(x.Id))
+            .OrderBy(x => x.Module)
+            .ThenBy(x => x.Name)
+            .ToListAsync();
+    }
 
 }

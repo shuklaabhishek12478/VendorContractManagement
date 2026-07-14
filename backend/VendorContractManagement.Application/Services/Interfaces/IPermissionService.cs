@@ -13,6 +13,16 @@ public interface IPermissionService
         int userId,
         string permission);
     Task<List<PermissionDto>> GetAllAsync();
+
+    Task<PermissionDto?> GetByIdAsync(int id);
+
+    Task<List<string>> GetModulesAsync();
+
+    Task<List<PermissionDto>> GetByModuleAsync(string module);
+    Task<Dictionary<string, List<PermissionDto>>> GetGroupedAsync();
+
+    Task<List<PermissionDto>> GetByIdsAsync(
+    List<int> permissionIds);
 }
 
 
