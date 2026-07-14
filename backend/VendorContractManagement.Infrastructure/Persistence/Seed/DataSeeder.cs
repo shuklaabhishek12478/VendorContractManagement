@@ -27,7 +27,16 @@ public static class DataSeeder
         {
             var permissions = PermissionSeeder.GetPermissions();
 
-            context.Permissions.AddRange(permissions);
+            foreach (var permission in permissions)
+            {
+                var exists = await context.Permissions
+                    .AnyAsync(x => x.Code == permission.Code);
+
+                if (!exists)
+                {
+                    context.Permissions.Add(permission);
+                }
+            }
 
             await context.SaveChangesAsync();
         }

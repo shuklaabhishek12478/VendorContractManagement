@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VendorContractManagement.API.Authorization;
 using VendorContractManagement.Application.DTOs.Role;
 using VendorContractManagement.Application.Services.Interfaces;
 
@@ -22,7 +23,7 @@ public class RoleController : ControllerBase
     // ==========================
 
     [HttpGet]
-    [Authorize(Roles = "Admin")]
+    [PermissionAuthorize("Role.View")]
     public async Task<IActionResult> GetAll()
     {
         var roles = await _roleService.GetAllAsync();
@@ -30,7 +31,7 @@ public class RoleController : ControllerBase
     }
 
     [HttpGet("{id:int}")]
-    [Authorize(Roles = "Admin")]
+    [PermissionAuthorize("Role.View")]
     public async Task<IActionResult> GetById(int id)
     {
         var role = await _roleService.GetByIdAsync(id);
@@ -42,7 +43,7 @@ public class RoleController : ControllerBase
     }
 
     [HttpPost]
-    [Authorize(Roles = "Admin")]
+    [PermissionAuthorize("Role.Create")]
     public async Task<IActionResult> Create(CreateRoleDto dto)
     {
         var result = await _roleService.CreateAsync(dto);
@@ -54,7 +55,7 @@ public class RoleController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
-    [Authorize(Roles = "Admin")]
+    [PermissionAuthorize("Role.Edit")]
     public async Task<IActionResult> Update(
         int id,
         UpdateRoleDto dto)
@@ -65,7 +66,7 @@ public class RoleController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
-    [Authorize(Roles = "Admin")]
+    [PermissionAuthorize("Role.Delete")]
     public async Task<IActionResult> Delete(int id)
     {
         await _roleService.DeleteAsync(id);
@@ -81,7 +82,7 @@ public class RoleController : ControllerBase
     // ==========================
 
     [HttpPut("{id:int}/activate")]
-    [Authorize(Roles = "Admin")]
+    [PermissionAuthorize("Role.Edit")]
     public async Task<IActionResult> Activate(int id)
     {
         await _roleService.ActivateAsync(id);
@@ -93,7 +94,7 @@ public class RoleController : ControllerBase
     }
 
     [HttpPut("{id:int}/deactivate")]
-    [Authorize(Roles = "Admin")]
+    [PermissionAuthorize("Role.Edit")]
     public async Task<IActionResult> Deactivate(int id)
     {
         await _roleService.DeactivateAsync(id);
@@ -104,12 +105,9 @@ public class RoleController : ControllerBase
         });
     }
 
-    // ==========================
-    // Search
-    // ==========================
-
+ 
     [HttpPost("search")]
-    [Authorize(Roles = "Admin")]
+    [PermissionAuthorize("Role.View")]
     public async Task<IActionResult> Search(RoleFilterDto filter)
     {
         var result = await _roleService.SearchAsync(filter);
@@ -122,7 +120,7 @@ public class RoleController : ControllerBase
     // ==========================
 
     [HttpPost("{id:int}/assign-permissions")]
-    [Authorize(Roles = "Admin")]
+    [PermissionAuthorize("Role.AssignPermissions")]
     public async Task<IActionResult> AssignPermissions(
         int id,
         AssignPermissionsDto dto)
@@ -136,7 +134,7 @@ public class RoleController : ControllerBase
     }
 
     [HttpGet("{id:int}/permissions")]
-    [Authorize(Roles = "Admin")]
+    [PermissionAuthorize("Role.View")]
     public async Task<IActionResult> GetPermissions(int id)
     {
         var permissions =
@@ -145,12 +143,9 @@ public class RoleController : ControllerBase
         return Ok(permissions);
     }
 
-    // ==========================
-    // Clone
-    // ==========================
-
+  
     [HttpPost("{id:int}/clone")]
-    [Authorize(Roles = "Admin")]
+    [PermissionAuthorize("Role.Create")]
     public async Task<IActionResult> Clone(
         int id,
         [FromQuery] string newRoleName)
@@ -161,12 +156,9 @@ public class RoleController : ControllerBase
         return Ok(role);
     }
 
-    // ==========================
-    // Users
-    // ==========================
-
+  
     [HttpPost("{id:int}/assign-users")]
-    [Authorize(Roles = "Admin")]
+    [PermissionAuthorize("Role.AssignUsers")]
     public async Task<IActionResult> AssignUsers(
         int id,
         AssignUsersToRoleDto dto)
@@ -180,7 +172,7 @@ public class RoleController : ControllerBase
     }
 
     [HttpGet("{id:int}/users")]
-    [Authorize(Roles = "Admin")]
+    [PermissionAuthorize("Role.View")]
     public async Task<IActionResult> GetUsers(int id)
     {
         var users =
@@ -190,7 +182,7 @@ public class RoleController : ControllerBase
     }
 
     [HttpDelete("{roleId:int}/users/{userId:int}")]
-    [Authorize(Roles = "Admin")]
+    [PermissionAuthorize("Role.AssignUsers")]
     public async Task<IActionResult> RemoveUser(
         int roleId,
         int userId)

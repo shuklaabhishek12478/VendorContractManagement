@@ -37,4 +37,6 @@ public class PermissionRepository : IPermissionRepository
         return await _context.Permissions
             .FirstOrDefaultAsync(x => x.Id == id);
     }
+
+
 }

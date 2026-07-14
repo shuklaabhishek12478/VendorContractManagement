@@ -50,7 +50,7 @@ namespace VendorContractManagement.Application.Mappings
 
             CreateMap<VendorDocumentDto, VendorDocument>();
 
-            CreateMap<Role, RoleDto>();
+            CreateMap<Role, RoleDto>().ReverseMap();
 
             CreateMap<CreateRoleDto, Role>()
 

@@ -30,11 +30,34 @@ namespace VendorContractManagement.Application.Services.Implementations
         }
 
         public async Task<bool> HasPermissionAsync(
-    int userId,
-    string permission)
+     int userId,
+     string permission)
         {
-            return await _permissionRepository
-                .UserHasPermissionAsync(userId, permission);
+            var user = await _userRepository.GetByIdAsync(userId);
+
+            if (user == null)
+                return false;
+
+            Console.WriteLine("========== USER ==========");
+            Console.WriteLine($"User Id = {user.Id}");
+
+            foreach (var userRole in user.UserRoles)
+            {
+                Console.WriteLine($"Role = {userRole.Role?.Name}");
+
+                if (userRole.Role?.RolePermissions != null)
+                {
+                    foreach (var rp in userRole.Role.RolePermissions)
+                    {
+                        Console.WriteLine(
+                            $"Permission = {rp.Permission?.Code}");
+                    }
+                }
+            }
+
+            return user.UserRoles
+                .SelectMany(x => x.Role.RolePermissions)
+                .Any(x => x.Permission.Code == permission);
         }
     }
 }

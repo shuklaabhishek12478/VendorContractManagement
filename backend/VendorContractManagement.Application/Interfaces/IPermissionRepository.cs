@@ -16,4 +16,5 @@ public interface IPermissionRepository
     Task<List<Permission>> GetAllAsync();
 
     Task<Permission?> GetByIdAsync(int id);
+
 }
