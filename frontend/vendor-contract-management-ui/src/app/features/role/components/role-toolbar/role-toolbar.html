@@ -1,0 +1,94 @@
+<div class="flex flex-wrap gap-3 mb-6">
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="add.emit()">
+
+    <mat-icon>add</mat-icon>
+
+    Add Role
+
+  </button>
+
+  <button
+    mat-stroked-button
+    [disabled]="!hasSelection"
+    (click)="edit.emit()">
+
+    <mat-icon>edit</mat-icon>
+
+    Edit
+
+  </button>
+
+  <button
+    mat-stroked-button
+    color="warn"
+    [disabled]="!hasSelection"
+    (click)="delete.emit()">
+
+    <mat-icon>delete</mat-icon>
+
+    Delete
+
+  </button>
+
+  <button
+    mat-stroked-button
+    color="primary"
+    [disabled]="!hasSelection || isActive"
+    (click)="activate.emit()">
+
+    <mat-icon>check_circle</mat-icon>
+
+    Activate
+
+  </button>
+
+  <button
+    mat-stroked-button
+    color="warn"
+    [disabled]="!hasSelection || !isActive"
+    (click)="deactivate.emit()">
+
+    <mat-icon>block</mat-icon>
+
+    Deactivate
+
+  </button>
+
+  <button
+    mat-stroked-button
+    [disabled]="!hasSelection"
+    (click)="assignPermissions.emit()">
+
+    <mat-icon>security</mat-icon>
+
+    Permissions
+
+  </button>
+
+  <button
+    mat-stroked-button
+    [disabled]="!hasSelection"
+    (click)="assignUsers.emit()">
+
+    <mat-icon>groups</mat-icon>
+
+    Users
+
+  </button>
+
+  <button
+    mat-stroked-button
+    [disabled]="!hasSelection"
+    (click)="clone.emit()">
+
+    <mat-icon>content_copy</mat-icon>
+
+    Clone
+
+  </button>
+
+</div>

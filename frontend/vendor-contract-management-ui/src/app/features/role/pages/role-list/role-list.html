@@ -1,0 +1,210 @@
+<div class="page-container">
+
+  <div class="page-header">
+
+    <div>
+
+      <h2 class="page-title">
+        Role Management
+      </h2>
+
+      <p class="page-subtitle">
+        Create and manage application roles.
+      </p>
+
+    </div>
+
+    <app-role-toolbar
+
+    [hasSelection]="selectedRole != null"
+
+    [isActive]="selectedRole?.isActive ?? false"
+
+    (add)="addRole()"
+
+    (edit)="editRole()"
+
+    (delete)="deleteRole()"
+
+    (activate)="activateRole()"
+
+    (deactivate)="deactivateRole()"
+
+    (assignPermissions)="assignPermissions()"
+
+    (assignUsers)="assignUsers()"
+
+    (clone)="cloneRole()">
+
+</app-role-toolbar>
+
+  </div>
+
+  <div class="grid grid-cols-5 gap-4 mb-6">
+
+  <mat-card>
+
+    <mat-card-content>
+
+      <div class="text-sm text-gray-500">
+        Total Roles
+      </div>
+
+      <div class="text-3xl font-bold mt-2">
+
+        {{ statistics.totalRoles }}
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+  <mat-card>
+
+    <mat-card-content>
+
+      <div class="text-sm text-gray-500">
+        Active
+      </div>
+
+      <div class="text-3xl font-bold text-green-600 mt-2">
+
+        {{ statistics.activeRoles }}
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+  <mat-card>
+
+    <mat-card-content>
+
+      <div class="text-sm text-gray-500">
+        Inactive
+      </div>
+
+      <div class="text-3xl font-bold text-red-600 mt-2">
+
+        {{ statistics.inactiveRoles }}
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+  <mat-card>
+
+    <mat-card-content>
+
+      <div class="text-sm text-gray-500">
+        System Roles
+      </div>
+
+      <div class="text-3xl font-bold text-indigo-600 mt-2">
+
+        {{ statistics.systemRoles }}
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+  <mat-card>
+
+    <mat-card-content>
+
+      <div class="text-sm text-gray-500">
+        Custom Roles
+      </div>
+
+      <div class="text-3xl font-bold text-orange-600 mt-2">
+
+        {{ statistics.customRoles }}
+
+      </div>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>
+<div class="flex items-center justify-between mb-5 gap-4">
+
+  <mat-form-field appearance="outline" class="w-96">
+
+    <mat-label>
+
+      Search Role
+
+    </mat-label>
+
+    <input
+      matInput
+      [(ngModel)]="searchText"
+      (keyup)="search()">
+
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-56">
+
+    <mat-label>
+
+      Status
+
+    </mat-label>
+
+    <mat-select
+     [(ngModel)]="selectedStatus"
+      (selectionChange)="search()">
+
+      <mat-option [value]="null">
+
+        All
+
+      </mat-option>
+
+      <mat-option [value]="true">
+
+        Active
+
+      </mat-option>
+
+      <mat-option [value]="false">
+
+        Inactive
+
+      </mat-option>
+
+    </mat-select>
+
+  </mat-form-field>
+
+</div>
+
+  <mat-card>
+
+    <mat-card-content>
+
+      <ag-grid-angular
+
+        class="ag-theme-alpine"
+        style="height:600px;width:100%;"
+        [rowData]="roles"
+        rowSelection="single"
+        (selectionChanged)="onSelectionChanged()"
+        [columnDefs]="columnDefs"
+        [animateRows]="true"
+        (gridReady)="onGridReady($event)">
+
+      </ag-grid-angular>
+
+    </mat-card-content>
+
+  </mat-card>
+
+</div>

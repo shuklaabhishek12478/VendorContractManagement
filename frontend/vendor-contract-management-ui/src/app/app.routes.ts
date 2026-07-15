@@ -14,6 +14,9 @@ import { ContractListComponent } from './features/contracts/pages/contract-list/
 import { AddContractComponent } from './features/contracts/pages/add-contract/add-contract';
 import { ContractDetailsComponent } from './features/contracts/pages/contract-details/contract-details';
 import { EditContractComponent } from './features/contracts/pages/edit-contract/edit-contract';
+import { RoleListComponent } from './features/role/pages/role-list/role-list';
+import { AddRoleComponent } from './features/role/pages/add-role/add-role';
+import { EditRoleComponent } from './features/role/pages/edit-role/edit-role';
 
 
 
@@ -76,7 +79,19 @@ export const routes: Routes = [
 {
   path: 'contracts/:id',
   component: ContractDetailsComponent
-}
+},
+{
+    path: 'roles',
+    component: RoleListComponent
+},
+{
+  path: 'roles/add',
+  component: AddRoleComponent
+},
+{
+  path: 'roles/edit/:id',
+  component: EditRoleComponent
+},
     ]
   },
 

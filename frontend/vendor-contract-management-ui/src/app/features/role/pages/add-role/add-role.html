@@ -1,0 +1,46 @@
+<div class="page-container">
+
+  <div class="mb-6">
+
+    <button
+      mat-button
+      routerLink="/roles">
+
+      <mat-icon>
+
+        arrow_back
+
+      </mat-icon>
+
+      Back
+
+    </button>
+
+  </div>
+
+  <div class="page-header">
+
+    <div>
+
+      <h1 class="text-3xl font-bold">
+
+        Create Role
+
+      </h1>
+
+      <p class="text-slate-500 mt-1">
+
+        Create a new application role.
+
+      </p>
+
+    </div>
+
+  </div>
+
+  <app-role-form
+      (save)="save($event)"
+      [loading]="loading">
+  </app-role-form>
+
+</div>
