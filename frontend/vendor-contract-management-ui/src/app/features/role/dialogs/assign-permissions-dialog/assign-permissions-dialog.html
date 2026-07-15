@@ -1,0 +1,68 @@
+<h2 mat-dialog-title>
+
+Assign Permissions
+
+</h2>
+
+<mat-dialog-content>
+
+<div class="space-y-5">
+
+<mat-card
+
+*ngFor="let group of groupedPermissions">
+
+<mat-card-header>
+
+<mat-card-title>
+
+{{group.module}}
+
+</mat-card-title>
+
+</mat-card-header>
+
+<mat-card-content>
+
+<div class="grid grid-cols-2 gap-2 mt-3">
+
+<mat-checkbox
+
+*ngFor="let permission of group.permissions"
+
+[(ngModel)]="permission.selected">
+
+{{permission.name}}
+
+</mat-checkbox>
+
+</div>
+
+</mat-card-content>
+
+</mat-card>
+
+</div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+<button
+mat-button
+mat-dialog-close>
+
+Cancel
+
+</button>
+
+<button
+mat-raised-button
+color="primary"
+(click)="save()">
+
+Save
+
+</button>
+
+</mat-dialog-actions>

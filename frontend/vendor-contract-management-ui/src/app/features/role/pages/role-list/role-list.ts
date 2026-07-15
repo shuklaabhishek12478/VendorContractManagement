@@ -19,6 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent }
 from '../../../../shared/components/confirmation-dialog/confirmation-dialog';
+import { AssignPermissionsDialogComponent } from '../../dialogs/assign-permissions-dialog/assign-permissions-dialog';
 @Component({
   selector: 'app-role-list',
   imports:[
@@ -446,7 +447,89 @@ deactivateRole(): void {
 
 assignPermissions(): void {
 
-  console.log("Assign Permissions");
+  if (!this.selectedRole) return;
+
+  this.roleService
+
+    .getPermissions(this.selectedRole.id)
+
+    .subscribe(currentPermissions => {
+
+      const dialogRef = this.dialog.open(
+
+        AssignPermissionsDialogComponent,
+
+        {
+
+          width: '900px',
+
+          maxHeight: '90vh',
+
+          data: {
+
+            currentPermissions
+
+          }
+
+        });
+
+      dialogRef.afterClosed().subscribe(result => {
+
+        if (!result) return;
+
+        this.roleService
+
+          .assignPermissions(
+
+            this.selectedRole!.id,
+
+            {
+
+              permissionIds: result
+
+            })
+
+          .subscribe({
+
+            next: () => {
+
+              this.snackBar.open(
+
+                'Permissions updated successfully.',
+
+                'Close',
+
+                {
+
+                  duration: 3000
+
+                });
+
+            },
+
+            error: err => {
+
+              this.snackBar.open(
+
+                err.error?.message ||
+
+                'Unable to assign permissions.',
+
+                'Close',
+
+                {
+
+                  duration: 3000
+
+                });
+
+            }
+
+          });
+
+      });
+
+    });
 
 }
 
