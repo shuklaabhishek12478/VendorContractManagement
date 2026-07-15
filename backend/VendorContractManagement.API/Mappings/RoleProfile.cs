@@ -26,5 +26,6 @@ public class RoleProfile : Profile
         CreateMap<User, UserDto>();
 
         CreateMap<Permission, PermissionDto>();
+        CreateMap<Role, RoleLookupDto>();
     }
 }

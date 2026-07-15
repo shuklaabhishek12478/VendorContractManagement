@@ -207,4 +207,29 @@ public class RoleController : ControllerBase
 
         return Ok(result);
     }
+
+    [HttpGet("lookup")]
+    [PermissionAuthorize("Role.View")]
+    public async Task<IActionResult> Lookup()
+    {
+        var result = await _roleService.GetLookupAsync();
+
+        return Ok(result);
+    }
+
+    [HttpGet("exists")]
+    [PermissionAuthorize("Role.View")]
+    public async Task<IActionResult> Exists(
+    [FromQuery] string roleName,
+    [FromQuery] int? excludeId)
+    {
+        var exists = await _roleService.ExistsAsync(
+            roleName,
+            excludeId);
+
+        return Ok(new
+        {
+            exists
+        });
+    }
 }

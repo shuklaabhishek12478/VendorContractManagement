@@ -434,4 +434,20 @@ public class RoleService : IRoleService
 
         return _mapper.Map<List<RoleDto>>(roles);
     }
+
+    public async Task<List<RoleLookupDto>> GetLookupAsync()
+    {
+        var roles = await _unitOfWork.Roles.GetActiveRolesAsync();
+
+        return _mapper.Map<List<RoleLookupDto>>(roles);
+    }
+
+    public async Task<bool> ExistsAsync(
+    string roleName,
+    int? excludeId = null)
+    {
+        return await _unitOfWork.Roles.ExistsAsync(
+            roleName,
+            excludeId);
+    }
 }

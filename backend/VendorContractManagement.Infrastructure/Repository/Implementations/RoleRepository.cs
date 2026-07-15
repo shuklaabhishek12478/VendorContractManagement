@@ -318,4 +318,13 @@ public class RoleRepository : IRoleRepository
             .ThenBy(x => x.Name)
             .ToListAsync();
     }
+
+    public async Task<bool> ExistsAsync(
+    string roleName,
+    int? excludeId = null)
+    {
+        return await _context.Roles.AnyAsync(x =>
+            x.Name == roleName &&
+            (!excludeId.HasValue || x.Id != excludeId));
+    }
 }

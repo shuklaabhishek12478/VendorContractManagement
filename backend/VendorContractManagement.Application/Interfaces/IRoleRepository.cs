@@ -49,4 +49,6 @@ public interface IRoleRepository
     Task<RoleStatisticsDto> GetStatisticsAsync();
 
     Task<List<Role>> GetActiveRolesAsync();
+
+    Task<bool> ExistsAsync(string roleName, int? excludeId = null);
 }
