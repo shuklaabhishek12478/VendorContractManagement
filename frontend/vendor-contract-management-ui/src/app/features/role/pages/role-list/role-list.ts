@@ -519,6 +519,13 @@ assignPermissions(): void {
 
                 });
 
+                this.selectedRole = undefined;
+
+                this.loadRoles();
+                this.loadStatistics();
+
+                this.gridApi.deselectAll();
+
             },
 
             error: err => {

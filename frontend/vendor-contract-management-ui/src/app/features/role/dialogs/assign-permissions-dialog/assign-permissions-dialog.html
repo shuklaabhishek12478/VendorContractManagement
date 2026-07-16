@@ -1,158 +1,239 @@
 <h2 mat-dialog-title>
 
-Assign Permissions
+    Assign Permissions
 
 </h2>
 
 <mat-dialog-content>
 
-<!-- Search -->
+    <!-- Search -->
 
-<mat-form-field
-appearance="outline"
-class="w-full mb-5">
+    <mat-form-field
+        appearance="outline"
+        class="w-full mb-5">
 
-<mat-label>
+        <mat-label>
 
-Search Permission
+            Search Permission
 
-</mat-label>
+        </mat-label>
 
-<input
-matInput
-[(ngModel)]="searchText"
-placeholder="Search by permission name or code">
+        <input
+            matInput
+            [(ngModel)]="searchText"
+            placeholder="Search by permission name or code">
 
-<mat-icon matSuffix>
+        <mat-icon matSuffix>
 
-search
+            search
 
-</mat-icon>
+        </mat-icon>
 
-</mat-form-field>
-<!-- Cards -->
+    </mat-form-field>
 
-<mat-card
-class="mb-4"
-*ngFor="let group of filteredGroups">
+    <!-- Global Select -->
 
-<mat-card-header>
+    <mat-card class="mb-5">
 
-<div class="flex justify-between items-center w-full">
+        <mat-card-content
+            class="flex justify-between items-center">
 
-<div>
+            <div>
 
-<b>{{group.module}}</b>
+                <div class="font-semibold">
 
-<div class="text-xs text-gray-500">
+                    Select All Permissions
 
-{{group.permissions.length}} Permissions
+                </div>
 
-</div>
+                <div class="text-sm text-gray-500">
 
-</div>
+                    Apply permissions to every module.
 
-<mat-checkbox
+                </div>
 
-[(ngModel)]="group.allSelected"
+            </div>
 
-(change)="toggleModule(group)">
+            <mat-checkbox
 
-Select All
+                [ngModel]="allSelected"
 
-</mat-checkbox>
+                (ngModelChange)="toggleAll($event)">
 
-</div>
+            </mat-checkbox>
 
-</mat-card-header>
+        </mat-card-content>
 
-<mat-card-content>
+    </mat-card>
 
-<div class="grid grid-cols-2 gap-3 mt-4">
+    <!-- Empty -->
 
-<mat-checkbox
+    <div
+        *ngIf="filteredGroups.length===0"
+        class="text-center py-10">
 
-*ngFor="let permission of group.permissions"
+        <mat-icon class="text-5xl text-gray-400">
 
-[(ngModel)]="permission.selected"
+            search_off
 
-(change)="updateModule(group)">
+        </mat-icon>
 
-{{permission.name}}
+        <div class="mt-2 text-gray-500">
 
-</mat-checkbox>
+            No permissions found.
 
-</div>
+        </div>
 
-</mat-card-content>
+    </div>
 
-</mat-card>
+    <!-- Modules -->
 
-<!-- Summary -->
+    <mat-card
+        class="mb-4"
+        *ngFor="let group of filteredGroups">
 
-<div
-class="flex justify-between items-center mt-5 rounded-xl bg-indigo-50 p-4">
+        <mat-card-header>
 
-<div>
+            <div
+                class="flex justify-between items-center w-full">
 
-<div class="font-semibold">
+                <div>
 
-Permission Summary
+                    <b>
 
-</div>
+                        {{group.module}}
 
-<div class="text-sm text-slate-500">
+                    </b>
 
-{{selectedCount}} of {{totalCount}} selected
+                    <div class="text-xs text-gray-500">
 
-</div>
+                        {{ group.permissions.filter(x => x.selected).length }}
+                        /
+                        {{ group.permissions.length }}
+                        Selected
 
-</div>
+                    </div>
 
-<mat-icon color="primary">
+                </div>
 
-security
+                <mat-checkbox
 
-</mat-icon>
+                    [(ngModel)]="group.allSelected"
 
-</div>
+                    (change)="toggleModule(group)">
+
+                    Select All
+
+                </mat-checkbox>
+
+            </div>
+
+        </mat-card-header>
+
+        <mat-card-content>
+
+            <div class="grid grid-cols-2 gap-3 mt-4">
+
+                <mat-checkbox
+
+                    *ngFor="let permission of group.permissions"
+
+                    [(ngModel)]="permission.selected"
+
+                    (change)="updateModule(group)">
+
+                    <div class="flex flex-col">
+
+                        <span>
+
+                            {{permission.name}}
+
+                        </span>
+
+                        <small class="text-gray-500">
+
+                            {{permission.code}}
+
+                        </small>
+
+                    </div>
+
+                </mat-checkbox>
+
+            </div>
+
+        </mat-card-content>
+
+    </mat-card>
+
+    <!-- Summary -->
+
+    <div
+        class="flex justify-between items-center mt-5 rounded-xl bg-indigo-50 p-4">
+
+        <div>
+
+            <div class="font-semibold">
+
+                Permission Summary
+
+            </div>
+
+            <div class="text-sm text-slate-500">
+
+                {{selectedCount}}
+                /
+                {{totalCount}}
+                Permissions Selected
+
+            </div>
+
+        </div>
+
+        <mat-icon color="primary">
+
+            security
+
+        </mat-icon>
+
+    </div>
 
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
 
-<button
-mat-stroked-button
-mat-dialog-close>
+    <button
+        mat-stroked-button
+        mat-dialog-close>
 
-<mat-icon>
+        <mat-icon>
 
-close
+            close
 
-</mat-icon>
+        </mat-icon>
 
-Cancel
+        Cancel
 
-</button>
+    </button>
 
-<button
+    <button
 
-mat-raised-button
+        mat-raised-button
 
-color="primary"
+        color="primary"
 
-(click)="save()"
+        (click)="save()"
 
-[disabled]="selectedCount===0">
+        [disabled]="selectedCount===0">
 
-<mat-icon>
+        <mat-icon>
 
-save
+            save
 
-</mat-icon>
+        </mat-icon>
 
-Save Permissions
+        Save Permissions
 
-</button>
+    </button>
 
 </mat-dialog-actions>
