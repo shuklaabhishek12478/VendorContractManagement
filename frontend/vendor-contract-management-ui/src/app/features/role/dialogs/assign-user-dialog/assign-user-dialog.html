@@ -1,0 +1,125 @@
+<h2 mat-dialog-title>
+
+Assign Users
+
+</h2>
+
+<mat-dialog-content>
+
+  <mat-form-field
+    appearance="outline"
+    class="w-full mb-5">
+
+    <mat-label>
+
+      Search User
+
+    </mat-label>
+
+    <input
+      matInput
+      [(ngModel)]="searchText">
+
+    <mat-icon matSuffix>
+
+      search
+
+    </mat-icon>
+
+  </mat-form-field>
+
+  <div
+    *ngIf="filteredUsers.length===0"
+    class="text-center py-8">
+
+    <mat-icon class="text-5xl">
+
+      people
+
+    </mat-icon>
+
+    <div>
+
+      No users found
+
+    </div>
+
+  </div>
+
+  <mat-card
+    class="mb-3"
+    *ngFor="let user of filteredUsers">
+
+    <mat-card-content>
+
+      <mat-checkbox
+        [(ngModel)]="user.selected">
+
+        <div class="font-medium">
+
+          {{user.fullName}}
+
+        </div>
+
+        <div class="text-sm text-gray-500">
+
+          {{user.email}}
+
+        </div>
+
+      </mat-checkbox>
+
+    </mat-card-content>
+
+  </mat-card>
+
+  <div
+    class="rounded-xl bg-indigo-50 p-4 mt-5 flex justify-between">
+
+    <div>
+
+      <div class="font-semibold">
+
+        User Summary
+
+      </div>
+
+      <div class="text-sm">
+
+        {{selectedCount}} selected
+
+      </div>
+
+    </div>
+
+    <mat-icon color="primary">
+
+      groups
+
+    </mat-icon>
+
+  </div>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+  <button
+    mat-stroked-button
+    mat-dialog-close>
+
+    Cancel
+
+  </button>
+
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="save()"
+    [disabled]="selectedCount===0">
+
+    Save Users
+
+  </button>
+
+</mat-dialog-actions>

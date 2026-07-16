@@ -19,7 +19,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent }
 from '../../../../shared/components/confirmation-dialog/confirmation-dialog';
 import { AssignPermissionsDialogComponent } from '../../dialogs/assign-permissions-dialog/assign-permissions-dialog';
-
+import { AssignUserDialogComponent } from '../../dialogs/assign-user-dialog/assign-user-dialog';
 
 @Component({
   selector: 'app-role-list',
@@ -66,7 +66,7 @@ rowSelection: RowSelectionOptions = {
    private roleService: RoleService,
   private cdr: ChangeDetectorRef,
   private router: Router, private dialog: MatDialog,
-  private snackBar: MatSnackBar
+  private snackBar: MatSnackBar,
   ) { }
 
   ngOnInit(): void {
@@ -556,13 +556,87 @@ assignPermissions(): void {
 
 assignUsers(): void {
 
-  console.log("Assign Users");
+  if (!this.selectedRole) {
+    return;
+  }
+
+  this.roleService
+    .getUsers(this.selectedRole.id)
+    .subscribe(currentUsers => {
+
+      const dialogRef = this.dialog.open(
+        AssignUserDialogComponent,
+        {
+          width: '700px',
+          maxHeight: '90vh',
+          data: {
+
+            currentUsers:
+              currentUsers.map(x => x.id)
+
+          }
+        });
+
+      dialogRef.afterClosed().subscribe(result => {
+
+        if (!result) {
+          return;
+        }
+
+        this.roleService.assignUsers(
+          this.selectedRole!.id,
+          {
+            userIds: result
+          })
+          .subscribe({
+
+            next: () => {
+
+              this.snackBar.open(
+                'Users assigned successfully.',
+                'Close',
+                {
+                  duration: 3000
+                });
+
+              this.loadRoles();
+
+            },
+
+            error: err => {
+
+              this.snackBar.open(
+
+                err.error?.message ||
+
+                'Unable to assign users.',
+
+                'Close',
+
+                {
+                  duration: 3000
+                });
+
+            }
+
+          });
+
+      });
+
+    });
 
 }
 
 cloneRole(): void {
 
-  console.log("Clone");
+    if (!this.selectedRole) {
+        return;
+    }
+
+    this.router.navigate([
+        '/roles/clone',
+        this.selectedRole.id
+    ]);
 
 }
 

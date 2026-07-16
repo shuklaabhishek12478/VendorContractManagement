@@ -18,6 +18,7 @@ import { RoleListComponent } from './features/role/pages/role-list/role-list';
 import { AddRoleComponent } from './features/role/pages/add-role/add-role';
 import { EditRoleComponent } from './features/role/pages/edit-role/edit-role';
 import { RoleDetailsComponent } from './features/role/components/role-details/role-details';
+import { CloneRoleComponent } from './features/role/pages/clone-role/clone-role';
 
 
 
@@ -98,6 +99,10 @@ export const routes: Routes = [
 {
   path: 'roles/:id',
   component: RoleDetailsComponent
+},
+{
+    path: 'roles/clone/:id',
+    component: CloneRoleComponent
 },
     ]
   },

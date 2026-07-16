@@ -16,10 +16,6 @@
 
     <app-role-toolbar
 
-    [hasSelection]="selectedRole != null"
-
-    [isActive]="selectedRole?.isActive ?? false"
-
     (add)="addRole()"
 
     (edit)="editRole()"
@@ -34,7 +30,11 @@
 
     (assignUsers)="assignUsers()"
 
-    (clone)="cloneRole()">
+    (clone)="cloneRole()"
+    
+    [hasSelection]="selectedRole != null"
+
+    [isActive]="selectedRole?.isActive ?? false">
 
 </app-role-toolbar>
 

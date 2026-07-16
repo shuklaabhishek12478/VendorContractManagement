@@ -1,0 +1,604 @@
+<!-- Loading -->
+
+<div
+    class="loading-container"
+    *ngIf="loading">
+
+    <mat-spinner diameter="60"></mat-spinner>
+
+    <h2 class="mt-4">
+        Loading Role...
+    </h2>
+
+</div>
+
+<!-- Page -->
+
+<div *ngIf="!loading">
+
+    <!-- Hero -->
+
+    <div class="hero">
+
+        <div class="hero-left">
+
+            <div class="hero-icon">
+
+                <mat-icon>
+
+                    content_copy
+
+                </mat-icon>
+
+            </div>
+
+            <div>
+
+                <h1>
+
+                    Clone Role
+
+                </h1>
+
+                <p>
+
+                    Create a new role by copying all permissions from an existing role.
+
+                    Assigned users are not copied.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <button
+            mat-stroked-button
+            routerLink="/roles">
+
+            <mat-icon>
+
+                arrow_back
+
+            </mat-icon>
+
+            Back
+
+        </button>
+
+    </div>
+
+    <!-- Statistics -->
+
+    <div class="overview-grid">
+
+        <!-- Permissions -->
+
+        <mat-card class="overview-card">
+
+            <div class="icon permissions">
+
+                <mat-icon>
+
+                    security
+
+                </mat-icon>
+
+            </div>
+
+            <div class="content">
+
+                <div class="label">
+
+                    Permissions
+
+                </div>
+
+                <div class="value">
+
+                    {{ role.permissionCount }}
+
+                </div>
+
+                <div class="caption">
+
+                    Will be copied
+
+                </div>
+
+            </div>
+
+        </mat-card>
+
+        <!-- Users -->
+
+        <mat-card class="overview-card">
+
+            <div class="icon users">
+
+                <mat-icon>
+
+                    groups
+
+                </mat-icon>
+
+            </div>
+
+            <div class="content">
+
+                <div class="label">
+
+                    Assigned Users
+
+                </div>
+
+                <div class="value">
+
+                    {{ role.userCount }}
+
+                </div>
+
+                <div class="caption">
+
+                    Not copied
+
+                </div>
+
+            </div>
+
+        </mat-card>
+
+        <!-- Status -->
+
+        <mat-card class="overview-card">
+
+            <div class="icon success">
+
+                <mat-icon>
+
+                    {{ role.isActive ? 'check_circle' : 'cancel' }}
+
+                </mat-icon>
+
+            </div>
+
+            <div class="content">
+
+                <div class="label">
+
+                    Status
+
+                </div>
+
+                <div class="value">
+
+                    {{ role.isActive ? 'Active' : 'Inactive' }}
+
+                </div>
+
+                <div class="caption">
+
+                    Source Role
+
+                </div>
+
+            </div>
+
+        </mat-card>
+
+        <!-- Type -->
+
+        <mat-card class="overview-card">
+
+            <div class="icon primary">
+
+                <mat-icon>
+
+                    admin_panel_settings
+
+                </mat-icon>
+
+            </div>
+
+            <div class="content">
+
+                <div class="label">
+
+                    Role Type
+
+                </div>
+
+                <div class="value">
+
+                    {{ role.isSystemRole ? 'System Role' : 'Custom Role' }}
+
+                </div>
+
+                <div class="caption">
+
+                    Original Role
+
+                </div>
+
+            </div>
+
+        </mat-card>
+
+    </div>
+    <!-- Clone Configuration -->
+
+<mat-card class="config-card">
+
+    <div class="section-header">
+
+        <div class="section-title">
+
+            <mat-icon color="primary">
+
+                tune
+
+            </mat-icon>
+
+            <div>
+
+                <h2>
+
+                    Clone Configuration
+
+                </h2>
+
+                <p>
+
+                    Configure the new role before creating it.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="config-grid">
+
+        <!-- Role Name -->
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                New Role Name
+
+            </mat-label>
+
+            <input
+                matInput
+                maxlength="100"
+                [(ngModel)]="roleName"
+                (ngModelChange)="checkChanges()">
+            <mat-hint align="end">
+
+                {{ roleName.length }} / 100
+
+            </mat-hint>
+
+        </mat-form-field>
+
+    </div>
+
+    <div class="mt-5">
+
+        <button
+            mat-stroked-button
+            color="primary"
+            (click)="generateName()">
+
+            <mat-icon>
+
+                auto_fix_high
+
+            </mat-icon>
+
+            Generate Another Name
+
+        </button>
+
+    </div>
+
+</mat-card>
+
+<!-- Preview -->
+
+<mat-card class="preview-card">
+
+    <div class="section-title">
+
+        <mat-icon color="primary">
+
+            preview
+
+        </mat-icon>
+
+        <div>
+
+            <h2>
+
+                Clone Preview
+
+            </h2>
+
+            <p>
+
+                Review the result before creating the new role.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="preview-grid">
+
+        <div class="preview-item">
+
+            <div class="label">
+
+                Source Role
+
+            </div>
+
+            <div class="value">
+
+                {{ role.name }}
+
+            </div>
+
+        </div>
+
+        <div class="preview-item">
+
+            <div class="label">
+
+                New Role
+
+            </div>
+
+            <div class="value primary">
+
+                {{ roleName || 'Not Specified' }}
+
+            </div>
+
+        </div>
+
+        <div class="preview-item">
+
+            <div class="label">
+
+                Permissions
+
+            </div>
+
+            <div class="value success">
+
+                {{ role.permissionCount }} Permissions
+
+            </div>
+
+        </div>
+
+        <div class="preview-item">
+
+            <div class="label">
+
+                Users
+
+            </div>
+
+            <div class="value warning">
+
+                {{ role.userCount }} Users Not Copied
+
+            </div>
+
+        </div>
+
+        <div class="preview-item">
+
+            <div class="label">
+
+                New Status
+
+            </div>
+
+            <div class="value success">
+
+                Active
+
+            </div>
+
+        </div>
+
+        <div class="preview-item">
+
+            <div class="label">
+
+                Role Type
+
+            </div>
+
+            <div class="value">
+
+                Custom Role
+
+            </div>
+
+        </div>
+
+    </div>
+
+</mat-card>
+
+<!-- Validation -->
+
+<mat-card class="validation-card">
+
+    <div class="section-title">
+
+        <mat-icon color="primary">
+
+            verified
+
+        </mat-icon>
+
+        <div>
+
+            <h2>
+
+                Validation Checklist
+
+            </h2>
+
+            <p>
+
+                Everything looks good before creating the clone.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="validation-list">
+
+        <div
+            class="validation-item success"
+            *ngIf="roleName.trim().length > 0">
+
+            <mat-icon>
+
+                check_circle
+
+            </mat-icon>
+
+            <span>
+
+                Role name provided
+
+            </span>
+
+        </div>
+
+        <div
+            class="validation-item warning"
+            *ngIf="roleName.trim().length === 0">
+
+            <mat-icon>
+
+                warning
+
+            </mat-icon>
+
+            <span>
+
+                Please enter a role name
+
+            </span>
+
+        </div>
+
+        <div class="validation-item success">
+
+            <mat-icon>
+
+                security
+
+            </mat-icon>
+
+            <span>
+
+                {{ role.permissionCount }} permissions will be copied
+
+            </span>
+
+        </div>
+
+        <div class="validation-item info">
+
+            <mat-icon>
+
+                groups
+
+            </mat-icon>
+
+            <span>
+
+                Assigned users will not be copied
+
+            </span>
+
+        </div>
+
+        <div class="validation-item success">
+
+            <mat-icon>
+
+                verified_user
+
+            </mat-icon>
+
+            <span>
+
+                New role will be created as an Active Custom Role
+
+            </span>
+
+        </div>
+
+    </div>
+
+</mat-card>
+
+<!-- Footer -->
+
+<div class="footer-actions">
+
+    <button
+        mat-stroked-button
+        routerLink="/roles">
+
+        <mat-icon>
+
+            arrow_back
+
+        </mat-icon>
+
+        Cancel
+
+    </button>
+
+    <button
+        mat-raised-button
+        color="primary"
+        (click)="cloneRole()"
+        [disabled]="saving || !roleName.trim()">
+
+        <mat-spinner
+            *ngIf="saving"
+            diameter="20">
+
+        </mat-spinner>
+
+        <mat-icon *ngIf="!saving">
+
+            content_copy
+
+        </mat-icon>
+
+        {{ saving ? 'Creating Clone...' : 'Create Clone' }}
+
+    </button>
+
+</div>
+
+</div>
