@@ -12,27 +12,27 @@
   </button>
 
   <button
-    mat-stroked-button
-    [disabled]="!hasSelection"
-    (click)="edit.emit()">
+  mat-stroked-button
+  [disabled]="!hasSelection || !canEdit"
+  (click)="edit.emit()">
 
-    <mat-icon>edit</mat-icon>
+  <mat-icon>edit</mat-icon>
 
-    Edit
+  Edit
 
-  </button>
+</button>
 
   <button
-    mat-stroked-button
-    color="warn"
-    [disabled]="!hasSelection"
-    (click)="delete.emit()">
+  mat-stroked-button
+  color="warn"
+  [disabled]="!hasSelection || !canDelete"
+  (click)="delete.emit()">
 
-    <mat-icon>delete</mat-icon>
+  <mat-icon>delete</mat-icon>
 
-    Delete
+  Delete
 
-  </button>
+</button>
 
   <button
     mat-stroked-button

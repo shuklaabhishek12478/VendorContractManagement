@@ -6,31 +6,77 @@ Assign Permissions
 
 <mat-dialog-content>
 
-<div class="space-y-5">
+<!-- Search -->
+
+<mat-form-field
+appearance="outline"
+class="w-full mb-5">
+
+<mat-label>
+
+Search Permission
+
+</mat-label>
+
+<input
+matInput
+[(ngModel)]="searchText"
+placeholder="Search by permission name or code">
+
+<mat-icon matSuffix>
+
+search
+
+</mat-icon>
+
+</mat-form-field>
+<!-- Cards -->
 
 <mat-card
-
-*ngFor="let group of groupedPermissions">
+class="mb-4"
+*ngFor="let group of filteredGroups">
 
 <mat-card-header>
 
-<mat-card-title>
+<div class="flex justify-between items-center w-full">
 
-{{group.module}}
+<div>
 
-</mat-card-title>
+<b>{{group.module}}</b>
+
+<div class="text-xs text-gray-500">
+
+{{group.permissions.length}} Permissions
+
+</div>
+
+</div>
+
+<mat-checkbox
+
+[(ngModel)]="group.allSelected"
+
+(change)="toggleModule(group)">
+
+Select All
+
+</mat-checkbox>
+
+</div>
 
 </mat-card-header>
 
 <mat-card-content>
 
-<div class="grid grid-cols-2 gap-2 mt-3">
+<div class="grid grid-cols-2 gap-3 mt-4">
 
 <mat-checkbox
 
 *ngFor="let permission of group.permissions"
 
-[(ngModel)]="permission.selected">
+[(ngModel)]="permission.selected"
+
+(change)="updateModule(group)">
 
 {{permission.name}}
 
@@ -42,6 +88,33 @@ Assign Permissions
 
 </mat-card>
 
+<!-- Summary -->
+
+<div
+class="flex justify-between items-center mt-5 rounded-xl bg-indigo-50 p-4">
+
+<div>
+
+<div class="font-semibold">
+
+Permission Summary
+
+</div>
+
+<div class="text-sm text-slate-500">
+
+{{selectedCount}} of {{totalCount}} selected
+
+</div>
+
+</div>
+
+<mat-icon color="primary">
+
+security
+
+</mat-icon>
+
 </div>
 
 </mat-dialog-content>
@@ -49,19 +122,36 @@ Assign Permissions
 <mat-dialog-actions align="end">
 
 <button
-mat-button
+mat-stroked-button
 mat-dialog-close>
+
+<mat-icon>
+
+close
+
+</mat-icon>
 
 Cancel
 
 </button>
 
 <button
-mat-raised-button
-color="primary"
-(click)="save()">
 
-Save
+mat-raised-button
+
+color="primary"
+
+(click)="save()"
+
+[disabled]="selectedCount===0">
+
+<mat-icon>
+
+save
+
+</mat-icon>
+
+Save Permissions
 
 </button>
 

@@ -192,15 +192,16 @@
 
       <ag-grid-angular
 
-        class="ag-theme-alpine"
-        style="height:600px;width:100%;"
-        [rowData]="roles"
-        rowSelection="single"
-        (selectionChanged)="onSelectionChanged()"
-        [columnDefs]="columnDefs"
-        [animateRows]="true"
-        (gridReady)="onGridReady($event)">
-
+    class="ag-theme-alpine"
+    style="height:600px;width:100%;"
+[rowData]="roles"
+  [columnDefs]="columnDefs"
+  [rowSelection]="rowSelection"
+  [suppressRowClickSelection]="false"
+  (selectionChanged)="onSelectionChanged()"
+  (rowDoubleClicked)="onRowDoubleClicked($event)"
+  (gridReady)="onGridReady($event)"
+  [animateRows]="true">
       </ag-grid-angular>
 
     </mat-card-content>

@@ -17,6 +17,8 @@ import { EditContractComponent } from './features/contracts/pages/edit-contract/
 import { RoleListComponent } from './features/role/pages/role-list/role-list';
 import { AddRoleComponent } from './features/role/pages/add-role/add-role';
 import { EditRoleComponent } from './features/role/pages/edit-role/edit-role';
+import { RoleDetailsComponent } from './features/role/components/role-details/role-details';
+
 
 
 
@@ -81,8 +83,8 @@ export const routes: Routes = [
   component: ContractDetailsComponent
 },
 {
-    path: 'roles',
-    component: RoleListComponent
+  path: 'roles',
+  component: RoleListComponent
 },
 {
   path: 'roles/add',
@@ -90,7 +92,12 @@ export const routes: Routes = [
 },
 {
   path: 'roles/edit/:id',
-  component: EditRoleComponent
+  component: EditRoleComponent,
+   canDeactivate: [pendingChangesGuard]
+},
+{
+  path: 'roles/:id',
+  component: RoleDetailsComponent
 },
     ]
   },

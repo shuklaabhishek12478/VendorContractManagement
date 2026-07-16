@@ -1,0 +1,55 @@
+<div class="grid grid-cols-2 gap-6">
+
+    <div>
+        <div class="label">
+            Role Name
+        </div>
+
+        <div class="value">
+            {{ role.name }}
+        </div>
+    </div>
+
+    <div>
+        <div class="label">
+            Priority
+        </div>
+
+        <div class="value">
+            {{ role.priority }}
+        </div>
+    </div>
+
+    <div>
+        <div class="label">
+            Status
+        </div>
+
+        <div class="value">
+            {{ role.isActive ? 'Active' : 'Inactive' }}
+        </div>
+    </div>
+
+    <div>
+        <div class="label">
+            System Role
+        </div>
+
+        <div class="value">
+            {{ role.isSystemRole ? 'Yes' : 'No' }}
+        </div>
+    </div>
+
+</div>
+
+<div class="mt-6">
+
+    <div class="label">
+        Description
+    </div>
+
+    <div class="value">
+        {{ role.description || '-' }}
+    </div>
+
+</div>

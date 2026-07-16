@@ -48,4 +48,8 @@ export class RoleToolbarComponent {
   @Output()
   clone = new EventEmitter<void>();
 
+  @Input() canEdit = true;
+
+@Input() canDelete = true;
+
 }

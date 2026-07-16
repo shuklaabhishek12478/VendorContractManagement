@@ -1,0 +1,343 @@
+<div class="page-container" *ngIf="role && !loading">
+
+    <div class="flex justify-between items-center mb-6">
+
+        <div>
+
+            <h2 class="text-2xl font-bold">
+
+                Role Details
+
+            </h2>
+
+            <p class="text-gray-500">
+
+                {{ role.name }}
+
+            </p>
+
+        </div>
+
+        <div class="flex gap-3">
+
+            <button
+                mat-raised-button
+                color="primary"
+                (click)="edit()">
+
+                <mat-icon>
+
+                    edit
+
+                </mat-icon>
+
+                Edit Role
+
+            </button>
+
+            <button
+                mat-stroked-button
+                (click)="back()">
+
+                <mat-icon>
+
+                    arrow_back
+
+                </mat-icon>
+
+                Back
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- General Information -->
+
+  <!--  <mat-card>
+
+        <mat-card-header>
+
+            <mat-card-title>
+
+                General Information
+
+            </mat-card-title>
+
+        </mat-card-header>
+
+        <mat-card-content>
+
+            <div class="grid grid-cols-2 gap-6 mt-6">
+
+                <div>
+
+                    <div class="label">
+
+                        Role Name
+
+                    </div>
+
+                    <div class="value">
+
+                        {{ role.name }}
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <div class="label">
+
+                        Priority
+
+                    </div>
+
+                    <div class="value">
+
+                        {{ role.priority }}
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <div class="label">
+
+                        Status
+
+                    </div>
+
+                    <div class="value">
+
+                        {{ role.isActive ? 'Active' : 'Inactive' }}
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <div class="label">
+
+                        System Role
+
+                    </div>
+
+                    <div class="value">
+
+                        {{ role.isSystemRole ? 'Yes' : 'No' }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="mt-6">
+
+                <div class="label">
+
+                    Description
+
+                </div>
+
+                <div class="value">
+
+                    {{ role.description || '-' }}
+
+                </div>
+
+            </div>
+
+        </mat-card-content>
+
+    </mat-card>-->
+
+    <mat-card>
+
+    <mat-card-header>
+        <mat-card-title>
+            General Information
+        </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <app-role-general-info
+            [role]="role">
+        </app-role-general-info>
+
+    </mat-card-content>
+
+</mat-card>
+
+    <!-- Appearance -->
+
+   <!-- <mat-card class="mt-5">
+
+        <mat-card-header>
+
+            <mat-card-title>
+
+                Appearance
+
+            </mat-card-title>
+
+        </mat-card-header>
+
+        <mat-card-content>
+
+            <div class="grid grid-cols-2 gap-6 mt-6">
+
+                <div>
+
+                    <div class="label">
+
+                        Icon
+
+                    </div>
+
+                    <div class="value flex items-center gap-2">
+
+                        <mat-icon>
+
+                            {{ role.icon }}
+
+                        </mat-icon>
+
+                        {{ role.icon }}
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <div class="label">
+
+                        Color
+
+                    </div>
+
+                    <div class="flex items-center gap-3">
+
+                        <div
+                            class="w-8 h-8 rounded border"
+                            [style.background]="role.color">
+                        </div>
+
+                        {{ role.color }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </mat-card-content>
+
+    </mat-card>-->
+
+    <mat-card class="mt-5">
+
+    <mat-card-header>
+        <mat-card-title>
+            Appearance
+        </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <app-role-appearance-info
+            [role]="role">
+        </app-role-appearance-info>
+
+    </mat-card-content>
+
+</mat-card>
+
+    <!-- Usage -->
+
+   <!-- <mat-card class="mt-5">
+
+        <mat-card-header>
+
+            <mat-card-title>
+
+                Usage Information
+
+            </mat-card-title>
+
+        </mat-card-header>
+
+        <mat-card-content>
+
+            <div class="grid grid-cols-2 gap-6 mt-6">
+
+                <div>
+
+                    <div class="label">
+
+                        Assigned Users
+
+                    </div>
+
+                    <div class="value">
+
+                        {{ role.userCount }}
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <div class="label">
+
+                        Assigned Permissions
+
+                    </div>
+
+                    <div class="value">
+
+                        {{ role.permissionCount }}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </mat-card-content>
+
+    </mat-card>-->
+
+    <mat-card class="mt-5">
+
+    <mat-card-header>
+        <mat-card-title>
+            Usage Information
+        </mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <app-role-usage-info
+            [role]="role">
+        </app-role-usage-info>
+
+    </mat-card-content>
+
+</mat-card>
+
+</div>
+
+<div *ngIf="loading">
+
+    Loading Role...
+
+</div>

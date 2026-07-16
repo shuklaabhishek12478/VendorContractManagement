@@ -1,4 +1,4 @@
-import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import {
   FormBuilder,
   Validators,
@@ -35,8 +35,10 @@ MatSlideToggleModule
   templateUrl: './role-form.html',
   styleUrl: './role-form.scss'
 })
-export class RoleFormComponent {
+export class RoleFormComponent implements OnInit, OnChanges {
     private fb = inject(FormBuilder);
+  @Output()
+cancel = new EventEmitter<void>();
   @Input()
   role?: Role;
 
@@ -61,19 +63,40 @@ export class RoleFormComponent {
 
   });
 
-  constructor(
-   
-  ) {}
+ constructor() {
+  console.log('ROLE FORM CREATED');
+}
 
   ngOnInit(): void {
 
     if (this.role) {
 
       this.form.patchValue(this.role);
+      console.log('ROLE FORM INIT');
 
     }
 
   }
+
+ngOnChanges(changes: SimpleChanges): void {
+
+  console.log('ROLE INPUT CHANGED', this.role);
+
+  if (this.role) {
+
+    this.form.patchValue({
+      name: this.role.name,
+      description: this.role.description,
+      color: this.role.color,
+      icon: this.role.icon,
+      priority: this.role.priority,
+      isActive: this.role.isActive
+    });
+
+    console.log('FORM VALUE', this.form.value);
+  }
+
+}
 
   submit(): void {
 
@@ -85,4 +108,9 @@ export class RoleFormComponent {
 
   }
 
+   cancelForm(): void {
+
+  this.cancel.emit();
+
+}
 }

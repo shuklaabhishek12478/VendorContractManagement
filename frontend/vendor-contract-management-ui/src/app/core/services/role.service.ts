@@ -30,8 +30,12 @@ export class RoleService {
   }
 
   getById(id: number): Observable<Role> {
-    return this.http.get<Role>(`${this.apiUrl}/${id}`);
-  }
+
+  console.log('Calling API:', `${this.apiUrl}/${id}`);
+
+  return this.http.get<Role>(`${this.apiUrl}/${id}`);
+
+}
 
   create(model: CreateRoleRequest): Observable<Role> {
     return this.http.post<Role>(this.apiUrl, model);

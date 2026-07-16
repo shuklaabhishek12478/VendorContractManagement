@@ -1,0 +1,40 @@
+<div class="grid grid-cols-2 gap-6">
+
+    <div>
+
+        <div class="label">
+            Icon
+        </div>
+
+        <div class="value flex items-center gap-2">
+
+            <mat-icon>
+                {{ role.icon }}
+            </mat-icon>
+
+            {{ role.icon }}
+
+        </div>
+
+    </div>
+
+    <div>
+
+        <div class="label">
+            Color
+        </div>
+
+        <div class="flex items-center gap-3">
+
+            <div
+                class="w-8 h-8 rounded border"
+                [style.background]="role.color">
+            </div>
+
+            {{ role.color }}
+
+        </div>
+
+    </div>
+
+</div>

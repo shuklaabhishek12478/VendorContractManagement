@@ -14,6 +14,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { FormsModule } from '@angular/forms';
 import { Permission } from '../../../../core/models/permission.model';
 import { PermissionService } from '../../../../core/services/permission';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 @Component({
   selector: 'app-assign-permissions-dialog',
@@ -26,6 +28,8 @@ import { PermissionService } from '../../../../core/services/permission';
     MatCardModule,
     MatIconModule,
     FormsModule,
+    MatInputModule,
+MatFormFieldModule,
   ],
   templateUrl: './assign-permissions-dialog.html',
   styleUrl: './assign-permissions-dialog.scss'
@@ -34,10 +38,13 @@ export class AssignPermissionsDialogComponent {
 
 
   permissions: Permission[] = [];
-  groupedPermissions: {
+ groupedPermissions: {
   module: string;
+  allSelected: boolean;
   permissions: any[];
 }[] = [];
+
+searchText = '';
 
   constructor(
 
@@ -73,27 +80,30 @@ for (const permission of res) {
 
     selected:
 
-this.data.currentPermissions?.includes(
-permission.code
-) ?? false
+      this.data.currentPermissions?.includes(permission.code) ?? false
 
   });
 
 }
 
 this.groupedPermissions = Object.keys(groups)
-
 .sort()
-
 .map(module => ({
 
-module,
+  module,
 
-permissions: groups[module]
+  allSelected: false,
+
+  permissions: groups[module]
 
 }));
 
-      });
+this.groupedPermissions.forEach(group => {
+
+  group.allSelected =
+    group.permissions.every((x: any) => x.selected);
+
+});});
 
 }
 
@@ -101,13 +111,88 @@ permissions: groups[module]
 
   const permissionIds = this.groupedPermissions
 
-    .flatMap(x => x.permissions)
+    .flatMap(group => group.permissions)
 
-    .filter(x => x.selected)
+    .filter(permission => permission.selected)
 
-    .map(x => x.id);
+    .map(permission => permission.id);
 
   this.dialogRef.close(permissionIds);
+
+}
+
+get selectedCount(): number {
+
+  return this.groupedPermissions
+
+    .reduce((count, group) =>
+
+      count +
+
+      group.permissions.filter((x: any) => x.selected).length,
+
+      0);
+
+}
+
+get totalCount(): number {
+
+  return this.groupedPermissions
+
+    .reduce((count, group) =>
+
+      count + group.permissions.length,
+
+      0);
+
+}
+
+toggleModule(group: any): void {
+
+  group.permissions.forEach((permission: any) => {
+
+    permission.selected = group.allSelected;
+
+  });
+
+}
+
+updateModule(group: any): void {
+
+  group.allSelected =
+    group.permissions.every((permission: any) => permission.selected);
+
+}
+
+get filteredGroups() {
+
+  if (!this.searchText.trim()) {
+
+    return this.groupedPermissions;
+
+  }
+
+  const search = this.searchText.toLowerCase();
+
+  return this.groupedPermissions
+
+    .map(group => ({
+
+      ...group,
+
+      permissions: group.permissions.filter((permission: any) =>
+
+        permission.name.toLowerCase().includes(search) ||
+
+        permission.code.toLowerCase().includes(search) ||
+
+        permission.module.toLowerCase().includes(search)
+
+      )
+
+    }))
+
+    .filter(group => group.permissions.length > 0);
 
 }
 

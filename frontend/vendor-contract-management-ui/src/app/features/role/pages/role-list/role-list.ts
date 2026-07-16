@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ColDef } from 'ag-grid-community';
+import { ColDef, GridApi, GridReadyEvent, RowDoubleClickedEvent, RowSelectionOptions } from 'ag-grid-community';
 import { Role, RoleStatistics } from '../../../../core/models/role.model';
 import { RoleService } from '../../../../core/services/role.service';
 import { MatCardModule } from '@angular/material/card';
@@ -11,7 +11,6 @@ import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { GridReadyEvent, GridApi} from 'ag-grid-community';
 import { ChangeDetectorRef } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { RoleToolbarComponent } from '../../components/role-toolbar/role-toolbar';
@@ -20,6 +19,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent }
 from '../../../../shared/components/confirmation-dialog/confirmation-dialog';
 import { AssignPermissionsDialogComponent } from '../../dialogs/assign-permissions-dialog/assign-permissions-dialog';
+
+
 @Component({
   selector: 'app-role-list',
   imports:[
@@ -53,7 +54,14 @@ selectedStatus: boolean | null = null;
   loading = false;
   columnDefs: ColDef[] = [];
  selectedRole?: Role;
+
 selectedRows = 0;
+
+rowSelection: RowSelectionOptions = {
+  mode: 'singleRow',
+  enableClickSelection: true
+};
+
   constructor(
    private roleService: RoleService,
   private cdr: ChangeDetectorRef,
@@ -113,15 +121,20 @@ selectedRows = 0;
   });
 
 }
+defaultColDef = {
+  checkboxSelection: true
+};
 
   initializeColumns(): void {
 
     this.columnDefs = [
 
       {
+   
         field: 'name',
         headerName: 'Role',
-        flex: 1.3
+        flex: 1.3,
+        width: 60
       },
 
       {
@@ -203,7 +216,8 @@ onSelectionChanged(): void {
 
   const rows = this.gridApi.getSelectedRows();
 
-  this.selectedRole = rows.length
+  this.selectedRole =
+    rows.length > 0
       ? rows[0]
       : undefined;
 
@@ -544,4 +558,23 @@ cloneRole(): void {
   console.log("Clone");
 
 }
+
+onRowDoubleClicked(
+  event: RowDoubleClickedEvent
+): void {
+
+  const role = event.data as Role;
+
+  if (!role) {
+    return;
+  }
+
+  this.router.navigate([
+    '/roles',
+    role.id
+  ]);
+
+}
+
+
 }
