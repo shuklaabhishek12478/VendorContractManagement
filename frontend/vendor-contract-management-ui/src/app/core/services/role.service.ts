@@ -12,6 +12,7 @@ import {
   RoleStatistics,
   RoleLookup
 } from '../models/role.model';
+import { PermissionGroup } from '../models/permission-matrix.model';
 
 @Injectable({
   providedIn: 'root'
@@ -162,4 +163,68 @@ export class RoleService {
     );
   }
 
+  getPermissionMatrix(roleId: number) {
+
+  return this.http.get<PermissionGroup[]>(
+    `${this.apiUrl}/${roleId}/permission-matrix`
+  );
+
+}
+
+savePermissionMatrix(
+  roleId: number,
+  permissionIds: number[]
+) {
+
+  return this.http.put(
+    `${this.apiUrl}/${roleId}/permission-matrix`,
+    {
+      permissionIds
+    });
+
+}
+
+exportPermissions(roleId: number): Observable<Blob> {
+
+    return this.http.get(
+
+        `${this.apiUrl}/${roleId}/permissions/export`,
+
+        {
+
+            responseType: 'blob'
+
+        }
+
+    );
+
+}
+
+exportPermissionsCsv(roleId:number){
+
+    return this.http.get(
+
+        `${this.apiUrl}/${roleId}/permissions/export/csv`,
+
+        {
+
+            responseType:'blob'
+
+        });
+
+}
+
+exportPermissionsJson(roleId:number){
+
+    return this.http.get(
+
+        `${this.apiUrl}/${roleId}/permissions/export/json`,
+
+        {
+
+            responseType:'blob'
+
+        });
+
+}
 }

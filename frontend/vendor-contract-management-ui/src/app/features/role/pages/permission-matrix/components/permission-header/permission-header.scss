@@ -1,0 +1,161 @@
+/*==========================================================
+HERO
+==========================================================*/
+
+.hero{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:32px;
+
+    background:linear-gradient(135deg,#2563eb,#1d4ed8);
+
+    color:#fff;
+
+    border-radius:24px;
+
+    padding:34px 40px;
+
+    margin-bottom:28px;
+
+    box-shadow:0 20px 40px rgba(37,99,235,.18);
+
+}
+
+.hero-left{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:24px;
+
+    flex:1;
+
+}
+
+.hero-icon{
+
+    width:84px;
+
+    height:84px;
+
+    border-radius:22px;
+
+    background:rgba(255,255,255,.15);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    backdrop-filter:blur(12px);
+
+}
+
+.hero-icon mat-icon{
+
+    font-size:42px;
+
+    width:42px;
+
+    height:42px;
+
+}
+
+.hero-text h1{
+
+    margin:0;
+
+    font-size:34px;
+
+    font-weight:700;
+
+    letter-spacing:.3px;
+
+}
+
+.hero-text p{
+
+    margin-top:10px;
+
+    max-width:720px;
+
+    line-height:1.7;
+
+    opacity:.92;
+
+    font-size:15px;
+
+}
+
+.hero-right{
+
+    display:flex;
+
+    gap:16px;
+
+    flex-wrap:wrap;
+
+}
+/* ==========================================
+   HERO BUTTONS
+========================================== */
+
+.hero-right button{
+    height:46px;
+    border-radius:12px;
+    font-weight:600;
+}
+
+/* Back Button */
+
+.hero-right .mat-mdc-outlined-button{
+
+    color:#ffffff !important;
+
+    border-color:rgba(255,255,255,.55) !important;
+
+    background:rgba(255,255,255,.08);
+
+}
+
+.hero-right .mat-mdc-outlined-button mat-icon{
+
+    color:#ffffff !important;
+
+}
+
+.hero-right .mat-mdc-outlined-button:hover{
+
+    background:rgba(255,255,255,.18);
+
+    border-color:#ffffff !important;
+
+}
+
+/* Save Button */
+
+.hero-right .mat-mdc-raised-button{
+
+    background:#ffffff !important;
+
+    color:#2563eb !important;
+
+}
+
+.hero-right .mat-mdc-raised-button mat-icon{
+
+    color:#2563eb !important;
+
+}
+
+.hero-right .mat-mdc-outlined-button{
+    backdrop-filter: blur(10px);
+    box-shadow:0 6px 20px rgba(0,0,0,.15);
+}

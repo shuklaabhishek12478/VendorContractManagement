@@ -1,0 +1,303 @@
+:host{
+    display:block;
+}
+
+.module-toolbar{
+
+    display:flex;
+
+    gap:12px;
+
+    flex-wrap:wrap;
+
+    margin:20px 0;
+
+}
+
+.module-progress-wrapper{
+
+    margin-bottom:24px;
+
+}
+
+.module-progress-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:8px;
+
+    font-size:13px;
+
+    font-weight:600;
+
+}
+
+.permission-grid{
+
+display:grid;
+
+grid-template-columns:
+repeat(auto-fit,minmax(340px,1fr));
+
+gap:16px;
+
+}
+
+.permission-card{
+
+height:100%;
+
+display:flex;
+
+flex-direction:column;
+
+padding:6px;
+
+transition:.25s;
+
+}
+
+.permission-card:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.permission-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:flex-start;
+
+    gap:12px;
+
+}
+
+.permission-left{
+
+    display:flex;
+
+    gap:12px;
+
+    align-items:flex-start;
+
+}
+
+.permission-content{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:4px;
+
+}
+
+.permission-title{
+
+    font-size:15px;
+
+    font-weight:600;
+
+}
+
+.permission-name{
+
+    font-size:12px;
+
+    color:#64748b;
+
+}
+
+.status-badge{
+
+    padding:5px 10px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+.assigned{
+
+    background:#DCFCE7;
+
+    color:#166534;
+
+}
+
+.unassigned{
+
+    background:#F1F5F9;
+
+    color:#475569;
+
+}
+
+/* ===========================================
+   Tags
+=========================================== */
+
+.permission-tags{
+
+    display:flex;
+
+    flex-wrap:wrap;
+
+    gap:8px;
+
+    margin:16px 0;
+
+}
+
+.tag{
+
+    padding:4px 10px;
+
+    border-radius:20px;
+
+    font-size:11px;
+
+    font-weight:600;
+
+    background:#EEF2FF;
+
+    color:#3730A3;
+
+}
+
+/* ===========================================
+   Description
+=========================================== */
+
+.permission-description{
+
+    display:flex;
+
+    gap:10px;
+
+    align-items:flex-start;
+
+    margin:16px 0;
+
+    color:#475569;
+
+    font-size:13px;
+
+}
+
+/* ===========================================
+   Warning
+=========================================== */
+
+.dependency-warning{
+
+    display:flex;
+
+    gap:8px;
+
+    align-items:flex-start;
+
+    margin-top:12px;
+
+    padding:10px;
+
+    border-radius:10px;
+
+    background:#FEF3C7;
+
+    color:#92400E;
+
+    font-size:12px;
+
+}
+
+.approve-warning{
+
+    background:#DBEAFE;
+
+    color:#1E40AF;
+
+}
+
+/* ===========================================
+   Footer
+=========================================== */
+
+.permission-footer{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-top:auto;
+
+    padding-top:16px;
+
+    border-top:1px solid #E5E7EB;
+
+}
+
+.module-container{
+
+width:100%;
+
+min-width:0;
+
+display:flex;
+
+flex-direction:column;
+
+}
+
+mat-accordion{
+
+width:100%;
+
+display:block;
+
+}
+
+mat-expansion-panel{
+
+width:100%;
+
+}
+
+.permission-module,
+
+.permission-state{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+    font-size:13px;
+
+    color:#64748B;
+
+}
+mat-expansion-panel{
+
+margin-bottom:16px;
+
+border-radius:16px !important;
+
+overflow:hidden;
+
+box-shadow:0 6px 20px rgba(15,23,42,.08);
+
+}

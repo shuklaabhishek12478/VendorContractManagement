@@ -1,0 +1,104 @@
+.footer-actions {
+
+    margin-top: 32px;
+
+    padding: 24px;
+
+    border-radius: 20px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 16px;
+
+    box-shadow:
+        0 8px 24px rgba(15, 23, 42, 0.06);
+
+    flex-wrap: wrap;
+
+}
+
+.footer-actions button {
+
+    min-width: 180px;
+
+    height: 46px;
+
+    border-radius: 12px;
+
+    font-weight: 600;
+
+    transition: all .25s ease;
+
+}
+
+.footer-actions button:hover {
+
+    transform: translateY(-2px);
+
+}
+
+.footer-actions button mat-icon {
+
+    margin-right: 8px;
+
+}
+
+.footer-actions button mat-spinner {
+
+    margin-right: 10px;
+
+}
+
+/* Primary Button */
+
+.footer-actions .mat-mdc-raised-button {
+
+    box-shadow:
+
+        0 10px 20px rgba(37, 99, 235, .20);
+
+}
+
+/* Back Button */
+
+.footer-actions .mat-mdc-outlined-button:first-child {
+
+    border-color: #cbd5e1;
+
+}
+
+/* Reset Button */
+
+.footer-actions .mat-mdc-outlined-button[color="warn"] {
+
+    border-color: #fecaca;
+
+}
+
+/* Responsive */
+
+@media (max-width:768px) {
+
+    .footer-actions {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+    .footer-actions button {
+
+        width: 100%;
+
+    }
+
+}

@@ -1,0 +1,135 @@
+<mat-card
+    class="change-preview"
+    *ngIf="hasChanges">
+
+    <div class="preview-header">
+
+        <mat-icon>
+
+            history
+
+        </mat-icon>
+
+        <div>
+
+            <h2>
+
+                Permission Change Preview
+
+            </h2>
+
+            <p>
+
+                Review all permission changes before saving.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="preview-grid">
+
+        <!-- Added -->
+
+        <div class="preview-column">
+
+            <div class="column-header success">
+
+                <mat-icon>
+
+                    add_circle
+
+                </mat-icon>
+
+                <span>
+
+                    Added Permissions
+
+                </span>
+
+                <span class="badge">
+
+                    {{addedPermissionNames.length}}
+
+                </span>
+
+            </div>
+
+            <div
+                *ngIf="addedPermissionNames.length==0"
+                class="empty">
+
+                No permissions added.
+
+            </div>
+
+            <div
+                *ngFor="let permission of addedPermissionNames"
+                class="preview-item added">
+
+                <mat-icon>
+
+                    check_circle
+
+                </mat-icon>
+
+                {{permission}}
+
+            </div>
+
+        </div>
+
+        <!-- Removed -->
+
+        <div class="preview-column">
+
+            <div class="column-header danger">
+
+                <mat-icon>
+
+                    remove_circle
+
+                </mat-icon>
+
+                <span>
+
+                    Removed Permissions
+
+                </span>
+
+                <span class="badge">
+
+                    {{removedPermissionNames.length}}
+
+                </span>
+
+            </div>
+
+            <div
+                *ngIf="removedPermissionNames.length==0"
+                class="empty">
+
+                No permissions removed.
+
+            </div>
+
+            <div
+                *ngFor="let permission of removedPermissionNames"
+                class="preview-item removed">
+
+                <mat-icon>
+
+                    cancel
+
+                </mat-icon>
+
+                {{permission}}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</mat-card>

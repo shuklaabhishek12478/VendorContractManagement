@@ -1,0 +1,61 @@
+<mat-card class="dependency-graph-card">
+
+    <div class="graph-header">
+
+        <mat-icon>
+
+            schema
+
+        </mat-icon>
+
+        <div>
+
+            <h2>
+
+                Permission Dependency Graph
+
+            </h2>
+
+            <p>
+
+                Visual representation of permission hierarchy.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="graph-container">
+
+        <div
+            class="graph-row"
+            *ngFor="let edge of permissionGraph">
+
+            <div class="graph-node source">
+
+                {{edge.from}}
+
+            </div>
+
+            <div class="graph-arrow">
+
+                <mat-icon>
+
+                    east
+
+                </mat-icon>
+
+            </div>
+
+            <div class="graph-node target">
+
+                {{edge.to}}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</mat-card>

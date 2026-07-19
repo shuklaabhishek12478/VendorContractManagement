@@ -1,0 +1,51 @@
+<mat-card class="recommendation-card">
+
+    <div class="recommendation-header">
+
+        <mat-icon>
+
+            security
+
+        </mat-icon>
+
+        <div>
+
+            <h2>
+
+                Security Recommendations
+
+            </h2>
+
+            <p>
+
+                Automated suggestions based on the current permission matrix.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="recommendation-list">
+
+        <div
+            class="recommendation-item"
+            *ngFor="let item of recommendations">
+
+            <mat-icon>
+
+                lightbulb
+
+            </mat-icon>
+
+            <span>
+
+                {{item}}
+
+            </span>
+
+        </div>
+
+    </div>
+
+</mat-card>

@@ -1,0 +1,106 @@
+<mat-card class="template-card">
+
+    <div class="template-header">
+
+        <div>
+
+            <h2>
+
+                Quick Permission Templates
+
+            </h2>
+
+            <p>
+
+                Apply predefined enterprise permission sets instantly.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="template-grid">
+
+        <button
+            mat-stroked-button
+            (click)="viewer.emit()">
+
+            👁 Viewer
+
+        </button>
+
+        <button
+            mat-stroked-button
+            (click)="editor.emit()">
+
+            ✏ Editor
+
+        </button>
+
+        <button
+            mat-stroked-button
+            (click)="manager.emit()">
+
+            👔 Manager
+
+        </button>
+
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="administrator.emit()">
+
+            ⭐ Administrator
+
+        </button>
+
+    </div>
+
+    <div class="crud-shortcuts">
+
+        <button
+            mat-stroked-button
+            (click)="permissionType.emit('View')">
+
+            View
+
+        </button>
+
+        <button
+            mat-stroked-button
+            (click)="permissionType.emit('Create')">
+
+            Create
+
+        </button>
+
+        <button
+            mat-stroked-button
+            (click)="permissionType.emit('Edit')">
+
+            Edit
+
+        </button>
+
+        <button
+            mat-stroked-button
+            color="warn"
+            (click)="permissionType.emit('Delete')">
+
+            Delete
+
+        </button>
+
+        <button
+            mat-stroked-button
+            color="accent"
+            (click)="permissionType.emit('Approve')">
+
+            Approve
+
+        </button>
+
+    </div>
+
+</mat-card>

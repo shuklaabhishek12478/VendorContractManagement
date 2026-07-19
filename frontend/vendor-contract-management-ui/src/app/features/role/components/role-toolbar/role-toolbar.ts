@@ -52,4 +52,7 @@ export class RoleToolbarComponent {
 
 @Input() canDelete = true;
 
+@Output()
+permissionMatrix = new EventEmitter<void>();
+
 }

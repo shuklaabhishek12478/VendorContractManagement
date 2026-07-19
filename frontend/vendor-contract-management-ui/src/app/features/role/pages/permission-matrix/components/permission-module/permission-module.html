@@ -1,0 +1,382 @@
+<mat-expansion-panel
+    [expanded]="expanded"
+    [id]="'module-' + group.module">
+
+    <!-- ======================================= -->
+    <!-- MODULE HEADER -->
+    <!-- ======================================= -->
+
+    <mat-expansion-panel-header>
+
+        <mat-panel-title>
+
+            <div class="module-title">
+
+                <mat-icon>
+
+                    folder
+
+                </mat-icon>
+
+                <span>
+
+                    {{group.module}}
+
+                </span>
+
+            </div>
+
+        </mat-panel-title>
+
+        <mat-panel-description>
+
+            {{group.permissions.filter(x => x.assigned).length}}
+
+            /
+
+            {{group.permissions.length}}
+
+            Assigned
+
+        </mat-panel-description>
+
+    </mat-expansion-panel-header>
+
+    <!-- ======================================= -->
+<!-- MODULE ACTIONS -->
+<!-- ======================================= -->
+
+<div class="module-toolbar">
+
+    <button
+        mat-stroked-button
+        color="primary"
+(click)="group.permissions.forEach(x=>x.assigned=true);
+permissionChanged.emit();
+moduleChanged.emit()">
+        <mat-icon>
+
+            done_all
+
+        </mat-icon>
+
+        Select Module
+
+    </button>
+
+    <button
+        mat-stroked-button
+        color="warn"
+        (click)="group.permissions.forEach(x=>x.assigned=false);
+permissionChanged.emit();
+moduleChanged.emit()">
+
+        <mat-icon>
+
+            remove_done
+
+        </mat-icon>
+
+        Clear Module
+
+    </button>
+
+</div>
+
+<!-- ======================================= -->
+<!-- MODULE PROGRESS -->
+<!-- ======================================= -->
+
+<div class="module-progress-wrapper">
+
+    <div class="module-progress-header">
+
+        <span>
+
+            Completion
+
+        </span>
+
+        <span>
+
+            {{group.permissions.filter(x=>x.assigned).length}}
+
+            /
+
+            {{group.permissions.length}}
+
+        </span>
+
+    </div>
+
+    <mat-progress-bar
+        mode="determinate"
+        [value]="
+        (group.permissions.filter(x=>x.assigned).length
+        /
+        group.permissions.length)*100">
+
+    </mat-progress-bar>
+
+    
+
+</div>
+
+<!-- ======================================= -->
+<!-- PERMISSION GRID -->
+<!-- ======================================= -->
+
+<div class="permission-grid">
+
+    <mat-card
+        class="permission-card"
+        *ngFor="let permission of group.permissions"
+        [class.compare-match]="
+            comparePermissions.includes(
+                permission.permissionName.toLowerCase()
+            )"
+        [class.permission-active]="permission.assigned">
+
+        <!-- ======================================= -->
+        <!-- CARD HEADER -->
+        <!-- ======================================= -->
+
+        <div class="permission-header">
+
+            <div class="permission-left">
+
+                <mat-checkbox
+                    [(ngModel)]="permission.assigned"
+                    (change)="permissionChanged.emit()">
+
+                </mat-checkbox>
+
+                <div class="permission-content">
+
+                    <div class="permission-title">
+
+                        {{permission.displayName}}
+
+                    </div>
+
+                    <div class="permission-name">
+
+                        {{permission.permissionName}}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="permission-right">
+
+                <span
+                    class="status-badge assigned"
+                    *ngIf="permission.assigned">
+
+                    Assigned
+
+                </span>
+
+                <span
+                    class="status-badge unassigned"
+                    *ngIf="!permission.assigned">
+
+                    Not Assigned
+
+                </span>
+
+            </div>
+
+        </div>
+
+    <!-- ======================================= -->
+<!-- TAGS -->
+<!-- ======================================= -->
+
+<div class="permission-tags">
+
+    <span
+        class="tag view"
+        *ngIf="permission.permissionName.includes('View')">
+
+        View
+
+    </span>
+
+    <span
+        class="tag create"
+        *ngIf="permission.permissionName.includes('Create')">
+
+        Create
+
+    </span>
+
+    <span
+        class="tag edit"
+        *ngIf="permission.permissionName.includes('Edit')">
+
+        Edit
+
+    </span>
+
+    <span
+        class="tag delete"
+        *ngIf="permission.permissionName.includes('Delete')">
+
+        Delete
+
+    </span>
+
+    <span
+        class="tag approve"
+        *ngIf="permission.permissionName.includes('Approve')">
+
+        Approve
+
+    </span>
+
+    <span
+        class="tag export"
+        *ngIf="permission.permissionName.includes('Export')">
+
+        Export
+
+    </span>
+
+    <span
+        class="tag import"
+        *ngIf="permission.permissionName.includes('Import')">
+
+        Import
+
+    </span>
+
+</div>
+
+<!-- ======================================= -->
+<!-- DESCRIPTION -->
+<!-- ======================================= -->
+
+<div class="permission-description">
+
+    <mat-icon>
+
+        info
+
+    </mat-icon>
+
+    <span>
+
+        This permission controls access to
+
+        <strong>
+
+            {{permission.displayName}}
+
+        </strong>
+
+        inside the
+
+        <strong>
+
+            {{group.module}}
+
+        </strong>
+
+        module.
+
+    </span>
+
+</div>
+
+<!-- ======================================= -->
+<!-- WARNINGS -->
+<!-- ======================================= -->
+
+<div
+    class="dependency-warning"
+    *ngIf="permission.permissionName.includes('Delete')">
+
+    <mat-icon>
+
+        warning
+
+    </mat-icon>
+
+    Delete permission requires View and Edit permissions.
+
+</div>
+
+<div
+    class="dependency-warning approve-warning"
+    *ngIf="permission.permissionName.includes('Approve')">
+
+    <mat-icon>
+
+        verified
+
+    </mat-icon>
+
+    Approval permissions should only be assigned to authorized reviewers.
+
+</div>
+
+<div
+    class="dependency-warning"
+    *ngIf="permission.permissionName.includes('Assign')">
+
+    <mat-icon>
+
+        admin_panel_settings
+
+    </mat-icon>
+
+    Assignment permissions allow modification of application security.
+
+</div>
+
+<!-- ======================================= -->
+<!-- FOOTER -->
+<!-- ======================================= -->
+
+<div class="permission-footer">
+
+    <div class="permission-module">
+
+        <mat-icon>
+
+            folder_open
+
+        </mat-icon>
+
+        {{group.module}}
+
+    </div>
+
+    <div class="permission-state">
+
+        <mat-icon>
+
+            {{permission.assigned
+                ? 'check_circle'
+                : 'radio_button_unchecked'}}
+
+        </mat-icon>
+
+        {{permission.assigned
+            ? 'Enabled'
+            : 'Disabled'}}
+
+    </div>
+
+</div>
+
+</mat-card>
+
+</div>
+
+
+
+</mat-expansion-panel>

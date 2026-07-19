@@ -1,0 +1,99 @@
+.recommendation-card{
+
+    margin-top:24px;
+
+}
+
+.recommendation-header{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    margin-bottom:24px;
+
+}
+
+.recommendation-header mat-icon{
+
+    width:34px;
+
+    height:34px;
+
+    font-size:34px;
+
+    color:#2563eb;
+
+}
+
+.recommendation-header h2{
+
+    margin:0;
+
+    font-size:22px;
+
+    font-weight:600;
+
+}
+
+.recommendation-header p{
+
+    margin:4px 0 0;
+
+    color:#64748b;
+
+}
+
+.recommendation-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
+}
+
+.recommendation-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:14px;
+
+    padding:16px;
+
+    border-radius:12px;
+
+    background:#f8fafc;
+
+    border:1px solid #e2e8f0;
+
+    transition:.25s;
+
+}
+
+.recommendation-item:hover{
+
+    background:#eff6ff;
+
+    border-color:#bfdbfe;
+
+}
+
+.recommendation-item mat-icon{
+
+    color:#f59e0b;
+
+}
+
+.recommendation-item span{
+
+    font-weight:500;
+
+    color:#334155;
+
+}

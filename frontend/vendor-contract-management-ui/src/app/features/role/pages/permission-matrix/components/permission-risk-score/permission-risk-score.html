@@ -1,0 +1,81 @@
+<mat-card class="risk-card">
+
+    <div class="risk-header">
+
+        <mat-icon>
+
+            shield
+
+        </mat-icon>
+
+        <div>
+
+            <h2>
+
+                Role Risk Score
+
+            </h2>
+
+            <p>
+
+                Overall security exposure for this role.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="risk-body">
+
+        <div
+            class="risk-circle"
+            [style.border-color]="riskColor">
+
+            <div
+                class="risk-value"
+                [style.color]="riskColor">
+
+                {{riskScore}}
+
+            </div>
+
+            <small>/100</small>
+
+        </div>
+
+        <div class="risk-details">
+
+            <h3
+                [style.color]="riskColor">
+
+                {{riskLevel}} Risk
+
+            </h3>
+
+            <p>
+
+                High-risk permissions:
+                <strong>{{highRiskPermissions}}</strong>
+
+            </p>
+
+            <p>
+
+                Delete permissions:
+                <strong>{{deletePermissionCount}}</strong>
+
+            </p>
+
+            <p>
+
+                Approve permissions:
+                <strong>{{approvePermissionCount}}</strong>
+
+            </p>
+
+        </div>
+
+    </div>
+
+</mat-card>

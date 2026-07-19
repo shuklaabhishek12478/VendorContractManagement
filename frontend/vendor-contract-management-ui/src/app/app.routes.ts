@@ -19,6 +19,8 @@ import { AddRoleComponent } from './features/role/pages/add-role/add-role';
 import { EditRoleComponent } from './features/role/pages/edit-role/edit-role';
 import { RoleDetailsComponent } from './features/role/components/role-details/role-details';
 import { CloneRoleComponent } from './features/role/pages/clone-role/clone-role';
+import { PermissionMatrixComponent } from './features/role/pages/permission-matrix/permission-matrix';
+import { PermissionExportComponent } from './features/role/pages/permission-matrix/components/permission-export/permission-export';
 
 
 
@@ -104,6 +106,17 @@ export const routes: Routes = [
     path: 'roles/clone/:id',
     component: CloneRoleComponent
 },
+{
+  path: 'roles/:id/permission-matrix',
+  component: PermissionMatrixComponent,
+  canActivate: [authGuard]
+},
+{
+    path: 'roles/:id/permission-matrix/export',
+    component: PermissionExportComponent,
+    canActivate: [authGuard]
+},
+
     ]
   },
 

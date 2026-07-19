@@ -1,0 +1,156 @@
+/* ==========================================================
+   TEMPLATE CARD
+========================================================== */
+
+.template-card {
+  border-radius: 16px;
+  padding: 24px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.06);
+}
+
+/* ==========================================================
+   HEADER
+========================================================== */
+
+.template-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+
+  mat-icon {
+    font-size: 34px;
+    width: 34px;
+    height: 34px;
+    color: #2563eb;
+  }
+
+  h2 {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: #111827;
+  }
+
+  p {
+    margin: 4px 0 0;
+    color: #6b7280;
+    font-size: 14px;
+  }
+}
+
+/* ==========================================================
+   GRID
+========================================================== */
+
+.template-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 18px;
+}
+
+/* ==========================================================
+   BUTTONS
+========================================================== */
+
+.template-grid button {
+  height: 90px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all .25s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 8px;
+}
+
+.template-grid button mat-icon {
+  font-size: 30px;
+  width: 30px;
+  height: 30px;
+}
+
+.template-grid button:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+}
+
+/* ==========================================================
+   VIEWER
+========================================================== */
+
+.viewer-btn {
+  background: linear-gradient(135deg,#3b82f6,#2563eb);
+  color: white;
+}
+
+/* ==========================================================
+   EDITOR
+========================================================== */
+
+.editor-btn {
+  background: linear-gradient(135deg,#10b981,#059669);
+  color: white;
+}
+
+/* ==========================================================
+   MANAGER
+========================================================== */
+
+.manager-btn {
+  background: linear-gradient(135deg,#f59e0b,#d97706);
+  color: white;
+}
+
+/* ==========================================================
+   ADMIN
+========================================================== */
+
+.admin-btn {
+  background: linear-gradient(135deg,#ef4444,#dc2626);
+  color: white;
+}
+
+/* ==========================================================
+   PERMISSION TYPE
+========================================================== */
+
+.permission-types {
+  margin-top: 28px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.permission-types button {
+  border-radius: 999px;
+  font-weight: 600;
+}
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (max-width:768px) {
+
+  .template-card {
+    padding: 18px;
+  }
+
+  .template-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .template-grid button {
+    height: 72px;
+  }
+
+  .template-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+}

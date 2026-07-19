@@ -1,0 +1,88 @@
+<aside class="module-sidebar">
+
+    <div class="sidebar-title">
+
+        <mat-icon>
+
+            dashboard
+
+        </mat-icon>
+
+        <span>
+
+            Modules
+
+        </span>
+
+    </div>
+
+    <button
+        class="module-nav"
+        *ngFor="let group of groups"
+        (click)="moduleSelected.emit(group.module)"
+        [class.active]="activeModule===group.module">
+
+        <span>
+
+            {{group.module}}
+
+        </span>
+
+        <!-- Progress Ring -->
+
+        <div
+            class="progress-ring"
+            [ngClass]="{
+
+                'progress-low': getProgress(group.module)<40,
+
+                'progress-medium':
+                getProgress(group.module)>=40 &&
+                getProgress(group.module)<80,
+
+                'progress-high':
+                getProgress(group.module)>=80
+
+            }">
+
+            <svg viewBox="0 0 36 36">
+
+                <path
+                    class="ring-bg"
+                    d="M18 2
+                       a16 16 0 0 1 0 32
+                       a16 16 0 0 1 0 -32"/>
+
+                <path
+                    class="ring-progress"
+                    d="M18 2
+                       a16 16 0 0 1 0 32
+                       a16 16 0 0 1 0 -32"
+                    [style.stroke-dasharray]="
+                        getProgress(group.module)+',100'">
+
+                </path>
+
+            </svg>
+
+            <span>
+
+                {{getProgress(group.module)}}%
+
+            </span>
+
+        </div>
+
+        <span class="count">
+
+            {{group.permissions.filter(x=>x.assigned).length}}
+
+            /
+
+            {{group.permissions.length}}
+
+        </span>
+
+    </button>
+
+</aside>

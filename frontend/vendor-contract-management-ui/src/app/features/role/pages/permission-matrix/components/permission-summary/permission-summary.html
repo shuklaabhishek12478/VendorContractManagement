@@ -1,0 +1,319 @@
+<!--=========================================================
+PERMISSION SUMMARY
+==========================================================-->
+
+<mat-card class="summary-card">
+
+    <div class="summary-header">
+
+        <mat-icon color="primary">
+
+            analytics
+
+        </mat-icon>
+
+        <div>
+
+            <h2>
+
+                Permission Summary
+
+            </h2>
+
+            <p>
+
+                Enterprise overview of the current permission allocation.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="summary-grid">
+
+        <div class="summary-item summary-primary">
+
+            <div class="summary-value">
+
+                {{assignedPermissions}}
+
+            </div>
+
+            <div class="summary-label">
+
+                Assigned Permissions
+
+            </div>
+
+        </div>
+
+        <div class="summary-item summary-success">
+
+            <div class="summary-value">
+
+                {{totalPermissions}}
+
+            </div>
+
+            <div class="summary-label">
+
+                Total Permissions
+
+            </div>
+
+        </div>
+
+        <div class="summary-item summary-warning">
+
+            <div class="summary-value">
+
+                {{moduleCount}}
+
+            </div>
+
+            <div class="summary-label">
+
+                Modules
+
+            </div>
+
+        </div>
+
+        <div class="summary-item summary-info">
+
+            <div class="summary-value">
+
+                {{totalPermissions-assignedPermissions}}
+
+            </div>
+
+            <div class="summary-label">
+
+                Remaining
+
+            </div>
+
+        </div>
+
+    </div>
+
+</mat-card>
+
+<!--=========================================================
+PERMISSION RULES
+==========================================================-->
+
+<mat-card class="dependency-card" *ngIf="rules.length > 0">
+
+    <div class="dependency-header">
+
+        <mat-icon>
+
+            account_tree
+
+        </mat-icon>
+
+        <div>
+
+            <h3>
+
+                Permission Rules
+
+            </h3>
+
+            <p>
+
+                Some permissions automatically require others.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="dependency-grid">
+
+        <div class="dependency-item">
+
+            <mat-icon color="primary">
+
+                visibility
+
+            </mat-icon>
+
+            <div>
+
+                <strong>Edit</strong>
+
+                <span>
+
+                    requires View
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="dependency-item">
+
+            <mat-icon color="primary">
+
+                add_circle
+
+            </mat-icon>
+
+            <div>
+
+                <strong>Create</strong>
+
+                <span>
+
+                    requires View
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="dependency-item">
+
+            <mat-icon color="warn">
+
+                delete
+
+            </mat-icon>
+
+            <div>
+
+                <strong>Delete</strong>
+
+                <span>
+
+                    requires View + Edit
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="dependency-item">
+
+            <mat-icon color="accent">
+
+                verified
+
+            </mat-icon>
+
+            <div>
+
+                <strong>Approve</strong>
+
+                <span>
+
+                    requires View
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</mat-card>
+
+<!--=========================================================
+VALIDATION STATUS
+==========================================================-->
+
+<mat-card class="validation-card" *ngIf="false">
+
+    <div class="summary-header">
+
+        <mat-icon color="primary">
+
+            verified
+
+        </mat-icon>
+
+        <div>
+
+            <h2>
+
+                Validation Status
+
+            </h2>
+
+            <p>
+
+                Verify configuration before saving changes.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="validation-list">
+
+        <div class="validation success">
+
+            <mat-icon>
+
+                check_circle
+
+            </mat-icon>
+
+            Permission modules loaded successfully.
+
+        </div>
+
+        <div class="validation success">
+
+            <mat-icon>
+
+                check_circle
+
+            </mat-icon>
+
+            {{assignedPermissions}}
+
+            permissions are currently assigned.
+
+        </div>
+
+        <div
+            class="validation warning"
+            *ngIf="assignedPermissions==0">
+
+            <mat-icon>
+
+                warning
+
+            </mat-icon>
+
+            No permissions have been selected.
+
+        </div>
+
+        <div
+            class="validation info"
+            *ngIf="assignedPermissions>0">
+
+            <mat-icon>
+
+                info
+
+            </mat-icon>
+
+            Permission matrix is ready to be saved.
+
+        </div>
+
+    </div>
+
+</mat-card>

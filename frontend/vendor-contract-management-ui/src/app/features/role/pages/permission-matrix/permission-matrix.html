@@ -1,0 +1,306 @@
+<!-- ========================================================= -->
+<!-- PAGE CONTAINER -->
+<!-- ========================================================= -->
+
+<div class="permission-page">
+
+    <!-- ===================================================== -->
+    <!-- HERO HEADER -->
+    <!-- ===================================================== -->
+
+    <app-permission-header
+        [roleId]="roleId"
+    [saving]="saving"
+
+    (save)="save()">
+
+</app-permission-header>
+
+    <!-- ===================================================== -->
+    <!-- STATISTICS -->
+    <!-- ===================================================== -->
+
+    <app-permission-statistics
+
+    [totalPermissions]="totalPermissions"
+
+    [assignedPermissions]="assignedPermissions"
+
+    [moduleCount]="groups.length">
+
+</app-permission-statistics>
+
+    <!-- ===================================================== -->
+<!-- PERMISSION ANALYTICS -->
+<!-- ===================================================== -->
+
+<app-permission-analytics
+
+    [assignmentRate]="assignmentRate"
+    [viewPermissions]="viewPermissions"
+    [editPermissions]="editPermissions"
+    [deletePermissions]="deletePermissions"
+    [highRiskPermissions]="highRiskPermissions"
+    [riskScore]="riskScore"
+    [riskLevel]="riskLevel"
+    [riskColor]="riskColor">
+
+</app-permission-analytics>
+
+<!-- ===================================================== -->
+<!-- PERMISSION INSIGHTS -->
+<!-- ===================================================== -->
+
+<app-permission-insights
+
+    [highestModule]="highestModule"
+    [highestModulePercent]="highestModulePercent"
+
+    [lowestModule]="lowestModule"
+    [lowestModulePercent]="lowestModulePercent"
+
+    [riskyModule]="riskyModule"
+    [riskyModuleCount]="riskyModuleCount">
+
+</app-permission-insights>
+
+<!-- ===================================================== -->
+<!-- SECURITY RECOMMENDATIONS -->
+<!-- ===================================================== -->
+
+<app-permission-security-recommendations
+    *ngIf="false"
+    [recommendations]="recommendations">
+
+</app-permission-security-recommendations>
+
+<!-- ===================================================== -->
+<!-- AUDIT TIMELINE -->
+<!-- ===================================================== -->
+
+<app-permission-audit-timeline
+     *ngIf="false"
+    [auditTimeline]="auditTimeline">
+</app-permission-audit-timeline>
+
+<!-- ===================================================== -->
+<!-- ROLE RISK SCORE -->
+<!-- ===================================================== -->
+
+<app-permission-risk-score
+
+    [riskScore]="riskScore"
+
+    [riskColor]="riskColor"
+
+    [riskLevel]="riskLevel"
+
+    [highRiskPermissions]="highRiskPermissions"
+
+    [deletePermissionCount]="deletePermissionCount"
+
+    [approvePermissionCount]="approvePermissionCount">
+
+</app-permission-risk-score>
+
+<!-- ===================================================== -->
+<!-- PERMISSION DEPENDENCY GRAPH -->
+<!-- ===================================================== -->
+
+<app-permission-dependency-graph
+    *ngIf="false"
+    [permissionGraph]="permissionGraph">
+
+</app-permission-dependency-graph>
+
+    <!-- ===================================================== -->
+    <!-- TOOLBAR -->
+    <!-- ===================================================== -->
+
+   <mat-card class="toolbar-card">
+
+    <app-permission-toolbar
+
+        [search]="search"
+
+        [selectedModule]="selectedModule"
+
+        [modules]="moduleIds"
+
+        (searchChange)="search=$event; searchPermission()"
+
+        (moduleChange)="selectedModule=$event; filterModule()"
+
+        (selectAll)="toggleAll(true)"
+
+        (clearAll)="toggleAll(false)"
+
+        (expandAll)="expandAll()"
+
+        (collapseAll)="collapseAll()">
+
+    </app-permission-toolbar>
+
+</mat-card>
+
+    <!--======================================================
+ROLE COMPARISON
+=======================================================-->
+
+<app-permission-role-compare
+
+    [roles]="roles"
+
+    [(compareRoleId)]="compareRoleId"
+
+    (compareRoleIdChange)="compareRole($event)">
+
+</app-permission-role-compare>
+
+    <!-- ===================================================== -->
+    <!-- QUICK PERMISSION TEMPLATES -->
+    <!-- ===================================================== -->
+
+   <app-permission-template
+
+    (viewer)="applyViewerTemplate()"
+
+    (editor)="applyEditorTemplate()"
+
+    (manager)="applyManagerTemplate()"
+
+    (administrator)="applyAdministratorTemplate()"
+
+    (permissionType)="applyPermissionType($event)">
+
+</app-permission-template>
+
+    
+
+    <!-- ===================================================== -->
+    <!-- LOADING -->
+    <!-- ===================================================== -->
+
+    <div
+        class="loading"
+        *ngIf="loading">
+
+        <mat-spinner
+            diameter="60">
+
+        </mat-spinner>
+
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- MODULES -->
+    <!-- ===================================================== -->
+
+   <div
+    *ngIf="!loading"
+    class="permission-layout">
+
+    <!-- LEFT SIDEBAR -->
+
+    <app-permission-sidebar
+
+    [groups]="filteredGroups"
+
+    [activeModule]="activeModule"
+
+    [moduleCompletion]="moduleCompletion"
+
+    (moduleSelected)="scrollToModule($event)">
+
+</app-permission-sidebar>
+
+    <!-- RIGHT CONTENT -->
+
+    <div class="module-container">
+
+    <mat-accordion multi>
+
+    <app-permission-module
+
+    *ngFor="let group of filteredGroups"
+
+    [group]="group"
+
+    [expanded]="expanded"
+
+    [comparePermissions]="comparePermissions"
+
+    (permissionChanged)="markChanged()"
+
+    (moduleChanged)="permissionChanged()">
+
+</app-permission-module>
+
+</mat-accordion>
+
+    </div>
+
+</div>
+
+ 
+        <!-- ===================================================== -->
+    
+    
+        <!-- PERMISSION SUMMARY and Validation -->
+    <!-- ===================================================== -->
+
+    <app-permission-summary
+    [assignedPermissions]="assignedPermissions"
+    [totalPermissions]="totalPermissions"
+    [moduleCount]="groups.length">
+</app-permission-summary>
+
+        <!-- ===================================================== -->
+    <!-- FOOTER ACTIONS -->
+    <!-- ===================================================== -->
+
+    <app-permission-footer
+
+    [saving]="saving"
+
+    (discard)="discardChanges()"
+
+    (save)="save()">
+
+</app-permission-footer>
+
+    <!--======================================================
+CHANGE PREVIEW
+=======================================================-->
+
+<app-permission-change-preview
+
+    [hasChanges]="hasChanges"
+
+    [addedPermissionNames]="addedPermissionNames"
+
+    [removedPermissionNames]="removedPermissionNames">
+
+</app-permission-change-preview>
+
+    <!--======================================================
+STICKY SAVE BAR
+=======================================================-->
+
+<app-permission-sticky-save
+
+    [hasChanges]="hasChanges"
+
+    [saving]="saving"
+
+    [addedPermissions]="addedPermissions"
+
+    [removedPermissions]="removedPermissions"
+
+    (save)="save()"
+
+    (discard)="load()">
+
+</app-permission-sticky-save>
+
+</div>

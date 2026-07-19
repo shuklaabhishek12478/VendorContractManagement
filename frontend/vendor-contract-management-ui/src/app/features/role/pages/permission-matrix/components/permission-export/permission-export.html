@@ -1,0 +1,206 @@
+<div class="hero">
+
+    <div class="hero-left">
+
+        <div class="hero-icon">
+
+            <mat-icon>
+
+                download
+
+            </mat-icon>
+
+        </div>
+
+        <div class="hero-text">
+
+            <h1>
+
+                Export Permission Matrix
+
+            </h1>
+
+            <p>
+
+                Export role permissions for audit, compliance,
+                backup and offline review.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="hero-right">
+
+        <button
+            mat-stroked-button
+            routerLink="../">
+
+            <mat-icon>
+
+                arrow_back
+
+            </mat-icon>
+
+            Back
+
+        </button>
+
+    </div>
+
+</div>
+
+<!--=========================================================
+EXPORT OPTIONS
+==========================================================-->
+
+<mat-card class="export-card">
+
+    <div class="card-header">
+
+        <mat-icon>
+
+            file_download
+
+        </mat-icon>
+
+        <div>
+
+            <h2>
+
+                Export Format
+
+            </h2>
+
+            <p>
+
+                Choose the format for exporting the permission
+                matrix.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="format-grid">
+
+        <!-- Excel -->
+
+        <button
+         type="button"
+            mat-raised-button
+            color="primary"
+            class="format-button"
+            [disabled]="exporting"
+            (click)="exportExcel()">
+
+            <mat-icon>
+
+                table_view
+
+            </mat-icon>
+
+            <div>
+
+                <strong>
+
+                    Excel (.xlsx)
+
+                </strong>
+
+                <span>
+
+                    Recommended for enterprise reporting
+
+                </span>
+
+            </div>
+
+        </button>
+
+        <!-- CSV -->
+
+        <button
+         type="button"
+            color="primary"
+            mat-stroked-button
+            class="format-button"
+            (click)="exportCsv()"
+            [disabled]="exporting">
+
+            <mat-icon>
+
+                description
+
+            </mat-icon>
+
+            <div>
+
+                <strong>
+
+                    CSV (.csv)
+
+                </strong>
+
+                <span>
+
+                   Recommended for enterprise reporting in CSV format
+
+                </span>
+
+            </div>
+
+        </button>
+
+        <!-- JSON -->
+
+        <button
+            mat-stroked-button
+            type="button"
+            color="primary"
+            class="format-button"
+            (click)="exportJson()"
+           [disabled]="exporting">
+
+            <mat-icon>
+
+                data_object
+
+            </mat-icon>
+
+            <div>
+
+                <strong>
+
+                    JSON (.json)
+
+                </strong>
+
+                <span>
+
+                    Recommended for enterprise reporting in json format
+                </span>
+
+            </div>
+
+        </button>
+
+    </div>
+
+    <div
+        class="export-loading"
+        *ngIf="exporting">
+
+        <mat-icon>
+
+            hourglass_top
+
+        </mat-icon>
+
+        Exporting permission matrix...
+
+    </div>
+
+</mat-card>

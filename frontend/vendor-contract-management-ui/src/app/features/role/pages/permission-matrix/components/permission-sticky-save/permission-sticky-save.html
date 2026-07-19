@@ -1,0 +1,76 @@
+<div
+    class="sticky-save-bar"
+    *ngIf="hasChanges">
+
+    <div class="sticky-save-left">
+
+        <mat-icon>
+
+            info
+
+        </mat-icon>
+
+        <div>
+
+            <h4>
+
+                Unsaved Changes
+
+            </h4>
+
+            <p>
+
+                Added
+
+                <strong>{{addedPermissions}}</strong>
+
+                |
+
+                Removed
+
+                <strong>{{removedPermissions}}</strong>
+
+                permissions
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="sticky-save-actions">
+
+        <button
+            mat-stroked-button
+            color="warn"
+            (click)="discard.emit()">
+
+            <mat-icon>
+
+                refresh
+
+            </mat-icon>
+
+            Discard
+
+        </button>
+
+        <button
+            mat-flat-button
+            color="primary"
+            (click)="save.emit()"
+            [disabled]="saving">
+
+            <mat-icon>
+
+                save
+
+            </mat-icon>
+
+            Save Changes
+
+        </button>
+
+    </div>
+
+</div>

@@ -1,0 +1,110 @@
+<div class="stats-grid">
+
+    <mat-card class="stat-card total">
+
+        <mat-icon>
+
+            security
+
+        </mat-icon>
+
+        <div>
+
+            <div class="stat-value">
+
+                {{totalPermissions}}
+
+            </div>
+
+            <div class="stat-label">
+
+                Total Permissions
+
+            </div>
+
+        </div>
+
+    </mat-card>
+
+
+    <mat-card class="stat-card assigned">
+
+        <mat-icon>
+
+            verified_user
+
+        </mat-icon>
+
+        <div>
+
+            <div class="stat-value">
+
+                {{assignedPermissions}}
+
+            </div>
+
+            <div class="stat-label">
+
+                Assigned
+
+            </div>
+
+        </div>
+
+    </mat-card>
+
+
+    <mat-card class="stat-card remaining">
+
+        <mat-icon>
+
+            remove_circle_outline
+
+        </mat-icon>
+
+        <div>
+
+            <div class="stat-value">
+
+                {{totalPermissions - assignedPermissions}}
+
+            </div>
+
+            <div class="stat-label">
+
+                Remaining
+
+            </div>
+
+        </div>
+
+    </mat-card>
+
+
+    <mat-card class="stat-card modules">
+
+        <mat-icon>
+
+            dashboard
+
+        </mat-icon>
+
+        <div>
+
+            <div class="stat-value">
+
+                {{moduleCount}}
+
+            </div>
+
+            <div class="stat-label">
+
+                Modules
+
+            </div>
+
+        </div>
+
+    </mat-card>
+
+</div>

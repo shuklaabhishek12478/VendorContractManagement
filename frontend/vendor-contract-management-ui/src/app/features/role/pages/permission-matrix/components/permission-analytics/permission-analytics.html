@@ -1,0 +1,188 @@
+<!-- ===================================================== -->
+<!-- PERMISSION ANALYTICS -->
+<!-- ===================================================== -->
+
+<div class="analytics-grid">
+
+    <mat-card class="analytics-card analytics-primary">
+
+        <mat-icon>analytics</mat-icon>
+
+        <div class="analytics-content">
+
+            <div class="analytics-value">
+                {{assignmentRate}}%
+            </div>
+
+            <div class="analytics-label">
+                Assignment Rate
+            </div>
+
+        </div>
+
+    </mat-card>
+
+    <mat-card class="analytics-card analytics-success">
+
+        <mat-icon>visibility</mat-icon>
+
+        <div class="analytics-content">
+
+            <div class="analytics-value">
+                {{viewPermissions}}
+            </div>
+
+            <div class="analytics-label">
+                View Permissions
+            </div>
+
+        </div>
+
+    </mat-card>
+
+    <mat-card class="analytics-card analytics-info">
+
+        <mat-icon>edit</mat-icon>
+
+        <div class="analytics-content">
+
+            <div class="analytics-value">
+                {{editPermissions}}
+            </div>
+
+            <div class="analytics-label">
+                Edit Permissions
+            </div>
+
+        </div>
+
+    </mat-card>
+
+    <mat-card class="analytics-card analytics-warning">
+
+        <mat-icon>delete</mat-icon>
+
+        <div class="analytics-content">
+
+            <div class="analytics-value">
+                {{deletePermissions}}
+            </div>
+
+            <div class="analytics-label">
+                Delete Permissions
+            </div>
+
+        </div>
+
+    </mat-card>
+
+    <mat-card class="analytics-card analytics-danger">
+
+        <mat-icon>warning</mat-icon>
+
+        <div class="analytics-content">
+
+            <div class="analytics-value">
+                {{highRiskPermissions}}
+            </div>
+
+            <div class="analytics-label">
+                High Risk Permissions
+            </div>
+
+        </div>
+
+    </mat-card>
+
+    <mat-card class="analytics-card risk-card">
+
+        <div class="risk-circle">
+
+            <svg viewBox="0 0 36 36">
+
+                <path
+                    class="risk-bg"
+                    d="M18 2
+                       a16 16 0 0 1 0 32
+                       a16 16 0 0 1 0 -32" />
+
+                <path
+                    class="risk-progress"
+                    d="M18 2
+                       a16 16 0 0 1 0 32
+                       a16 16 0 0 1 0 -32"
+                    [style.stroke]="riskColor"
+                    [style.stroke-dasharray]="riskScore + ',100'">
+                </path>
+
+            </svg>
+
+            <span>
+
+                {{riskScore}}%
+
+            </span>
+
+        </div>
+
+        <div class="analytics-content">
+
+            <div class="analytics-value">
+
+                {{riskLevel}}
+
+            </div>
+
+            <div class="analytics-label">
+
+                Permission Risk
+
+            </div>
+
+        </div>
+
+    </mat-card>
+
+</div>
+
+<!-- ===================================================== -->
+<!-- HEATMAP LEGEND -->
+<!-- ===================================================== -->
+
+<mat-card class="heatmap-legend">
+
+    <h3>
+
+        Permission Heatmap
+
+    </h3>
+
+    <div class="legend-row">
+
+        <span class="legend green">
+
+            Low Access
+
+        </span>
+
+        <span class="legend yellow">
+
+            Medium
+
+        </span>
+
+        <span class="legend orange">
+
+            High
+
+        </span>
+
+        <span class="legend red">
+
+            Critical
+
+        </span>
+
+    </div>
+
+</mat-card>

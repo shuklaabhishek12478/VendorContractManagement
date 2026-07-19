@@ -1,0 +1,126 @@
+<div class="toolbar">
+
+    <!-- Search -->
+
+    <mat-form-field
+        appearance="outline"
+        class="search-box">
+
+        <mat-label>
+
+            Search Permission
+
+        </mat-label>
+
+        <input
+            matInput
+            [ngModel]="search"
+            (ngModelChange)="searchChange.emit($event)">
+
+        <mat-icon matSuffix>
+
+            search
+
+        </mat-icon>
+
+    </mat-form-field>
+
+    <!-- Module Filter -->
+
+    <mat-form-field
+        appearance="outline"
+        class="module-filter">
+
+        <mat-label>
+
+            Module
+
+        </mat-label>
+
+        <mat-select
+            [ngModel]="selectedModule"
+            (ngModelChange)="moduleChange.emit($event)">
+
+            <mat-option value="">
+
+                All Modules
+
+            </mat-option>
+
+            <mat-option
+                *ngFor="let module of modules"
+                [value]="module">
+
+                {{module}}
+
+            </mat-option>
+
+        </mat-select>
+
+    </mat-form-field>
+
+    <!-- Buttons -->
+
+    <div class="toolbar-buttons">
+
+        <button
+            mat-stroked-button
+            color="primary"
+            (click)="selectAll.emit()">
+
+            <mat-icon>
+
+                done_all
+
+            </mat-icon>
+
+            Select All
+
+        </button>
+
+        <button
+            mat-stroked-button
+            color="warn"
+            (click)="clearAll.emit()">
+
+            <mat-icon>
+
+                remove_done
+
+            </mat-icon>
+
+            Clear All
+
+        </button>
+
+        <button
+            mat-stroked-button
+            (click)="expandAll.emit()">
+
+            <mat-icon>
+
+                unfold_more
+
+            </mat-icon>
+
+            Expand All
+
+        </button>
+
+        <button
+            mat-stroked-button
+            (click)="collapseAll.emit()">
+
+            <mat-icon>
+
+                unfold_less
+
+            </mat-icon>
+
+            Collapse All
+
+        </button>
+
+    </div>
+
+</div>

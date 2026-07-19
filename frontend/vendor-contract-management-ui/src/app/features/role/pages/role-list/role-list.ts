@@ -657,5 +657,17 @@ onRowDoubleClicked(
 
 }
 
+openPermissionMatrix(): void {
 
+  if (!this.selectedRole) {
+    return;
+  }
+
+ this.router.navigate([
+  '/roles',
+  this.selectedRole!.id,
+  'permission-matrix'
+]);
+
+}
 }

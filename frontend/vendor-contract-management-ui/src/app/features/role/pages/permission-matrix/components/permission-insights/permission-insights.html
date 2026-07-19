@@ -1,0 +1,90 @@
+<mat-card class="insight-card">
+
+    <div class="insight-header">
+
+        <mat-icon>
+            insights
+        </mat-icon>
+
+        <div>
+
+            <h2>
+                Permission Insights
+            </h2>
+
+            <p>
+                Intelligent overview of your permission matrix.
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="insight-grid">
+
+        <div class="insight-item success">
+
+            <mat-icon>
+                emoji_events
+            </mat-icon>
+
+            <div>
+
+                <strong>
+                    Highest Coverage
+                </strong>
+
+                <span>
+                    {{highestModule}}
+                    ({{highestModulePercent}}%)
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="insight-item warning">
+
+            <mat-icon>
+                trending_down
+            </mat-icon>
+
+            <div>
+
+                <strong>
+                    Lowest Coverage
+                </strong>
+
+                <span>
+                    {{lowestModule}}
+                    ({{lowestModulePercent}}%)
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="insight-item danger">
+
+            <mat-icon>
+                warning
+            </mat-icon>
+
+            <div>
+
+                <strong>
+                    Highest Risk
+                </strong>
+
+                <span>
+                    {{riskyModule}}
+                    ({{riskyModuleCount}} Risk Permissions)
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</mat-card>

@@ -1,0 +1,66 @@
+<mat-card class="timeline-card">
+
+    <div class="timeline-header">
+
+        <mat-icon>
+
+            history
+
+        </mat-icon>
+
+        <div>
+
+            <h2>
+
+                Permission Audit Timeline
+
+            </h2>
+
+            <p>
+
+                Recent permission activity for this role.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="timeline">
+
+        <div
+            class="timeline-item"
+            *ngFor="let item of auditTimeline">
+
+            <div class="timeline-icon">
+
+                <mat-icon
+                    [color]="item.color">
+
+                    {{item.icon}}
+
+                </mat-icon>
+
+            </div>
+
+            <div class="timeline-content">
+
+                <div class="timeline-title">
+
+                    {{item.title}}
+
+                </div>
+
+                <div class="timeline-time">
+
+                    {{item.time}}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</mat-card>

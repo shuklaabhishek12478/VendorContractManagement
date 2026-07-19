@@ -91,4 +91,16 @@
 
   </button>
 
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="permissionMatrix.emit()"
+    [disabled]="!hasSelection">
+
+    <mat-icon>security</mat-icon>
+
+    Permission Matrix
+
+</button>
+
 </div>

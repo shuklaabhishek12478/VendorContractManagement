@@ -1,0 +1,80 @@
+<div class="hero">
+
+    <div class="hero-left">
+
+        <div class="hero-icon">
+
+            <mat-icon>
+
+                admin_panel_settings
+
+            </mat-icon>
+
+        </div>
+
+        <div class="hero-text">
+
+            <h1>
+
+                Permission Matrix
+
+            </h1>
+
+            <p>
+
+                Configure enterprise level access control for every
+                application module.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="hero-right">
+
+        <button
+            mat-stroked-button
+            routerLink="/roles">
+
+            <mat-icon>
+
+                arrow_back
+
+            </mat-icon>
+
+            Back
+
+        </button>
+
+        <button
+    mat-stroked-button
+    [routerLink]="['/roles', roleId, 'permission-matrix', 'export']">
+
+    <mat-icon>
+        download
+    </mat-icon>
+
+    Export
+
+</button>
+
+        <button
+            mat-raised-button
+            color="primary"
+            [disabled]="saving"
+            (click)="save.emit()">
+
+            <mat-icon>
+
+                save
+
+            </mat-icon>
+
+            Save Changes
+
+        </button>
+
+    </div>
+
+</div>

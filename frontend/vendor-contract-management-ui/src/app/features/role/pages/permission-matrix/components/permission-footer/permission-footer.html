@@ -1,0 +1,54 @@
+<div class="footer-actions">
+
+    <button
+        mat-stroked-button
+        routerLink="/roles">
+
+        <mat-icon>
+
+            arrow_back
+
+        </mat-icon>
+
+        Back to Roles
+
+    </button>
+
+    <button
+        mat-stroked-button
+        color="warn"
+        (click)="discard.emit()">
+
+        <mat-icon>
+
+            restart_alt
+
+        </mat-icon>
+
+        Reset Changes
+
+    </button>
+
+    <button
+        mat-raised-button
+        color="primary"
+        [disabled]="saving"
+        (click)="save.emit()">
+
+        <mat-spinner
+            *ngIf="saving"
+            diameter="20">
+        </mat-spinner>
+
+        <mat-icon
+            *ngIf="!saving">
+
+            save
+
+        </mat-icon>
+
+        {{saving ? 'Saving...' : 'Save Permission Matrix'}}
+
+    </button>
+
+</div>
