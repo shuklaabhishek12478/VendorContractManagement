@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using VendorContractManagement.API.Authorization;
 using VendorContractManagement.Application.DTOs.Role;
+using VendorContractManagement.Application.Services.Implementations;
 using VendorContractManagement.Application.Services.Interfaces;
 
 namespace VendorContractManagement.API.Controllers;
@@ -12,10 +13,12 @@ namespace VendorContractManagement.API.Controllers;
 public class RoleController : ControllerBase
 {
     private readonly IRoleService _roleService;
+    private readonly IPermissionExportService _permissionExportService;
 
-    public RoleController(IRoleService roleService)
+    public RoleController(IRoleService roleService, IPermissionExportService permissionExportService)
     {
         _roleService = roleService;
+        _permissionExportService = permissionExportService;
     }
 
     
@@ -231,5 +234,77 @@ public class RoleController : ControllerBase
         {
             exists
         });
+    }
+
+
+    [HttpGet("{id:int}/permission-matrix")]
+    [PermissionAuthorize("Role.AssignPermissions")]
+    public async Task<IActionResult> GetPermissionMatrix(
+    int id)
+    {
+        var result =
+            await _roleService
+                .GetPermissionMatrixAsync(id);
+
+        return Ok(result);
+    }
+
+    [HttpPut("{id:int}/permission-matrix")]
+    [PermissionAuthorize("Role.AssignPermissions")]
+    public async Task<IActionResult> SavePermissionMatrix(
+        int id,
+        UpdatePermissionMatrixDto dto)
+    {
+        await _roleService
+            .SavePermissionMatrixAsync(id, dto);
+
+        return Ok(new
+        {
+            Message = "Permission matrix updated successfully."
+        });
+    }
+
+    [HttpGet("{id:int}/permissions/export")]
+    [PermissionAuthorize("Role.View")]
+    public async Task<IActionResult> ExportPermissions(int id)
+    {
+        var file =
+            await _permissionExportService
+                .ExportRolePermissionsAsync(id);
+
+        return File(
+            file,
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            $"Role_{id}_Permissions.xlsx");
+    }
+
+    [HttpGet("{id}/permissions/export/csv")]
+    public async Task<IActionResult> ExportCsv(int id)
+    {
+        var file = await _permissionExportService
+            .ExportCsvAsync(id);
+
+        return File(
+
+            file,
+
+            "text/csv",
+
+            $"Role_{id}_Permissions.csv");
+    }
+
+    [HttpGet("{id}/permissions/export/json")]
+    public async Task<IActionResult> ExportJson(int id)
+    {
+        var file = await _permissionExportService
+            .ExportJsonAsync(id);
+
+        return File(
+
+            file,
+
+            "application/json",
+
+            $"Role_{id}_Permissions.json");
     }
 }

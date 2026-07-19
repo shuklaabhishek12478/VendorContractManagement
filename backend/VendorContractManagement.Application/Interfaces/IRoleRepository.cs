@@ -51,4 +51,10 @@ public interface IRoleRepository
     Task<List<Role>> GetActiveRolesAsync();
 
     Task<bool> ExistsAsync(string roleName, int? excludeId = null);
+
+    Task<Role?> GetForPermissionMatrixAsync(int roleId);
+
+    Task SavePermissionMatrixAsync(
+        int roleId,
+        List<int> permissionIds);
 }

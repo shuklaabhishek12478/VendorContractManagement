@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VendorContractManagement.API.Authorization;
+using VendorContractManagement.Application.Interfaces;
 using VendorContractManagement.Application.Services.Interfaces;
 
 namespace VendorContractManagement.API.Controllers
@@ -11,11 +12,13 @@ namespace VendorContractManagement.API.Controllers
     public class PermissionController : ControllerBase
     {
         private readonly IPermissionService _permissionService;
-
+        private readonly IPermissionRuleService _permissionRuleService;
         public PermissionController(
-            IPermissionService permissionService)
+            IPermissionService permissionService,
+            IPermissionRuleService permissionRuleService)
         {
             _permissionService = permissionService;
+            _permissionRuleService = permissionRuleService;
         }
 
         [HttpGet]
@@ -77,6 +80,16 @@ namespace VendorContractManagement.API.Controllers
         {
             var result =
                 await _permissionService.GetByIdsAsync(permissionIds);
+
+            return Ok(result);
+        }
+
+        [HttpGet("rules")]
+        [PermissionAuthorize("Role.View")]
+        public async Task<IActionResult> GetRules()
+        {
+            var result =
+                await _permissionRuleService.GetRulesAsync();
 
             return Ok(result);
         }

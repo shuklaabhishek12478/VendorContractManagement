@@ -327,4 +327,52 @@ public class RoleRepository : IRoleRepository
             x.Name == roleName &&
             (!excludeId.HasValue || x.Id != excludeId));
     }
+
+    public async Task<Role?> GetForPermissionMatrixAsync(
+    int roleId)
+    {
+        return await _context.Roles
+
+            .Include(x => x.RolePermissions)
+
+            .FirstOrDefaultAsync(x => x.Id == roleId);
+    }
+
+    public async Task SavePermissionMatrixAsync(
+    int roleId,
+    List<int> permissionIds)
+    {
+        var role = await _context.Roles
+
+            .Include(x => x.RolePermissions)
+
+            .FirstOrDefaultAsync(x => x.Id == roleId);
+
+        if (role == null)
+            throw new Exception("Role not found.");
+
+        _context.RolePermissions.RemoveRange(
+            role.RolePermissions);
+
+        var newPermissions = permissionIds
+
+            .Distinct()
+
+            .Select(permissionId => new RolePermission
+            {
+                RoleId = roleId,
+
+                PermissionId = permissionId,
+
+                AssignedOn = DateTime.UtcNow,
+
+                AssignedBy = "System"
+
+            });
+
+        await _context.RolePermissions
+            .AddRangeAsync(newPermissions);
+
+        await _context.SaveChangesAsync();
+    }
 }

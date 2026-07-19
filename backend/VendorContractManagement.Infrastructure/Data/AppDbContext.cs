@@ -34,6 +34,8 @@ namespace VendorContractManagement.Infrastructure.Data
         public DbSet<UserRole> UserRoles { get; set; }
 
         public DbSet<RolePermission> RolePermissions { get; set; }
+
+        public DbSet<PermissionDependency> PermissionDependencies { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

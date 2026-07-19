@@ -46,4 +46,10 @@ public interface IRoleService
     Task<List<RoleLookupDto>> GetLookupAsync();
 
     Task<bool> ExistsAsync(string roleName, int? excludeId = null);
+
+    Task<List<PermissionGroupDto>> GetPermissionMatrixAsync(int roleId);
+
+    Task SavePermissionMatrixAsync(
+        int roleId,
+        UpdatePermissionMatrixDto dto);
 }

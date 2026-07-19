@@ -450,4 +450,92 @@ public class RoleService : IRoleService
             roleName,
             excludeId);
     }
+
+    public async Task<List<PermissionGroupDto>> GetPermissionMatrixAsync(
+    int roleId)
+    {
+        var role =
+            await _unitOfWork.Roles
+                .GetForPermissionMatrixAsync(roleId);
+
+        if (role == null)
+            throw new Exception("Role not found.");
+
+        var allPermissions =
+            await _unitOfWork.Permissions
+                .GetAllAsync();
+
+        var assignedPermissionIds =
+            role.RolePermissions
+                .Select(x => x.PermissionId)
+                .ToHashSet();
+
+        var result = allPermissions
+
+            .GroupBy(x => x.Module)
+
+            .Select(group => new PermissionGroupDto
+            {
+                Module = group.Key,
+
+                Permissions = group
+
+                    .OrderBy(x => x.Name)
+
+                    .Select(permission => new PermissionMatrixItemDto
+                    {
+                        PermissionId = permission.Id,
+
+                        PermissionName = permission.Code,
+
+                        DisplayName = permission.Name,
+
+                        Assigned =
+                            assignedPermissionIds.Contains(
+                                permission.Id)
+
+                    })
+
+                    .ToList()
+
+            })
+
+            .OrderBy(x => x.Module)
+
+            .ToList();
+
+        return result;
+    }
+
+    public async Task SavePermissionMatrixAsync(
+    int roleId,
+    UpdatePermissionMatrixDto dto)
+    {
+        var role =
+            await _unitOfWork.Roles
+                .GetByIdAsync(roleId);
+
+        if (role == null)
+            throw new Exception("Role not found.");
+
+        await _unitOfWork.Roles
+            .SavePermissionMatrixAsync(
+                roleId,
+                dto.PermissionIds);
+
+        await _unitOfWork.RecentActivities.AddAsync(
+            new RecentActivity
+            {
+                Action = "Permission Matrix Updated",
+
+                EntityName = role.Name,
+
+                Description =
+                    $"Permissions updated for role '{role.Name}'.",
+
+                CreatedOn = DateTime.UtcNow
+            });
+
+        await _unitOfWork.SaveChangesAsync();
+    }
 }

@@ -25,6 +25,8 @@ namespace VendorContractManagement.Infrastructure.Data
 
         public IRecentActivityRepository RecentActivities { get; }
 
+        public IPermissionRepository Permissions { get; }
+
         public UnitOfWork(
             AppDbContext context,
             IVendorRepository vendorRepository,
@@ -35,7 +37,8 @@ namespace VendorContractManagement.Infrastructure.Data
             IUserRepository userRepository,
             IExpenditureRepository expenditureRepository,
             IVendorDocumentRepository vendorDocumentRepository,
-            IRecentActivityRepository recentActivityRepository)
+            IRecentActivityRepository recentActivityRepository,
+            IPermissionRepository permissionRepository)
         {
             _context = context;
 
@@ -56,6 +59,8 @@ namespace VendorContractManagement.Infrastructure.Data
             VendorDocuments = vendorDocumentRepository;
 
             RecentActivities = recentActivityRepository;
+
+            Permissions = permissionRepository;
         }
 
         public async Task<int> SaveChangesAsync()

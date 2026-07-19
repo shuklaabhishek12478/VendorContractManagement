@@ -42,6 +42,37 @@ public static class DataSeeder
         }
 
         // ==========================
+        // Seed Permission Dependencies
+        // ==========================
+        if (!await context.PermissionDependencies.AnyAsync())
+        {
+            var dependencies =
+                PermissionDependencySeeder.Get();
+
+            foreach (var dependency in dependencies)
+            {
+                var exists =
+                    await context.PermissionDependencies.AnyAsync(x =>
+
+                        x.PermissionCode ==
+                        dependency.PermissionCode
+
+                        &&
+
+                        x.DependsOnPermissionCode ==
+                        dependency.DependsOnPermissionCode
+                    );
+
+                if (!exists)
+                {
+                    context.PermissionDependencies.Add(dependency);
+                }
+            }
+
+            await context.SaveChangesAsync();
+        }
+
+        // ==========================
         // Seed Role Permissions
         // ==========================
         if (!await context.RolePermissions.AnyAsync())
