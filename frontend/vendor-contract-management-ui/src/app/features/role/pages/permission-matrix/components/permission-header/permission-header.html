@@ -48,16 +48,32 @@
         </button>
 
         <button
-    mat-stroked-button
-    [routerLink]="['/roles', roleId, 'permission-matrix', 'export']">
+            mat-stroked-button
+            [routerLink]="['/roles', roleId, 'permission-matrix', 'import']">
 
-    <mat-icon>
-        download
-    </mat-icon>
+            <mat-icon>
 
-    Export
+                file_upload
 
-</button>
+            </mat-icon>
+
+            Import
+
+        </button>
+
+        <button
+            mat-stroked-button
+            [routerLink]="['/roles', roleId, 'permission-matrix', 'export']">
+
+            <mat-icon>
+
+                file_download
+
+            </mat-icon>
+
+            Export
+
+        </button>
 
         <button
             mat-raised-button
@@ -71,7 +87,7 @@
 
             </mat-icon>
 
-            Save Changes
+            {{ saving ? 'Saving...' : 'Save Changes' }}
 
         </button>
 

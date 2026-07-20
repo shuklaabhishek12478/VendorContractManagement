@@ -1,0 +1,173 @@
+<div class="hero">
+
+    <div class="hero-left">
+
+        <div class="hero-icon">
+
+            <mat-icon>
+
+                upload
+
+            </mat-icon>
+
+        </div>
+
+        <div class="hero-text">
+
+            <h1>
+
+                Import Permission Matrix
+
+            </h1>
+
+            <p>
+
+                Restore role permissions from an exported Excel or CSV file.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="hero-right">
+
+        <button
+            mat-stroked-button
+            [routerLink]="['/roles', roleId, 'permission-matrix']">
+
+            <mat-icon>
+
+                arrow_back
+
+            </mat-icon>
+
+            Back
+
+        </button>
+
+    </div>
+
+</div>
+
+<mat-card class="upload-card">
+
+    <div class="upload-header">
+
+        <mat-icon>
+
+            cloud_upload
+
+        </mat-icon>
+
+        <div>
+
+            <h2>
+
+                Upload Permission File
+
+            </h2>
+
+            <p>
+
+                Supported formats: Excel (.xlsx) and CSV (.csv)
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="upload-zone">
+
+        <mat-icon>
+
+            upload_file
+
+        </mat-icon>
+
+        <h3>
+
+            Drag & Drop your file here
+
+        </h3>
+
+        <p>
+
+            or
+
+        </p>
+
+        <input
+            #fileInput
+            hidden
+            type="file"
+            accept=".xlsx,.csv"
+            (change)="onFileSelected($event)">
+
+        <button
+    mat-raised-button
+    color="primary"
+    type="button"
+    (click)="fileInput.click()">
+
+    <mat-icon>
+
+        folder_open
+
+    </mat-icon>
+
+    Browse File
+
+</button>
+
+    </div>
+
+</mat-card>
+<mat-card
+    *ngIf="selectedFile"
+    class="selected-file">
+
+    <div class="file-info">
+
+    <mat-icon color="primary">
+
+        description
+
+    </mat-icon>
+
+    <div>
+
+        <h3>
+
+            {{selectedFile.name}}
+
+        </h3>
+
+        <p>
+
+            {{selectedFile.size/1024 | number:'1.0-2'}} KB
+
+        </p>
+
+    </div>
+
+</div>
+
+    <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!selectedFile"
+    (click)="upload()">
+
+    <mat-icon>
+
+        cloud_upload
+
+    </mat-icon>
+
+    Import Permission Matrix
+
+</button>
+
+</mat-card>

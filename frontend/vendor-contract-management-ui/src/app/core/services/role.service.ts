@@ -227,4 +227,26 @@ exportPermissionsJson(roleId:number){
         });
 
 }
+
+importPermissions(
+    roleId:number,
+    file:File
+){
+
+    const formData=new FormData();
+
+    formData.append(
+        'file',
+        file
+    );
+
+    return this.http.post(
+
+        `${this.apiUrl}/${roleId}/permissions/import`,
+
+        formData
+
+    );
+
+}
 }

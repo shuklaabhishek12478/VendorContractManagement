@@ -21,6 +21,7 @@ import { RoleDetailsComponent } from './features/role/components/role-details/ro
 import { CloneRoleComponent } from './features/role/pages/clone-role/clone-role';
 import { PermissionMatrixComponent } from './features/role/pages/permission-matrix/permission-matrix';
 import { PermissionExportComponent } from './features/role/pages/permission-matrix/components/permission-export/permission-export';
+import { PermissionImportComponent } from './features/role/pages/permission-matrix/components/permission-import/permission-import';
 
 
 
@@ -116,7 +117,11 @@ export const routes: Routes = [
     component: PermissionExportComponent,
     canActivate: [authGuard]
 },
-
+{
+    path: 'roles/:id/permission-matrix/import',
+    component: PermissionImportComponent,
+    canActivate: [authGuard]
+},
     ]
   },
 
