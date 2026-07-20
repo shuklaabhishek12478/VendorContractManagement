@@ -9,19 +9,25 @@ public class PermissionDependencyConfiguration
 {
     public void Configure(EntityTypeBuilder<PermissionDependency> builder)
     {
-        builder.Property(x => x.PermissionCode)
-            .HasMaxLength(150)
-            .IsRequired();
+        builder.HasKey(x => x.Id);
 
-        builder.Property(x => x.DependsOnPermissionCode)
-            .HasMaxLength(150)
-            .IsRequired();
+        builder
+            .HasOne(x => x.Permission)
+            .WithMany()
+            .HasForeignKey(x => x.PermissionId)
+            .OnDelete(DeleteBehavior.Restrict);
 
-        builder.HasIndex(x =>
-            new
+        builder
+            .HasOne(x => x.DependsOnPermission)
+            .WithMany()
+            .HasForeignKey(x => x.DependsOnPermissionId)
+            .OnDelete(DeleteBehavior.Restrict);
+
+        builder
+            .HasIndex(x => new
             {
-                x.PermissionCode,
-                x.DependsOnPermissionCode
+                x.PermissionId,
+                x.DependsOnPermissionId
             })
             .IsUnique();
     }

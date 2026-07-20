@@ -46,21 +46,23 @@ public static class DataSeeder
         // ==========================
         if (!await context.PermissionDependencies.AnyAsync())
         {
+            var permissions = await context.Permissions.ToListAsync();
+
             var dependencies =
-                PermissionDependencySeeder.Get();
+                PermissionDependencySeeder.Get(permissions);
 
             foreach (var dependency in dependencies)
             {
                 var exists =
                     await context.PermissionDependencies.AnyAsync(x =>
 
-                        x.PermissionCode ==
-                        dependency.PermissionCode
+                        x.PermissionId ==
+                        dependency.PermissionId
 
                         &&
 
-                        x.DependsOnPermissionCode ==
-                        dependency.DependsOnPermissionCode
+                        x.DependsOnPermissionId ==
+                        dependency.DependsOnPermissionId
                     );
 
                 if (!exists)

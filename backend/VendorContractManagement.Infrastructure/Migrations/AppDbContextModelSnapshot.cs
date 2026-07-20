@@ -22,6 +22,30 @@ namespace VendorContractManagement.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("PermissionDependency", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("DependsOnPermissionId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PermissionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DependsOnPermissionId");
+
+                    b.HasIndex("PermissionId", "DependsOnPermissionId")
+                        .IsUnique();
+
+                    b.ToTable("PermissionDependencies");
+                });
+
             modelBuilder.Entity("VendorContractManagement.Domain.Entities.AuditLog", b =>
                 {
                     b.Property<int>("Id")
@@ -416,41 +440,6 @@ namespace VendorContractManagement.Infrastructure.Migrations
                     b.ToTable("Permissions");
                 });
 
-            modelBuilder.Entity("VendorContractManagement.Domain.Entities.PermissionDependency", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("DependsOnPermissionCode")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("PermissionCode")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("nvarchar(150)");
-
-                    b.Property<DateTime?>("UpdatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PermissionCode", "DependsOnPermissionCode")
-                        .IsUnique();
-
-                    b.ToTable("PermissionDependencies");
-                });
-
             modelBuilder.Entity("VendorContractManagement.Domain.Entities.RecentActivity", b =>
                 {
                     b.Property<int>("Id")
@@ -774,6 +763,25 @@ namespace VendorContractManagement.Infrastructure.Migrations
                     b.HasIndex("VendorId");
 
                     b.ToTable("VendorDocuments");
+                });
+
+            modelBuilder.Entity("PermissionDependency", b =>
+                {
+                    b.HasOne("VendorContractManagement.Domain.Entities.Permission", "DependsOnPermission")
+                        .WithMany()
+                        .HasForeignKey("DependsOnPermissionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("VendorContractManagement.Domain.Entities.Permission", "Permission")
+                        .WithMany()
+                        .HasForeignKey("PermissionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("DependsOnPermission");
+
+                    b.Navigation("Permission");
                 });
 
             modelBuilder.Entity("VendorContractManagement.Domain.Entities.Contract", b =>

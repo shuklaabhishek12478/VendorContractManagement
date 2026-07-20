@@ -1,10 +1,14 @@
-﻿using VendorContractManagement.Domain.Common;
+﻿using VendorContractManagement.Domain.Entities;
 
-namespace VendorContractManagement.Domain.Entities;
-
-public class PermissionDependency : BaseEntity
+public class PermissionDependency
 {
-    public string PermissionCode { get; set; } = string.Empty;
+    public int Id { get; set; }
 
-    public string DependsOnPermissionCode { get; set; } = string.Empty;
+    public int PermissionId { get; set; }
+
+    public int DependsOnPermissionId { get; set; }
+
+    public Permission Permission { get; set; } = null!;
+
+    public Permission DependsOnPermission { get; set; } = null!;
 }

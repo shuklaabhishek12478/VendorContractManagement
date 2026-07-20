@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using VendorContractManagement.API.Authorization;
 using VendorContractManagement.Application.DTOs.Role;
+using VendorContractManagement.Application.Interfaces;
 using VendorContractManagement.Application.Services.Implementations;
 using VendorContractManagement.Application.Services.Interfaces;
 
@@ -14,11 +15,15 @@ public class RoleController : ControllerBase
 {
     private readonly IRoleService _roleService;
     private readonly IPermissionExportService _permissionExportService;
+    private readonly IPermissionImportService _permissionImportService;
 
-    public RoleController(IRoleService roleService, IPermissionExportService permissionExportService)
+    public RoleController(IRoleService roleService,
+        IPermissionExportService permissionExportService,
+        IPermissionImportService permissionImportService)
     {
         _roleService = roleService;
         _permissionExportService = permissionExportService;
+        _permissionImportService = permissionImportService;
     }
 
     
@@ -306,5 +311,23 @@ public class RoleController : ControllerBase
             "application/json",
 
             $"Role_{id}_Permissions.json");
+    }
+
+    [HttpPost("{id}/permissions/import")]
+    [PermissionAuthorize("Role.Edit")]
+    public async Task<IActionResult> ImportPermissions(
+    int id,
+    IFormFile file)
+    {
+        if (file == null || file.Length == 0)
+        {
+            return BadRequest("File is required.");
+        }
+
+        var result =
+    await _permissionImportService
+        .ImportAsync(id, file);
+
+        return Ok(result);
     }
 }

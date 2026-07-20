@@ -1,9 +1,12 @@
 ﻿using ClosedXML.Excel;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System.Text;
 using System.Text.Json;
+using VendorContractManagement.Application.DTOs;
 using VendorContractManagement.Application.Interfaces;
 using VendorContractManagement.Application.Services.Interfaces;
+using VendorContractManagement.Domain.Entities;
 using VendorContractManagement.Infrastructure.Data;
 using VendorContractManagement.Infrastructure.Repository.Interfaces;
 
@@ -131,6 +134,101 @@ namespace VendorContractManagement.Infrastructure.Services
                 });
 
             return Encoding.UTF8.GetBytes(json);
+        }
+
+        private async Task<PermissionImportDto> ImportCsv(
+    int roleId,
+    IFormFile file)
+        {
+            var result = new PermissionImportDto();
+
+            using var reader =
+                new StreamReader(file.OpenReadStream());
+
+            // Skip Header
+            await reader.ReadLineAsync();
+
+            var existingRolePermissions =
+                await _context.RolePermissions
+                    .Where(x => x.RoleId == roleId)
+                    .ToListAsync();
+
+            while (!reader.EndOfStream)
+            {
+                var line = await reader.ReadLineAsync();
+
+                if (string.IsNullOrWhiteSpace(line))
+                    continue;
+
+                var values = line.Split(',');
+
+                result.TotalRows++;
+
+                var permissionCode = values[1].Trim();
+
+                var assigned =
+                    values[3]
+                        .Trim()
+                        .Equals(
+                            "Yes",
+                            StringComparison.OrdinalIgnoreCase);
+
+                var permission =
+                    await _context.Permissions
+                        .FirstOrDefaultAsync(x =>
+                            x.Code == permissionCode);
+
+                if (permission == null)
+                {
+                    result.Errors.Add(
+                        $"Permission '{permissionCode}' not found.");
+
+                    result.Skipped++;
+
+                    continue;
+                }
+
+                var existing =
+                    existingRolePermissions
+                        .FirstOrDefault(x =>
+                            x.PermissionId == permission.Id);
+
+                if (assigned)
+                {
+                    if (existing == null)
+                    {
+                        _context.RolePermissions.Add(
+                            new RolePermission
+                            {
+                                RoleId = roleId,
+                                PermissionId = permission.Id
+                            });
+
+                        result.Assigned++;
+                    }
+                    else
+                    {
+                        result.Skipped++;
+                    }
+                }
+                else
+                {
+                    if (existing != null)
+                    {
+                        _context.RolePermissions.Remove(existing);
+
+                        result.Removed++;
+                    }
+                    else
+                    {
+                        result.Skipped++;
+                    }
+                }
+            }
+
+            await _context.SaveChangesAsync();
+
+            return result;
         }
     }
 }

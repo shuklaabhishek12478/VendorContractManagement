@@ -14,17 +14,20 @@ public class RoleService : IRoleService
     private readonly IMapper _mapper;
     private readonly ILogger<RoleService> _logger;
     private readonly IAuditLogService _auditLogService;
+    private readonly IPermissionValidationService _permissionValidationService;
 
     public RoleService(
         IUnitOfWork unitOfWork,
         IMapper mapper,
         ILogger<RoleService> logger,
-        IAuditLogService auditLogService)
+        IAuditLogService auditLogService,
+        IPermissionValidationService permissionValidationService)
     {
         _unitOfWork = unitOfWork;
         _mapper = mapper;
         _logger = logger;
         _auditLogService = auditLogService;
+        _permissionValidationService = permissionValidationService;
     }
 
     public async Task<List<RoleDto>> GetAllAsync()
@@ -517,6 +520,21 @@ public class RoleService : IRoleService
 
         if (role == null)
             throw new Exception("Role not found.");
+
+        dto.PermissionIds = dto.PermissionIds
+    .Distinct()
+    .ToList();
+
+        var validation =
+            await _permissionValidationService
+                .ValidateAsync(dto.PermissionIds);
+
+        if (!validation.IsValid)
+        {
+            throw new BusinessRuleException(
+                string.Join(Environment.NewLine,
+                    validation.Errors));
+        }
 
         await _unitOfWork.Roles
             .SavePermissionMatrixAsync(

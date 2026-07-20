@@ -31,7 +31,6 @@ using VendorContractManagement.Infrastructure.Repository.Interfaces;
 using VendorContractManagement.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using VendorContractManagement.API.Authorization;
-using VendorContractManagement.Infrastructure.Repositories;
 using VendorContractManagement.Application.Services;
 
 Log.Logger = new LoggerConfiguration()
@@ -223,6 +222,8 @@ builder.Services.AddSingleton<IAuthorizationPolicyProvider, PermissionPolicyProv
 builder.Services.AddScoped<IPermissionDependencyRepository, PermissionDependencyRepository>();
 builder.Services.AddScoped<IPermissionRuleService, PermissionRuleService>();
 builder.Services.AddScoped<IPermissionExportService,PermissionExportService>();
+builder.Services.AddScoped<IPermissionImportService,PermissionImportService>();
+builder.Services.AddScoped<IPermissionValidationService,PermissionValidationService>();
 
 
 var app = builder.Build();

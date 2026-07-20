@@ -128,6 +128,32 @@ namespace VendorContractManagement.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PermissionDependencies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PermissionId = table.Column<int>(type: "int", nullable: false),
+                    DependsOnPermissionId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PermissionDependencies", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PermissionDependencies_Permissions_DependsOnPermissionId",
+                        column: x => x.DependsOnPermissionId,
+                        principalTable: "Permissions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PermissionDependencies_Permissions_PermissionId",
+                        column: x => x.PermissionId,
+                        principalTable: "Permissions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "RolePermissions",
                 columns: table => new
                 {
@@ -464,6 +490,17 @@ namespace VendorContractManagement.Infrastructure.Migrations
                 column: "VendorId1");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PermissionDependencies_DependsOnPermissionId",
+                table: "PermissionDependencies",
+                column: "DependsOnPermissionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PermissionDependencies_PermissionId_DependsOnPermissionId",
+                table: "PermissionDependencies",
+                columns: new[] { "PermissionId", "DependsOnPermissionId" },
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Permissions_Code",
                 table: "Permissions",
                 column: "Code",
@@ -507,6 +544,9 @@ namespace VendorContractManagement.Infrastructure.Migrations
 
             migrationBuilder.DropTable(
                 name: "Expenditures");
+
+            migrationBuilder.DropTable(
+                name: "PermissionDependencies");
 
             migrationBuilder.DropTable(
                 name: "RecentActivities");
