@@ -15,5 +15,7 @@ namespace VendorContractManagement.Application.DTOs
         public string Password { get; set; } = string.Empty;
 
         public int? VendorId { get; set; }
+
+        public List<int> RoleIds { get; set; } = new();
     }
 }

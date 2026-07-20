@@ -9,4 +9,5 @@ namespace VendorContractManagement.Application.DTOs.Role;
 public class AssignUsersToRoleDto
 {
     public List<int> UserIds { get; set; } = new();
+    public List<int> RoleIds { get; set; } = [];
 }

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using VendorContractManagement.Application.DTOs;
+using VendorContractManagement.Application.DTOs.Users;
 using VendorContractManagement.Application.Services.Interfaces;
 
 namespace VendorContractManagement.API.Controllers
@@ -57,6 +58,48 @@ namespace VendorContractManagement.API.Controllers
             await _userService.DeactivateAsync(id);
 
             return Ok("User deactivated");
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Update(
+    int id,
+    UpdateUserDto dto)
+        {
+            await _userService.UpdateAsync(id, dto);
+
+            return Ok("User updated successfully");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _userService.DeleteAsync(id);
+
+            return Ok("User deleted successfully");
+        }
+
+        [HttpPut("{id}/reset-password")]
+        public async Task<IActionResult> ResetPassword(
+    int id,
+    ResetPasswordDto dto)
+        {
+            await _userService.ResetPasswordAsync(
+                id,
+                dto.NewPassword);
+
+            return Ok("Password reset successfully");
+        }
+
+        [HttpPut("{id}/roles")]
+        public async Task<IActionResult> AssignRoles(
+    int id,
+    [FromBody] List<int> roleIds)
+        {
+            await _userService.AssignRolesAsync(
+                id,
+                roleIds);
+
+            return Ok("Roles assigned successfully");
         }
     }
 }

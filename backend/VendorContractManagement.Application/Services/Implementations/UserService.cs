@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using BCrypt.Net;
 using VendorContractManagement.Application.DTOs;
+using VendorContractManagement.Application.DTOs.Users;
 using VendorContractManagement.Application.Interfaces;
 using VendorContractManagement.Application.Services.Interfaces;
 using VendorContractManagement.Domain.Entities;
@@ -50,7 +50,6 @@ namespace VendorContractManagement.Application.Services.Implementations
                 FullName = dto.FullName,
                 Email = dto.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password),
-                UserRoles = new List<UserRole>(),
                 VendorId = dto.VendorId,
                 IsActive = true
             };
@@ -58,8 +57,23 @@ namespace VendorContractManagement.Application.Services.Implementations
             await _userRepository.AddAsync(user);
 
             await _unitOfWork.SaveChangesAsync();
-        }
 
+            if (dto.RoleIds.Any())
+            {
+                var roles = dto.RoleIds
+                    .Distinct()
+                    .Select(roleId => new UserRole
+                    {
+                        UserId = user.Id,
+                        RoleId = roleId
+                    })
+                    .ToList();
+
+                await _userRepository.AddUserRolesAsync(roles);
+
+                await _unitOfWork.SaveChangesAsync();
+            }
+        }
         public async Task ActivateAsync(int id)
         {
             var user =
@@ -86,6 +100,101 @@ namespace VendorContractManagement.Application.Services.Implementations
             user.IsActive = false;
 
             _userRepository.Update(user);
+
+            await _unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(int id, UpdateUserDto dto)
+        {
+            var user = await _userRepository.GetByIdAsync(id);
+
+            if (user == null)
+                throw new Exception("User not found");
+
+            user.FullName = dto.FullName;
+            user.VendorId = dto.VendorId;
+            user.IsActive = dto.IsActive;
+
+            _userRepository.Update(user);
+
+            var existingRoles =
+                await _userRepository.GetUserRolesAsync(id);
+
+            await _userRepository.RemoveUserRolesAsync(existingRoles);
+
+            if (dto.RoleIds.Any())
+            {
+                var newRoles = dto.RoleIds
+                    .Distinct()
+                    .Select(roleId => new UserRole
+                    {
+                        UserId = id,
+                        RoleId = roleId
+                    })
+                    .ToList();
+
+                await _userRepository.AddUserRolesAsync(newRoles);
+            }
+
+            await _unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var user = await _userRepository.GetByIdAsync(id);
+
+            if (user == null)
+                throw new Exception("User not found");
+
+            user.IsDeleted = true;
+
+            _userRepository.Update(user);
+
+            await _unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task ResetPasswordAsync(
+    int id,
+    string newPassword)
+        {
+            var user = await _userRepository.GetByIdAsync(id);
+
+            if (user == null)
+                throw new Exception("User not found");
+
+            user.PasswordHash =
+                BCrypt.Net.BCrypt.HashPassword(newPassword);
+
+            _userRepository.Update(user);
+
+            await _unitOfWork.SaveChangesAsync();
+        }
+
+
+        public async Task AssignRolesAsync(
+    int id,
+    List<int> roleIds)
+        {
+            var user = await _userRepository.GetByIdAsync(id);
+
+            if (user == null)
+                throw new Exception("User not found");
+
+            var existingRoles =
+                await _userRepository.GetUserRolesAsync(id);
+
+            await _userRepository.RemoveUserRolesAsync(existingRoles);
+
+            var newRoles = roleIds
+                .Distinct()
+                .Select(roleId => new UserRole
+                {
+                    UserId = id,
+                    RoleId = roleId
+                })
+                .ToList();
+
+            await _userRepository.AddUserRolesAsync(newRoles);
 
             await _unitOfWork.SaveChangesAsync();
         }

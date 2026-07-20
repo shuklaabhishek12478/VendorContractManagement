@@ -15,5 +15,17 @@ namespace VendorContractManagement.Application.Interfaces
         Task<User?> GetByIdAsync(int id);
 
         void Update(User user);
+
+        Task<bool> ExistsAsync(int id);
+
+        Task DeleteAsync(User user);
+
+        Task SaveChangesAsync();
+
+        Task<List<UserRole>> GetUserRolesAsync(int userId);
+
+        Task RemoveUserRolesAsync(List<UserRole> userRoles);
+
+        Task AddUserRolesAsync(List<UserRole> userRoles);
     }
 }

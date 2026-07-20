@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using VendorContractManagement.Application.DTOs;
+using VendorContractManagement.Application.DTOs.Users;
 
 namespace VendorContractManagement.Application.Services.Interfaces
 {
@@ -18,5 +19,13 @@ namespace VendorContractManagement.Application.Services.Interfaces
         Task ActivateAsync(int id);
 
         Task DeactivateAsync(int id);
+
+        Task UpdateAsync(int id, UpdateUserDto dto);
+
+        Task DeleteAsync(int id);
+
+        Task ResetPasswordAsync(int id, string newPassword);
+
+        Task AssignRolesAsync(int id, List<int> roleIds);
     }
 }
