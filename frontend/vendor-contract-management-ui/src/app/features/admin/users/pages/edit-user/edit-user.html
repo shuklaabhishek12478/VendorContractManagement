@@ -1,10 +1,39 @@
-<mat-card>
+<div class="page-wrapper">
 
- <app-user-form
-    *ngIf="form"
-    [form]="form"
-    [editMode]="true"
-    (save)="save()">
-</app-user-form>
+    <div class="page-header">
 
-</mat-card>
+        <div>
+
+            <h1>Edit User</h1>
+
+            <p>
+                Update user information, vendor assignment and permissions.
+            </p>
+
+        </div>
+        <button
+        mat-stroked-button
+        color="primary"
+        routerLink="/users">
+
+        <mat-icon>arrow_back</mat-icon>
+
+        Back
+
+    </button>
+
+    </div>
+
+    <mat-card class="page-card">
+
+        <app-user-form
+            *ngIf="form"
+            [form]="form"
+            [editMode]="true"
+            (save)="save()"
+            (cancel)="goBack()">
+        </app-user-form>
+
+    </mat-card>
+
+</div>

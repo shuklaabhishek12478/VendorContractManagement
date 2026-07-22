@@ -1,124 +1,605 @@
 <form
-    [formGroup]="form">
+    [formGroup]="form"
+    class="user-form">
 
-    <mat-form-field appearance="outline">
+    <!-- ================= HEADER ================= -->
 
-        <mat-label>
-
-            Full Name
-
-        </mat-label>
-
-        <input
-            matInput
-            formControlName="fullName">
-
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-
-        <mat-label>
-
-            Email
-
-        </mat-label>
-
-        <input
-            matInput
-            formControlName="email">
-
-    </mat-form-field>
-
-    <mat-form-field
-        appearance="outline"
-        *ngIf="!editMode">
-
-        <mat-label>
-
-            Password
-
-        </mat-label>
-
-        <input
-            matInput
-            type="password"
-            formControlName="password">
-
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-
-        <mat-label>
-
-            Vendor
-
-        </mat-label>
-
-        <mat-select
-            formControlName="vendorId">
-
-            <mat-option
-                [value]="null">
-
-                No Vendor
-
-            </mat-option>
-
-           <mat-option
-    *ngFor="let vendor of vendors"
-    [value]="vendor.id">
-
-    {{vendor.vendorName}}
-
-</mat-option>
-
-        </mat-select>
-
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-
-        <mat-label>
-
-            Roles
-
-        </mat-label>
-
-        <mat-select
-            multiple
-            formControlName="roleIds">
-
-            <mat-option
-                *ngFor="let role of roles"
-                [value]="role.id">
-
-                {{role.name}}
-
-            </mat-option>
-
-        </mat-select>
-
-    </mat-form-field>
-
-    <mat-slide-toggle
-        *ngIf="editMode"
-        formControlName="isActive">
-
-        Active
-
-    </mat-slide-toggle>
-
-    <div class="actions">
+    <div class="form-header">
 
         <button
-            mat-raised-button
-            color="primary"
-            (click)="save.emit()"
-            [disabled]="form.invalid">
+            mat-icon-button
+            class="back-btn"
+            routerLink="/users">
 
-            Save
+            <mat-icon>
+
+                arrow_back
+
+            </mat-icon>
 
         </button>
+
+        <div class="avatar">
+
+            {{
+            form.get('fullName')?.value
+            ? form.get('fullName')?.value.charAt(0).toUpperCase()
+            : 'U'
+            }}
+
+        </div>
+
+        <div class="header-content">
+
+            <h2>
+
+                {{ editMode ? 'Edit User' : 'Create User' }}
+
+            </h2>
+
+            <p>
+
+                {{
+                editMode
+                ? 'Update user information, roles and vendor mapping.'
+                : 'Create a new application user.'
+                }}
+
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= PROFILE STATUS ================= -->
+
+    <div class="profile-progress">
+
+        <div class="progress-info">
+
+            <span>
+
+                User Information
+
+            </span>
+
+            <span>
+
+                {{ form.valid ? '100%' : 'Incomplete' }}
+
+            </span>
+
+        </div>
+
+        <mat-progress-bar
+
+            mode="determinate"
+
+            [value]="form.valid ? 100 : 55">
+
+        </mat-progress-bar>
+
+    </div>
+
+
+
+    <!-- ================= BASIC INFO ================= -->
+
+    <div class="section-card">
+
+        <div class="section-heading">
+
+            <div class="icon">
+
+                <mat-icon>
+
+                    person
+
+                </mat-icon>
+
+            </div>
+
+            <div>
+
+                <h3>
+
+                    Basic Information
+
+                </h3>
+
+                <p>
+
+                    Personal details of the system user.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="grid">
+
+            <!-- Full Name -->
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+
+                    Full Name
+
+                </mat-label>
+
+                <mat-icon matPrefix>
+
+                    badge
+
+                </mat-icon>
+
+                <input
+
+                    matInput
+
+                    maxlength="100"
+
+                    formControlName="fullName">
+
+                <mat-hint align="end">
+
+                    {{ form.get('fullName')?.value?.length || 0 }}/100
+
+                </mat-hint>
+
+                <mat-error
+                    *ngIf="form.get('fullName')?.hasError('required')">
+
+                    Full Name is required
+
+                </mat-error>
+
+            </mat-form-field>
+
+
+
+            <!-- Email -->
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+
+                    Email Address
+
+                </mat-label>
+
+                <mat-icon matPrefix>
+
+                    mail
+
+                </mat-icon>
+
+                <input
+
+                    matInput
+
+                    formControlName="email">
+
+                <mat-error
+                    *ngIf="form.get('email')?.hasError('required')">
+
+                    Email is required
+
+                </mat-error>
+
+                <mat-error
+                    *ngIf="form.get('email')?.hasError('email')">
+
+                    Invalid email address
+
+                </mat-error>
+
+            </mat-form-field>
+
+
+
+            <!-- Password -->
+
+            <mat-form-field
+
+                appearance="outline"
+
+                *ngIf="!editMode">
+
+                <mat-label>
+
+                    Password
+
+                </mat-label>
+
+                <mat-icon matPrefix>
+
+                    lock
+
+                </mat-icon>
+
+                <input
+
+                    matInput
+
+                    type="password"
+
+                    formControlName="password">
+
+                <mat-error
+                    *ngIf="form.get('password')?.hasError('required')">
+
+                    Password is required
+
+                </mat-error>
+
+            </mat-form-field>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= ORGANIZATION ================= -->
+
+    <div class="section-card">
+
+        <div class="section-heading">
+
+            <div class="icon organization">
+
+                <mat-icon>
+
+                    apartment
+
+                </mat-icon>
+
+            </div>
+
+            <div>
+
+                <h3>
+
+                    Organization
+
+                </h3>
+
+                <p>
+
+                    Assign vendor and roles.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="grid">
+
+            <!-- Vendor -->
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+
+                    Vendor
+
+                </mat-label>
+
+                <mat-icon matPrefix>
+
+                    business
+
+                </mat-icon>
+
+                <mat-select
+                    formControlName="vendorId">
+
+                    <mat-option
+                        [value]="null">
+
+                        No Vendor
+
+                    </mat-option>
+
+                    <mat-option
+
+                        *ngFor="let vendor of vendors"
+
+                        [value]="vendor.id">
+
+                        {{ vendor.vendorName }}
+
+                    </mat-option>
+
+                </mat-select>
+
+            </mat-form-field>
+
+
+
+            <!-- Roles -->
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+
+                    Roles
+
+                </mat-label>
+
+                <mat-icon matPrefix>
+
+                    admin_panel_settings
+
+                </mat-icon>
+
+                <mat-select
+
+                    multiple
+
+                    formControlName="roleIds">
+
+                    <mat-option
+
+                        *ngFor="let role of roles"
+
+                        [value]="role.id">
+
+                        {{ role.name }}
+
+                    </mat-option>
+
+                </mat-select>
+
+            </mat-form-field>
+
+        </div>
+
+    </div>
+        <!-- ================= ACCOUNT ================= -->
+
+    <div
+        class="section-card"
+        *ngIf="editMode">
+
+        <div class="section-heading">
+
+            <div class="icon settings">
+
+                <mat-icon>
+
+                    settings
+
+                </mat-icon>
+
+            </div>
+
+            <div>
+
+                <h3>
+
+                    Account Settings
+
+                </h3>
+
+                <p>
+
+                    Manage user account status.
+
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="status-container">
+
+            <div class="status-info">
+
+                <h4>
+
+                    Account Status
+
+                </h4>
+
+                <p>
+
+                    Enable or disable this user account.
+
+                </p>
+
+            </div>
+
+            <mat-slide-toggle
+                color="primary"
+                formControlName="isActive">
+
+                Active User
+
+            </mat-slide-toggle>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= SUMMARY ================= -->
+
+    <div class="summary-card">
+
+        <div class="summary-title">
+
+            <mat-icon>
+
+                info
+
+            </mat-icon>
+
+            User Summary
+
+        </div>
+
+        <div class="summary-grid">
+
+            <div class="summary-item">
+
+                <span class="label">
+
+                    Name
+
+                </span>
+
+                <span class="value">
+
+                    {{ form.get('fullName')?.value || '-' }}
+
+                </span>
+
+            </div>
+
+            <div class="summary-item">
+
+                <span class="label">
+
+                    Email
+
+                </span>
+
+                <span class="value">
+
+                    {{ form.get('email')?.value || '-' }}
+
+                </span>
+
+            </div>
+
+            <div class="summary-item">
+
+                <span class="label">
+
+                    Vendor
+
+                </span>
+
+                <span class="value">
+
+                    {{
+                    form.get('vendorId')?.value
+                    ? 'Assigned'
+                    : 'Not Assigned'
+                    }}
+
+                </span>
+
+            </div>
+
+            <div class="summary-item">
+
+                <span class="label">
+
+                    Roles
+
+                </span>
+
+                <span class="value">
+
+                    {{ form.get('roleIds')?.value?.length || 0 }}
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- ================= STICKY FOOTER ================= -->
+
+    <div class="form-footer">
+
+        <div class="footer-left">
+
+            <div class="status-row">
+
+                <span
+                    class="status-dot"
+                    [class.valid]="form.valid"
+                    [class.invalid]="form.invalid">
+
+                </span>
+
+                <span
+                    class="status-text">
+
+                    {{
+                    form.valid
+                    ? 'Ready to Save'
+                    : 'Complete required fields'
+                    }}
+
+                </span>
+
+            </div>
+
+            <small>
+
+                {{
+                editMode
+                ? 'Updating existing user.'
+                : 'Creating new user.'
+                }}
+
+            </small>
+
+        </div>
+
+
+
+        <div class="footer-actions">
+
+            <button
+                mat-stroked-button
+                color="primary"
+                type="button"
+               (click)="cancel.emit()">
+
+                <mat-icon>
+
+                    close
+
+                </mat-icon>
+
+                Cancel
+
+            </button>
+
+            <button
+                mat-raised-button
+                color="primary"
+                type="button"
+                (click)="save.emit()"
+                [disabled]="form.invalid">
+
+                <mat-icon>
+
+                    save
+
+                </mat-icon>
+
+                {{ editMode ? 'Update User' : 'Create User' }}
+
+            </button>
+
+        </div>
 
     </div>
 

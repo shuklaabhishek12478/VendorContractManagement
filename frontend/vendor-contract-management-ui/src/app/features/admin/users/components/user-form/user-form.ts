@@ -10,6 +10,9 @@ import { Vendor } from '../../../../../core/models/vendor.model';
 import { Role } from '../../../../../core/models/role.model';
 import { VendorService } from '../../../../../core/services/vendor.service';
 import { RoleService } from '../../../../../core/services/role.service';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-user-form',
@@ -20,8 +23,11 @@ import { RoleService } from '../../../../../core/services/role.service';
     MatInputModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatIconModule,
+    MatProgressBarModule,
     MatSlideToggleModule,
-    MatButtonModule
+    MatButtonModule,
+    RouterModule
   ],
   templateUrl: './user-form.html',
   styleUrl: './user-form.scss'
@@ -35,7 +41,8 @@ implements OnInit {
 
   @Output() save =
     new EventEmitter<void>();
-    
+    @Output()
+cancel = new EventEmitter<void>();
 
   vendors: Vendor[] = [];
 

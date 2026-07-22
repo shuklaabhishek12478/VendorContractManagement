@@ -5,7 +5,7 @@ import {
   ReactiveFormsModule,
   Validators
 } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 
 import { CommonModule } from '@angular/common';
 
@@ -14,6 +14,7 @@ import { MatCardModule } from '@angular/material/card';
 
 import { UserFormComponent } from '../../components/user-form/user-form';
 import { UserService } from '../../../../../core/services/user.service';
+import { MatIconModule } from '@angular/material/icon';
 
 
 @Component({
@@ -23,7 +24,9 @@ import { UserService } from '../../../../../core/services/user.service';
     CommonModule,
     ReactiveFormsModule,
     MatCardModule,
-    UserFormComponent
+    MatIconModule,
+    UserFormComponent,
+    RouterModule
   ],
   templateUrl: './add-user.html',
   styleUrl: './add-user.scss'
@@ -114,7 +117,9 @@ export class AddUserComponent {
     });
 
 }
-
+goBack() {
+    this.router.navigate(['/users']);
+}
   
 
 }

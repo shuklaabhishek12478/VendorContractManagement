@@ -8,12 +8,13 @@ import {
   Validators
 } from '@angular/forms';
 
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { UserFormComponent } from '../../components/user-form/user-form';
 import { UserService } from '../../../../../core/services/user.service';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-edit-user',
@@ -22,6 +23,8 @@ import { UserService } from '../../../../../core/services/user.service';
     CommonModule,
     ReactiveFormsModule,
     MatCardModule,
+    MatIconModule,
+     RouterModule,
     UserFormComponent
   ],
   templateUrl: './edit-user.html',
@@ -159,4 +162,7 @@ save() {
 
 }
 
+goBack() {
+    this.router.navigate(['/users']);
+}
 }
