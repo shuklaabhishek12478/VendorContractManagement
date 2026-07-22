@@ -1,0 +1,10 @@
+<mat-card>
+
+ <app-user-form
+    *ngIf="form"
+    [form]="form"
+    [editMode]="true"
+    (save)="save()">
+</app-user-form>
+
+</mat-card>

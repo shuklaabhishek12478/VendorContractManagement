@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using VendorContractManagement.Application.DTOs.Users;
 using VendorContractManagement.Application.Interfaces;
 using VendorContractManagement.Domain.Entities;
 using VendorContractManagement.Infrastructure.Data;
@@ -100,6 +101,58 @@ namespace VendorContractManagement.Infrastructure.Repository.Implementations
         public async Task AddUserRolesAsync(List<UserRole> userRoles)
         {
             await _context.UserRoles.AddRangeAsync(userRoles);
+        }
+
+        public async Task<(List<User> Items, int TotalCount)> GetPagedAsync(
+    UserQueryDto query)
+        {
+            var users = _context.Users
+    .Include(x => x.Vendor)
+    .Include(x => x.UserRoles)
+        .ThenInclude(x => x.Role)
+    .AsQueryable();
+
+            // Search
+            if (!string.IsNullOrWhiteSpace(query.Search))
+            {
+                users = users.Where(x =>
+                    x.FullName.Contains(query.Search) ||
+                    x.Email.Contains(query.Search));
+            }
+
+            // Active Filter
+            if (query.IsActive.HasValue)
+            {
+                users = users.Where(x =>
+                    x.IsActive == query.IsActive.Value);
+            }
+
+            // Sorting
+            users = query.SortBy?.ToLower() switch
+            {
+                "fullname" => query.SortDirection == "desc"
+                    ? users.OrderByDescending(x => x.FullName)
+                    : users.OrderBy(x => x.FullName),
+
+                "email" => query.SortDirection == "desc"
+                    ? users.OrderByDescending(x => x.Email)
+                    : users.OrderBy(x => x.Email),
+
+                "isactive" => query.SortDirection == "desc"
+                    ? users.OrderByDescending(x => x.IsActive)
+                    : users.OrderBy(x => x.IsActive),
+
+                _ => users.OrderByDescending(x => x.Id)
+            };
+
+            var totalCount = await users.CountAsync();
+
+            var items = await users
+                .Skip((query.PageNumber - 1) * query.PageSize)
+                .Take(query.PageSize)
+                .ToListAsync();
+
+            return (items, totalCount);
         }
     }
 }

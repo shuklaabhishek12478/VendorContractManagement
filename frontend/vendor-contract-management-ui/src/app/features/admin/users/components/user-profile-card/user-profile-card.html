@@ -1,0 +1,63 @@
+<mat-card class="profile-card">
+
+    <div class="avatar">
+
+        {{user.fullName.charAt(0)}}
+
+    </div>
+
+    <h2>
+
+        {{user.fullName}}
+
+    </h2>
+
+    <p class="email">
+
+        {{user.email}}
+
+    </p>
+
+    <mat-chip
+        [class.active]="user.isActive"
+        [class.inactive]="!user.isActive">
+
+        {{user.isActive ? 'Active' : 'Inactive'}}
+
+    </mat-chip>
+
+    <div class="divider"></div>
+
+    <div class="info">
+
+        <label>
+
+            Vendor
+
+        </label>
+
+        <span>
+
+            {{user.vendorName || 'No Vendor'}}
+
+        </span>
+
+    </div>
+
+    <div class="info">
+
+        <label>
+
+            Roles
+
+        </label>
+
+        <span>
+
+            {{user.roles?.length || 0}}
+
+        </span>
+
+    </div>
+
+</mat-card>

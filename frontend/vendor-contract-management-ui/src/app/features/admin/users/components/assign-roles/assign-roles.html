@@ -1,0 +1,230 @@
+<div class="hero">
+
+    <div class="hero-left">
+
+        <h1>
+
+            Assign Roles
+
+        </h1>
+
+        <p>
+
+            Manage user roles and permissions.
+
+        </p>
+
+    </div>
+
+    <div class="hero-right">
+
+        <button
+            mat-stroked-button
+            routerLink="/users">
+
+            <mat-icon>
+
+                arrow_back
+
+            </mat-icon>
+
+            Back
+
+        </button>
+
+    </div>
+
+</div>
+
+<div class="stats">
+
+    <mat-card>
+
+        <h2>
+
+            {{availableRoles.length}}
+
+        </h2>
+
+        <span>
+
+            Available Roles
+
+        </span>
+
+    </mat-card>
+
+    <mat-card>
+
+        <h2>
+
+            {{assignedRoles.length}}
+
+        </h2>
+
+        <span>
+
+            Assigned Roles
+
+        </span>
+
+    </mat-card>
+
+</div>
+
+<mat-card>
+
+    <mat-card-content>
+
+        <div class="toolbar">
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+
+                    Search Role
+
+                </mat-label>
+
+                <input
+                    matInput
+                    [(ngModel)]="searchText"
+                    (input)="filterRoles()">
+
+                <mat-icon matSuffix>
+
+                    search
+
+                </mat-icon>
+
+            </mat-form-field>
+
+            <div class="toolbar-actions">
+
+                <button
+                    mat-stroked-button
+                    color="primary"
+                    (click)="selectAll()">
+
+                    Select All
+
+                </button>
+
+                <button
+                    mat-stroked-button
+                    color="warn"
+                    (click)="clearSelection()">
+
+                    Clear
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="role-transfer">
+
+    <mat-card class="role-panel">
+
+        <mat-card-title>
+
+            Available Roles
+
+        </mat-card-title>
+
+        <mat-selection-list
+          [(ngModel)]="selectedAvailableRoles">
+
+            <mat-list-option
+                *ngFor="let role of filteredAvailableRoles"
+                [value]="role">
+
+                {{role.name}}
+
+            </mat-list-option>
+
+        </mat-selection-list>
+
+    </mat-card>
+
+    <div class="transfer-buttons">
+
+        <button
+    mat-mini-fab
+    color="primary"
+    (click)="moveRight()"
+    [disabled]="selectedAvailableRoles.length === 0">
+
+    <mat-icon>
+        chevron_right
+    </mat-icon>
+
+</button>
+
+        <button
+    mat-mini-fab
+    color="accent"
+    (click)="moveLeft()"
+    [disabled]="selectedAssignedRoles.length === 0">
+
+    <mat-icon>
+        chevron_left
+    </mat-icon>
+
+</button>
+
+    </div>
+
+    <mat-card class="role-panel">
+
+        <mat-card-title>
+
+            Assigned Roles
+
+        </mat-card-title>
+
+        <mat-selection-list
+          [(ngModel)]="selectedAssignedRoles">
+
+            <mat-list-option
+                *ngFor="let role of assignedRoles"
+                [value]="role">
+
+                {{role.name}}
+
+            </mat-list-option>
+
+        </mat-selection-list>
+
+    </mat-card>
+
+</div>
+
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-actions align="end">
+
+        <button
+            mat-button
+            routerLink="/users">
+
+            Cancel
+
+        </button>
+
+        <button
+            mat-raised-button
+            color="primary"
+            [disabled]="loading"
+            (click)="save()">
+
+            Save Roles
+
+        </button>
+
+    </mat-card-actions>
+
+</mat-card>

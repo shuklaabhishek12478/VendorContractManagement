@@ -1,0 +1,135 @@
+<div class="filter-card">
+
+    <div class="filter-left">
+
+        <mat-form-field
+            appearance="outline"
+            class="search-field">
+
+            <mat-label>
+
+                Search Users
+
+            </mat-label>
+
+            <input
+
+                matInput
+
+                [(ngModel)]="search"
+
+                (keyup)="searchChanged.emit(search)"
+
+                placeholder="Search by Name or Email">
+
+            <mat-icon matPrefix>
+
+                search
+
+            </mat-icon>
+
+        </mat-form-field>
+
+    </div>
+
+    <div class="filter-right">
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Status
+
+            </mat-label>
+
+            <mat-select
+
+                [(ngModel)]="status"
+
+                (selectionChange)="statusChanged.emit(status)">
+
+                <mat-option [value]="null">
+
+                    All
+
+                </mat-option>
+
+                <mat-option [value]="true">
+
+                    Active
+
+                </mat-option>
+
+                <mat-option [value]="false">
+
+                    Inactive
+
+                </mat-option>
+
+            </mat-select>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Role
+
+            </mat-label>
+
+            <mat-select
+
+                [(ngModel)]="role"
+
+                (selectionChange)="roleChanged.emit(role)">
+
+                <mat-option value="">
+
+                    All Roles
+
+                </mat-option>
+
+                <mat-option value="Administrator">
+
+                    Administrator
+
+                </mat-option>
+
+                <mat-option value="Manager">
+
+                    Manager
+
+                </mat-option>
+
+                <mat-option value="Vendor">
+
+                    Vendor
+
+                </mat-option>
+
+            </mat-select>
+
+        </mat-form-field>
+
+        <button
+
+            mat-stroked-button
+
+            color="primary"
+
+            (click)="clearFilters()">
+
+            <mat-icon>
+
+                filter_alt_off
+
+            </mat-icon>
+
+            Clear
+
+        </button>
+
+    </div>
+
+</div>

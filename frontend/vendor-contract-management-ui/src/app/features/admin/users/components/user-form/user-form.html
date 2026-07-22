@@ -1,0 +1,125 @@
+<form
+    [formGroup]="form">
+
+    <mat-form-field appearance="outline">
+
+        <mat-label>
+
+            Full Name
+
+        </mat-label>
+
+        <input
+            matInput
+            formControlName="fullName">
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+
+        <mat-label>
+
+            Email
+
+        </mat-label>
+
+        <input
+            matInput
+            formControlName="email">
+
+    </mat-form-field>
+
+    <mat-form-field
+        appearance="outline"
+        *ngIf="!editMode">
+
+        <mat-label>
+
+            Password
+
+        </mat-label>
+
+        <input
+            matInput
+            type="password"
+            formControlName="password">
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+
+        <mat-label>
+
+            Vendor
+
+        </mat-label>
+
+        <mat-select
+            formControlName="vendorId">
+
+            <mat-option
+                [value]="null">
+
+                No Vendor
+
+            </mat-option>
+
+           <mat-option
+    *ngFor="let vendor of vendors"
+    [value]="vendor.id">
+
+    {{vendor.vendorName}}
+
+</mat-option>
+
+        </mat-select>
+
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+
+        <mat-label>
+
+            Roles
+
+        </mat-label>
+
+        <mat-select
+            multiple
+            formControlName="roleIds">
+
+            <mat-option
+                *ngFor="let role of roles"
+                [value]="role.id">
+
+                {{role.name}}
+
+            </mat-option>
+
+        </mat-select>
+
+    </mat-form-field>
+
+    <mat-slide-toggle
+        *ngIf="editMode"
+        formControlName="isActive">
+
+        Active
+
+    </mat-slide-toggle>
+
+    <div class="actions">
+
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="save.emit()"
+            [disabled]="form.invalid">
+
+            Save
+
+        </button>
+
+    </div>
+
+</form>

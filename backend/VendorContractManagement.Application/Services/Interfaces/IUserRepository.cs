@@ -1,4 +1,5 @@
-﻿using VendorContractManagement.Domain.Entities;
+﻿using VendorContractManagement.Application.DTOs.Users;
+using VendorContractManagement.Domain.Entities;
 
 namespace VendorContractManagement.Application.Interfaces
 {
@@ -27,5 +28,8 @@ namespace VendorContractManagement.Application.Interfaces
         Task RemoveUserRolesAsync(List<UserRole> userRoles);
 
         Task AddUserRolesAsync(List<UserRole> userRoles);
+
+        Task<(List<User> Items, int TotalCount)> GetPagedAsync(
+    UserQueryDto query);
     }
 }

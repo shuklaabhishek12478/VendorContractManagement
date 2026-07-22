@@ -1,0 +1,191 @@
+<mat-card>
+
+    <mat-card-header>
+
+        <mat-icon mat-card-avatar>
+
+            person
+
+        </mat-icon>
+
+        <mat-card-title>
+
+            General Information
+
+        </mat-card-title>
+
+        <mat-card-subtitle>
+
+            User profile information
+
+        </mat-card-subtitle>
+
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content>
+
+        <div class="info-grid">
+
+            <div class="info-item">
+
+                <mat-icon>
+
+                    badge
+
+                </mat-icon>
+
+                <div>
+
+                    <label>
+
+                        Full Name
+
+                    </label>
+
+                    <span>
+
+                        {{user.fullName}}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="info-item">
+
+                <mat-icon>
+
+                    email
+
+                </mat-icon>
+
+                <div>
+
+                    <label>
+
+                        Email Address
+
+                    </label>
+
+                    <span>
+
+                        {{user.email}}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="info-item">
+
+                <mat-icon>
+
+                    business
+
+                </mat-icon>
+
+                <div>
+
+                    <label>
+
+                        Vendor
+
+                    </label>
+
+                    <span>
+
+                        {{user.vendorName || 'No Vendor Assigned'}}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="info-item">
+
+                <mat-icon>
+
+                    verified_user
+
+                </mat-icon>
+
+                <div>
+
+                    <label>
+
+                        Status
+
+                    </label>
+
+                    <span>
+
+                        {{user.isActive ? 'Active' : 'Inactive'}}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="info-item">
+
+                <mat-icon>
+
+                    calendar_today
+
+                </mat-icon>
+
+                <div>
+
+                    <label>
+
+                        Created On
+
+                    </label>
+
+                    <span>
+
+                        {{user.createdOn ? (user.createdOn | date:'dd MMM yyyy') : '-'}}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+            <div class="info-item">
+
+                <mat-icon>
+
+                    update
+
+                </mat-icon>
+
+                <div>
+
+                    <label>
+
+                        Last Updated
+
+                    </label>
+
+                    <span>
+
+                        {{user.modifiedOn ? (user.modifiedOn | date:'dd MMM yyyy') : '-'}}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </mat-card-content>
+
+</mat-card>

@@ -82,5 +82,19 @@ namespace VendorContractManagement.Application.Services.Implementations
             return _mapper.Map<List<RecentActivityDto>>(
                 activities);
         }
+
+
+        public async Task<List<RecentActivityDto>> GetUserActivitiesAsync(
+    int userId,
+    int count = 20)
+        {
+            var activities =
+                await _repo.GetByUserIdAsync(
+                    userId,
+                    count);
+
+            return _mapper.Map<List<RecentActivityDto>>(
+                activities);
+        }
     }
 }

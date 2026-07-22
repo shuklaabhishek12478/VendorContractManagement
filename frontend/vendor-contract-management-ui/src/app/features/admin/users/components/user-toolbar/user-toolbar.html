@@ -1,0 +1,99 @@
+<div class="toolbar">
+
+    <div class="toolbar-left">
+
+        <h2>
+
+            User Management
+
+        </h2>
+
+        <span>
+
+            Manage application users and their roles.
+
+        </span>
+
+    </div>
+
+    <div class="toolbar-right">
+
+        <button
+            mat-stroked-button
+            color="primary"
+            (click)="refresh.emit()">
+
+            <mat-icon>
+
+                refresh
+
+            </mat-icon>
+
+            Refresh
+
+        </button>
+
+        <button
+    mat-raised-button
+    color="primary"
+    (click)="export.emit()">
+
+    <mat-icon>download</mat-icon>
+
+    Export
+
+</button>
+
+<input
+    #fileInput
+    type="file"
+    accept=".xlsx,.xls"
+    hidden
+    (change)="onFileSelected($event)">
+
+<button
+    mat-raised-button
+    color="accent"
+    (click)="fileInput.click()">
+
+    <mat-icon>upload</mat-icon>
+
+    Import
+
+</button>
+
+        <button
+            mat-stroked-button
+            color="primary"
+            [disabled]="selectedUserId===0"
+            (click)="edit.emit()">
+
+            <mat-icon>
+
+                edit
+
+            </mat-icon>
+
+            Edit
+
+        </button>
+
+        <button
+            mat-raised-button
+            color="primary"
+            routerLink="/users/add">
+
+            <mat-icon>
+
+                person_add
+
+            </mat-icon>
+
+            Add User
+
+        </button>
+
+    </div>
+
+</div>
+

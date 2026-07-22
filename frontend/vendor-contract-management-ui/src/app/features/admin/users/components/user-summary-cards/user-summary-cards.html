@@ -1,0 +1,189 @@
+<div class="cards">
+
+    <mat-card class="summary-card">
+
+        <div class="icon blue">
+
+            <mat-icon>badge</mat-icon>
+
+        </div>
+
+        <div>
+
+            <div class="title">
+
+                Status
+
+            </div>
+
+            <div class="value">
+
+                {{user.isActive ? 'Active' : 'Inactive'}}
+
+            </div>
+
+        </div>
+
+    </mat-card>
+
+    <mat-card class="summary-card">
+
+        <div class="icon green">
+
+            <mat-icon>security</mat-icon>
+
+        </div>
+
+        <div>
+
+            <div class="title">
+
+                Roles
+
+            </div>
+
+            <div class="value">
+
+                {{user.roles?.length || 0}}
+
+            </div>
+
+        </div>
+
+    </mat-card>
+
+    <mat-card class="summary-card">
+
+        <div class="icon orange">
+
+            <mat-icon>business</mat-icon>
+
+        </div>
+
+        <div>
+
+            <div class="title">
+
+                Vendor
+
+            </div>
+
+            <div class="value">
+
+                {{user.vendorName || 'No Vendor'}}
+
+            </div>
+
+        </div>
+
+    </mat-card>
+
+    <mat-card class="summary-card">
+
+        <div class="icon purple">
+
+            <mat-icon>lock_open</mat-icon>
+
+        </div>
+
+        <div>
+
+            <div class="title">
+
+                Account
+
+            </div>
+
+            <div class="value">
+
+                {{user.isLocked ? 'Locked' : 'Unlocked'}}
+
+            </div>
+
+        </div>
+
+    </mat-card>
+
+</div>
+<!--<div class="summary-grid">
+
+    <mat-card class="summary-card">
+
+        <mat-icon>
+
+            person
+
+        </mat-icon>
+
+        <div>
+
+            <span class="label">
+
+                Status
+
+            </span>
+
+            <h3>
+
+                {{isActive ? 'Active' : 'Inactive'}}
+
+            </h3>
+
+        </div>
+
+    </mat-card>
+
+    <mat-card class="summary-card">
+
+        <mat-icon>
+
+            badge
+
+        </mat-icon>
+
+        <div>
+
+            <span class="label">
+
+                Roles
+
+            </span>
+
+            <h3>
+
+                {{roleCount}}
+
+            </h3>
+
+        </div>
+
+    </mat-card>
+
+    <mat-card class="summary-card">
+
+        <mat-icon>
+
+            business
+
+        </mat-icon>
+
+        <div>
+
+            <span class="label">
+
+                Vendor
+
+            </span>
+
+            <h3>
+
+                {{vendorName || '-'}}
+
+            </h3>
+
+        </div>
+
+    </mat-card>
+
+</div>-->
+

@@ -19,6 +19,14 @@ namespace VendorContractManagement.API.Controllers
             _userService = userService;
         }
 
+        [HttpGet("paged")]
+        public async Task<IActionResult> GetPaged(
+    [FromQuery] UserQueryDto query)
+        {
+            return Ok(
+                await _userService.GetPagedAsync(query));
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -26,11 +34,16 @@ namespace VendorContractManagement.API.Controllers
                 await _userService.GetAllAsync());
         }
 
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(
-                await _userService.GetByIdAsync(id));
+            var user = await _userService.GetByIdAsync(id);
+
+            if (user == null)
+                return NotFound();
+
+            return Ok(user);
         }
 
         [HttpPost]
@@ -48,7 +61,10 @@ namespace VendorContractManagement.API.Controllers
         {
             await _userService.ActivateAsync(id);
 
-            return Ok("User activated");
+            return Ok(new
+            {
+                message = "User activated successfully"
+            });
         }
 
         [HttpPut("{id}/deactivate")]
@@ -57,17 +73,30 @@ namespace VendorContractManagement.API.Controllers
         {
             await _userService.DeactivateAsync(id);
 
-            return Ok("User deactivated");
+            return Ok(new
+            {
+                message = "User deactivated successfully"
+            });
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(
-    int id,
-    UpdateUserDto dto)
+        int id,
+        UpdateUserDto dto)
         {
-            await _userService.UpdateAsync(id, dto);
+            try
+            {
+                await _userService.UpdateAsync(id, dto);
 
-            return Ok("User updated successfully");
+                return Ok(new
+                {
+                    message = "User updated successfully"
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
         }
 
         [HttpDelete("{id}")]
@@ -100,6 +129,42 @@ namespace VendorContractManagement.API.Controllers
                 roleIds);
 
             return Ok("Roles assigned successfully");
+        }
+
+
+        [HttpGet("export")]
+        public async Task<IActionResult> Export()
+        {
+            var file = await _userService.ExportAsync();
+
+            return File(
+                file,
+                "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                $"Users_{DateTime.Now:yyyyMMddHHmmss}.xlsx");
+        }
+
+
+        [HttpPost("import")]
+        public async Task<IActionResult> Import(IFormFile file)
+        {
+            try
+            {
+                if (file == null || file.Length == 0)
+                    return BadRequest("File is required.");
+
+                using var stream = file.OpenReadStream();
+
+                await _userService.ImportAsync(stream);
+
+                return Ok(new
+                {
+                    message = "Users imported successfully."
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.ToString());
+            }
         }
     }
 }

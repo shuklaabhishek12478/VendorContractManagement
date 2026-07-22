@@ -1,0 +1,89 @@
+<mat-card>
+
+    <mat-card-header>
+
+        <mat-icon mat-card-avatar>
+
+            security
+
+        </mat-icon>
+
+        <mat-card-title>
+
+            Assigned Roles
+
+        </mat-card-title>
+
+        <mat-card-subtitle>
+
+            Roles and access permissions
+
+        </mat-card-subtitle>
+
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content>
+
+        <div
+            class="roles-grid"
+            *ngIf="roles.length > 0; else noRoles">
+
+            <div
+                class="role-card"
+                *ngFor="let role of roles">
+
+                <div class="role-icon">
+
+                    <mat-icon>
+
+                        verified_user
+
+                    </mat-icon>
+
+                </div>
+
+                <div class="role-info">
+
+                    <div class="role-name">
+
+                        {{ role }}
+
+                    </div>
+
+                    <div class="role-desc">
+
+                        Access granted
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <ng-template #noRoles>
+
+            <div class="empty-state">
+
+                <mat-icon>
+
+                    info
+
+                </mat-icon>
+
+                <span>
+
+                    No roles assigned.
+
+                </span>
+
+            </div>
+
+        </ng-template>
+
+    </mat-card-content>
+
+</mat-card>

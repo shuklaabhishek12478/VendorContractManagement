@@ -47,5 +47,19 @@ namespace VendorContractManagement.API.Controllers
 
             return Ok(result);
         }
+
+
+        [HttpGet("user/{userId}")]
+        public async Task<IActionResult> GetUserActivities(
+    int userId,
+    [FromQuery] int count = 20)
+        {
+            var result =
+                await _service.GetUserActivitiesAsync(
+                    userId,
+                    count);
+
+            return Ok(result);
+        }
     }
 }

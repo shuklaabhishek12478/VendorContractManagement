@@ -1,0 +1,105 @@
+<mat-card>
+
+    <mat-card-header>
+
+        <mat-icon mat-card-avatar>
+
+            history
+
+        </mat-icon>
+
+        <mat-card-title>
+
+            Recent Activity
+
+        </mat-card-title>
+
+        <mat-card-subtitle>
+
+            Latest actions performed by this user
+
+        </mat-card-subtitle>
+
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <div
+            class="timeline"
+            *ngIf="activities.length>0;else empty">
+
+            <div
+                class="timeline-item"
+                *ngFor="let item of activities">
+
+                <div class="timeline-dot">
+
+                    <mat-icon>
+    {{ getIcon(item.action) }}
+</mat-icon>
+
+                </div>
+
+                <div class="timeline-content">
+
+                    <div class="action">
+
+    <span
+        class="action-chip"
+        [ngClass]="item.action.toLowerCase()">
+
+        {{item.action}}
+
+    </span>
+
+</div>
+
+                    <div class="entity">
+
+                        {{item.entityName}}
+
+                    </div>
+
+                    <div class="description">
+
+    {{item.description}}
+
+</div>
+
+                    <div class="date">
+
+                        {{item.createdOn | date:'dd MMM yyyy • hh:mm a'}}
+
+                    </div>
+
+                    <div class="performed">
+
+    By {{item.performedBy}}
+
+</div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <ng-template #empty>
+
+            <div class="empty">
+
+                <mat-icon>
+
+                    info
+
+                </mat-icon>
+
+                No recent activity found.
+
+            </div>
+
+        </ng-template>
+
+    </mat-card-content>
+
+</mat-card>

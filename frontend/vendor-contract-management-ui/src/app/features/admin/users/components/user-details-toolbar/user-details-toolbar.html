@@ -1,0 +1,96 @@
+<div class="toolbar">
+
+    <button
+        mat-stroked-button
+        routerLink="/users">
+
+        <mat-icon>
+
+            arrow_back
+
+        </mat-icon>
+
+        Back
+
+    </button>
+
+    <span class="spacer"></span>
+
+    <button
+        mat-raised-button
+        color="primary"
+        [routerLink]="['/users/edit', userId]">
+
+        <mat-icon>
+
+            edit
+
+        </mat-icon>
+
+        Edit
+
+    </button>
+
+    <button
+    mat-raised-button
+    color="accent"
+    (click)="goToResetPassword()">
+
+    <mat-icon>
+
+        lock_reset
+
+    </mat-icon>
+
+    Reset Password
+
+</button>
+
+    <button
+        *ngIf="isActive"
+        mat-raised-button
+        color="warn"
+        (click)="deactivate.emit()">
+
+        <mat-icon>
+
+            block
+
+        </mat-icon>
+
+        Deactivate
+
+    </button>
+
+    <button
+        *ngIf="!isActive"
+        mat-raised-button
+        color="primary"
+        (click)="activate.emit()">
+
+        <mat-icon>
+
+            check_circle
+
+        </mat-icon>
+
+        Activate
+
+    </button>
+
+    <button
+        mat-stroked-button
+        color="warn"
+        (click)="delete.emit()">
+
+        <mat-icon>
+
+            delete
+
+        </mat-icon>
+
+        Delete
+
+    </button>
+
+</div>

@@ -1,0 +1,225 @@
+<mat-card>
+
+    <mat-card-header>
+
+        <mat-icon mat-card-avatar>
+
+            shield
+
+        </mat-icon>
+
+        <mat-card-title>
+
+            Security
+
+        </mat-card-title>
+
+        <mat-card-subtitle>
+
+            Account security and authentication
+
+        </mat-card-subtitle>
+
+    </mat-card-header>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-content>
+
+        <div class="security-grid">
+
+            <div class="item">
+
+                <div class="icon success">
+
+                    <mat-icon>
+
+                        verified_user
+
+                    </mat-icon>
+
+                </div>
+
+                <div>
+
+                    <div class="label">
+
+                        Account Status
+
+                    </div>
+
+                    <div class="value">
+
+                        {{user.isActive ? 'Active' : 'Inactive'}}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="item">
+
+                <div class="icon primary">
+
+                    <mat-icon>
+
+                        lock
+
+                    </mat-icon>
+
+                </div>
+
+                <div>
+
+                    <div class="label">
+
+                        Account Lock
+
+                    </div>
+
+                    <div class="value">
+
+                        {{user.isLocked ? 'Locked' : 'Unlocked'}}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="item">
+
+                <div class="icon warning">
+
+                    <mat-icon>
+
+                        schedule
+
+                    </mat-icon>
+
+                </div>
+
+                <div>
+
+                    <div class="label">
+
+                        Last Login
+
+                    </div>
+
+                    <div class="value">
+
+                        {{user.lastLogin ? (user.lastLogin | date:'dd MMM yyyy, hh:mm a') : 'Never Logged In'}}
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="item">
+
+                <div class="icon purple">
+
+                    <mat-icon>
+
+                        vpn_key
+
+                    </mat-icon>
+
+                </div>
+
+                <div>
+
+                    <div class="label">
+
+                        Password
+
+                    </div>
+
+                    <div class="value">
+
+                        Secured
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </mat-card-content>
+
+    <mat-divider></mat-divider>
+
+    <mat-card-actions align="end">
+
+       <button
+    mat-stroked-button
+    color="primary"
+    [routerLink]="['/users', user.id, 'roles']">
+
+    <mat-icon>
+
+        admin_panel_settings
+
+    </mat-icon>
+
+    Assign Roles
+
+</button>
+
+        <button
+            mat-stroked-button
+            color="primary"
+            (click)="resetPassword.emit()">
+
+            <mat-icon>
+
+                lock_reset
+
+            </mat-icon>
+
+            Reset Password
+
+        </button>
+
+        <button
+            *ngIf="user.isActive"
+            mat-raised-button
+            color="warn"
+            (click)="deactivate.emit()">
+
+            <mat-icon>
+
+                block
+
+            </mat-icon>
+
+            Deactivate
+
+        </button>
+
+        <button
+            *ngIf="!user.isActive"
+            mat-raised-button
+            color="primary"
+            (click)="activate.emit()">
+
+            <mat-icon>
+
+                check_circle
+
+            </mat-icon>
+
+            Activate
+
+        </button>
+
+        
+
+    </mat-card-actions>
+
+</mat-card>

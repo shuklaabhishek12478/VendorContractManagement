@@ -1,0 +1,239 @@
+<div class="page-container">
+
+    <app-user-toolbar
+
+    [selectedUserId]="selectedUserId"
+
+    (edit)="editUser()"
+
+    (refresh)="refresh()"
+    (export)="exportUsers()"
+    (importUsers)="importUsers($event)">
+
+</app-user-toolbar>
+
+
+
+<div class="summary-grid">
+
+    <mat-card class="summary-card total">
+
+        <div class="card-icon">
+
+            👥
+
+        </div>
+
+        <div class="card-content">
+
+            <div class="number">
+
+                {{totalUsers}}
+
+            </div>
+
+            <div class="title">
+
+                Total Users
+
+            </div>
+
+        </div>
+
+    </mat-card>
+
+    <mat-card class="summary-card active">
+
+        <div class="card-icon">
+
+            ✅
+
+        </div>
+
+        <div class="card-content">
+
+            <div class="number">
+
+                {{activeUsers}}
+
+            </div>
+
+            <div class="title">
+
+                Active Users
+
+            </div>
+
+        </div>
+
+    </mat-card>
+
+    <mat-card class="summary-card inactive">
+
+        <div class="card-icon">
+
+            ⛔
+
+        </div>
+
+        <div class="card-content">
+
+            <div class="number">
+
+                {{inactiveUsers}}
+
+            </div>
+
+            <div class="title">
+
+                Inactive Users
+
+            </div>
+
+        </div>
+
+    </mat-card>
+
+    <mat-card class="summary-card admin">
+
+        <div class="card-icon">
+
+            🛡️
+
+        </div>
+
+        <div class="card-content">
+
+            <div class="number">
+
+                {{adminUsers}}
+
+            </div>
+
+            <div class="title">
+
+                Administrators
+
+            </div>
+
+        </div>
+
+    </mat-card>
+
+</div>
+
+<app-user-filter
+
+    (searchChanged)="onSearch($event)"
+
+    (statusChanged)="onStatusChanged($event)"
+
+    (roleChanged)="onRoleChanged($event)">
+
+</app-user-filter>
+
+    <div class="grid-card">
+
+        <ag-grid-angular
+    class="ag-theme-quartz"
+    style="width:100%;height:100%;"
+
+    [rowData]="filteredUsers"
+    [columnDefs]="columnDefs"
+    [defaultColDef]="defaultColDef"
+
+    [rowSelection]="rowSelection"
+
+    [pagination]="pagination"
+    [paginationPageSize]="paginationPageSize"
+    [paginationPageSizeSelector]="[10,20,50,100]"
+
+    [animateRows]="animateRows"
+    [rowHeight]="rowHeight"
+    [headerHeight]="headerHeight"
+
+    [loading]="loading"
+
+    [domLayout]="domLayout"
+
+    [suppressCellFocus]="true"
+    [suppressRowClickSelection]="false"
+
+    [overlayLoadingTemplate]="'Loading Users...'"
+    [overlayNoRowsTemplate]="'No Users Found'"
+
+    (gridReady)="onGridReady($event)"
+    (selectionChanged)="onSelectionChanged()"
+    (paginationChanged)="onPaginationChanged()"
+    (rowDoubleClicked)="onRowDoubleClicked($event)">
+</ag-grid-angular>
+
+         <div class="grid-footer">
+
+    <div>
+
+        Showing
+
+        {{ filteredUsers.length }}
+
+        of
+
+        {{ totalRecords }}
+
+        records
+
+    </div>
+
+    <div class="pager">
+
+        <button
+            mat-stroked-button
+            (click)="previousPage()"
+            [disabled]="currentPage===1">
+
+            Previous
+
+        </button>
+
+        <span>
+
+            Page
+
+            {{currentPage}}
+
+            of
+
+            {{totalPages}}
+
+        </span>
+
+        <button
+            mat-stroked-button
+            (click)="nextPage()"
+            [disabled]="currentPage===totalPages">
+
+            Next
+
+        </button>
+
+        <select
+            (change)="changePageSize($event)">
+
+            <option
+                *ngFor="let size of pageSizeOptions"
+                [value]="size"
+                [selected]="size===pageSize">
+
+                {{size}}
+
+            </option>
+
+        </select>
+
+    </div>
+
+</div>
+
+    </div>
+
+</div>

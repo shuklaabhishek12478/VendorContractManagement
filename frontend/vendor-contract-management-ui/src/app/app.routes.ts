@@ -22,6 +22,10 @@ import { CloneRoleComponent } from './features/role/pages/clone-role/clone-role'
 import { PermissionMatrixComponent } from './features/role/pages/permission-matrix/permission-matrix';
 import { PermissionExportComponent } from './features/role/pages/permission-matrix/components/permission-export/permission-export';
 import { PermissionImportComponent } from './features/role/pages/permission-matrix/components/permission-import/permission-import';
+import { UserDetailsComponent } from './features/admin/users/pages/user-details/user-details';
+import { EditUserComponent } from './features/admin/users/pages/edit-user/edit-user';
+import { ResetPasswordComponent } from './features/admin/users/components/reset-password/reset-password';
+import { AssignRolesComponent } from './features/admin/users/components/assign-roles/assign-roles';
 
 
 
@@ -122,6 +126,28 @@ export const routes: Routes = [
     component: PermissionImportComponent,
     canActivate: [authGuard]
 },
+{
+    path: 'users',
+    loadChildren: () =>
+        import('./features/admin/users/users.routes')
+            .then(m => m.USER_ROUTES)
+},
+{
+  path: 'users/:id',
+  component: UserDetailsComponent
+},
+{
+  path: 'users/edit/:id',
+  component: EditUserComponent
+},
+{
+    path: 'users/:id/roles',
+    component: AssignRolesComponent
+},
+{
+    path:'users/reset-password/:id',
+    component:ResetPasswordComponent
+}
     ]
   },
 

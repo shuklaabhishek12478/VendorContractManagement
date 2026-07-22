@@ -19,5 +19,11 @@ namespace VendorContractManagement.Application.Interfaces
         Task<List<RecentActivity>> GetByContractIdAsync(
     int contractId,
     int count);
+
+        Task<List<RecentActivity>> GetByUserIdAsync(
+    int userId,
+    int count);
     }
+
+
 }

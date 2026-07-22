@@ -1,0 +1,141 @@
+<div class="page-container">
+    <div class="flex justify-between items-center mb-6">
+     <h1 class="text-3xl font-bold">User Details Page </h1></div>
+
+<div class="hero">
+
+    <div class="hero-left">
+
+        <div class="avatar">
+
+            {{ user?.fullName?.charAt(0) }}
+
+        </div>
+
+        <div class="hero-info">
+
+            <h1>
+
+                {{ user?.fullName }}
+
+            </h1>
+
+            <p>
+
+                {{ user?.email }}
+
+            </p>
+
+            <div class="hero-tags">
+
+                <span
+                    class="tag success"
+                    *ngIf="user?.isActive">
+
+                    <mat-icon>check_circle</mat-icon>
+
+                    Active
+
+                </span>
+
+                <span
+                    class="tag danger"
+                    *ngIf="!user?.isActive">
+
+                    <mat-icon>block</mat-icon>
+
+                    Inactive
+
+                </span>
+
+                <span class="tag">
+
+                    <mat-icon>business</mat-icon>
+
+                    {{ user?.vendorName || 'No Vendor Assigned' }}
+
+                </span>
+
+                <span class="tag">
+
+                    <mat-icon>verified_user</mat-icon>
+
+                    {{ user?.roles?.length || 0 }} Roles
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <app-user-details-toolbar
+
+        [userId]="user?.id ?? 0"
+
+        [isActive]="user?.isActive ?? false"
+
+        (activate)="activate()"
+
+        (deactivate)="deactivate()"
+
+        (delete)="deleteUser()">
+
+    </app-user-details-toolbar>
+
+</div>
+<div
+    *ngIf="user"
+    class="page">
+
+    <div class="left-column">
+
+    <app-user-profile-card
+
+        [user]="user!">
+
+    </app-user-profile-card>
+
+</div>
+
+<div class="right-column">
+
+
+        <app-user-summary-cards
+
+        [user]="user!">
+        </app-user-summary-cards>
+
+
+  <app-user-general-info
+
+    [user]="user!">
+
+</app-user-general-info>
+
+<app-user-role-card
+
+    [roles]="user?.roles ?? []">
+
+</app-user-role-card>
+
+<app-user-security-card
+
+    [user]="user!"
+
+    (activate)="activate()"
+
+    (deactivate)="deactivate()"
+
+    (resetPassword)="resetPassword()">
+
+</app-user-security-card>
+
+        <app-user-recent-activity
+
+    [activities]="activities">
+
+</app-user-recent-activity>
+</div>
+  </div>  

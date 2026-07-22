@@ -27,14 +27,14 @@ namespace VendorContractManagement.Application.Mappings
 
             CreateMap<UpdateContractDto, Contract>();
 
-            CreateMap<User, UserDto>()
+            /*CreateMap<User, UserDto>()
     .ForMember(
         dest => dest.Roles,
         opt => opt.MapFrom(src =>
             src.UserRoles
                 .Where(x => x.Role != null)
                 .Select(x => x.Role.Name)
-                .ToList()));
+                .ToList()));*/
 
             CreateMap<CreateUserDto, User>();
 

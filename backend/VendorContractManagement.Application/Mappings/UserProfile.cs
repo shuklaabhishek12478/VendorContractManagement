@@ -52,5 +52,15 @@ public class UserProfile : Profile
             .ForMember(
                 dest => dest.UserRoles,
                 opt => opt.Ignore());
+
+        CreateMap<User, UserDto>()
+    .ForMember(d => d.CreatedOn,
+        o => o.MapFrom(s => s.CreatedOn))
+    .ForMember(d => d.ModifiedOn,
+        o => o.MapFrom(s => s.ModifiedOn))
+    .ForMember(d => d.CreatedBy,
+        o => o.MapFrom(s => s.CreatedBy))
+    .ForMember(d => d.ModifiedBy,
+        o => o.MapFrom(s => s.ModifiedBy));
     }
 }

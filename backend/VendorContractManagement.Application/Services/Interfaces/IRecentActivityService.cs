@@ -8,10 +8,10 @@ namespace VendorContractManagement.Application.Services.Interfaces
 {
     public interface IRecentActivityService
     {
-       
+
         Task<IEnumerable<RecentActivityDto>> GetRecentAsync(int count);
         Task<List<RecentActivityDto>> GetByVendorIdAsync(int vendorId, int count = 20);
-        
+
         Task LogAsync(
     string module,
     string action,
@@ -24,7 +24,12 @@ namespace VendorContractManagement.Application.Services.Interfaces
         Task<List<RecentActivityDto>> GetContractActivitiesAsync(
     int contractId,
     int count = 20);
+
+
+        Task<List<RecentActivityDto>> GetUserActivitiesAsync(
+        int userId,
+        int count = 20);
+
+
     }
-
-
 }
