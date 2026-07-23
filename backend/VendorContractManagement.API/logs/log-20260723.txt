@@ -1,0 +1,18 @@
+2026-07-23 21:28:11.123 +05:30 [INF] Executed DbCommand (27ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ApprovedBy], [c].[ApprovedOn], [c].[ContractNumber], [c].[ContractValue], [c].[CreatedBy], [c].[CreatedOn], [c].[Description], [c].[EndDate], [c].[IsActive], [c].[IsDeleted], [c].[IsRenewal], [c].[ModifiedBy], [c].[ModifiedOn], [c].[ParentContractId], [c].[RejectionReason], [c].[RenewalApprovedBy], [c].[RenewalApprovedOn], [c].[RenewalRequestedOn], [c].[StartDate], [c].[Status], [c].[SubmittedOn], [c].[TerminatedBy], [c].[TerminatedOn], [c].[TerminationReason], [c].[Title], [c].[UpdatedOn], [c].[VendorId], [t].[Id], [t].[AccountHolderName], [t].[AccountNumber], [t].[Address], [t].[BankName], [t].[BranchName], [t].[CompanyName], [t].[ContactPerson], [t].[CreatedBy], [t].[CreatedOn], [t].[Email], [t].[GSTNumber], [t].[IFSCCode], [t].[IsActive], [t].[IsDeleted], [t].[ModifiedBy], [t].[ModifiedOn], [t].[PANNumber], [t].[PaymentMethod], [t].[PaymentTerms], [t].[Phone], [t].[PreferredCurrency], [t].[SwiftCode], [t].[UpdatedOn], [t].[VendorName]
+FROM [Contracts] AS [c]
+INNER JOIN (
+    SELECT [v].[Id], [v].[AccountHolderName], [v].[AccountNumber], [v].[Address], [v].[BankName], [v].[BranchName], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedBy], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IFSCCode], [v].[IsActive], [v].[IsDeleted], [v].[ModifiedBy], [v].[ModifiedOn], [v].[PANNumber], [v].[PaymentMethod], [v].[PaymentTerms], [v].[Phone], [v].[PreferredCurrency], [v].[SwiftCode], [v].[UpdatedOn], [v].[VendorName]
+    FROM [Vendors] AS [v]
+    WHERE [v].[IsDeleted] = CAST(0 AS bit)
+) AS [t] ON [c].[VendorId] = [t].[Id]
+WHERE [c].[IsDeleted] = CAST(0 AS bit)
+2026-07-23 21:28:11.310 +05:30 [INF] Executed DbCommand (60ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ApprovedBy], [c].[ApprovedOn], [c].[ContractNumber], [c].[ContractValue], [c].[CreatedBy], [c].[CreatedOn], [c].[Description], [c].[EndDate], [c].[IsActive], [c].[IsDeleted], [c].[IsRenewal], [c].[ModifiedBy], [c].[ModifiedOn], [c].[ParentContractId], [c].[RejectionReason], [c].[RenewalApprovedBy], [c].[RenewalApprovedOn], [c].[RenewalRequestedOn], [c].[StartDate], [c].[Status], [c].[SubmittedOn], [c].[TerminatedBy], [c].[TerminatedOn], [c].[TerminationReason], [c].[Title], [c].[UpdatedOn], [c].[VendorId], [t].[Id], [t].[AccountHolderName], [t].[AccountNumber], [t].[Address], [t].[BankName], [t].[BranchName], [t].[CompanyName], [t].[ContactPerson], [t].[CreatedBy], [t].[CreatedOn], [t].[Email], [t].[GSTNumber], [t].[IFSCCode], [t].[IsActive], [t].[IsDeleted], [t].[ModifiedBy], [t].[ModifiedOn], [t].[PANNumber], [t].[PaymentMethod], [t].[PaymentTerms], [t].[Phone], [t].[PreferredCurrency], [t].[SwiftCode], [t].[UpdatedOn], [t].[VendorName]
+FROM [Contracts] AS [c]
+INNER JOIN (
+    SELECT [v].[Id], [v].[AccountHolderName], [v].[AccountNumber], [v].[Address], [v].[BankName], [v].[BranchName], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedBy], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IFSCCode], [v].[IsActive], [v].[IsDeleted], [v].[ModifiedBy], [v].[ModifiedOn], [v].[PANNumber], [v].[PaymentMethod], [v].[PaymentTerms], [v].[Phone], [v].[PreferredCurrency], [v].[SwiftCode], [v].[UpdatedOn], [v].[VendorName]
+    FROM [Vendors] AS [v]
+    WHERE [v].[IsDeleted] = CAST(0 AS bit)
+) AS [t] ON [c].[VendorId] = [t].[Id]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[Status] = 4

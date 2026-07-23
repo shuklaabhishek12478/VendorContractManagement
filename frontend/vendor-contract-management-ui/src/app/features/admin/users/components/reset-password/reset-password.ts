@@ -23,6 +23,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { UserService } from '../../../../../core/services/user.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-reset-password',
@@ -36,7 +37,9 @@ import { UserService } from '../../../../../core/services/user.service';
     MatInputModule,
     MatButtonModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
+    RouterModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './reset-password.html',
   styleUrl: './reset-password.scss'
@@ -53,7 +56,9 @@ export class ResetPasswordComponent implements OnInit {
 hideConfirmPassword = true;
 
 strength = 0;
+strengthPercentage = 0;
 
+strengthLabel = 'Weak';
 strengthText = 'Weak';
 
   constructor(
@@ -226,3 +231,4 @@ strengthText = 'Weak';
 }
 
 }
+
