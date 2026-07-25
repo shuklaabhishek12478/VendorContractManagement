@@ -115,7 +115,7 @@ namespace VendorContractManagement.Application.Services.Implementations
     entityId: vendor.Id,
     entityName: vendor.CompanyName,
     entityType: "Vendor",
-    performedBy: _userContext.UserId
+    performedBy: _userContext.UserId?.ToString() ?? "System"
 );
 
             await _auditLogRepository.AddAsync(new AuditLog
@@ -123,7 +123,7 @@ namespace VendorContractManagement.Application.Services.Implementations
                 Action = "Vendor Document Upload",
                 EntityName = "VendorDocument",
                 EntityId = document.Id,
-                PerformedBy = _userContext.UserId
+                PerformedBy = _userContext.UserId?.ToString() ?? "System"
             });
 
             await _unitOfWork.SaveChangesAsync();
@@ -163,7 +163,7 @@ namespace VendorContractManagement.Application.Services.Implementations
                 entityId: document.VendorId,
                 entityName: document.OriginalFileName,
                 entityType: "Vendor",
-                performedBy: _userContext.UserId
+                performedBy: _userContext.UserId?.ToString() ?? "System"
             );
 
             await _auditLogRepository.AddAsync(new AuditLog
@@ -171,7 +171,7 @@ namespace VendorContractManagement.Application.Services.Implementations
                 Action = "Vendor Document Delete",
                 EntityName = "VendorDocument",
                 EntityId = document.Id,
-                PerformedBy = _userContext.UserId
+                PerformedBy = _userContext.UserId?.ToString() ?? "System"
             });
 
             await _unitOfWork.SaveChangesAsync();

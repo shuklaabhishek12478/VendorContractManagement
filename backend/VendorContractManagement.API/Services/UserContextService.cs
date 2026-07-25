@@ -8,22 +8,38 @@ namespace VendorContractManagement.API.Services
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public UserContextService(IHttpContextAccessor httpContextAccessor)
+        public UserContextService(
+            IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }
 
-        public string UserId =>
-            _httpContextAccessor.HttpContext?
-                .User?.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? string.Empty;
+        public int? UserId
+        {
+            get
+            {
+                var value = _httpContextAccessor.HttpContext?
+                    .User?
+                    .FindFirst(ClaimTypes.NameIdentifier)?
+                    .Value;
 
+                if (int.TryParse(value, out var id))
+                    return id;
+
+                return null;
+            }
+        }
         public string? Email =>
             _httpContextAccessor.HttpContext?
-                .User?.FindFirst(ClaimTypes.Email)?.Value;
+                .User?
+                .FindFirst(ClaimTypes.Email)?
+                .Value;
 
         public string? Role =>
             _httpContextAccessor.HttpContext?
-                .User?.FindFirst(ClaimTypes.Role)?.Value;
+                .User?
+                .FindFirst(ClaimTypes.Role)?
+                .Value;
 
         public int? VendorId
         {
@@ -31,15 +47,16 @@ namespace VendorContractManagement.API.Services
             {
                 var value =
                     _httpContextAccessor.HttpContext?
-                    .User?
-                    .FindFirst("VendorId")?
-                    .Value;
+                        .User?
+                        .FindFirst("VendorId")?
+                        .Value;
 
-                if (int.TryParse(value, out int vendorId))
-                    return vendorId;
-
-                return null;
+                return int.TryParse(value, out var vendorId)
+                    ? vendorId
+                    : null;
             }
         }
+
+
     }
 }

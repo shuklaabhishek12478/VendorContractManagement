@@ -28,6 +28,8 @@ namespace VendorContractManagement.Infrastructure.Data
         public IPermissionRepository Permissions { get; }
 
         public IReportRepository Reports { get; }
+
+        public INotificationRepository Notifications { get; }
         public UnitOfWork(
             AppDbContext context,
             IVendorRepository vendorRepository,
@@ -40,7 +42,8 @@ namespace VendorContractManagement.Infrastructure.Data
             IVendorDocumentRepository vendorDocumentRepository,
             IRecentActivityRepository recentActivityRepository,
             IPermissionRepository permissionRepository,
-            IReportRepository reportRepository)
+            IReportRepository reportRepository,
+            INotificationRepository notificationRepository)
         {
             _context = context;
 
@@ -65,6 +68,8 @@ namespace VendorContractManagement.Infrastructure.Data
             Permissions = permissionRepository;
 
             Reports = reportRepository;
+
+            Notifications = notificationRepository;
         }
 
         public async Task<int> SaveChangesAsync()

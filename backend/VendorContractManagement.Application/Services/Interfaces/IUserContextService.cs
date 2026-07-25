@@ -2,7 +2,7 @@
 {
     public interface IUserContextService
     {
-        string UserId { get; }
+        int? UserId { get; }
 
         string? Email { get; }
 

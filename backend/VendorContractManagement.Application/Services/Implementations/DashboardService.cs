@@ -310,7 +310,7 @@ public class DashboardService : IDashboardService
         {
             notifications.Add(new NotificationDto
             {
-                Type = "PendingApproval",
+                Type = NotificationType.Approval,
                 Title = "Pending Approvals",
                 Message = $"{pending} contracts awaiting approval",
                 CreatedOn = DateTime.UtcNow
@@ -326,7 +326,7 @@ public class DashboardService : IDashboardService
         {
             notifications.Add(new NotificationDto
             {
-                Type = "ExpiringSoon",
+                Type = NotificationType.Warning,
                 Title = "Contracts Expiring",
                 Message = $"{expiring} contracts expire within 30 days",
                 CreatedOn = DateTime.UtcNow

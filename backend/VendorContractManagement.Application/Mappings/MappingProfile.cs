@@ -123,6 +123,10 @@ namespace VendorContractManagement.Application.Mappings
                     dest.Icon = src.Icon?.Trim() ?? "";
                 });
             CreateMap<Permission, PermissionDto>();
+
+            CreateMap<Notification, NotificationDto>();
+
+            CreateMap<CreateNotificationDto, Notification>();
         }
     }
 }

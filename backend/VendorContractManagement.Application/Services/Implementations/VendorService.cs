@@ -1,8 +1,10 @@
-﻿using VendorContractManagement.Application.Interfaces;
-using AutoMapper;
+﻿using AutoMapper;
 using VendorContractManagement.Application.DTOs;
+using VendorContractManagement.Application.Interfaces;
+using VendorContractManagement.Application.Services.Helpers;
 using VendorContractManagement.Application.Services.Interfaces;
 using VendorContractManagement.Domain.Entities;
+using VendorContractManagement.Domain.Enums;
 
 namespace VendorContractManagement.Application.Services.Implementations
 {
@@ -16,6 +18,7 @@ namespace VendorContractManagement.Application.Services.Implementations
         private readonly IContractRepository _contractRepository;
         private readonly IRecentActivityService _recentActivityService;
         private readonly IDocumentRepository _documentRepository;
+        private readonly NotificationHelper _notificationHelper;
         public VendorService(
              IVendorRepository vendorRepository,
              IMapper mapper,
@@ -24,7 +27,8 @@ namespace VendorContractManagement.Application.Services.Implementations
              IUserContextService userContext,
              IContractRepository contractRepository,
              IRecentActivityService recentActivityService,
-             IDocumentRepository documentRepository)
+             IDocumentRepository documentRepository,
+             NotificationHelper notificationHelper)
         {
             _vendorRepository = vendorRepository;
             _mapper = mapper;
@@ -34,6 +38,7 @@ namespace VendorContractManagement.Application.Services.Implementations
             _contractRepository = contractRepository;
             _recentActivityService = recentActivityService;
             _documentRepository = documentRepository;
+            _notificationHelper = notificationHelper;
         }
 
         public async Task<IEnumerable<VendorDto>> GetAllAsync()
@@ -67,6 +72,16 @@ namespace VendorContractManagement.Application.Services.Implementations
             await _vendorRepository.AddAsync(vendor);
 
             await _unitOfWork.SaveChangesAsync();
+
+            await _notificationHelper.CreateAsync(
+    module: "Vendor",
+   // type: NotificationType.Success,
+    title: "Vendor Created",
+    message: $"Vendor '{vendor.CompanyName}' has been created.",
+    entityId: vendor.Id,
+    actionUrl: $"/vendors/{vendor.Id}"
+);
+
             await _recentActivityService.LogAsync(
     module: "Vendor",
     action: "Created",
@@ -74,14 +89,14 @@ namespace VendorContractManagement.Application.Services.Implementations
     entityId: vendor.Id,
     entityName: vendor.CompanyName,
     entityType: "Vendor",
-    performedBy: _userContext.UserId
+    performedBy: _userContext.UserId?.ToString() ?? "System"
 );
             await _auditLogRepository.AddAsync(new AuditLog
             {
                 Action = "Create",
                 EntityName = "Vendor",
                 EntityId = vendor.Id,
-                PerformedBy = _userContext.UserId
+                PerformedBy = _userContext.UserId?.ToString() ?? "System"
             });
 
             await _unitOfWork.SaveChangesAsync();
@@ -101,6 +116,15 @@ namespace VendorContractManagement.Application.Services.Implementations
 
             await _unitOfWork.SaveChangesAsync();
 
+            await _notificationHelper.CreateAsync(
+    module: "Vendor",
+  //  type: NotificationType.Info,
+    title: "Vendor Updated",
+    message: $"Vendor '{vendor.CompanyName}' has been updated.",
+    entityId: vendor.Id,
+    actionUrl: $"/vendors/{vendor.Id}"
+);
+
             await _recentActivityService.LogAsync(
     module: "Vendor",
     action: "Updated",
@@ -108,7 +132,7 @@ namespace VendorContractManagement.Application.Services.Implementations
     entityId: vendor.Id,
     entityName: vendor.CompanyName,
     entityType: "Vendor",
-    performedBy: _userContext.UserId
+    performedBy: _userContext.UserId?.ToString() ?? "System"
 );
 
             await _auditLogRepository.AddAsync(new AuditLog
@@ -116,7 +140,7 @@ namespace VendorContractManagement.Application.Services.Implementations
                 Action = "Update",
                 EntityName = "Vendor",
                 EntityId = vendor.Id,
-                PerformedBy = _userContext.UserId
+                PerformedBy = _userContext.UserId?.ToString() ?? "System"
             });
 
             await _unitOfWork.SaveChangesAsync();
@@ -134,6 +158,15 @@ namespace VendorContractManagement.Application.Services.Implementations
             _vendorRepository.Update(vendor);
 
             await _unitOfWork.SaveChangesAsync();
+
+            await _notificationHelper.CreateAsync(
+    module: "Vendor",
+   // type: NotificationType.Warning,
+    title: "Vendor Deleted",
+    message: $"Vendor '{vendor.CompanyName}' has been deleted.",
+    entityId: vendor.Id
+);
+
             await _recentActivityService.LogAsync(
      module: "Vendor",
      action: "Deleted",
@@ -141,14 +174,14 @@ namespace VendorContractManagement.Application.Services.Implementations
      entityId: vendor.Id,
      entityName: vendor.CompanyName,
      entityType: "Vendor",
-     performedBy: _userContext.UserId
+     performedBy: _userContext.UserId?.ToString() ?? "System"
  );
             await _auditLogRepository.AddAsync(new AuditLog
             {
                 Action = "Delete",
                 EntityName = "Vendor",
                 EntityId = vendor.Id,
-                PerformedBy = _userContext.UserId
+                PerformedBy = _userContext.UserId?.ToString() ?? "System"
             });
 
             await _unitOfWork.SaveChangesAsync();
@@ -167,6 +200,16 @@ namespace VendorContractManagement.Application.Services.Implementations
             _vendorRepository.Update(vendor);
 
             await _unitOfWork.SaveChangesAsync();
+
+            await _notificationHelper.CreateAsync(
+    module: "Vendor",
+   // type: NotificationType.Success,
+    title: "Vendor Activated",
+    message: $"Vendor '{vendor.CompanyName}' has been activated.",
+    entityId: vendor.Id,
+    actionUrl: $"/vendors/{vendor.Id}"
+);
+
             await _recentActivityService.LogAsync(
     module: "Vendor",
     action: "Activated",
@@ -174,7 +217,7 @@ namespace VendorContractManagement.Application.Services.Implementations
     entityId: vendor.Id,
     entityName: vendor.CompanyName,
     entityType: "Vendor",
-    performedBy: _userContext.UserId
+    performedBy: _userContext.UserId?.ToString() ?? "System"
 );
         }
 
@@ -190,6 +233,15 @@ namespace VendorContractManagement.Application.Services.Implementations
             _vendorRepository.Update(vendor);
 
             await _unitOfWork.SaveChangesAsync();
+
+            await _notificationHelper.CreateAsync(
+     module: "Vendor",
+     title: "Vendor Deactivated",
+     message: $"Vendor '{vendor.CompanyName}' has been deactivated.",
+     entityId: vendor.Id,
+     actionUrl: $"/vendors/{vendor.Id}"
+ );
+
             await _recentActivityService.LogAsync(
     module: "Vendor",
     action: "Deactivated",
@@ -197,7 +249,7 @@ namespace VendorContractManagement.Application.Services.Implementations
     entityId: vendor.Id,
     entityName: vendor.CompanyName,
     entityType: "Vendor",
-    performedBy: _userContext.UserId
+    performedBy: _userContext.UserId?.ToString() ?? "System"
 );
         }
 

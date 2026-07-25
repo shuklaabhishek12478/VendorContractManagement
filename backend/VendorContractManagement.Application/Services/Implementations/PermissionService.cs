@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
 using VendorContractManagement.Application.DTOs.Permission;
 using VendorContractManagement.Application.Interfaces;
 using VendorContractManagement.Application.Services.Interfaces;
@@ -10,6 +11,7 @@ namespace VendorContractManagement.Application.Services.Implementations
         private readonly IPermissionRepository _permissionRepository;
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
+        private readonly ILogger<PermissionService> _logger;
 
         public PermissionService(
             IPermissionRepository permissionRepository,
@@ -30,16 +32,20 @@ namespace VendorContractManagement.Application.Services.Implementations
         }
 
         public async Task<bool> HasPermissionAsync(
-     int userId,
-     string permission)
+    int userId,
+    string permission)
         {
             var user = await _userRepository.GetByIdAsync(userId);
 
             if (user == null)
+            {
+                Console.WriteLine("User NOT FOUND");
                 return false;
+            }
 
             Console.WriteLine("========== USER ==========");
             Console.WriteLine($"User Id = {user.Id}");
+            Console.WriteLine($"Checking Permission = {permission}");
 
             foreach (var userRole in user.UserRoles)
             {
@@ -49,15 +55,18 @@ namespace VendorContractManagement.Application.Services.Implementations
                 {
                     foreach (var rp in userRole.Role.RolePermissions)
                     {
-                        Console.WriteLine(
-                            $"Permission = {rp.Permission?.Code}");
+                        Console.WriteLine($"Permission = {rp.Permission?.Code}");
                     }
                 }
             }
 
-            return user.UserRoles
+            var hasPermission = user.UserRoles
                 .SelectMany(x => x.Role.RolePermissions)
                 .Any(x => x.Permission.Code == permission);
+
+            Console.WriteLine($"Final Result = {hasPermission}");
+
+            return hasPermission;
         }
 
         public async Task<PermissionDto?> GetByIdAsync(int id)

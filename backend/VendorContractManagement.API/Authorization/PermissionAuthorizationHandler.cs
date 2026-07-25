@@ -16,14 +16,15 @@ namespace VendorContractManagement.API.Authorization
         }
 
         protected override async Task HandleRequirementAsync(
-    AuthorizationHandlerContext context,
-    PermissionRequirement requirement)
+        AuthorizationHandlerContext context,
+        PermissionRequirement requirement)
         {
             var userIdClaim =
                 context.User.FindFirst(ClaimTypes.NameIdentifier);
 
-            Console.WriteLine($"User Claim = {userIdClaim?.Value}");
-            Console.WriteLine($"Permission = {requirement.Permission}");
+            Console.WriteLine("========== AUTH ==========");
+            Console.WriteLine($"JWT UserId = {userIdClaim?.Value}");
+            Console.WriteLine($"Required Permission = {requirement.Permission}");
 
             if (userIdClaim == null)
                 return;

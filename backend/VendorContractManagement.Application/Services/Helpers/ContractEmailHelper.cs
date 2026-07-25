@@ -94,5 +94,78 @@ Vendor Contract Management Team";
                 subject,
                 body);
         }
+
+        public async Task SendRenewalApprovedEmail(
+    Contract contract,
+    string toEmail)
+        {
+            var subject = "Contract Renewal Approved";
+
+            var body = $@"
+        Dear Vendor,
+
+        Your contract renewal has been approved.
+
+        Contract Number : {contract.ContractNumber}
+        Title : {contract.Title}
+
+        Regards,
+        Vendor Contract Management Team";
+
+            await _emailService.SendEmailAsync(
+                toEmail,
+                subject,
+                body);
+        }
+
+        public async Task SendRenewalActivatedEmail(
+    Contract contract,
+    string toEmail)
+        {
+            var subject = "Contract Renewal Activated";
+
+            var body = $@"
+        Dear Vendor,
+
+        Your renewed contract is now Active.
+
+        Contract Number : {contract.ContractNumber}
+        Title : {contract.Title}
+
+        Regards,
+        Vendor Contract Management Team";
+
+            await _emailService.SendEmailAsync(
+                toEmail,
+                subject,
+                body);
+        }
+
+        public async Task SendTerminatedEmail(
+    Contract contract,
+    string toEmail,
+    string reason)
+        {
+            var subject = "Contract Terminated";
+
+            var body = $@"
+        Dear Vendor,
+
+        Your contract has been terminated.
+
+        Contract Number : {contract.ContractNumber}
+        Title : {contract.Title}
+
+        Reason:
+        {reason}
+
+        Regards,
+        Vendor Contract Management Team";
+
+            await _emailService.SendEmailAsync(
+                toEmail,
+                subject,
+                body);
+        }
     }
 }

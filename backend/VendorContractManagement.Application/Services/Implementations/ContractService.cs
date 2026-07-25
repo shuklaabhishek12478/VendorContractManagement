@@ -20,6 +20,7 @@ namespace VendorContractManagement.Application.Services.Implementations
         private readonly IEmailService _emailService;
         private readonly ContractEmailHelper _emailHelper;
         private readonly IRecentActivityService _recentActivityService;
+        private readonly NotificationHelper _notificationHelper;
         public ContractService(
             IContractRepository contractRepository,
             IUnitOfWork unitOfWork,
@@ -28,7 +29,8 @@ namespace VendorContractManagement.Application.Services.Implementations
             IUserContextService userContext,
             IEmailService emailService,
             ContractEmailHelper emailHelper,
-            IRecentActivityService recentActivityService)
+            IRecentActivityService recentActivityService,
+            NotificationHelper notificationHelper)
         {
             _contractRepository = contractRepository;
             _unitOfWork = unitOfWork;
@@ -38,6 +40,7 @@ namespace VendorContractManagement.Application.Services.Implementations
             _emailService = emailService;
             _emailHelper = emailHelper;
             _recentActivityService = recentActivityService;
+            _notificationHelper = notificationHelper;
         }
 
         public async Task<IEnumerable<ContractDto>> GetAllAsync()
@@ -100,14 +103,22 @@ namespace VendorContractManagement.Application.Services.Implementations
 
             await _unitOfWork.SaveChangesAsync();
 
+            await _notificationHelper.CreateAsync(
+    module: "Contract",
+    title: "Contract Created",
+    message: $"Contract '{contract.ContractNumber}' has been created.",
+    entityId: contract.Id,
+    actionUrl: $"/contracts/{contract.Id}"
+);
+
             await _auditLogRepository.AddAsync(
              new AuditLog
              {
         Action = "CREATE",
         EntityName = "Contract",
         EntityId = contract.Id,
-        PerformedBy = _userContext.UserId
-            });
+                 PerformedBy = _userContext.UserId?.ToString() ?? "System"
+             });
 
             await _unitOfWork.SaveChangesAsync();
 
@@ -118,7 +129,7 @@ namespace VendorContractManagement.Application.Services.Implementations
     entityId: contract.Id,
     entityName: contract.ContractNumber,
     entityType: "Contract",
-    performedBy: _userContext.UserId
+    performedBy: _userContext.UserId?.ToString() ?? "System"?.ToString() ?? "System"
 );
             return;
         }
@@ -154,7 +165,7 @@ namespace VendorContractManagement.Application.Services.Implementations
                  Action = "CREATE",
                  EntityName = "Contract",
                  EntityId = contract.Id,
-                 PerformedBy = _userContext.UserId
+                 PerformedBy = _userContext.UserId?.ToString() ?? "System"
              });
 
              await _unitOfWork.SaveChangesAsync();
@@ -165,7 +176,7 @@ namespace VendorContractManagement.Application.Services.Implementations
      entityId: contract.Id,
      entityName: contract.ContractNumber,
      entityType: "Contract",
-     performedBy: _userContext.UserId
+     performedBy: _userContext.UserId?.ToString() ?? "System"?.ToString() ?? "System"
  );
         }*/
 
@@ -196,12 +207,20 @@ namespace VendorContractManagement.Application.Services.Implementations
             _contractRepository.Update(contract);
             await _unitOfWork.SaveChangesAsync();
 
+            await _notificationHelper.CreateAsync(
+    module: "Contract",
+    title: "Contract Updated",
+    message: $"Contract '{contract.ContractNumber}' has been updated.",
+    entityId: contract.Id,
+    actionUrl: $"/contracts/{contract.Id}"
+);
+
             await _auditLogRepository.AddAsync(new AuditLog
             {
                 Action = "UPDATE",
                 EntityName = "Contract",
                 EntityId = contract.Id,
-                PerformedBy = _userContext.UserId
+                PerformedBy = _userContext.UserId?.ToString() ?? "System"
             });
 
             await _unitOfWork.SaveChangesAsync();
@@ -212,7 +231,7 @@ namespace VendorContractManagement.Application.Services.Implementations
     entityId: contract.Id,
     entityName: contract.ContractNumber,
     entityType: "Contract",
-    performedBy: _userContext.UserId
+    performedBy: _userContext.UserId?.ToString() ?? "System"
 );
         }
 
@@ -233,13 +252,21 @@ namespace VendorContractManagement.Application.Services.Implementations
 
             await _unitOfWork.SaveChangesAsync();
 
+            await _notificationHelper.CreateAsync(
+    module: "Contract",
+    title: "Contract Archived",
+    message: $"Contract '{contract.ContractNumber}' has been archived.",
+    entityId: contract.Id,
+    actionUrl: $"/contracts/{contract.Id}"
+);
+
             await _auditLogRepository.AddAsync(
                 new AuditLog
                 {
                     Action = "ARCHIVE",
                     EntityName = "Contract",
                     EntityId = contract.Id,
-                    PerformedBy = _userContext.UserId
+                    PerformedBy = _userContext.UserId?.ToString() ?? "System"
                 });
 
             await _recentActivityService.LogAsync(
@@ -250,7 +277,7 @@ namespace VendorContractManagement.Application.Services.Implementations
                 entityId: contract.Id,
                 entityName: contract.ContractNumber,
                 entityType: "Contract",
-                performedBy: _userContext.UserId);
+                performedBy: _userContext.UserId?.ToString() ?? "System");
 
             await _unitOfWork.SaveChangesAsync();
         }
@@ -273,12 +300,19 @@ namespace VendorContractManagement.Application.Services.Implementations
             _contractRepository.Update(contract);
             await _unitOfWork.SaveChangesAsync();
 
+            await _notificationHelper.CreateAsync(
+    module: "Contract",
+    title: "Contract Deleted",
+    message: $"Contract '{contract.ContractNumber}' has been deleted.",
+    entityId: contract.Id
+);
+
             await _auditLogRepository.AddAsync(new AuditLog
             {
                 Action = "DELETE",
                 EntityName = "Contract",
                 EntityId = contract.Id,
-                PerformedBy = _userContext.UserId
+                PerformedBy = _userContext.UserId?.ToString() ?? "System"
             });
 
             await _unitOfWork.SaveChangesAsync();
@@ -290,7 +324,7 @@ namespace VendorContractManagement.Application.Services.Implementations
     entityId: contract.Id,
     entityName: contract.ContractNumber,
     entityType: "Contract",
-    performedBy: _userContext.UserId
+    performedBy: _userContext.UserId?.ToString() ?? "System"
 );
         }
 
@@ -336,13 +370,21 @@ namespace VendorContractManagement.Application.Services.Implementations
 
             await _unitOfWork.SaveChangesAsync();
 
+            await _notificationHelper.CreateAsync(
+    module: "Contract",
+    title: "Contract Submitted",
+    message: $"Contract '{contract.ContractNumber}' submitted for approval.",
+    entityId: contract.Id,
+    actionUrl: $"/contracts/{contract.Id}"
+);
+
             await _auditLogRepository.AddAsync(
                 new AuditLog
                 {
                     Action = "SUBMIT",
                     EntityName = "Contract",
                     EntityId = contract.Id,
-                    PerformedBy = _userContext.UserId
+                    PerformedBy = _userContext.UserId?.ToString() ?? "System"
                 });
 
             await _unitOfWork.SaveChangesAsync();
@@ -353,7 +395,7 @@ namespace VendorContractManagement.Application.Services.Implementations
     entityId: contract.Id,
     entityName: contract.ContractNumber,
     entityType: "Contract",
-    performedBy: _userContext.UserId
+    performedBy: _userContext.UserId?.ToString() ?? "System"
 );
 
             await _emailHelper.SendSubmittedEmail(
@@ -380,7 +422,7 @@ namespace VendorContractManagement.Application.Services.Implementations
                 ContractStatus.Approved;
 
             contract.ApprovedBy =
-                _userContext.UserId;
+                 _userContext.UserId?.ToString() ?? "System";
 
             contract.ApprovedOn =
                 DateTime.UtcNow;
@@ -389,13 +431,21 @@ namespace VendorContractManagement.Application.Services.Implementations
 
             await _unitOfWork.SaveChangesAsync();
 
+            await _notificationHelper.CreateAsync(
+    module: "Contract",
+    title: "Contract Approved",
+    message: $"Contract '{contract.ContractNumber}' has been approved.",
+    entityId: contract.Id,
+    actionUrl: $"/contracts/{contract.Id}"
+);
+
             await _auditLogRepository.AddAsync(
                 new AuditLog
                 {
                     Action = "APPROVE",
                     EntityName = "Contract",
                     EntityId = contract.Id,
-                    PerformedBy = _userContext.UserId
+                    PerformedBy = _userContext.UserId?.ToString() ?? "System"
                 });
 
             await _recentActivityService.LogAsync(
@@ -405,7 +455,7 @@ namespace VendorContractManagement.Application.Services.Implementations
     entityId: contract.Id,
     entityName: contract.ContractNumber,
     entityType: "Contract",
-    performedBy: _userContext.UserId
+    performedBy: _userContext.UserId?.ToString() ?? "System"
 );
 
             await _unitOfWork.SaveChangesAsync();
@@ -437,13 +487,21 @@ namespace VendorContractManagement.Application.Services.Implementations
 
             await _unitOfWork.SaveChangesAsync();
 
+            await _notificationHelper.CreateAsync(
+    module: "Contract",
+    title: "Contract Activated",
+    message: $"Contract '{contract.ContractNumber}' is now active.",
+    entityId: contract.Id,
+    actionUrl: $"/contracts/{contract.Id}"
+);
+
             await _auditLogRepository.AddAsync(
                 new AuditLog
                 {
                     Action = "ACTIVATE",
                     EntityName = "Contract",
                     EntityId = contract.Id,
-                    PerformedBy = _userContext.UserId
+                    PerformedBy = _userContext.UserId?.ToString() ?? "System"
                 });
 
             await _recentActivityService.LogAsync(
@@ -453,7 +511,7 @@ namespace VendorContractManagement.Application.Services.Implementations
                 entityId: contract.Id,
                 entityName: contract.ContractNumber,
                 entityType: "Contract",
-                performedBy: _userContext.UserId
+                performedBy: _userContext.UserId?.ToString() ?? "System"
             );
 
             await _unitOfWork.SaveChangesAsync();
@@ -494,13 +552,21 @@ namespace VendorContractManagement.Application.Services.Implementations
 
             await _unitOfWork.SaveChangesAsync();
 
+            await _notificationHelper.CreateAsync(
+    module: "Contract",
+    title: "Contract Rejected",
+    message: $"Contract '{contract.ContractNumber}' has been rejected.",
+    entityId: contract.Id,
+    actionUrl: $"/contracts/{contract.Id}"
+);
+
             await _auditLogRepository.AddAsync(
                 new AuditLog
                 {
                     Action = "REJECT",
                     EntityName = "Contract",
                     EntityId = contract.Id,
-                    PerformedBy = _userContext.UserId
+                    PerformedBy = _userContext.UserId?.ToString() ?? "System"
                 });
 
             await _recentActivityService.LogAsync(
@@ -510,7 +576,7 @@ namespace VendorContractManagement.Application.Services.Implementations
                 entityId: contract.Id,
                 entityName: contract.ContractNumber,
                 entityType: "Contract",
-                performedBy: _userContext.UserId
+                performedBy: _userContext.UserId?.ToString() ?? "System"
 );
 
             await _unitOfWork.SaveChangesAsync();
@@ -574,13 +640,21 @@ namespace VendorContractManagement.Application.Services.Implementations
 
             await _unitOfWork.SaveChangesAsync();
 
+            await _notificationHelper.CreateAsync(
+    module: "Contract",
+    title: "Contract Resubmitted",
+    message: $"Contract '{contract.ContractNumber}' has been resubmitted.",
+    entityId: contract.Id,
+    actionUrl: $"/contracts/{contract.Id}"
+);
+
             await _auditLogRepository.AddAsync(
                 new AuditLog
                 {
                     Action = "SUBMIT_AGAIN",
                     EntityName = "Contract",
                     EntityId = contract.Id,
-                    PerformedBy = _userContext.UserId
+                    PerformedBy = _userContext.UserId?.ToString() ?? "System"
                 });
 
             await _recentActivityService.LogAsync(
@@ -591,7 +665,7 @@ namespace VendorContractManagement.Application.Services.Implementations
                 entityId: contract.Id,
                 entityName: contract.ContractNumber,
                 entityType: "Contract",
-                performedBy: _userContext.UserId);
+                performedBy: _userContext.UserId?.ToString() ?? "System");
 
             await _unitOfWork.SaveChangesAsync();
         }
@@ -624,6 +698,14 @@ namespace VendorContractManagement.Application.Services.Implementations
                         EntityId = contract.Id,
                         PerformedBy = "System"
                     });
+
+                await _notificationHelper.CreateAsync(
+    module: "Contract",
+    title: "Contract Expired",
+    message: $"Contract '{contract.ContractNumber}' has expired.",
+    entityId: contract.Id,
+    actionUrl: $"/contracts/{contract.Id}"
+);
 
                 await _recentActivityService.LogAsync(
                     module: "Contract",
@@ -702,13 +784,21 @@ namespace VendorContractManagement.Application.Services.Implementations
 
             await _unitOfWork.SaveChangesAsync();
 
+            await _notificationHelper.CreateAsync(
+    module: "Renewal",
+    title: "Renewal Created",
+    message: $"Renewal '{renewedContract.ContractNumber}' has been created.",
+    entityId: renewedContract.Id,
+    actionUrl: $"/contracts/{renewedContract.Id}"
+);
+
             await _auditLogRepository.AddAsync(new AuditLog
         {
             Action = "RENEW",
             EntityName = "Contract",
             EntityId = renewedContract.Id,
-            PerformedBy = _userContext.UserId
-        });
+                PerformedBy = _userContext.UserId?.ToString() ?? "System"
+            });
 
             await _recentActivityService.LogAsync(
                  module: "Renewal",
@@ -717,7 +807,7 @@ namespace VendorContractManagement.Application.Services.Implementations
                  entityId: renewedContract.Id,
                  entityName: renewedContract.ContractNumber,
                  entityType: "Contract",
-                 performedBy: _userContext.UserId
+                 performedBy: _userContext.UserId?.ToString() ?? "System"
 );
 
             await _unitOfWork.SaveChangesAsync();
@@ -767,7 +857,7 @@ namespace VendorContractManagement.Application.Services.Implementations
                 DateTime.UtcNow;
 
             renewal.RenewalApprovedBy =
-                _userContext.UserId;
+                 _userContext.UserId?.ToString() ?? "System";
 
             /*renewal.Status = ContractStatus.Active;
 
@@ -793,14 +883,22 @@ namespace VendorContractManagement.Application.Services.Implementations
 
             await _unitOfWork.SaveChangesAsync();
 
-            await _auditLogRepository.AddAsync(new AuditLog
-               {
-                   Action = "APPROVE_RENEWAL",
-                   EntityName = "Contract",
-                   EntityId = renewal.Id,
-                   PerformedBy =
-                     _userContext.UserId
-              });
+            await _notificationHelper.CreateAsync(
+     module: "Renewal",
+     title: "Renewal Approved",
+     message: $"Renewal '{renewal.ContractNumber}' has been approved.",
+     entityId: renewal.Id,
+     actionUrl: $"/contracts/{renewal.Id}"
+ );
+
+            await _auditLogRepository.AddAsync(
+                new AuditLog
+                {
+                    Action = "APPROVE_RENEWAL",
+                    EntityName = "Contract",
+                    EntityId = renewal.Id,
+                    PerformedBy = _userContext.UserId?.ToString() ?? "System"
+                });
 
             await _recentActivityService.LogAsync(
                 module: "Renewal",
@@ -809,10 +907,15 @@ namespace VendorContractManagement.Application.Services.Implementations
                 entityId: renewal.Id,
                 entityName: renewal.ContractNumber,
                 entityType: "Contract",
-                performedBy: _userContext.UserId
-             );
+                performedBy: _userContext.UserId?.ToString() ?? "System"
+            );
 
             await _unitOfWork.SaveChangesAsync();
+
+            await _emailHelper.SendRenewalApprovedEmail(
+                renewal,
+                renewal.Vendor.Email
+            );
         }
 
         public async Task ActivateRenewalAsync(int id)
@@ -862,27 +965,39 @@ namespace VendorContractManagement.Application.Services.Implementations
 
             await _unitOfWork.SaveChangesAsync();
 
+            await _notificationHelper.CreateAsync(
+        module: "Renewal",
+        title: "Renewal Activated",
+        message: $"Renewal '{renewal.ContractNumber}' is now active.",
+        entityId: renewal.Id,
+        actionUrl: $"/contracts/{renewal.Id}"
+    );
+
             await _auditLogRepository.AddAsync(
                 new AuditLog
                 {
                     Action = "ACTIVATE_RENEWAL",
                     EntityName = "Contract",
                     EntityId = renewal.Id,
-                    PerformedBy =
-                        _userContext.UserId
+                    PerformedBy = _userContext.UserId?.ToString() ?? "System"
                 });
 
             await _recentActivityService.LogAsync(
-    module: "Renewal",
-    action: "Activated",
-    description: $"Renewal {renewal.Title} ({renewal.ContractNumber}) activated",
-    entityId: renewal.Id,
-    entityName: renewal.ContractNumber,
-    entityType: "Contract",
-    performedBy: _userContext.UserId
-);
+                module: "Renewal",
+                action: "Activated",
+                description: $"Renewal {renewal.Title} ({renewal.ContractNumber}) activated",
+                entityId: renewal.Id,
+                entityName: renewal.ContractNumber,
+                entityType: "Contract",
+                performedBy: _userContext.UserId?.ToString() ?? "System"
+            );
 
             await _unitOfWork.SaveChangesAsync();
+
+            await _emailHelper.SendRenewalActivatedEmail(
+                renewal,
+                renewal.Vendor.Email
+            );
         }
 
         public async Task RejectRenewalAsync(int id,string reason)
@@ -924,10 +1039,18 @@ namespace VendorContractManagement.Application.Services.Implementations
                   EntityName = "Contract",
                   EntityId = renewal.Id,
                   PerformedBy =
-                     _userContext.UserId
-                  });
+                      _userContext.UserId?.ToString() ?? "System"
+            });
 
             await _unitOfWork.SaveChangesAsync();
+
+            await _notificationHelper.CreateAsync(
+    module: "Renewal",
+    title: "Renewal Rejected",
+    message: $"Renewal '{renewal.ContractNumber}' has been rejected.",
+    entityId: renewal.Id,
+    actionUrl: $"/contracts/{renewal.Id}"
+);
 
             await _recentActivityService.LogAsync(
     module: "Renewal",
@@ -936,7 +1059,7 @@ namespace VendorContractManagement.Application.Services.Implementations
     entityId: renewal.Id,
     entityName: renewal.ContractNumber,
     entityType: "Contract",
-    performedBy: _userContext.UserId
+    performedBy: _userContext.UserId?.ToString() ?? "System"
 );
         }
 
@@ -965,7 +1088,7 @@ namespace VendorContractManagement.Application.Services.Implementations
                 ContractStatus.Terminated;
 
             contract.TerminatedBy =
-                _userContext.UserId;
+                 _userContext.UserId?.ToString() ?? "System";
 
             contract.TerminatedOn =
                 DateTime.UtcNow;
@@ -977,13 +1100,21 @@ namespace VendorContractManagement.Application.Services.Implementations
 
             await _unitOfWork.SaveChangesAsync();
 
+            await _notificationHelper.CreateAsync(
+    module: "Contract",
+    title: "Contract Terminated",
+    message: $"Contract '{contract.ContractNumber}' has been terminated.",
+    entityId: contract.Id,
+    actionUrl: $"/contracts/{contract.Id}"
+);
+
             await _auditLogRepository.AddAsync(
                 new AuditLog
                 {
                     Action = "TERMINATE",
                     EntityName = "Contract",
                     EntityId = contract.Id,
-                    PerformedBy = _userContext.UserId
+                    PerformedBy = _userContext.UserId?.ToString() ?? "System"
                 });
 
             await _recentActivityService.LogAsync(
@@ -993,15 +1124,15 @@ namespace VendorContractManagement.Application.Services.Implementations
     entityId: contract.Id,
     entityName: contract.ContractNumber,
     entityType: "Contract",
-    performedBy: _userContext.UserId
+    performedBy: _userContext.UserId?.ToString() ?? "System"
 );
 
             await _unitOfWork.SaveChangesAsync();
 
-            /*await _emailHelper.SendTerminatedEmail(
+            await _emailHelper.SendTerminatedEmail(
                 contract,
                 contract.Vendor.Email,
-                reason);*/
+                reason);
         }
 
         private bool CanEditContract(ContractStatus status)

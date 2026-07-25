@@ -32,7 +32,9 @@ using VendorContractManagement.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using VendorContractManagement.API.Authorization;
 using VendorContractManagement.Application.Services;
-
+using VendorContractManagement.Application.Services.Interfaces;
+using VendorContractManagement.Infrastructure.Services;
+using VendorContractManagement.Infrastructure.SignalR;
 Log.Logger = new LoggerConfiguration()
     .MinimumLevel.Information()
     .WriteTo.Console()
@@ -226,6 +228,11 @@ builder.Services.AddScoped<IPermissionImportService,PermissionImportService>();
 builder.Services.AddScoped<IPermissionValidationService,PermissionValidationService>();
 builder.Services.AddScoped<IReportRepository, ReportRepository>();
 builder.Services.AddScoped<IReportService, ReportService>();
+builder.Services.AddScoped<INotificationRepository,NotificationRepository>();
+builder.Services.AddScoped<NotificationHelper>();
+builder.Services.AddSignalR();
+builder.Services.AddScoped<INotificationHub, NotificationHubService>();
+builder.Services.AddScoped<IUserContextService, UserContextService>();
 var app = builder.Build();
 
 app.UseSerilogRequestLogging();
@@ -274,6 +281,6 @@ using (var scope = app.Services.CreateScope())
 
     await DbSeeder.SeedAdminAsync(context);
 }
-
+app.MapHub<NotificationHub>("/hubs/notifications");
 
 app.Run();

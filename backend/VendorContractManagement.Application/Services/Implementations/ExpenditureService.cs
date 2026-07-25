@@ -1,10 +1,11 @@
 ﻿using AutoMapper;
+using ClosedXML.Excel;
 using VendorContractManagement.Application.DTOs.Expenditure;
 using VendorContractManagement.Application.Exceptions;
 using VendorContractManagement.Application.Interfaces;
+using VendorContractManagement.Application.Services.Helpers;
 using VendorContractManagement.Application.Services.Interfaces;
 using VendorContractManagement.Domain.Entities;
-using ClosedXML.Excel;
 
 namespace VendorContractManagement.Application.Services.Implementations;
 
@@ -21,12 +22,15 @@ public class ExpenditureService
 
     private readonly IAuditLogService _auditLogService;
 
+    private readonly NotificationHelper _notificationHelper;
+
     public ExpenditureService(
         IExpenditureRepository repository,
         IUnitOfWork unitOfWork,
         IMapper mapper,
         IRecentActivityService recentActivityService,
-        IAuditLogService auditLogService)
+        IAuditLogService auditLogService,
+        NotificationHelper notificationHelper)
     {
         _repository = repository;
 
@@ -37,6 +41,8 @@ public class ExpenditureService
         _recentActivityService = recentActivityService;
 
         _auditLogService = auditLogService;
+
+        _notificationHelper = notificationHelper;
     }
 
     public async Task<List<ExpenditureDto>> GetAllAsync()
@@ -143,6 +149,14 @@ public class ExpenditureService
             await _repository.AddAsync(entity);
 
             await _unitOfWork.SaveChangesAsync();
+
+            await _notificationHelper.CreateAsync(
+    module: "Expenditure",
+    title: "Expenditure Created",
+    message: $"Expense '{entity.ExpenseNumber}' has been created.",
+    entityId: entity.Id,
+    actionUrl: $"/expenditures/{entity.Id}"
+);
         }
         catch (Exception ex)
         {
@@ -237,6 +251,14 @@ public class ExpenditureService
 
         await _unitOfWork.SaveChangesAsync();
 
+        await _notificationHelper.CreateAsync(
+    module: "Expenditure",
+    title: "Expenditure Updated",
+    message: $"Expense '{entity.ExpenseNumber}' has been updated.",
+    entityId: entity.Id,
+    actionUrl: $"/expenditures/{entity.Id}"
+);
+
         // Recent Activity
 
         await _recentActivityService.LogAsync(
@@ -297,6 +319,13 @@ public class ExpenditureService
         _repository.Delete(entity);
 
         await _unitOfWork.SaveChangesAsync();
+
+        await _notificationHelper.CreateAsync(
+    module: "Expenditure",
+    title: "Expenditure Deleted",
+    message: $"Expense '{entity.ExpenseNumber}' has been deleted.",
+    entityId: entity.Id
+);
 
         // Recent Activity
 

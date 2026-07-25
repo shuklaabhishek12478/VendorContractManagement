@@ -36,7 +36,6 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
-    <Folder Include="Hubs\" />
     <Folder Include="wwwroot\uploads\" />
   </ItemGroup>
 

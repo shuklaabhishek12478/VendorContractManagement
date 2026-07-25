@@ -1,15 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VendorContractManagement.Application.DTOs;
+﻿using VendorContractManagement.Application.DTOs;
 
-namespace VendorContractManagement.Application.Services.Interfaces
+namespace VendorContractManagement.Application.Services.Interfaces;
+
+public interface INotificationService
 {
-    public interface INotificationService
-    {
-        Task<IEnumerable<NotificationDto>>
-            GetNotificationsAsync();
-    }
+    Task CreateAsync(CreateNotificationDto dto);
+
+    Task<List<NotificationDto>> GetUserNotificationsAsync(int userId);
+
+    Task<int> GetUnreadCountAsync(int userId);
+
+    Task MarkAsReadAsync(int notificationId);
+
+    Task MarkAllAsReadAsync(int userId);
+
+    Task<List<NotificationDto>> GetNotificationsAsync();
+
+    Task<int> GetUnreadCountAsync();
+
+    Task<List<NotificationDto>> GetNotificationsAsync(string userId);
 }

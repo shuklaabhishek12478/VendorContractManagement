@@ -135,7 +135,7 @@ namespace VendorContractManagement.Application.Services.Implementations
                 Action = "UPLOAD",
                 EntityName = "Document",
                 EntityId = document.Id,
-                PerformedBy = _userContext.UserId,
+                PerformedBy = _userContext.UserId?.ToString() ?? "System",
                 NewValues = $"FileName: {document.FileName}, ContractId: {document.ContractId}"
             });
 
@@ -147,7 +147,7 @@ namespace VendorContractManagement.Application.Services.Implementations
     entityId: document.Id,
     entityName: document.OriginalFileName,
     entityType: "Document",
-    performedBy: _userContext.UserId
+    performedBy: _userContext.UserId?.ToString() ?? "System"
 );
             return "Uploaded successfully";
         }
@@ -172,7 +172,7 @@ namespace VendorContractManagement.Application.Services.Implementations
                 Action = "DELETE",
                 EntityName = "Document",
                 EntityId = doc.Id,
-                PerformedBy = _userContext.UserId,
+                PerformedBy = _userContext.UserId?.ToString() ?? "System",
                 OldValues = $"FileName: {doc.FileName}, Path: {doc.FilePath}"
             });
 
@@ -184,7 +184,7 @@ namespace VendorContractManagement.Application.Services.Implementations
     entityId: doc.Id,
     entityName: doc.OriginalFileName,
     entityType: "Document",
-    performedBy: _userContext.UserId
+    performedBy: _userContext.UserId?.ToString() ?? "System"
 );
             return true;
         }
