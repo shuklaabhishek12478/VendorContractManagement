@@ -1,0 +1,62 @@
+<div class="page">
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>Add Expenditure</h1>
+
+            <p>
+                Create a new expenditure record
+            </p>
+
+        </div>
+
+    </div>
+
+    <mat-card>
+
+        <mat-card-content>
+
+            <app-expenditure-form>
+            </app-expenditure-form>
+
+        </mat-card-content>
+
+    </mat-card>
+
+    <div class="footer">
+
+    <button
+        mat-stroked-button
+        (click)="cancel()">
+
+        <mat-icon>
+
+            arrow_back
+
+        </mat-icon>
+
+        Cancel
+
+    </button>
+
+    <button
+        mat-flat-button
+        color="primary"
+        (click)="save()"
+        [disabled]="loading">
+
+        <mat-icon>
+
+            save
+
+        </mat-icon>
+
+        Save Expenditure
+
+    </button>
+
+</div>
+
+</div>

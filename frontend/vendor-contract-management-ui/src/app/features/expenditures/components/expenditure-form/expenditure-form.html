@@ -1,0 +1,748 @@
+<form
+    [formGroup]="form"
+    class="expenditure-form">
+
+    <!-- ========================================= -->
+    <!-- GENERAL INFORMATION -->
+    <!-- ========================================= -->
+
+    <section class="form-section">
+
+        <div class="section-header">
+
+            <mat-icon>
+                receipt_long
+            </mat-icon>
+
+            <div>
+
+                <h2>
+                    General Information
+                </h2>
+
+                <p>
+                    Basic expenditure details
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="form-grid">
+
+            <!-- Title -->
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+
+                    Expense Title
+
+                </mat-label>
+
+                <input
+                    matInput
+                    formControlName="title">
+
+                <mat-error>
+
+                    Expense title is required.
+
+                </mat-error>
+
+            </mat-form-field>
+
+            <!-- Vendor -->
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+
+                    Vendor
+
+                </mat-label>
+
+                <mat-select
+                    formControlName="vendorId">
+
+                    @for(v of vendors; track v.id){
+
+                        <mat-option
+                            [value]="v.id">
+
+                            {{v.vendorName}}
+
+                        </mat-option>
+
+                    }
+
+                </mat-select>
+
+            </mat-form-field>
+
+            <!-- Contract -->
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+
+                    Contract
+
+                </mat-label>
+
+                <mat-select
+                    formControlName="contractId">
+
+                    <mat-option
+                        [value]="null">
+
+                        None
+
+                    </mat-option>
+
+                    @for(c of contracts; track c.id){
+
+                        <mat-option
+                            [value]="c.id">
+
+                            {{c.contractNumber}}
+
+                        </mat-option>
+
+                    }
+
+                </mat-select>
+
+            </mat-form-field>
+
+            <!-- Expense Date -->
+
+            <mat-form-field appearance="outline">
+
+                <mat-label>
+
+                    Expense Date
+
+                </mat-label>
+
+                <input
+                    matInput
+                    [matDatepicker]="expenseDatePicker"
+                    formControlName="expenseDate">
+
+                <mat-datepicker-toggle
+                    matSuffix
+                    [for]="expenseDatePicker">
+                </mat-datepicker-toggle>
+
+                <mat-datepicker
+                    #expenseDatePicker>
+                </mat-datepicker>
+
+            </mat-form-field>
+
+        </div>
+
+    </section>
+
+    <!-- ========================================= -->
+<!-- ORGANIZATION -->
+<!-- ========================================= -->
+
+<section class="form-section">
+
+    <div class="section-header">
+
+        <mat-icon>
+            business
+        </mat-icon>
+
+        <div>
+
+            <h2>
+
+                Organization
+
+            </h2>
+
+            <p>
+
+                Department and Cost Center
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="form-grid">
+
+        <!-- Department -->
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Department
+
+            </mat-label>
+
+            <mat-select
+                formControlName="department">
+
+                @for(item of departments; track item.value){
+
+                    <mat-option
+                        [value]="item.value">
+
+                        {{item.label}}
+
+                    </mat-option>
+
+                }
+
+            </mat-select>
+
+            <mat-error>
+
+                Department is required
+
+            </mat-error>
+
+        </mat-form-field>
+
+
+        <!-- Cost Center -->
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Cost Center
+
+            </mat-label>
+
+            <mat-select
+                formControlName="costCenter">
+
+                @for(item of costCenters; track item.value){
+
+                    <mat-option
+                        [value]="item.value">
+
+                        {{item.label}}
+
+                    </mat-option>
+
+                }
+
+            </mat-select>
+
+            <mat-error>
+
+                Cost Center is required
+
+            </mat-error>
+
+        </mat-form-field>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- CLASSIFICATION -->
+<!-- ========================================= -->
+
+<section class="form-section">
+
+    <div class="section-header">
+
+        <mat-icon>
+
+            category
+
+        </mat-icon>
+
+        <div>
+
+            <h2>
+
+                Classification
+
+            </h2>
+
+            <p>
+
+                Expense categorization
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="form-grid">
+
+        <!-- Category -->
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Category
+
+            </mat-label>
+
+            <mat-select
+                formControlName="category">
+
+                @for(item of categories; track item.value){
+
+                    <mat-option
+                        [value]="item.value">
+
+                        {{item.label}}
+
+                    </mat-option>
+
+                }
+
+            </mat-select>
+
+        </mat-form-field>
+
+        <!-- Expense Type -->
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Expense Type
+
+            </mat-label>
+
+            <mat-select
+                formControlName="expenseType">
+
+                @for(item of expenseTypes; track item.value){
+
+                    <mat-option
+                        [value]="item.value">
+
+                        {{item.label}}
+
+                    </mat-option>
+
+                }
+
+            </mat-select>
+
+        </mat-form-field>
+
+        <!-- Currency -->
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Currency
+
+            </mat-label>
+
+            <mat-select
+                formControlName="currency">
+
+                @for(item of currencies; track item.value){
+
+                    <mat-option
+                        [value]="item.value">
+
+                        {{item.label}}
+
+                    </mat-option>
+
+                }
+
+            </mat-select>
+
+        </mat-form-field>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- FINANCIAL INFORMATION -->
+<!-- ========================================= -->
+
+<section class="form-section">
+
+    <div class="section-header">
+
+        <mat-icon>
+
+            account_balance_wallet
+
+        </mat-icon>
+
+        <div>
+
+            <h2>
+
+                Financial Information
+
+            </h2>
+
+            <p>
+
+                Amount and payment details
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="form-grid">
+
+        <!-- Amount -->
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Amount
+
+            </mat-label>
+
+            <input
+                matInput
+                type="number"
+                formControlName="amount">
+
+            <span matTextPrefix>₹&nbsp;</span>
+
+            <mat-error>
+
+                Amount is required
+
+            </mat-error>
+
+        </mat-form-field>
+
+
+        <!-- Tax Percentage -->
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Tax %
+
+            </mat-label>
+
+            <input
+                matInput
+                type="number"
+                formControlName="taxPercentage">
+
+            <span matTextSuffix>%</span>
+
+        </mat-form-field>
+
+
+        <!-- Payment Method -->
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Payment Method
+
+            </mat-label>
+
+            <mat-select
+                formControlName="paymentMethod">
+
+                @for(item of paymentMethods; track item.value){
+
+                    <mat-option
+                        [value]="item.value">
+
+                        {{item.label}}
+
+                    </mat-option>
+
+                }
+
+            </mat-select>
+
+        </mat-form-field>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- INVOICE INFORMATION -->
+<!-- ========================================= -->
+
+<section class="form-section">
+
+    <div class="section-header">
+
+        <mat-icon>
+
+            receipt
+
+        </mat-icon>
+
+        <div>
+
+            <h2>
+
+                Invoice Information
+
+            </h2>
+
+            <p>
+
+                Invoice and purchase order details
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="form-grid">
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Invoice Number
+
+            </mat-label>
+
+            <input
+                matInput
+                formControlName="invoiceNumber">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Purchase Order Number
+
+            </mat-label>
+
+            <input
+                matInput
+                formControlName="purchaseOrderNumber">
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Invoice Date
+
+            </mat-label>
+
+            <input
+                matInput
+                [matDatepicker]="invoicePicker"
+                formControlName="invoiceDate">
+
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="invoicePicker">
+            </mat-datepicker-toggle>
+
+            <mat-datepicker
+                #invoicePicker>
+            </mat-datepicker>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Due Date
+
+            </mat-label>
+
+            <input
+                matInput
+                [matDatepicker]="duePicker"
+                formControlName="dueDate">
+
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="duePicker">
+            </mat-datepicker-toggle>
+
+            <mat-datepicker
+                #duePicker>
+            </mat-datepicker>
+
+        </mat-form-field>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- ADDITIONAL INFORMATION -->
+<!-- ========================================= -->
+
+<section class="form-section">
+
+    <div class="section-header">
+
+        <mat-icon>
+
+            description
+
+        </mat-icon>
+
+        <div>
+
+            <h2>
+
+                Additional Information
+
+            </h2>
+
+            <p>
+
+                Description and remarks
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="form-grid">
+
+        <!-- Description -->
+
+        <mat-form-field
+            appearance="outline"
+            class="full-width">
+
+            <mat-label>
+
+                Description
+
+            </mat-label>
+
+            <textarea
+                matInput
+                rows="4"
+                formControlName="description">
+
+            </textarea>
+
+        </mat-form-field>
+
+        <!-- Remarks -->
+
+        <mat-form-field
+            appearance="outline"
+            class="full-width">
+
+            <mat-label>
+
+                Remarks
+
+            </mat-label>
+
+            <textarea
+                matInput
+                rows="3"
+                formControlName="remarks">
+
+            </textarea>
+
+        </mat-form-field>
+
+    </div>
+
+</section>
+
+<!-- ========================================= -->
+<!-- OPTIONS -->
+<!-- ========================================= -->
+
+<section class="form-section">
+
+    <div class="section-header">
+
+        <mat-icon>
+
+            settings
+
+        </mat-icon>
+
+        <div>
+
+            <h2>
+
+                Additional Options
+
+            </h2>
+
+            <p>
+
+                Recurring and forecasting settings
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="options-grid">
+
+        <mat-checkbox
+            formControlName="isRecurring">
+
+            Recurring Expense
+
+        </mat-checkbox>
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Recurring Months
+
+            </mat-label>
+
+            <input
+                matInput
+                type="number"
+                formControlName="recurringMonths">
+
+        </mat-form-field>
+
+        <mat-checkbox
+            formControlName="isForecasted">
+
+            Include in Forecast
+
+        </mat-checkbox>
+
+    </div>
+
+</section>
+
+</form>

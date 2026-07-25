@@ -1,0 +1,310 @@
+2026-07-26 00:02:29.345 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/Auth/login - null null
+2026-07-26 00:02:29.367 +05:30 [INF] CORS policy execution successful.
+2026-07-26 00:02:29.379 +05:30 [INF] HTTP OPTIONS /api/Auth/login responded 204 in 12.2058 ms
+2026-07-26 00:02:29.383 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/Auth/login - 204 null null 38.2872ms
+2026-07-26 00:02:29.385 +05:30 [INF] Request starting HTTP/2 POST https://localhost:7220/api/Auth/login - application/json 53
+2026-07-26 00:02:29.394 +05:30 [INF] CORS policy execution successful.
+2026-07-26 00:02:29.395 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.AuthController.Login (VendorContractManagement.API)'
+2026-07-26 00:02:29.398 +05:30 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(VendorContractManagement.Application.DTOs.LoginDto) on controller VendorContractManagement.API.Controllers.AuthController (VendorContractManagement.API).
+2026-07-26 00:02:29.429 +05:30 [INF] Executed DbCommand (25ms) [Parameters=[@__email_0='?' (Size = 4000)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[CreatedBy], [t].[CreatedOn], [t].[Email], [t].[FullName], [t].[IsActive], [t].[IsDeleted], [t].[ModifiedBy], [t].[ModifiedOn], [t].[PasswordHash], [t].[RefreshToken], [t].[RefreshTokenExpiryTime], [t].[UpdatedOn], [t].[VendorId], [t0].[UserId], [t0].[RoleId], [t0].[AssignedBy], [t0].[AssignedOn], [t0].[Id], [t0].[Color], [t0].[CreatedBy], [t0].[CreatedOn], [t0].[Description], [t0].[Icon], [t0].[IsActive], [t0].[IsDeleted], [t0].[IsSystemRole], [t0].[ModifiedBy], [t0].[ModifiedOn], [t0].[Name], [t0].[Priority], [t0].[UpdatedOn]
+FROM (
+    SELECT TOP(1) [u].[Id], [u].[CreatedBy], [u].[CreatedOn], [u].[Email], [u].[FullName], [u].[IsActive], [u].[IsDeleted], [u].[ModifiedBy], [u].[ModifiedOn], [u].[PasswordHash], [u].[RefreshToken], [u].[RefreshTokenExpiryTime], [u].[UpdatedOn], [u].[VendorId]
+    FROM [Users] AS [u]
+    WHERE [u].[Email] = @__email_0
+) AS [t]
+LEFT JOIN (
+    SELECT [u0].[UserId], [u0].[RoleId], [u0].[AssignedBy], [u0].[AssignedOn], [r].[Id], [r].[Color], [r].[CreatedBy], [r].[CreatedOn], [r].[Description], [r].[Icon], [r].[IsActive], [r].[IsDeleted], [r].[IsSystemRole], [r].[ModifiedBy], [r].[ModifiedOn], [r].[Name], [r].[Priority], [r].[UpdatedOn]
+    FROM [UserRoles] AS [u0]
+    INNER JOIN [Roles] AS [r] ON [u0].[RoleId] = [r].[Id]
+) AS [t0] ON [t].[Id] = [t0].[UserId]
+ORDER BY [t].[Id], [t0].[UserId], [t0].[RoleId]
+2026-07-26 00:02:29.579 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@p2='?' (DbType = Int32), @p0='?' (Size = 4000), @p1='?' (DbType = DateTime2)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Users] SET [RefreshToken] = @p0, [RefreshTokenExpiryTime] = @p1
+OUTPUT 1
+WHERE [Id] = @p2;
+2026-07-26 00:02:29.583 +05:30 [INF] Executing OkObjectResult, writing value of type 'VendorContractManagement.Application.DTOs.LoginResponseDto'.
+2026-07-26 00:02:29.585 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.AuthController.Login (VendorContractManagement.API) in 183.9955ms
+2026-07-26 00:02:29.587 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.AuthController.Login (VendorContractManagement.API)'
+2026-07-26 00:02:29.590 +05:30 [INF] HTTP POST /api/Auth/login responded 200 in 196.1949 ms
+2026-07-26 00:02:29.592 +05:30 [INF] Request finished HTTP/2 POST https://localhost:7220/api/Auth/login - 200 null application/json; charset=utf-8 207.6914ms
+2026-07-26 00:02:29.612 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/RecentActivities?count=20 - null null
+2026-07-26 00:02:29.616 +05:30 [INF] CORS policy execution successful.
+2026-07-26 00:02:29.618 +05:30 [INF] HTTP OPTIONS /api/RecentActivities responded 204 in 1.8593 ms
+2026-07-26 00:02:29.624 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/RecentActivities?count=20 - 204 null null 12.7984ms
+2026-07-26 00:02:29.629 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/RecentActivities?count=20 - null null
+2026-07-26 00:02:29.637 +05:30 [INF] CORS policy execution successful.
+2026-07-26 00:02:29.639 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.RecentActivitiesController.GetRecent (VendorContractManagement.API)'
+2026-07-26 00:02:29.643 +05:30 [INF] Route matched with {action = "GetRecent", controller = "RecentActivities"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetRecent(Int32) on controller VendorContractManagement.API.Controllers.RecentActivitiesController (VendorContractManagement.API).
+2026-07-26 00:02:29.655 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(@__p_0) [r].[Id], [r].[Action], [r].[CreatedOn], [r].[Description], [r].[EntityId], [r].[EntityName], [r].[EntityType], [r].[Module], [r].[PerformedBy]
+FROM [RecentActivities] AS [r]
+ORDER BY [r].[CreatedOn] DESC
+2026-07-26 00:02:29.661 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[RecentActivityDto, VendorContractManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-26 00:02:29.664 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.RecentActivitiesController.GetRecent (VendorContractManagement.API) in 17.1276ms
+2026-07-26 00:02:29.666 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.RecentActivitiesController.GetRecent (VendorContractManagement.API)'
+2026-07-26 00:02:29.668 +05:30 [INF] HTTP GET /api/RecentActivities responded 200 in 32.0695 ms
+2026-07-26 00:02:29.672 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/RecentActivities?count=20 - 200 null application/json; charset=utf-8 43.6736ms
+2026-07-26 00:02:32.858 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/contracts - null null
+2026-07-26 00:02:32.858 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/vendors - null null
+2026-07-26 00:02:32.858 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/Expenditure/dashboard - null null
+2026-07-26 00:02:32.861 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/api/Expenditure/search?page=1&pageSize=20&sortBy=ExpenseDate&descending=true - null null
+2026-07-26 00:02:32.883 +05:30 [INF] CORS policy execution successful.
+2026-07-26 00:02:32.891 +05:30 [INF] CORS policy execution successful.
+2026-07-26 00:02:32.902 +05:30 [INF] CORS policy execution successful.
+2026-07-26 00:02:32.916 +05:30 [INF] CORS policy execution successful.
+2026-07-26 00:02:32.925 +05:30 [INF] HTTP OPTIONS /api/contracts responded 204 in 43.9399 ms
+2026-07-26 00:02:32.930 +05:30 [INF] HTTP OPTIONS /api/vendors responded 204 in 39.9806 ms
+2026-07-26 00:02:32.944 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/contracts - 204 null null 86.5711ms
+2026-07-26 00:02:32.954 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/contracts - null null
+2026-07-26 00:02:32.955 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/vendors - 204 null null 97.6293ms
+2026-07-26 00:02:32.934 +05:30 [INF] HTTP OPTIONS /api/Expenditure/dashboard responded 204 in 32.6380 ms
+2026-07-26 00:02:32.936 +05:30 [INF] HTTP OPTIONS /api/Expenditure/search responded 204 in 20.4509 ms
+2026-07-26 00:02:32.982 +05:30 [INF] CORS policy execution successful.
+2026-07-26 00:02:32.991 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/Expenditure/dashboard - 204 null null 133.7547ms
+2026-07-26 00:02:32.999 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.ContractsController.GetAll (VendorContractManagement.API)'
+2026-07-26 00:02:32.993 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/Expenditure/dashboard - null null
+2026-07-26 00:02:32.995 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/api/Expenditure/search?page=1&pageSize=20&sortBy=ExpenseDate&descending=true - 204 null null 134.5106ms
+2026-07-26 00:02:32.958 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/vendors - null null
+2026-07-26 00:02:32.998 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/Expenditure/search?page=1&pageSize=20&sortBy=ExpenseDate&descending=true - null null
+2026-07-26 00:02:33.012 +05:30 [INF] CORS policy execution successful.
+2026-07-26 00:02:33.012 +05:30 [INF] Route matched with {action = "GetAll", controller = "Contracts"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller VendorContractManagement.API.Controllers.ContractsController (VendorContractManagement.API).
+2026-07-26 00:02:33.022 +05:30 [INF] CORS policy execution successful.
+2026-07-26 00:02:33.026 +05:30 [INF] CORS policy execution successful.
+2026-07-26 00:02:33.034 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetAll (VendorContractManagement.API)'
+2026-07-26 00:02:33.046 +05:30 [INF] Route matched with {action = "GetAll", controller = "Vendors"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller VendorContractManagement.API.Controllers.VendorsController (VendorContractManagement.API).
+2026-07-26 00:02:33.054 +05:30 [INF] Executed DbCommand (13ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ApprovedBy], [c].[ApprovedOn], [c].[ContractNumber], [c].[ContractValue], [c].[CreatedBy], [c].[CreatedOn], [c].[Description], [c].[EndDate], [c].[IsActive], [c].[IsDeleted], [c].[IsRenewal], [c].[ModifiedBy], [c].[ModifiedOn], [c].[ParentContractId], [c].[RejectionReason], [c].[RenewalApprovedBy], [c].[RenewalApprovedOn], [c].[RenewalRequestedOn], [c].[StartDate], [c].[Status], [c].[SubmittedOn], [c].[TerminatedBy], [c].[TerminatedOn], [c].[TerminationReason], [c].[Title], [c].[UpdatedOn], [c].[VendorId], [t].[Id], [t].[AccountHolderName], [t].[AccountNumber], [t].[Address], [t].[BankName], [t].[BranchName], [t].[CompanyName], [t].[ContactPerson], [t].[CreatedBy], [t].[CreatedOn], [t].[Email], [t].[GSTNumber], [t].[IFSCCode], [t].[IsActive], [t].[IsDeleted], [t].[ModifiedBy], [t].[ModifiedOn], [t].[PANNumber], [t].[PaymentMethod], [t].[PaymentTerms], [t].[Phone], [t].[PreferredCurrency], [t].[SwiftCode], [t].[UpdatedOn], [t].[VendorName]
+FROM [Contracts] AS [c]
+INNER JOIN (
+    SELECT [v].[Id], [v].[AccountHolderName], [v].[AccountNumber], [v].[Address], [v].[BankName], [v].[BranchName], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedBy], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IFSCCode], [v].[IsActive], [v].[IsDeleted], [v].[ModifiedBy], [v].[ModifiedOn], [v].[PANNumber], [v].[PaymentMethod], [v].[PaymentTerms], [v].[Phone], [v].[PreferredCurrency], [v].[SwiftCode], [v].[UpdatedOn], [v].[VendorName]
+    FROM [Vendors] AS [v]
+    WHERE [v].[IsDeleted] = CAST(0 AS bit)
+) AS [t] ON [c].[VendorId] = [t].[Id]
+WHERE [c].[IsDeleted] = CAST(0 AS bit)
+2026-07-26 00:02:33.073 +05:30 [INF] Executed DbCommand (45ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t0].[Id], [t0].[CreatedBy], [t0].[CreatedOn], [t0].[Email], [t0].[FullName], [t0].[IsActive], [t0].[IsDeleted], [t0].[ModifiedBy], [t0].[ModifiedOn], [t0].[PasswordHash], [t0].[RefreshToken], [t0].[RefreshTokenExpiryTime], [t0].[UpdatedOn], [t0].[VendorId], [t0].[Id0], [t0].[AccountHolderName], [t0].[AccountNumber], [t0].[Address], [t0].[BankName], [t0].[BranchName], [t0].[CompanyName], [t0].[ContactPerson], [t0].[CreatedBy0], [t0].[CreatedOn0], [t0].[Email0], [t0].[GSTNumber], [t0].[IFSCCode], [t0].[IsActive0], [t0].[IsDeleted0], [t0].[ModifiedBy0], [t0].[ModifiedOn0], [t0].[PANNumber], [t0].[PaymentMethod], [t0].[PaymentTerms], [t0].[Phone], [t0].[PreferredCurrency], [t0].[SwiftCode], [t0].[UpdatedOn0], [t0].[VendorName], [t1].[UserId], [t1].[RoleId], [t1].[AssignedBy], [t1].[AssignedOn], [t1].[Id], [t1].[Color], [t1].[CreatedBy], [t1].[CreatedOn], [t1].[Description], [t1].[Icon], [t1].[IsActive], [t1].[IsDeleted], [t1].[IsSystemRole], [t1].[ModifiedBy], [t1].[ModifiedOn], [t1].[Name], [t1].[Priority], [t1].[UpdatedOn], [t1].[RoleId0], [t1].[PermissionId], [t1].[AssignedBy0], [t1].[AssignedOn0], [t1].[Id0], [t1].[Code], [t1].[CreatedBy0], [t1].[CreatedOn0], [t1].[Description0], [t1].[IsActive0], [t1].[IsDeleted0], [t1].[ModifiedBy0], [t1].[ModifiedOn0], [t1].[Module], [t1].[Name0], [t1].[UpdatedOn0]
+FROM (
+    SELECT TOP(1) [u].[Id], [u].[CreatedBy], [u].[CreatedOn], [u].[Email], [u].[FullName], [u].[IsActive], [u].[IsDeleted], [u].[ModifiedBy], [u].[ModifiedOn], [u].[PasswordHash], [u].[RefreshToken], [u].[RefreshTokenExpiryTime], [u].[UpdatedOn], [u].[VendorId], [t].[Id] AS [Id0], [t].[AccountHolderName], [t].[AccountNumber], [t].[Address], [t].[BankName], [t].[BranchName], [t].[CompanyName], [t].[ContactPerson], [t].[CreatedBy] AS [CreatedBy0], [t].[CreatedOn] AS [CreatedOn0], [t].[Email] AS [Email0], [t].[GSTNumber], [t].[IFSCCode], [t].[IsActive] AS [IsActive0], [t].[IsDeleted] AS [IsDeleted0], [t].[ModifiedBy] AS [ModifiedBy0], [t].[ModifiedOn] AS [ModifiedOn0], [t].[PANNumber], [t].[PaymentMethod], [t].[PaymentTerms], [t].[Phone], [t].[PreferredCurrency], [t].[SwiftCode], [t].[UpdatedOn] AS [UpdatedOn0], [t].[VendorName]
+    FROM [Users] AS [u]
+    LEFT JOIN (
+        SELECT [v].[Id], [v].[AccountHolderName], [v].[AccountNumber], [v].[Address], [v].[BankName], [v].[BranchName], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedBy], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IFSCCode], [v].[IsActive], [v].[IsDeleted], [v].[ModifiedBy], [v].[ModifiedOn], [v].[PANNumber], [v].[PaymentMethod], [v].[PaymentTerms], [v].[Phone], [v].[PreferredCurrency], [v].[SwiftCode], [v].[UpdatedOn], [v].[VendorName]
+        FROM [Vendors] AS [v]
+        WHERE [v].[IsDeleted] = CAST(0 AS bit)
+    ) AS [t] ON [u].[VendorId] = [t].[Id]
+    WHERE [u].[Id] = @__id_0
+) AS [t0]
+LEFT JOIN (
+    SELECT [u0].[UserId], [u0].[RoleId], [u0].[AssignedBy], [u0].[AssignedOn], [r].[Id], [r].[Color], [r].[CreatedBy], [r].[CreatedOn], [r].[Description], [r].[Icon], [r].[IsActive], [r].[IsDeleted], [r].[IsSystemRole], [r].[ModifiedBy], [r].[ModifiedOn], [r].[Name], [r].[Priority], [r].[UpdatedOn], [t2].[RoleId] AS [RoleId0], [t2].[PermissionId], [t2].[AssignedBy] AS [AssignedBy0], [t2].[AssignedOn] AS [AssignedOn0], [t2].[Id] AS [Id0], [t2].[Code], [t2].[CreatedBy] AS [CreatedBy0], [t2].[CreatedOn] AS [CreatedOn0], [t2].[Description] AS [Description0], [t2].[IsActive] AS [IsActive0], [t2].[IsDeleted] AS [IsDeleted0], [t2].[ModifiedBy] AS [ModifiedBy0], [t2].[ModifiedOn] AS [ModifiedOn0], [t2].[Module], [t2].[Name] AS [Name0], [t2].[UpdatedOn] AS [UpdatedOn0]
+    FROM [UserRoles] AS [u0]
+    INNER JOIN [Roles] AS [r] ON [u0].[RoleId] = [r].[Id]
+    LEFT JOIN (
+        SELECT [r0].[RoleId], [r0].[PermissionId], [r0].[AssignedBy], [r0].[AssignedOn], [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+        FROM [RolePermissions] AS [r0]
+        INNER JOIN [Permissions] AS [p] ON [r0].[PermissionId] = [p].[Id]
+    ) AS [t2] ON [r].[Id] = [t2].[RoleId]
+) AS [t1] ON [t0].[Id] = [t1].[UserId]
+ORDER BY [t0].[Id], [t0].[Id0], [t1].[UserId], [t1].[RoleId], [t1].[Id], [t1].[RoleId0], [t1].[PermissionId]
+2026-07-26 00:02:33.078 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[VendorContractManagement.Application.DTOs.ContractDto, VendorContractManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-26 00:02:33.081 +05:30 [INF] Executed DbCommand (43ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t0].[Id], [t0].[CreatedBy], [t0].[CreatedOn], [t0].[Email], [t0].[FullName], [t0].[IsActive], [t0].[IsDeleted], [t0].[ModifiedBy], [t0].[ModifiedOn], [t0].[PasswordHash], [t0].[RefreshToken], [t0].[RefreshTokenExpiryTime], [t0].[UpdatedOn], [t0].[VendorId], [t0].[Id0], [t0].[AccountHolderName], [t0].[AccountNumber], [t0].[Address], [t0].[BankName], [t0].[BranchName], [t0].[CompanyName], [t0].[ContactPerson], [t0].[CreatedBy0], [t0].[CreatedOn0], [t0].[Email0], [t0].[GSTNumber], [t0].[IFSCCode], [t0].[IsActive0], [t0].[IsDeleted0], [t0].[ModifiedBy0], [t0].[ModifiedOn0], [t0].[PANNumber], [t0].[PaymentMethod], [t0].[PaymentTerms], [t0].[Phone], [t0].[PreferredCurrency], [t0].[SwiftCode], [t0].[UpdatedOn0], [t0].[VendorName], [t1].[UserId], [t1].[RoleId], [t1].[AssignedBy], [t1].[AssignedOn], [t1].[Id], [t1].[Color], [t1].[CreatedBy], [t1].[CreatedOn], [t1].[Description], [t1].[Icon], [t1].[IsActive], [t1].[IsDeleted], [t1].[IsSystemRole], [t1].[ModifiedBy], [t1].[ModifiedOn], [t1].[Name], [t1].[Priority], [t1].[UpdatedOn], [t1].[RoleId0], [t1].[PermissionId], [t1].[AssignedBy0], [t1].[AssignedOn0], [t1].[Id0], [t1].[Code], [t1].[CreatedBy0], [t1].[CreatedOn0], [t1].[Description0], [t1].[IsActive0], [t1].[IsDeleted0], [t1].[ModifiedBy0], [t1].[ModifiedOn0], [t1].[Module], [t1].[Name0], [t1].[UpdatedOn0]
+FROM (
+    SELECT TOP(1) [u].[Id], [u].[CreatedBy], [u].[CreatedOn], [u].[Email], [u].[FullName], [u].[IsActive], [u].[IsDeleted], [u].[ModifiedBy], [u].[ModifiedOn], [u].[PasswordHash], [u].[RefreshToken], [u].[RefreshTokenExpiryTime], [u].[UpdatedOn], [u].[VendorId], [t].[Id] AS [Id0], [t].[AccountHolderName], [t].[AccountNumber], [t].[Address], [t].[BankName], [t].[BranchName], [t].[CompanyName], [t].[ContactPerson], [t].[CreatedBy] AS [CreatedBy0], [t].[CreatedOn] AS [CreatedOn0], [t].[Email] AS [Email0], [t].[GSTNumber], [t].[IFSCCode], [t].[IsActive] AS [IsActive0], [t].[IsDeleted] AS [IsDeleted0], [t].[ModifiedBy] AS [ModifiedBy0], [t].[ModifiedOn] AS [ModifiedOn0], [t].[PANNumber], [t].[PaymentMethod], [t].[PaymentTerms], [t].[Phone], [t].[PreferredCurrency], [t].[SwiftCode], [t].[UpdatedOn] AS [UpdatedOn0], [t].[VendorName]
+    FROM [Users] AS [u]
+    LEFT JOIN (
+        SELECT [v].[Id], [v].[AccountHolderName], [v].[AccountNumber], [v].[Address], [v].[BankName], [v].[BranchName], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedBy], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IFSCCode], [v].[IsActive], [v].[IsDeleted], [v].[ModifiedBy], [v].[ModifiedOn], [v].[PANNumber], [v].[PaymentMethod], [v].[PaymentTerms], [v].[Phone], [v].[PreferredCurrency], [v].[SwiftCode], [v].[UpdatedOn], [v].[VendorName]
+        FROM [Vendors] AS [v]
+        WHERE [v].[IsDeleted] = CAST(0 AS bit)
+    ) AS [t] ON [u].[VendorId] = [t].[Id]
+    WHERE [u].[Id] = @__id_0
+) AS [t0]
+LEFT JOIN (
+    SELECT [u0].[UserId], [u0].[RoleId], [u0].[AssignedBy], [u0].[AssignedOn], [r].[Id], [r].[Color], [r].[CreatedBy], [r].[CreatedOn], [r].[Description], [r].[Icon], [r].[IsActive], [r].[IsDeleted], [r].[IsSystemRole], [r].[ModifiedBy], [r].[ModifiedOn], [r].[Name], [r].[Priority], [r].[UpdatedOn], [t2].[RoleId] AS [RoleId0], [t2].[PermissionId], [t2].[AssignedBy] AS [AssignedBy0], [t2].[AssignedOn] AS [AssignedOn0], [t2].[Id] AS [Id0], [t2].[Code], [t2].[CreatedBy] AS [CreatedBy0], [t2].[CreatedOn] AS [CreatedOn0], [t2].[Description] AS [Description0], [t2].[IsActive] AS [IsActive0], [t2].[IsDeleted] AS [IsDeleted0], [t2].[ModifiedBy] AS [ModifiedBy0], [t2].[ModifiedOn] AS [ModifiedOn0], [t2].[Module], [t2].[Name] AS [Name0], [t2].[UpdatedOn] AS [UpdatedOn0]
+    FROM [UserRoles] AS [u0]
+    INNER JOIN [Roles] AS [r] ON [u0].[RoleId] = [r].[Id]
+    LEFT JOIN (
+        SELECT [r0].[RoleId], [r0].[PermissionId], [r0].[AssignedBy], [r0].[AssignedOn], [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+        FROM [RolePermissions] AS [r0]
+        INNER JOIN [Permissions] AS [p] ON [r0].[PermissionId] = [p].[Id]
+    ) AS [t2] ON [r].[Id] = [t2].[RoleId]
+) AS [t1] ON [t0].[Id] = [t1].[UserId]
+ORDER BY [t0].[Id], [t0].[Id0], [t1].[UserId], [t1].[RoleId], [t1].[Id], [t1].[RoleId0], [t1].[PermissionId]
+2026-07-26 00:02:33.086 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [v].[Id], [v].[AccountHolderName], [v].[AccountNumber], [v].[Address], [v].[BankName], [v].[BranchName], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedBy], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IFSCCode], [v].[IsActive], [v].[IsDeleted], [v].[ModifiedBy], [v].[ModifiedOn], [v].[PANNumber], [v].[PaymentMethod], [v].[PaymentTerms], [v].[Phone], [v].[PreferredCurrency], [v].[SwiftCode], [v].[UpdatedOn], [v].[VendorName]
+FROM [Vendors] AS [v]
+WHERE [v].[IsDeleted] = CAST(0 AS bit) AND [v].[IsDeleted] = CAST(0 AS bit)
+2026-07-26 00:02:33.096 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.ExpenditureController.GetDashboard (VendorContractManagement.API)'
+2026-07-26 00:02:33.102 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.ExpenditureController.Search (VendorContractManagement.API)'
+2026-07-26 00:02:33.109 +05:30 [INF] Route matched with {action = "GetDashboard", controller = "Expenditure"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetDashboard() on controller VendorContractManagement.API.Controllers.ExpenditureController (VendorContractManagement.API).
+2026-07-26 00:02:33.112 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.ContractsController.GetAll (VendorContractManagement.API) in 80.5158ms
+2026-07-26 00:02:33.114 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[VendorContractManagement.Application.DTOs.VendorDto, VendorContractManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-26 00:02:33.116 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.ContractsController.GetAll (VendorContractManagement.API)'
+2026-07-26 00:02:33.116 +05:30 [INF] Route matched with {action = "Search", controller = "Expenditure"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Search(VendorContractManagement.Application.DTOs.Expenditure.ExpenditureFilterDto) on controller VendorContractManagement.API.Controllers.ExpenditureController (VendorContractManagement.API).
+2026-07-26 00:02:33.122 +05:30 [INF] HTTP GET /api/contracts responded 200 in 140.5839 ms
+2026-07-26 00:02:33.129 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/contracts - 200 null application/json; charset=utf-8 175.5843ms
+2026-07-26 00:02:33.140 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.VendorsController.GetAll (VendorContractManagement.API) in 91.6128ms
+2026-07-26 00:02:33.142 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetAll (VendorContractManagement.API)'
+2026-07-26 00:02:33.144 +05:30 [INF] HTTP GET /api/vendors responded 200 in 122.4682 ms
+2026-07-26 00:02:33.147 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/vendors - 200 null application/json; charset=utf-8 189.111ms
+2026-07-26 00:02:33.154 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COALESCE(SUM([e].[TotalAmount]), 0.0)
+FROM [Expenditures] AS [e]
+WHERE [e].[IsDeleted] = CAST(0 AS bit)
+2026-07-26 00:02:33.174 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COALESCE(SUM([e].[TotalAmount]), 0.0)
+FROM [Expenditures] AS [e]
+WHERE [e].[IsDeleted] = CAST(0 AS bit) AND [e].[PaymentStatus] = 2
+2026-07-26 00:02:33.188 +05:30 [INF] Executed DbCommand (15ms) [Parameters=[@__p_0='?' (DbType = Int32), @__p_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT [t].[Id], [t].[Amount], [t].[Category], [t].[ContractId], [t].[ContractId1], [t].[CostCenter], [t].[CreatedBy], [t].[CreatedOn], [t].[Currency], [t].[Department], [t].[Description], [t].[DueDate], [t].[ExpenseDate], [t].[ExpenseNumber], [t].[ExpenseType], [t].[InvoiceDate], [t].[InvoiceNumber], [t].[IsActive], [t].[IsDeleted], [t].[IsForecasted], [t].[IsRecurring], [t].[PaymentMethod], [t].[PaymentStatus], [t].[PurchaseOrderNumber], [t].[RecurringMonths], [t].[Remarks], [t].[Status], [t].[TaxAmount], [t].[TaxPercentage], [t].[Title], [t].[TotalAmount], [t].[UpdatedBy], [t].[UpdatedOn], [t].[VendorId], [t].[VendorId1], [t0].[Id], [t0].[AccountHolderName], [t0].[AccountNumber], [t0].[Address], [t0].[BankName], [t0].[BranchName], [t0].[CompanyName], [t0].[ContactPerson], [t0].[CreatedBy], [t0].[CreatedOn], [t0].[Email], [t0].[GSTNumber], [t0].[IFSCCode], [t0].[IsActive], [t0].[IsDeleted], [t0].[ModifiedBy], [t0].[ModifiedOn], [t0].[PANNumber], [t0].[PaymentMethod], [t0].[PaymentTerms], [t0].[Phone], [t0].[PreferredCurrency], [t0].[SwiftCode], [t0].[UpdatedOn], [t0].[VendorName], [c].[Id], [c].[ApprovedBy], [c].[ApprovedOn], [c].[ContractNumber], [c].[ContractValue], [c].[CreatedBy], [c].[CreatedOn], [c].[Description], [c].[EndDate], [c].[IsActive], [c].[IsDeleted], [c].[IsRenewal], [c].[ModifiedBy], [c].[ModifiedOn], [c].[ParentContractId], [c].[RejectionReason], [c].[RenewalApprovedBy], [c].[RenewalApprovedOn], [c].[RenewalRequestedOn], [c].[StartDate], [c].[Status], [c].[SubmittedOn], [c].[TerminatedBy], [c].[TerminatedOn], [c].[TerminationReason], [c].[Title], [c].[UpdatedOn], [c].[VendorId]
+FROM (
+    SELECT [e].[Id], [e].[Amount], [e].[Category], [e].[ContractId], [e].[ContractId1], [e].[CostCenter], [e].[CreatedBy], [e].[CreatedOn], [e].[Currency], [e].[Department], [e].[Description], [e].[DueDate], [e].[ExpenseDate], [e].[ExpenseNumber], [e].[ExpenseType], [e].[InvoiceDate], [e].[InvoiceNumber], [e].[IsActive], [e].[IsDeleted], [e].[IsForecasted], [e].[IsRecurring], [e].[PaymentMethod], [e].[PaymentStatus], [e].[PurchaseOrderNumber], [e].[RecurringMonths], [e].[Remarks], [e].[Status], [e].[TaxAmount], [e].[TaxPercentage], [e].[Title], [e].[TotalAmount], [e].[UpdatedBy], [e].[UpdatedOn], [e].[VendorId], [e].[VendorId1]
+    FROM [Expenditures] AS [e]
+    WHERE [e].[IsDeleted] = CAST(0 AS bit)
+    ORDER BY [e].[ExpenseDate] DESC, [e].[CreatedOn] DESC
+    OFFSET @__p_0 ROWS FETCH NEXT @__p_1 ROWS ONLY
+) AS [t]
+INNER JOIN (
+    SELECT [v].[Id], [v].[AccountHolderName], [v].[AccountNumber], [v].[Address], [v].[BankName], [v].[BranchName], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedBy], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IFSCCode], [v].[IsActive], [v].[IsDeleted], [v].[ModifiedBy], [v].[ModifiedOn], [v].[PANNumber], [v].[PaymentMethod], [v].[PaymentTerms], [v].[Phone], [v].[PreferredCurrency], [v].[SwiftCode], [v].[UpdatedOn], [v].[VendorName]
+    FROM [Vendors] AS [v]
+    WHERE [v].[IsDeleted] = CAST(0 AS bit)
+) AS [t0] ON [t].[VendorId] = [t0].[Id]
+LEFT JOIN [Contracts] AS [c] ON [t].[ContractId] = [c].[Id]
+ORDER BY [t].[ExpenseDate] DESC, [t].[CreatedOn] DESC
+2026-07-26 00:02:33.188 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COALESCE(SUM([e].[TotalAmount]), 0.0)
+FROM [Expenditures] AS [e]
+WHERE [e].[IsDeleted] = CAST(0 AS bit) AND [e].[PaymentStatus] = 0
+2026-07-26 00:02:33.204 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[VendorContractManagement.Application.DTOs.Expenditure.ExpenditureDto, VendorContractManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-26 00:02:33.213 +05:30 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COALESCE(SUM([e].[TotalAmount]), 0.0)
+FROM [Expenditures] AS [e]
+WHERE [e].[IsDeleted] = CAST(0 AS bit) AND [e].[IsForecasted] = CAST(1 AS bit)
+2026-07-26 00:02:33.241 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.ExpenditureController.Search (VendorContractManagement.API) in 114.6786ms
+2026-07-26 00:02:33.243 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.ExpenditureController.Search (VendorContractManagement.API)'
+2026-07-26 00:02:33.246 +05:30 [INF] HTTP GET /api/Expenditure/search responded 200 in 220.2318 ms
+2026-07-26 00:02:33.250 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/Expenditure/search?page=1&pageSize=20&sortBy=ExpenseDate&descending=true - 200 null application/json; charset=utf-8 252.5186ms
+2026-07-26 00:02:33.260 +05:30 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Expenditures] AS [e]
+WHERE [e].[IsDeleted] = CAST(0 AS bit) AND [e].[DueDate] < GETUTCDATE() AND [e].[PaymentStatus] <> 2
+2026-07-26 00:02:33.275 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Expenditures] AS [e]
+WHERE [e].[IsDeleted] = CAST(0 AS bit)
+2026-07-26 00:02:33.291 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Expenditures] AS [e]
+WHERE [e].[IsDeleted] = CAST(0 AS bit) AND [e].[PaymentStatus] = 2
+2026-07-26 00:02:33.302 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Expenditures] AS [e]
+WHERE [e].[IsDeleted] = CAST(0 AS bit) AND [e].[PaymentStatus] = 0
+2026-07-26 00:02:34.228 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.ExpenditureController.GetDashboard (VendorContractManagement.API) in 1116.1837ms
+2026-07-26 00:02:34.237 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.ExpenditureController.GetDashboard (VendorContractManagement.API)'
+2026-07-26 00:02:34.382 +05:30 [WRN] The LINQ expression 'DbSet<Expenditure>()
+    .Where(e => !(e.IsDeleted))
+    .GroupBy(e => new { 
+        Year = e.ExpenseDate.Year, 
+        Month = e.ExpenseDate.Month
+     })
+    .Select(g => new MonthlySpendDto{ 
+        Month = string.Format(
+            format: "{0}/{1}", 
+            arg0: (object)g.Key.Month, 
+            arg1: (object)g.Key.Year), 
+        Actual = g
+            .AsQueryable()
+            .Where(e0 => !(e0.IsForecasted))
+            .Sum(e0 => e0.TotalAmount), 
+        Forecast = g
+            .AsQueryable()
+            .Where(e0 => e0.IsForecasted)
+            .Sum(e0 => e0.TotalAmount) 
+    }
+    )
+    .OrderBy(e1 => e1.Month)' could not be translated. Additional information: Translation of method 'string.Format' failed. If this method can be mapped to your custom function, see https://go.microsoft.com/fwlink/?linkid=2132413 for more information. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+System.InvalidOperationException: The LINQ expression 'DbSet<Expenditure>()
+    .Where(e => !(e.IsDeleted))
+    .GroupBy(e => new { 
+        Year = e.ExpenseDate.Year, 
+        Month = e.ExpenseDate.Month
+     })
+    .Select(g => new MonthlySpendDto{ 
+        Month = string.Format(
+            format: "{0}/{1}", 
+            arg0: (object)g.Key.Month, 
+            arg1: (object)g.Key.Year), 
+        Actual = g
+            .AsQueryable()
+            .Where(e0 => !(e0.IsForecasted))
+            .Sum(e0 => e0.TotalAmount), 
+        Forecast = g
+            .AsQueryable()
+            .Where(e0 => e0.IsForecasted)
+            .Sum(e0 => e0.TotalAmount) 
+    }
+    )
+    .OrderBy(e1 => e1.Month)' could not be translated. Additional information: Translation of method 'string.Format' failed. If this method can be mapped to your custom function, see https://go.microsoft.com/fwlink/?linkid=2132413 for more information. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to 'AsEnumerable', 'AsAsyncEnumerable', 'ToList', or 'ToListAsync'. See https://go.microsoft.com/fwlink/?linkid=2101038 for more information.
+   at Microsoft.EntityFrameworkCore.Query.QueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.RelationalQueryableMethodTranslatingExpressionVisitor.Translate(Expression expression)
+   at Microsoft.EntityFrameworkCore.Query.QueryCompilationContext.CreateQueryExecutor[TResult](Expression query)
+   at Microsoft.EntityFrameworkCore.Storage.Database.CompileQuery[TResult](Expression query, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.CompileQueryCore[TResult](IDatabase database, Expression query, IModel model, Boolean async)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.<>c__DisplayClass12_0`1.<ExecuteAsync>b__0()
+   at Microsoft.EntityFrameworkCore.Query.Internal.CompiledQueryCache.GetOrAddQuery[TResult](Object cacheKey, Func`1 compiler)
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryCompiler.ExecuteAsync[TResult](Expression query, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryProvider.ExecuteAsync[TResult](Expression expression, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.EntityQueryable`1.GetAsyncEnumerator(CancellationToken cancellationToken)
+   at System.Runtime.CompilerServices.ConfiguredCancelableAsyncEnumerable`1.GetAsyncEnumerator()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at VendorContractManagement.Infrastructure.Repository.Implementations.ExpenditureRepository.GetMonthlySpendAsync() in E:\Abhi Data\Technical\Job Projects\VendorContractManagement\backend\VendorContractManagement.Infrastructure\Repository\Implementations\ExpenditureRepository.cs:line 214
+   at VendorContractManagement.Application.Services.Implementations.ExpenditureService.GetDashboardAsync() in E:\Abhi Data\Technical\Job Projects\VendorContractManagement\backend\VendorContractManagement.Application\Services\Implementations\ExpenditureService.cs:line 396
+   at VendorContractManagement.API.Controllers.ExpenditureController.GetDashboard() in E:\Abhi Data\Technical\Job Projects\VendorContractManagement\backend\VendorContractManagement.API\Controllers\ExpenditureController.cs:line 93
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(ActionContext actionContext, IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeInnerFilterAsync>g__Awaited|13_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|7_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at VendorContractManagement.API.Middlewares.ExceptionMiddleware.InvokeAsync(HttpContext context) in E:\Abhi Data\Technical\Job Projects\VendorContractManagement\backend\VendorContractManagement.API\Middlewares\ExceptionMiddleware.cs:line 24
+2026-07-26 00:02:34.516 +05:30 [INF] HTTP GET /api/Expenditure/dashboard responded 400 in 1504.7469 ms
+2026-07-26 00:02:34.521 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/Expenditure/dashboard - 400 null application/json 1528.3316ms
+2026-07-26 00:02:34.898 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/vendors - null null
+2026-07-26 00:02:34.898 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/api/contracts - null null
+2026-07-26 00:02:34.904 +05:30 [INF] CORS policy execution successful.
+2026-07-26 00:02:34.908 +05:30 [INF] CORS policy execution successful.
+2026-07-26 00:02:34.910 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetAll (VendorContractManagement.API)'
+2026-07-26 00:02:34.911 +05:30 [INF] Executing endpoint 'VendorContractManagement.API.Controllers.ContractsController.GetAll (VendorContractManagement.API)'
+2026-07-26 00:02:34.912 +05:30 [INF] Route matched with {action = "GetAll", controller = "Vendors"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller VendorContractManagement.API.Controllers.VendorsController (VendorContractManagement.API).
+2026-07-26 00:02:34.914 +05:30 [INF] Route matched with {action = "GetAll", controller = "Contracts"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAll() on controller VendorContractManagement.API.Controllers.ContractsController (VendorContractManagement.API).
+2026-07-26 00:02:34.924 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [v].[Id], [v].[AccountHolderName], [v].[AccountNumber], [v].[Address], [v].[BankName], [v].[BranchName], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedBy], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IFSCCode], [v].[IsActive], [v].[IsDeleted], [v].[ModifiedBy], [v].[ModifiedOn], [v].[PANNumber], [v].[PaymentMethod], [v].[PaymentTerms], [v].[Phone], [v].[PreferredCurrency], [v].[SwiftCode], [v].[UpdatedOn], [v].[VendorName]
+FROM [Vendors] AS [v]
+WHERE [v].[IsDeleted] = CAST(0 AS bit) AND [v].[IsDeleted] = CAST(0 AS bit)
+2026-07-26 00:02:34.931 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[VendorContractManagement.Application.DTOs.VendorDto, VendorContractManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-26 00:02:34.933 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ApprovedBy], [c].[ApprovedOn], [c].[ContractNumber], [c].[ContractValue], [c].[CreatedBy], [c].[CreatedOn], [c].[Description], [c].[EndDate], [c].[IsActive], [c].[IsDeleted], [c].[IsRenewal], [c].[ModifiedBy], [c].[ModifiedOn], [c].[ParentContractId], [c].[RejectionReason], [c].[RenewalApprovedBy], [c].[RenewalApprovedOn], [c].[RenewalRequestedOn], [c].[StartDate], [c].[Status], [c].[SubmittedOn], [c].[TerminatedBy], [c].[TerminatedOn], [c].[TerminationReason], [c].[Title], [c].[UpdatedOn], [c].[VendorId], [t].[Id], [t].[AccountHolderName], [t].[AccountNumber], [t].[Address], [t].[BankName], [t].[BranchName], [t].[CompanyName], [t].[ContactPerson], [t].[CreatedBy], [t].[CreatedOn], [t].[Email], [t].[GSTNumber], [t].[IFSCCode], [t].[IsActive], [t].[IsDeleted], [t].[ModifiedBy], [t].[ModifiedOn], [t].[PANNumber], [t].[PaymentMethod], [t].[PaymentTerms], [t].[Phone], [t].[PreferredCurrency], [t].[SwiftCode], [t].[UpdatedOn], [t].[VendorName]
+FROM [Contracts] AS [c]
+INNER JOIN (
+    SELECT [v].[Id], [v].[AccountHolderName], [v].[AccountNumber], [v].[Address], [v].[BankName], [v].[BranchName], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedBy], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IFSCCode], [v].[IsActive], [v].[IsDeleted], [v].[ModifiedBy], [v].[ModifiedOn], [v].[PANNumber], [v].[PaymentMethod], [v].[PaymentTerms], [v].[Phone], [v].[PreferredCurrency], [v].[SwiftCode], [v].[UpdatedOn], [v].[VendorName]
+    FROM [Vendors] AS [v]
+    WHERE [v].[IsDeleted] = CAST(0 AS bit)
+) AS [t] ON [c].[VendorId] = [t].[Id]
+WHERE [c].[IsDeleted] = CAST(0 AS bit)
+2026-07-26 00:02:34.934 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.VendorsController.GetAll (VendorContractManagement.API) in 16.6313ms
+2026-07-26 00:02:34.938 +05:30 [INF] Executing OkObjectResult, writing value of type 'System.Collections.Generic.List`1[[VendorContractManagement.Application.DTOs.ContractDto, VendorContractManagement.Application, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2026-07-26 00:02:34.939 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.VendorsController.GetAll (VendorContractManagement.API)'
+2026-07-26 00:02:34.942 +05:30 [INF] Executed action VendorContractManagement.API.Controllers.ContractsController.GetAll (VendorContractManagement.API) in 20.3964ms
+2026-07-26 00:02:34.943 +05:30 [INF] HTTP GET /api/vendors responded 200 in 39.8239 ms
+2026-07-26 00:02:34.946 +05:30 [INF] Executed endpoint 'VendorContractManagement.API.Controllers.ContractsController.GetAll (VendorContractManagement.API)'
+2026-07-26 00:02:34.949 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/vendors - 200 null application/json; charset=utf-8 51.4538ms
+2026-07-26 00:02:34.950 +05:30 [INF] HTTP GET /api/contracts responded 200 in 42.2562 ms
+2026-07-26 00:02:34.961 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/api/contracts - 200 null application/json; charset=utf-8 63.7373ms

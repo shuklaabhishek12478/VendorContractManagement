@@ -1,0 +1,99 @@
+<div class="summary-grid">
+
+    <div class="summary-card primary">
+
+        <div class="icon">
+            <mat-icon>payments</mat-icon>
+        </div>
+
+        <div class="content">
+
+            <span class="label">
+                Total Spend
+            </span>
+
+            <h2>
+                {{ summary.totalSpend | currency:'INR':'symbol':'1.0-0' }}
+            </h2>
+
+            <small>
+                {{ summary.totalExpenses }} Expenses
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="summary-card success">
+
+        <div class="icon">
+            <mat-icon>check_circle</mat-icon>
+        </div>
+
+        <div class="content">
+
+            <span class="label">
+                Paid
+            </span>
+
+            <h2>
+                {{ summary.paidAmount | currency:'INR':'symbol':'1.0-0' }}
+            </h2>
+
+            <small>
+                {{ summary.paidExpenses }} Paid
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="summary-card warning">
+
+        <div class="icon">
+            <mat-icon>schedule</mat-icon>
+        </div>
+
+        <div class="content">
+
+            <span class="label">
+                Pending
+            </span>
+
+            <h2>
+                {{ summary.pendingAmount | currency:'INR':'symbol':'1.0-0' }}
+            </h2>
+
+            <small>
+                {{ summary.pendingExpenses }} Pending
+            </small>
+
+        </div>
+
+    </div>
+
+    <div class="summary-card info">
+
+        <div class="icon">
+            <mat-icon>account_balance_wallet</mat-icon>
+        </div>
+
+        <div class="content">
+
+            <span class="label">
+                Remaining Budget
+            </span>
+
+            <h2>
+                {{ summary.remainingBudget | currency:'INR':'symbol':'1.0-0' }}
+            </h2>
+
+            <small>
+                Budget Available
+            </small>
+
+        </div>
+
+    </div>
+
+</div>

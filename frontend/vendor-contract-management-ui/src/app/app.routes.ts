@@ -127,6 +127,12 @@ export const routes: Routes = [
     canActivate: [authGuard]
 },
 {
+  path: 'expenditures',
+  loadChildren: () =>
+    import('./features/expenditures/expenditure.routes')
+      .then(m => m.expenditureRoutes)
+},
+{
     path: 'users',
     loadChildren: () =>
         import('./features/admin/users/users.routes')

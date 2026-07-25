@@ -24,6 +24,14 @@ export class ContractService {
     `${environment.apiUrl}/contracts`;
 
 
+  getAll(): Observable<Contract[]> {
+
+  return this.http.get<Contract[]>(
+    this.apiUrl
+  );
+
+}
+
   getById(id: number): Observable<Contract> {
   return this.http.get<Contract>(
     `${this.apiUrl}/${id}`

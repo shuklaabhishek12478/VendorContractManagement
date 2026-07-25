@@ -1,0 +1,135 @@
+<div class="filter-card">
+
+    <div class="grid">
+
+        <input
+            type="text"
+            placeholder="Search..."
+            [(ngModel)]="filter.keyword"
+            (keyup)="applyFilters()">
+
+        <select
+            [(ngModel)]="filter.vendorId"
+            (change)="applyFilters()">
+
+            <option [ngValue]="undefined">
+
+                All Vendors
+
+            </option>
+
+            @for(vendor of vendors;track vendor.id){
+
+            <option [ngValue]="vendor.id">
+
+                {{vendor.vendorName}}
+
+            </option>
+
+            }
+
+        </select>
+
+        <select
+            [(ngModel)]="filter.department"
+            (change)="applyFilters()">
+
+            <option [ngValue]="undefined">
+
+                All Departments
+
+            </option>
+
+            @for(item of departments;track item){
+
+            <option [ngValue]="item">
+
+                {{item}}
+
+            </option>
+
+            }
+
+        </select>
+
+        <select
+            [(ngModel)]="filter.category"
+            (change)="applyFilters()">
+
+            <option [ngValue]="undefined">
+
+                All Categories
+
+            </option>
+
+            @for(item of categories;track item){
+
+            <option [ngValue]="item">
+
+                {{item}}
+
+            </option>
+
+            }
+
+        </select>
+
+        <select
+            [(ngModel)]="filter.paymentStatus"
+            (change)="applyFilters()">
+
+            <option [ngValue]="undefined">
+
+                Payment Status
+
+            </option>
+
+            @for(item of paymentStatuses;track item){
+
+            <option [ngValue]="item">
+
+                {{item}}
+
+            </option>
+
+            }
+
+        </select>
+
+        <select
+            [(ngModel)]="filter.status"
+            (change)="applyFilters()">
+
+            <option [ngValue]="undefined">
+
+                Expense Status
+
+            </option>
+
+            @for(item of statuses;track item){
+
+            <option [ngValue]="item">
+
+                {{item}}
+
+            </option>
+
+            }
+
+        </select>
+
+    </div>
+
+    <div class="actions">
+
+        <button
+            class="clear-btn"
+            (click)="clearFilters()">
+
+            Clear Filters
+
+        </button>
+
+    </div>
+
+</div>

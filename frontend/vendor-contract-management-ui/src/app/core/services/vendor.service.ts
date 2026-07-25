@@ -39,6 +39,8 @@ private vendorDocumentUrl =
     );
   }*/
 
+
+
   getPaged(query: VendorQuery)
 : Observable<PagedResponse<Vendor>> {
 
