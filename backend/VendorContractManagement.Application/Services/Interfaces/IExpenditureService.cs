@@ -24,4 +24,6 @@ public interface IExpenditureService
 
     Task<ExpenditureForecastDto> GetForecastAsync(
         int year);
+
+    Task<byte[]> ExportToExcelAsync(ExpenditureFilterDto filter);
 }

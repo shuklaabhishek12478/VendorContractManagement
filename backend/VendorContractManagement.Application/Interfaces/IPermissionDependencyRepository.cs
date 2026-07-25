@@ -1,9 +1,9 @@
-﻿using VendorContractManagement.Application.DTOs;
+﻿using VendorContractManagement.Domain.Entities;
+using VendorContractManagement.Application.DTOs;
 
-namespace VendorContractManagement.Application.Interfaces
+public interface IPermissionDependencyRepository
 {
-    public interface IPermissionDependencyRepository
-    {
-        Task<List<PermissionRuleDto>> GetPermissionRulesAsync();
-    }
+    Task<List<PermissionDependency>> GetAllAsync();
+
+    Task<List<PermissionRuleDto>> GetPermissionRulesAsync();
 }

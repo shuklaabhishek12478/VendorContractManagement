@@ -13,6 +13,8 @@ public static class PermissionSeeder
         permissions.AddRange(ContractPermissions.Get());
         permissions.AddRange(UserPermissions.Get());
         permissions.AddRange(RolePermissions.Get());
+        permissions.AddRange(ExpenditurePermissions.Get());
+        permissions.AddRange(ReportPermissions.Get());
         return permissions;
     }
 }

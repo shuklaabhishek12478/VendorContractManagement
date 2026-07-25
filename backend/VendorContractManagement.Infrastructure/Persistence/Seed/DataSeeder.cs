@@ -8,89 +8,117 @@ public static class DataSeeder
     {
         await context.Database.MigrateAsync();
 
-        // ==========================
+        // ==========================================
         // Seed Roles
-        // ==========================
-        if (!await context.Roles.AnyAsync())
+        // ==========================================
+
+        var roles = RoleSeeder.GetRoles();
+
+        foreach (var role in roles)
         {
-            var roles = RoleSeeder.GetRoles();
+            var existingRole = await context.Roles
+                .FirstOrDefaultAsync(x => x.Name == role.Name);
 
-            context.Roles.AddRange(roles);
-
-            await context.SaveChangesAsync();
+            if (existingRole == null)
+            {
+                context.Roles.Add(role);
+            }
+            else
+            {
+                existingRole.Description = role.Description;
+            }
         }
 
-        // ==========================
+        await context.SaveChangesAsync();
+
+        // ==========================================
         // Seed Permissions
-        // ==========================
-        if (!await context.Permissions.AnyAsync())
+        // ==========================================
+
+        var permissions = PermissionSeeder.GetPermissions();
+
+        foreach (var permission in permissions)
         {
-            var permissions = PermissionSeeder.GetPermissions();
+            var existingPermission = await context.Permissions
+                .FirstOrDefaultAsync(x => x.Code == permission.Code);
 
-            foreach (var permission in permissions)
+            if (existingPermission == null)
             {
-                var exists = await context.Permissions
-                    .AnyAsync(x => x.Code == permission.Code);
-
-                if (!exists)
-                {
-                    context.Permissions.Add(permission);
-                }
+                context.Permissions.Add(permission);
             }
-
-            await context.SaveChangesAsync();
+            else
+            {
+                existingPermission.Name = permission.Name;
+                existingPermission.Module = permission.Module;
+                existingPermission.Description = permission.Description;
+            }
         }
 
-        // ==========================
+        await context.SaveChangesAsync();
+
+        // ==========================================
         // Seed Permission Dependencies
-        // ==========================
-        if (!await context.PermissionDependencies.AnyAsync())
+        // ==========================================
+
+        var permissionList =
+            await context.Permissions.ToListAsync();
+
+        var dependencies =
+            PermissionDependencySeeder.Get(permissionList);
+
+        foreach (var dependency in dependencies)
         {
-            var permissions = await context.Permissions.ToListAsync();
+            var exists =
+                await context.PermissionDependencies.AnyAsync(x =>
 
-            var dependencies =
-                PermissionDependencySeeder.Get(permissions);
+                    x.PermissionId ==
+                    dependency.PermissionId
 
-            foreach (var dependency in dependencies)
+                    &&
+
+                    x.DependsOnPermissionId ==
+                    dependency.DependsOnPermissionId);
+
+            if (!exists)
             {
-                var exists =
-                    await context.PermissionDependencies.AnyAsync(x =>
-
-                        x.PermissionId ==
-                        dependency.PermissionId
-
-                        &&
-
-                        x.DependsOnPermissionId ==
-                        dependency.DependsOnPermissionId
-                    );
-
-                if (!exists)
-                {
-                    context.PermissionDependencies.Add(dependency);
-                }
+                context.PermissionDependencies.Add(dependency);
             }
-
-            await context.SaveChangesAsync();
         }
 
-        // ==========================
+        await context.SaveChangesAsync();
+
+        // ==========================================
         // Seed Role Permissions
-        // ==========================
-        if (!await context.RolePermissions.AnyAsync())
+        // ==========================================
+
+        var dbRoles =
+            await context.Roles.ToListAsync();
+
+        var dbPermissions =
+            await context.Permissions.ToListAsync();
+
+        var mappings =
+            RolePermissionSeeder.GetRolePermissions(
+                dbRoles,
+                dbPermissions);
+
+        foreach (var mapping in mappings)
         {
-            var roles = await context.Roles.ToListAsync();
+            var exists =
+                await context.RolePermissions.AnyAsync(x =>
 
-            var permissions = await context.Permissions.ToListAsync();
+                    x.RoleId == mapping.RoleId
 
-            var mappings =
-                RolePermissionSeeder.GetRolePermissions(
-                    roles,
-                    permissions);
+                    &&
 
-            context.RolePermissions.AddRange(mappings);
+                    x.PermissionId == mapping.PermissionId);
 
-            await context.SaveChangesAsync();
+            if (!exists)
+            {
+                context.RolePermissions.Add(mapping);
+            }
         }
+
+        await context.SaveChangesAsync();
     }
 }

@@ -86,146 +86,77 @@ public class ExpenditureRepository : IExpenditureRepository
     }
 
     public async Task<List<Expenditure>> SearchAsync(
-     ExpenditureFilterDto filter)
+    ExpenditureFilterDto filter)
     {
         var query = _context.Expenditures
-
             .Include(x => x.Vendor)
-
             .Include(x => x.Contract)
-
             .Where(x => !x.IsDeleted)
-
             .AsQueryable();
-
-        // Keyword Search
 
         if (!string.IsNullOrWhiteSpace(filter.Keyword))
         {
             var keyword = filter.Keyword.Trim();
 
             query = query.Where(x =>
-
                 x.Title.Contains(keyword) ||
-
                 x.ExpenseNumber.Contains(keyword) ||
-
                 x.InvoiceNumber.Contains(keyword) ||
-
                 x.Vendor.CompanyName.Contains(keyword));
         }
 
-        // Vendor
-
         if (filter.VendorId.HasValue)
-        {
-            query = query.Where(x =>
-                x.VendorId == filter.VendorId.Value);
-        }
-
-        // Contract
+            query = query.Where(x => x.VendorId == filter.VendorId.Value);
 
         if (filter.ContractId.HasValue)
-        {
-            query = query.Where(x =>
-                x.ContractId == filter.ContractId.Value);
-        }
-
-        // Department
+            query = query.Where(x => x.ContractId == filter.ContractId.Value);
 
         if (filter.Department.HasValue)
-        {
             query = query.Where(x =>
-                (int)x.Department == filter.Department.Value);
-        }
-
-        // Cost Center
+    x.Department == filter.Department.Value);
 
         if (filter.CostCenter.HasValue)
-        {
             query = query.Where(x =>
-                (int)x.CostCenter == filter.CostCenter.Value);
-        }
-
-        // Category
+    x.CostCenter == filter.CostCenter.Value);
 
         if (filter.Category.HasValue)
-        {
             query = query.Where(x =>
-                (int)x.Category == filter.Category.Value);
-        }
-
-        // Expense Type
+    x.Category == filter.Category.Value);
 
         if (filter.ExpenseType.HasValue)
-        {
             query = query.Where(x =>
-                (int)x.ExpenseType == filter.ExpenseType.Value);
-        }
-
-        // Payment Status
+    x.ExpenseType == filter.ExpenseType.Value);
 
         if (filter.PaymentStatus.HasValue)
-        {
             query = query.Where(x =>
-                (int)x.PaymentStatus == filter.PaymentStatus.Value);
-        }
-
-        // Status
+    x.PaymentStatus == filter.PaymentStatus.Value);
 
         if (filter.Status.HasValue)
-        {
             query = query.Where(x =>
-                (int)x.Status == filter.Status.Value);
-        }
-
-        // Date Range
+    x.Status == filter.Status.Value);
 
         if (filter.FromDate.HasValue)
-        {
-            query = query.Where(x =>
-                x.ExpenseDate >= filter.FromDate.Value);
-        }
+            query = query.Where(x => x.ExpenseDate >= filter.FromDate.Value);
 
         if (filter.ToDate.HasValue)
-        {
-            query = query.Where(x =>
-                x.ExpenseDate <= filter.ToDate.Value);
-        }
-
-        // Amount Range
+            query = query.Where(x => x.ExpenseDate <= filter.ToDate.Value);
 
         if (filter.MinAmount.HasValue)
-        {
-            query = query.Where(x =>
-                x.TotalAmount >= filter.MinAmount.Value);
-        }
+            query = query.Where(x => x.TotalAmount >= filter.MinAmount.Value);
 
         if (filter.MaxAmount.HasValue)
-        {
-            query = query.Where(x =>
-                x.TotalAmount <= filter.MaxAmount.Value);
-        }
-
-        // Sorting
+            query = query.Where(x => x.TotalAmount <= filter.MaxAmount.Value);
 
         query = filter.Descending
-
             ? query.OrderByDescending(x => x.ExpenseDate)
                    .ThenByDescending(x => x.CreatedOn)
-
             : query.OrderBy(x => x.ExpenseDate)
                    .ThenBy(x => x.CreatedOn);
 
-        // Pagination
-
-        query = query
-
+        return await query
             .Skip((filter.Page - 1) * filter.PageSize)
-
-            .Take(filter.PageSize);
-
-        return await query.ToListAsync();
+            .Take(filter.PageSize)
+            .ToListAsync();
     }
 
     public async Task<ExpenditureSummaryDto> GetSummaryAsync()
@@ -475,5 +406,104 @@ public class ExpenditureRepository : IExpenditureRepository
             .Select(x => x.ExpenseNumber)
 
             .FirstOrDefaultAsync();
+    }
+
+
+    public async Task<List<Expenditure>> ExportAsync(
+    ExpenditureFilterDto filter)
+    {
+        var query = _context.Expenditures
+            .Include(x => x.Vendor)
+            .Include(x => x.Contract)
+            .Where(x => !x.IsDeleted)
+            .AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(filter.Keyword))
+        {
+            var keyword = filter.Keyword.Trim();
+
+            query = query.Where(x =>
+                x.Title.Contains(keyword) ||
+                x.InvoiceNumber.Contains(keyword) ||
+                x.ExpenseNumber.Contains(keyword) ||
+                x.Vendor.CompanyName.Contains(keyword));
+        }
+
+        if (filter.VendorId.HasValue)
+        {
+            query = query.Where(x =>
+                x.VendorId == filter.VendorId.Value);
+        }
+
+        if (filter.ContractId.HasValue)
+        {
+            query = query.Where(x =>
+                x.ContractId == filter.ContractId.Value);
+        }
+
+        if (filter.Department.HasValue)
+        {
+            query = query.Where(x =>
+                x.Department == filter.Department.Value);
+        }
+
+        if (filter.CostCenter.HasValue)
+        {
+            query = query.Where(x =>
+                x.CostCenter == filter.CostCenter.Value);
+        }
+
+        if (filter.Category.HasValue)
+        {
+            query = query.Where(x =>
+                x.Category == filter.Category.Value);
+        }
+
+        if (filter.ExpenseType.HasValue)
+        {
+            query = query.Where(x =>
+                x.ExpenseType == filter.ExpenseType.Value);
+        }
+
+        if (filter.PaymentStatus.HasValue)
+        {
+            query = query.Where(x =>
+                x.PaymentStatus == filter.PaymentStatus.Value);
+        }
+
+        if (filter.Status.HasValue)
+        {
+            query = query.Where(x =>
+                x.Status == filter.Status.Value);
+        }
+
+        if (filter.FromDate.HasValue)
+        {
+            query = query.Where(x =>
+                x.ExpenseDate >= filter.FromDate.Value);
+        }
+
+        if (filter.ToDate.HasValue)
+        {
+            query = query.Where(x =>
+                x.ExpenseDate <= filter.ToDate.Value);
+        }
+
+        if (filter.MinAmount.HasValue)
+        {
+            query = query.Where(x =>
+                x.TotalAmount >= filter.MinAmount.Value);
+        }
+
+        if (filter.MaxAmount.HasValue)
+        {
+            query = query.Where(x =>
+                x.TotalAmount <= filter.MaxAmount.Value);
+        }
+
+        return await query
+            .OrderByDescending(x => x.ExpenseDate)
+            .ThenByDescending(x => x.CreatedOn)
+            .ToListAsync();
     }
 }

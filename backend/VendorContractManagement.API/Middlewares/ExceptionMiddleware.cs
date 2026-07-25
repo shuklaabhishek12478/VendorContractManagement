@@ -99,10 +99,16 @@ namespace VendorContractManagement.API.Middlewares
             {
                 _logger.LogError(ex, ex.ToString());
 
-                await HandleExceptionAsync(
-                    context,
-                    HttpStatusCode.InternalServerError,
-                    "An unexpected error occurred.");
+                context.Response.ContentType = "application/json";
+                context.Response.StatusCode = 500;
+
+                await context.Response.WriteAsJsonAsync(new
+                {
+                    Message = ex.Message,
+                    Exception = ex.GetType().Name,
+                    StackTrace = ex.StackTrace,
+                    InnerException = ex.InnerException?.Message
+                });
             }
         }
 

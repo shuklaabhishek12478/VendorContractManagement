@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using VendorContractManagement.Application.Interfaces;
+using VendorContractManagement.Application.Services.Implementations;
+using VendorContractManagement.Application.Services.Interfaces;
 using VendorContractManagement.Infrastructure.Data;
 using VendorContractManagement.Infrastructure.Persistence;
 using VendorContractManagement.Infrastructure.Repository;
@@ -22,7 +24,11 @@ public static class DependencyInjection
         services.AddScoped<IVendorRepository, VendorRepository>();
         return services;
 
-       
+        services.AddScoped<IReportRepository, ReportRepository>();
+
+        services.AddScoped<IReportService, ReportService>();
+
+
     }
 
 }

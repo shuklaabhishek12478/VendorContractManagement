@@ -16,6 +16,15 @@ public class PermissionDependencyRepository
         _context = context;
     }
 
+    public async Task<List<PermissionDependency>> GetAllAsync()
+    {
+        return await _context.PermissionDependencies
+            .AsNoTracking()
+            .Include(x => x.Permission)
+            .Include(x => x.DependsOnPermission)
+            .ToListAsync();
+    }
+
     public async Task<List<PermissionRuleDto>> GetPermissionRulesAsync()
     {
         var rules = await _context.PermissionDependencies

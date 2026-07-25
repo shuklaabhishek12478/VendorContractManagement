@@ -7,48 +7,51 @@ public static class PermissionDependencySeeder
     public static List<PermissionDependency> Get(
         List<Permission> permissions)
     {
-        var permissionLookup = permissions.ToDictionary(
-            x => x.Code,
-            x => x.Id);
+        var result = new List<PermissionDependency>();
 
-        return new List<PermissionDependency>
+        foreach (var permission in permissions)
         {
-            // Vendor
-            Create(permissionLookup, "Vendor.Create", "Vendor.View"),
-            Create(permissionLookup, "Vendor.Edit", "Vendor.View"),
-            Create(permissionLookup, "Vendor.Delete", "Vendor.View"),
-            Create(permissionLookup, "Vendor.Delete", "Vendor.Edit"),
+            var parts = permission.Code.Split('.');
 
-            // Contract
-            Create(permissionLookup, "Contract.Create", "Contract.View"),
-            Create(permissionLookup, "Contract.Edit", "Contract.View"),
-            Create(permissionLookup, "Contract.Delete", "Contract.View"),
-            Create(permissionLookup, "Contract.Delete", "Contract.Edit"),
-            Create(permissionLookup, "Contract.Approve", "Contract.View"),
+            if (parts.Length != 2)
+                continue;
 
-            // User
-            Create(permissionLookup, "User.Create", "User.View"),
-            Create(permissionLookup, "User.Edit", "User.View"),
-            Create(permissionLookup, "User.Delete", "User.View"),
-            Create(permissionLookup, "User.Delete", "User.Edit"),
+            var module = parts[0];
+            var action = parts[1];
 
-            // Role
-            Create(permissionLookup, "Role.Create", "Role.View"),
-            Create(permissionLookup, "Role.Edit", "Role.View"),
-            Create(permissionLookup, "Role.Delete", "Role.View"),
-            Create(permissionLookup, "Role.Delete", "Role.Edit")
-        };
-    }
+            // View permission has no dependency
+            if (action == "View")
+                continue;
 
-    private static PermissionDependency Create(
-        Dictionary<string, int> lookup,
-        string permission,
-        string dependsOn)
-    {
-        return new PermissionDependency
-        {
-            PermissionId = lookup[permission],
-            DependsOnPermissionId = lookup[dependsOn]
-        };
+            var viewPermission = permissions.FirstOrDefault(x =>
+                x.Code == $"{module}.View");
+
+            if (viewPermission == null)
+                continue;
+
+            result.Add(new PermissionDependency
+            {
+                PermissionId = permission.Id,
+                DependsOnPermissionId = viewPermission.Id
+            });
+
+            // Delete depends on Edit (if Edit exists)
+            if (action == "Delete")
+            {
+                var editPermission = permissions.FirstOrDefault(x =>
+                    x.Code == $"{module}.Edit");
+
+                if (editPermission != null)
+                {
+                    result.Add(new PermissionDependency
+                    {
+                        PermissionId = permission.Id,
+                        DependsOnPermissionId = editPermission.Id
+                    });
+                }
+            }
+        }
+
+        return result;
     }
 }

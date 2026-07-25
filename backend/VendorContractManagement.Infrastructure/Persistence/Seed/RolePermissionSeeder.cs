@@ -10,60 +10,46 @@ public static class RolePermissionSeeder
     {
         var result = new List<RolePermission>();
 
-        var superAdmin =
-            roles.First(x => x.Name == "Super Admin");
-
-        var admin =
-            roles.First(x => x.Name == "Admin");
-
-        var viewer =
-            roles.First(x => x.Name == "Viewer");
-
-        // ==========================
-        // Super Admin
-        // ==========================
-
-        foreach (var permission in permissions)
+        foreach (var role in roles)
         {
-            result.Add(new RolePermission
-            {
-                RoleId = superAdmin.Id,
-                PermissionId = permission.Id,
-                AssignedOn = DateTime.UtcNow,
-                AssignedBy = "System"
-            });
-        }
+            IEnumerable<Permission> rolePermissions =
+                Enumerable.Empty<Permission>();
 
-        // ==========================
-        // Admin
-        // ==========================
-
-        foreach (var permission in permissions)
-        {
-            if (permission.Module != "Settings")
+            switch (role.Name)
             {
-                result.Add(new RolePermission
-                {
-                    RoleId = admin.Id,
-                    PermissionId = permission.Id,
-                    AssignedOn = DateTime.UtcNow,
-                    AssignedBy = "System"
-                });
+                case "Super Admin":
+
+                    rolePermissions = permissions;
+
+                    break;
+
+                case "Admin":
+
+                    rolePermissions = permissions.Where(x =>
+                        x.Module != "Settings");
+
+                    break;
+
+                case "Viewer":
+
+                    rolePermissions = permissions.Where(x =>
+                        x.Code.EndsWith(".View") ||
+                        x.Code.EndsWith(".ViewDetails"));
+
+                    break;
+
+                default:
+
+                    rolePermissions = Enumerable.Empty<Permission>();
+
+                    break;
             }
-        }
 
-        // ==========================
-        // Viewer
-        // ==========================
-
-        foreach (var permission in permissions)
-        {
-            if (permission.Code.EndsWith(".View") ||
-                permission.Code.EndsWith(".ViewDetails"))
+            foreach (var permission in rolePermissions)
             {
                 result.Add(new RolePermission
                 {
-                    RoleId = viewer.Id,
+                    RoleId = role.Id,
                     PermissionId = permission.Id,
                     AssignedOn = DateTime.UtcNow,
                     AssignedBy = "System"

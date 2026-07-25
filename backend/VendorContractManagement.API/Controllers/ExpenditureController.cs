@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using VendorContractManagement.Application.DTOs.Expenditure;
 using VendorContractManagement.Application.Services.Interfaces;
+using ClosedXML.Excel;
 
 namespace VendorContractManagement.API.Controllers;
 
@@ -19,30 +20,27 @@ public class ExpenditureController : ControllerBase
     }
 
     [HttpGet]
+    [Authorize(Policy = "Expenditure.View")]
     public async Task<IActionResult> GetAll()
     {
-        var result =
-            await _service.GetAllAsync();
+        var result = await _service.GetAllAsync();
 
         return Ok(result);
     }
 
 
     [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetById(
-    int id)
+    [Authorize(Policy = "Expenditure.View")]
+    public async Task<IActionResult> GetById(int id)
     {
-        var result =
-            await _service.GetByIdAsync(id);
-
-        if (result == null)
-            return NotFound();
+        var result = await _service.GetByIdAsync(id);
 
         return Ok(result);
     }
 
 
     [HttpPost]
+    [Authorize(Policy = "Expenditure.Create")]
     public async Task<IActionResult> Create(
     CreateExpenditureDto dto)
     {
@@ -56,21 +54,20 @@ public class ExpenditureController : ControllerBase
     }
 
     [HttpPut("{id:int}")]
+    [Authorize(Policy = "Expenditure.Update")]
     public async Task<IActionResult> Update(
     int id,
     UpdateExpenditureDto dto)
     {
         var result =
-            await _service.UpdateAsync(
-                id,
-                dto);
+            await _service.UpdateAsync(id, dto);
 
         return Ok(result);
     }
 
     [HttpDelete("{id:int}")]
-    public async Task<IActionResult> Delete(
-    int id)
+    [Authorize(Policy = "Expenditure.Delete")]
+    public async Task<IActionResult> Delete(int id)
     {
         await _service.DeleteAsync(id);
 
@@ -79,8 +76,9 @@ public class ExpenditureController : ControllerBase
 
 
     [HttpGet("search")]
+    [Authorize(Policy = "Expenditure.Search")]
     public async Task<IActionResult> Search(
-    [FromQuery] ExpenditureFilterDto filter)
+     [FromQuery] ExpenditureFilterDto filter)
     {
         var result =
             await _service.SearchAsync(filter);
@@ -89,6 +87,7 @@ public class ExpenditureController : ControllerBase
     }
 
     [HttpGet("dashboard")]
+    [Authorize(Policy = "Expenditure.Dashboard")]
     public async Task<IActionResult> GetDashboard()
     {
         var result =
@@ -99,12 +98,25 @@ public class ExpenditureController : ControllerBase
 
 
     [HttpGet("forecast/{year:int}")]
-    public async Task<IActionResult> GetForecast(
-    int year)
+    [Authorize(Policy = "Expenditure.Forecast")]
+    public async Task<IActionResult> GetForecast(int year)
     {
         var result =
             await _service.GetForecastAsync(year);
 
         return Ok(result);
+    }
+
+    [HttpGet("export/excel")]
+    public async Task<IActionResult> ExportExcel(
+    [FromQuery] ExpenditureFilterDto filter)
+    {
+        var file =
+            await _service.ExportToExcelAsync(filter);
+
+        return File(
+            file,
+            "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            $"ExpenditureReport_{DateTime.Now:yyyyMMddHHmmss}.xlsx");
     }
 }

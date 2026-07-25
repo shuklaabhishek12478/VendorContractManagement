@@ -42,7 +42,19 @@ namespace VendorContractManagement.Application.Mappings
 
             CreateMap<VendorDocument, VendorDocumentDto>();
 
-            CreateMap<Expenditure, ExpenditureDto>();
+            CreateMap<Expenditure, ExpenditureDto>()
+
+     .ForMember(
+         dest => dest.VendorName,
+         opt => opt.MapFrom(src =>
+             src.Vendor.CompanyName))
+
+     .ForMember(
+         dest => dest.ContractNumber,
+         opt => opt.MapFrom(src =>
+             src.Contract != null
+                 ? src.Contract.ContractNumber
+                 : null));
 
             CreateMap<CreateExpenditureDto, Expenditure>();
 

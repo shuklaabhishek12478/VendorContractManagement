@@ -36,6 +36,7 @@ public class UpdateExpenditureDto
 
     public PaymentMethod PaymentMethod { get; set; }
 
+    public PaymentStatus PaymentStatus { get; set; }
     public string Description { get; set; } = string.Empty;
 
     public string? Remarks { get; set; }

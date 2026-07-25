@@ -45,4 +45,7 @@ public interface IExpenditureRepository
         int? excludeId = null);
 
     Task<string?> GetLastExpenseNumberAsync();
+
+    Task<List<Expenditure>> ExportAsync(
+    ExpenditureFilterDto filter);
 }

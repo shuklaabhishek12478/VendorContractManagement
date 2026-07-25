@@ -224,8 +224,8 @@ builder.Services.AddScoped<IPermissionRuleService, PermissionRuleService>();
 builder.Services.AddScoped<IPermissionExportService,PermissionExportService>();
 builder.Services.AddScoped<IPermissionImportService,PermissionImportService>();
 builder.Services.AddScoped<IPermissionValidationService,PermissionValidationService>();
-
-
+builder.Services.AddScoped<IReportRepository, ReportRepository>();
+builder.Services.AddScoped<IReportService, ReportService>();
 var app = builder.Build();
 
 app.UseSerilogRequestLogging();

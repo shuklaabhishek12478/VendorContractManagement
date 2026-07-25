@@ -157,6 +157,13 @@ public class RoleService : IRoleService
         if (role.IsSystemRole)
             throw new BusinessRuleException(
     "System role cannot be deleted.");
+
+        if (await _unitOfWork.Roles.CountUsersAsync(id) > 0)
+        {
+            throw new BusinessRuleException(
+                "Users are assigned to this role.");
+        }
+
         await _unitOfWork.Roles.DeleteAsync(role);
         _logger.LogInformation("Role deleted successfully. Id={RoleId}", id);
         await _auditLogService.LogAsync(new AuditLog
@@ -206,7 +213,11 @@ public class RoleService : IRoleService
         if (role.IsSystemRole)
             throw new BusinessRuleException(
     "System role cannot be deactivated.");
-        
+        if (await _unitOfWork.Roles.CountUsersAsync(id) > 0)
+        {
+            throw new BusinessRuleException(
+                "Cannot deactivate role assigned to users.");
+        }
         role.IsActive = false;
 
         await _unitOfWork.Roles.UpdateAsync(role);
@@ -254,8 +265,9 @@ public class RoleService : IRoleService
     AssignPermissionsDto dto)
     {
         _logger.LogInformation(
-    "Assigning permissions to role {RoleId}",
-    roleId);
+            "Assigning permissions to role {RoleId}",
+            roleId);
+
         var role =
             await _unitOfWork.Roles.GetByIdAsync(roleId);
 
@@ -264,26 +276,39 @@ public class RoleService : IRoleService
 
         if (!role.IsActive)
             throw new BusinessRuleException(
-    "Cannot assign permissions to inactive role.");
+                "Cannot assign permissions to inactive role.");
 
         dto.PermissionIds = dto.PermissionIds
             .Distinct()
             .ToList();
 
+        await ValidatePermissionsAsync(
+            dto.PermissionIds);
+
+        if (role.IsSystemRole &&
+    role.Name == "Super Admin")
+        {
+            throw new BusinessRuleException(
+                "Permissions of Super Admin cannot be modified.");
+        }
+
         await _unitOfWork.Roles.AssignPermissionsAsync(
             roleId,
             dto.PermissionIds);
+
         _logger.LogInformation(
-    "{Count} permissions assigned to role {RoleId}",
-    dto.PermissionIds.Count,
-    roleId);
+            "{Count} permissions assigned to role {RoleId}",
+            dto.PermissionIds.Count,
+            roleId);
+
         await _auditLogService.LogAsync(new AuditLog
         {
             Action = "Assign Permissions",
             EntityName = "Role",
             EntityId = role.Id,
             PerformedBy = "System",
-            NewValues = $"{dto.PermissionIds.Count} Permissions Assigned",
+            NewValues =
+                $"{dto.PermissionIds.Count} Permissions Assigned",
             CreatedOn = DateTime.UtcNow
         });
     }
@@ -292,14 +317,13 @@ public class RoleService : IRoleService
     int roleId)
     {
         var permissions =
-            await _unitOfWork.Roles.GetPermissionsAsync(roleId);
+            await _unitOfWork.Roles
+                .GetPermissionsAsync(roleId);
 
         return permissions
-
+            .OrderBy(x => x.Module)
+            .ThenBy(x => x.Name)
             .Select(x => x.Code)
-
-            .OrderBy(x => x)
-
             .ToList();
     }
 
@@ -308,34 +332,59 @@ public class RoleService : IRoleService
     string newRoleName)
     {
         _logger.LogInformation(
-    "Cloning role {RoleId}",
-    roleId);
+            "Cloning role {RoleId}",
+            roleId);
+
         if (await _unitOfWork.Roles.ExistsAsync(newRoleName))
         {
-            throw new ConflictException("Role already exists.");
+            throw new ConflictException(
+                "Role already exists.");
         }
 
-        var role =
+        var sourceRole =
+            await _unitOfWork.Roles.GetByIdAsync(roleId);
+
+        if (sourceRole == null)
+            throw new NotFoundException("Role not found.");
+
+        var clonedRole =
             await _unitOfWork.Roles.CloneRoleAsync(
                 roleId,
                 newRoleName);
 
+        await _auditLogService.LogAsync(
+            new AuditLog
+            {
+                Action = "Clone",
+                EntityName = "Role",
+                EntityId = clonedRole.Id,
+                PerformedBy = "System",
+                NewValues =
+                    $"Cloned from '{sourceRole.Name}' to '{newRoleName}'",
+                CreatedOn = DateTime.UtcNow
+            });
+
         _logger.LogInformation(
-    "Role cloned successfully as {RoleName}",
-    role.Name);
+            "Role cloned successfully.");
 
-        await _auditLogService.LogAsync(new AuditLog
-        {
-            Action = "Clone",
-            EntityName = "Role",
-            EntityId = role.Id,
-            PerformedBy = "System",
-            NewValues = $"Cloned As : {newRoleName}",
-            CreatedOn = DateTime.UtcNow
-        });
 
-        return _mapper.Map<RoleDto>(role);
+        await _unitOfWork.RecentActivities.AddAsync(
+    new RecentActivity
+    {
+        Action = "Role Cloned",
 
+        EntityName = clonedRole.Name,
+
+        Description =
+            $"Role cloned from {sourceRole.Name}",
+
+        CreatedOn = DateTime.UtcNow
+    });
+
+        await _unitOfWork.SaveChangesAsync();
+
+
+        return _mapper.Map<RoleDto>(clonedRole);
     }
 
     public async Task AssignUsersAsync(
@@ -346,10 +395,12 @@ public class RoleService : IRoleService
             "Assigning users to role {RoleId}",
             roleId);
 
-        var role = await _unitOfWork.Roles.GetByIdAsync(roleId);
+        var role =
+            await _unitOfWork.Roles.GetByIdAsync(roleId);
 
         if (role == null)
-            throw new NotFoundException("Role not found.");
+            throw new NotFoundException(
+                "Role not found.");
 
         if (!role.IsActive)
             throw new BusinessRuleException(
@@ -363,33 +414,51 @@ public class RoleService : IRoleService
             roleId,
             dto.UserIds);
 
-        await _auditLogService.LogAsync(new AuditLog
-        {
-            Action = "Assign Users",
-            EntityName = "Role",
-            EntityId = role.Id,
-            PerformedBy = "System",
-            NewValues = $"{dto.UserIds.Count} Users Assigned",
-            CreatedOn = DateTime.UtcNow
-        });
+        await _auditLogService.LogAsync(
+            new AuditLog
+            {
+                Action = "Assign Users",
+                EntityName = "Role",
+                EntityId = role.Id,
+                PerformedBy = "System",
+                NewValues =
+                    $"{dto.UserIds.Count} Users Assigned",
+                CreatedOn = DateTime.UtcNow
+            });
 
         _logger.LogInformation(
-            "{Count} users assigned to role {RoleId}",
-            dto.UserIds.Count,
-            roleId);
+            "{Count} users assigned.",
+            dto.UserIds.Count);
+        await _unitOfWork.RecentActivities.AddAsync(
+    new RecentActivity
+    {
+        Action = "Users Assigned",
+
+        EntityName = role.Name,
+
+        Description =
+            $"{dto.UserIds.Count} users assigned.",
+
+        CreatedOn = DateTime.UtcNow
+    });
+
+        await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task<List<UserDto>> GetUsersAsync(
     int roleId)
     {
         var role =
-            await _unitOfWork.Roles.GetByIdAsync(roleId);
+            await _unitOfWork.Roles
+                .GetByIdAsync(roleId);
 
         if (role == null)
-            throw new NotFoundException("Role not found.");
+            throw new NotFoundException(
+                "Role not found.");
 
         var users =
-            await _unitOfWork.Roles.GetUsersAsync(roleId);
+            await _unitOfWork.Roles
+                .GetUsersAsync(roleId);
 
         return _mapper.Map<List<UserDto>>(users);
     }
@@ -399,31 +468,49 @@ public class RoleService : IRoleService
     int userId)
     {
         _logger.LogInformation(
-            "Removing user {UserId} from role {RoleId}",
-            userId,
-            roleId);
+            "Removing user {UserId}",
+            userId);
 
-        var role = await _unitOfWork.Roles.GetByIdAsync(roleId);
+        var role =
+            await _unitOfWork.Roles.GetByIdAsync(
+                roleId);
 
         if (role == null)
-            throw new NotFoundException("Role not found.");
+            throw new NotFoundException(
+                "Role not found.");
 
         await _unitOfWork.Roles.RemoveUserAsync(
             roleId,
             userId);
 
-        await _auditLogService.LogAsync(new AuditLog
-        {
-            Action = "Remove User",
-            EntityName = "Role",
-            EntityId = roleId,
-            PerformedBy = "System",
-            OldValues = $"UserId : {userId}",
-            CreatedOn = DateTime.UtcNow
-        });
+        await _auditLogService.LogAsync(
+            new AuditLog
+            {
+                Action = "Remove User",
+                EntityName = "Role",
+                EntityId = role.Id,
+                PerformedBy = "System",
+                OldValues =
+                    $"User Id : {userId}",
+                CreatedOn = DateTime.UtcNow
+            });
 
         _logger.LogInformation(
-            "User removed from role successfully.");
+            "User removed successfully.");
+        await _unitOfWork.RecentActivities.AddAsync(
+    new RecentActivity
+    {
+        Action = "User Removed",
+
+        EntityName = role.Name,
+
+        Description =
+            $"User {userId} removed.",
+
+        CreatedOn = DateTime.UtcNow
+    });
+
+        await _unitOfWork.SaveChangesAsync();
     }
 
     public async Task<RoleStatisticsDto> GetStatisticsAsync()
@@ -455,33 +542,34 @@ public class RoleService : IRoleService
     }
 
     public async Task<List<PermissionGroupDto>> GetPermissionMatrixAsync(
-    int roleId)
+      int roleId)
     {
         var role =
             await _unitOfWork.Roles
                 .GetForPermissionMatrixAsync(roleId);
 
         if (role == null)
-            throw new Exception("Role not found.");
+            throw new NotFoundException("Role not found.");
 
         var allPermissions =
-            await _unitOfWork.Permissions
-                .GetAllAsync();
+            await _unitOfWork.Permissions.GetAllAsync();
 
-        var assignedPermissionIds =
+        var assigned =
             role.RolePermissions
                 .Select(x => x.PermissionId)
                 .ToHashSet();
 
-        var result = allPermissions
+        return allPermissions
 
             .GroupBy(x => x.Module)
 
-            .Select(group => new PermissionGroupDto
-            {
-                Module = group.Key,
+            .OrderBy(x => x.Key)
 
-                Permissions = group
+            .Select(module => new PermissionGroupDto
+            {
+                Module = module.Key,
+
+                Permissions = module
 
                     .OrderBy(x => x.Name)
 
@@ -494,20 +582,13 @@ public class RoleService : IRoleService
                         DisplayName = permission.Name,
 
                         Assigned =
-                            assignedPermissionIds.Contains(
-                                permission.Id)
-
+                            assigned.Contains(permission.Id)
                     })
 
                     .ToList()
-
             })
 
-            .OrderBy(x => x.Module)
-
             .ToList();
-
-        return result;
     }
 
     public async Task SavePermissionMatrixAsync(
@@ -519,27 +600,66 @@ public class RoleService : IRoleService
                 .GetByIdAsync(roleId);
 
         if (role == null)
-            throw new Exception("Role not found.");
+            throw new NotFoundException(
+                "Role not found.");
 
-        dto.PermissionIds = dto.PermissionIds
-    .Distinct()
-    .ToList();
-
-        var validation =
-            await _permissionValidationService
-                .ValidateAsync(dto.PermissionIds);
-
-        if (!validation.IsValid)
+        if (!role.IsActive)
         {
             throw new BusinessRuleException(
-                string.Join(Environment.NewLine,
-                    validation.Errors));
+                "Inactive role cannot be modified.");
+        }
+
+        dto.PermissionIds = dto.PermissionIds
+
+            .Distinct()
+
+            .ToList();
+
+        await ValidatePermissionsAsync(
+            dto.PermissionIds);
+
+        if (role.IsSystemRole &&
+    role.Name == "Super Admin")
+        {
+            var allPermissionIds =
+                (await _unitOfWork.Permissions.GetAllAsync())
+                    .Select(x => x.Id)
+                    .OrderBy(x => x)
+                    .ToList();
+
+            var selected =
+                dto.PermissionIds
+                    .OrderBy(x => x)
+                    .ToList();
+
+            if (!allPermissionIds.SequenceEqual(selected))
+            {
+                throw new BusinessRuleException(
+                    "Super Admin must always have every permission.");
+            }
         }
 
         await _unitOfWork.Roles
             .SavePermissionMatrixAsync(
                 roleId,
                 dto.PermissionIds);
+
+        await _auditLogService.LogAsync(
+            new AuditLog
+            {
+                Action = "Permission Matrix Updated",
+
+                EntityName = "Role",
+
+                EntityId = role.Id,
+
+                PerformedBy = "System",
+
+                NewValues =
+                    $"{dto.PermissionIds.Count} permissions assigned.",
+
+                CreatedOn = DateTime.UtcNow
+            });
 
         await _unitOfWork.RecentActivities.AddAsync(
             new RecentActivity
@@ -555,5 +675,29 @@ public class RoleService : IRoleService
             });
 
         await _unitOfWork.SaveChangesAsync();
+
+        _logger.LogInformation(
+            "Permission Matrix updated for Role {RoleId}",
+            roleId);
+    }
+
+    private async Task ValidatePermissionsAsync(
+    List<int> permissionIds)
+    {
+        permissionIds = permissionIds
+            .Distinct()
+            .ToList();
+
+        var validation =
+            await _permissionValidationService
+                .ValidateAsync(permissionIds);
+
+        if (!validation.IsValid)
+        {
+            throw new BusinessRuleException(
+                string.Join(
+                    Environment.NewLine,
+                    validation.Errors));
+        }
     }
 }
