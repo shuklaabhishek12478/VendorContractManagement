@@ -16,3 +16,99 @@ INNER JOIN (
     WHERE [v].[IsDeleted] = CAST(0 AS bit)
 ) AS [t] ON [c].[VendorId] = [t].[Id]
 WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[Status] = 4
+2026-07-23 22:47:52.232 +05:30 [INF] Start installing Hangfire SQL objects...
+2026-07-23 22:47:53.098 +05:30 [INF] Hangfire SQL objects installed.
+2026-07-23 22:47:54.122 +05:30 [WRN] Entity 'Vendor' has a global query filter defined and is the required end of a relationship with the entity 'Contract'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-07-23 22:47:54.131 +05:30 [WRN] Entity 'Vendor' has a global query filter defined and is the required end of a relationship with the entity 'Expenditure'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-07-23 22:47:54.135 +05:30 [WRN] Entity 'Vendor' has a global query filter defined and is the required end of a relationship with the entity 'VendorDocument'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-07-23 22:47:54.180 +05:30 [WRN] The foreign key property 'Expenditure.ContractId1' was created in shadow state because a conflicting property with the simple name 'ContractId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2026-07-23 22:47:54.187 +05:30 [WRN] The foreign key property 'Expenditure.VendorId1' was created in shadow state because a conflicting property with the simple name 'VendorId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2026-07-23 22:47:54.382 +05:30 [INF] Executed DbCommand (15ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-07-23 22:47:54.476 +05:30 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-07-23 22:47:54.502 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-07-23 22:47:54.508 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-07-23 22:47:54.532 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-07-23 22:47:54.570 +05:30 [INF] No migrations were applied. The database is already up to date.
+2026-07-23 22:47:54.721 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Roles] AS [r]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-23 22:47:54.736 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [Permissions] AS [p]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-23 22:47:54.747 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-23 22:47:54.756 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-23 22:47:54.823 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-07-23 22:47:54.829 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-07-23 22:47:54.834 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-07-23 22:47:54.838 +05:30 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-07-23 22:47:54.844 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-07-23 22:47:54.847 +05:30 [INF] No migrations were applied. The database is already up to date.
+2026-07-23 22:47:54.904 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Color], [r].[CreatedBy], [r].[CreatedOn], [r].[Description], [r].[Icon], [r].[IsActive], [r].[IsDeleted], [r].[IsSystemRole], [r].[ModifiedBy], [r].[ModifiedOn], [r].[Name], [r].[Priority], [r].[UpdatedOn]
+FROM [Roles] AS [r]
+WHERE [r].[Name] = N'Admin'
+2026-07-23 22:47:54.963 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[CreatedBy], [u].[CreatedOn], [u].[Email], [u].[FullName], [u].[IsActive], [u].[IsDeleted], [u].[ModifiedBy], [u].[ModifiedOn], [u].[PasswordHash], [u].[RefreshToken], [u].[RefreshTokenExpiryTime], [u].[UpdatedOn], [u].[VendorId]
+FROM [Users] AS [u]
+WHERE [u].[Email] = N'admin@gmail.com'
+2026-07-23 22:47:55.007 +05:30 [INF] User profile is available. Using 'C:\Users\shukl\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-07-23 22:47:55.430 +05:30 [INF] Now listening on: https://localhost:7220
+2026-07-23 22:47:55.433 +05:30 [INF] Now listening on: http://localhost:5092
+2026-07-23 22:47:55.544 +05:30 [INF] Starting Hangfire Server using job storage: 'SQL Server: LAPTOP-M2UCBO4S\SQLEXPRESS@VendorContractManagementDb'
+2026-07-23 22:47:55.547 +05:30 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-07-23 22:47:55.549 +05:30 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-07-23 22:47:55.583 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-07-23 22:47:55.586 +05:30 [INF] Hosting environment: Development
+2026-07-23 22:47:55.589 +05:30 [INF] Content root path: E:\Abhi Data\Technical\Job Projects\VendorContractManagement\backend\VendorContractManagement.API
+2026-07-23 22:47:55.601 +05:30 [INF] Server laptop-m2ucbo4s:482832:530b2a41 successfully announced in 23.8416 ms
+2026-07-23 22:47:55.634 +05:30 [INF] Server laptop-m2ucbo4s:482832:530b2a41 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-07-23 22:47:55.657 +05:30 [INF] 1 servers were removed due to timeout
+2026-07-23 22:47:55.716 +05:30 [INF] Server laptop-m2ucbo4s:482832:530b2a41 all the dispatchers started
+2026-07-23 22:47:56.459 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/index.html - null null
+2026-07-23 22:47:56.906 +05:30 [INF] HTTP GET /swagger/index.html responded 200 in 109.7680 ms
+2026-07-23 22:47:56.922 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/_vs/browserLink - null null
+2026-07-23 22:47:56.922 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/_framework/aspnetcore-browser-refresh.js - null null
+2026-07-23 22:47:56.924 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/index.html - 200 null text/html;charset=utf-8 493.7295ms
+2026-07-23 22:47:56.962 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/_framework/aspnetcore-browser-refresh.js - 200 13792 application/javascript; charset=utf-8 40.5804ms
+2026-07-23 22:47:57.034 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/_vs/browserLink - 200 null text/javascript; charset=UTF-8 112.0959ms
+2026-07-23 22:47:57.068 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/v1/swagger.json - null null
+2026-07-23 22:47:57.137 +05:30 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 62.1293 ms
+2026-07-23 22:47:57.142 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 73.7775ms
