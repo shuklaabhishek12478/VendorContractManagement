@@ -28,5 +28,7 @@ namespace VendorContractManagement.Application.Interfaces
         IRecentActivityRepository RecentActivities { get; }
 
         IPermissionRepository Permissions { get; }
+
+        INotificationRepository Notifications { get; }
     }
 }

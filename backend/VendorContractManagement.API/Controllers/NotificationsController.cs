@@ -118,5 +118,35 @@ namespace VendorContractManagement.API.Controllers
                 message = "All notifications marked as read."
             });
         }
+
+       
+        [HttpDelete("{id}")]
+        [Authorize(Policy = "Notification.Delete")]
+        public async Task<IActionResult> Delete(int id)
+        {
+            await _notificationService.DeleteAsync(id);
+
+            return Ok(new
+            {
+                message = "Notification deleted successfully."
+            });
+        }
+
+        
+        [HttpDelete("clear-all")]
+        [Authorize(Policy = "Notification.Delete")]
+        public async Task<IActionResult> ClearAll()
+        {
+            if (!_userContext.UserId.HasValue)
+                return Unauthorized();
+
+            await _notificationService.DeleteAllAsync(
+                _userContext.UserId.Value);
+
+            return Ok(new
+            {
+                message = "All notifications cleared successfully."
+            });
+        }
     }
 }

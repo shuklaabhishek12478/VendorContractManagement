@@ -26,6 +26,7 @@ import { UserDetailsComponent } from './features/admin/users/pages/user-details/
 import { EditUserComponent } from './features/admin/users/pages/edit-user/edit-user';
 import { ResetPasswordComponent } from './features/admin/users/components/reset-password/reset-password';
 import { AssignRolesComponent } from './features/admin/users/components/assign-roles/assign-roles';
+import { NotificationPageComponent } from './features/notifications/pages/notification-page/notification-page';
 
 
 
@@ -47,6 +48,10 @@ export const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent
       },
+      {
+  path: 'notifications',
+  component: NotificationPageComponent
+},
       {
         path: 'vendors',
         component: VendorListComponent
@@ -153,7 +158,8 @@ export const routes: Routes = [
 {
     path:'users/reset-password/:id',
     component:ResetPasswordComponent
-}
+},
+
     ]
   },
 

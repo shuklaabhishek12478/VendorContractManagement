@@ -1,0 +1,124 @@
+<div class="dropdown">
+
+    <!-- Header -->
+
+    <div class="header">
+
+        <div>
+
+            <h3>
+
+                Notifications
+
+            </h3>
+
+            <span>
+
+                {{ unreadCount }}
+
+                unread
+
+            </span>
+
+        </div>
+
+        @if(unreadCount>0){
+
+        <button
+
+            type="button"
+
+            (click)="markAllRead.emit()">
+
+            Mark all
+
+        </button>
+
+        }
+
+    </div>
+
+    <!-- Loading -->
+
+    @if(loading){
+
+    <div class="loading">
+
+        <i class="fa-solid fa-spinner fa-spin"></i>
+
+        Loading notifications...
+
+    </div>
+
+    }
+
+    @else{
+
+        <!-- Empty -->
+
+        @if(notifications.length===0){
+
+        <div class="empty">
+
+            <i class="fa-regular fa-bell-slash"></i>
+
+            <h4>
+
+                No notifications
+
+            </h4>
+
+            <p>
+
+                You're all caught up.
+
+            </p>
+
+        </div>
+
+        }
+
+        @else{
+
+        <!-- List -->
+
+        <div class="list">
+
+            @for(item of notifications;track item.id){
+
+            <app-notification-item
+
+                [notification]="item"
+
+                (open)="open.emit($event)"
+
+                (markRead)="markRead.emit($event)">
+
+            </app-notification-item>
+
+            }
+
+        </div>
+
+        }
+
+    }
+
+    <!-- Footer -->
+
+    <div class="footer">
+
+<button
+type="button"
+class="view-all"
+(click)="viewAll()">
+
+View All Notifications
+
+<i class="fa-solid fa-arrow-right"></i>
+
+</button>
+
+</div>
+
+</div>

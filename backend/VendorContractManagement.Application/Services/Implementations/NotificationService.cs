@@ -14,7 +14,7 @@ public class NotificationService : INotificationService
     private readonly IContractRepository _contractRepository;
     private readonly IVendorRepository _vendorRepository;
     private readonly IExpenditureRepository _expenditureRepository;
-
+    private readonly INotificationHub _notificationHub;
     private readonly IMapper _mapper;
 
     public NotificationService(
@@ -23,6 +23,7 @@ public class NotificationService : INotificationService
         IContractRepository contractRepository,
         IVendorRepository vendorRepository,
         IExpenditureRepository expenditureRepository,
+        INotificationHub notificationHub,
         IMapper mapper)
     {
         _repository = repository;
@@ -30,6 +31,7 @@ public class NotificationService : INotificationService
         _contractRepository = contractRepository;
         _vendorRepository = vendorRepository;
         _expenditureRepository = expenditureRepository;
+        _notificationHub = notificationHub;
         _mapper = mapper;
     }
 
@@ -50,9 +52,24 @@ public class NotificationService : INotificationService
         };
 
         await _repository.AddAsync(entity);
-        await _unitOfWork.SaveChangesAsync();
-    }
 
+        await _unitOfWork.SaveChangesAsync();
+
+        var notification =
+            _mapper.Map<NotificationDto>(entity);
+
+        if (dto.UserId.HasValue)
+        {
+            await _notificationHub.SendToUserAsync(
+                dto.UserId.Value,
+                notification);
+        }
+        else
+        {
+            await _notificationHub.SendNotificationAsync(
+                notification);
+        }
+    }
     public async Task<List<NotificationDto>> GetUserNotificationsAsync(int userId)
     {
         var data = await _repository.GetByUserAsync(userId);
@@ -196,5 +213,24 @@ public class NotificationService : INotificationService
         }
 
         return await GetUserNotificationsAsync(id);
+    }
+
+    public async Task DeleteAsync(int notificationId)
+    {
+        var notification = await _repository.GetByIdAsync(notificationId);
+
+        if (notification == null)
+            return;
+
+        await _repository.DeleteAsync(notificationId);
+
+        await _unitOfWork.SaveChangesAsync();
+    }
+
+    public async Task DeleteAllAsync(int userId)
+    {
+        await _repository.DeleteAllAsync(userId);
+
+        await _unitOfWork.SaveChangesAsync();
     }
 }

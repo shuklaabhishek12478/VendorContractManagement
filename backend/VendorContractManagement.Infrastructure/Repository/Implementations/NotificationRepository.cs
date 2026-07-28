@@ -61,4 +61,37 @@ public class NotificationRepository
     {
         _context.Notifications.Update(notification);
     }
+
+    public async Task DeleteAsync(int notificationId)
+    {
+        var notification = await _context.Notifications
+            .FirstOrDefaultAsync(x =>
+                x.Id == notificationId &&
+                !x.IsDeleted);
+
+        if (notification == null)
+            return;
+
+        notification.IsDeleted = true;
+
+        _context.Notifications.Update(notification);
+    }
+
+    public async Task DeleteAllAsync(int userId)
+    {
+        var notifications = await _context.Notifications
+
+            .Where(x =>
+                x.UserId == userId &&
+                !x.IsDeleted)
+
+            .ToListAsync();
+
+        foreach (var notification in notifications)
+        {
+            notification.IsDeleted = true;
+        }
+
+        _context.Notifications.UpdateRange(notifications);
+    }
 }

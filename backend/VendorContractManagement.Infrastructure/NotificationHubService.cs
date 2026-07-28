@@ -20,4 +20,15 @@ public class NotificationHubService : INotificationHub
             "ReceiveNotification",
             dto);
     }
+
+    public async Task SendToUserAsync(
+        int userId,
+        NotificationDto dto)
+    {
+        await _hub.Clients
+            .Group($"USER_{userId}")
+            .SendAsync(
+                "ReceiveNotification",
+                dto);
+    }
 }

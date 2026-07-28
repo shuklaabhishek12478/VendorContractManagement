@@ -19,4 +19,8 @@ public interface INotificationService
     Task<int> GetUnreadCountAsync();
 
     Task<List<NotificationDto>> GetNotificationsAsync(string userId);
+
+    Task DeleteAsync(int notificationId);
+
+    Task DeleteAllAsync(int userId);
 }

@@ -1,0 +1,83 @@
+<div
+  class="notification-item"
+  (click)="onClick()">
+
+  <!-- Icon -->
+
+  <div
+    class="icon-wrapper">
+
+    <div
+      class="icon-circle">
+
+      <i
+        class="fa-solid"
+        [class]="icon"
+        [ngClass]="color">
+      </i>
+
+    </div>
+
+  </div>
+
+  <!-- Content -->
+
+  <div
+    class="content">
+
+    <div
+      class="title-row">
+
+      <h4>
+
+        {{notification.title}}
+
+      </h4>
+
+      @if(!notification.isRead){
+
+      <span
+        class="unread-dot">
+      </span>
+
+      }
+
+    </div>
+
+    <p
+      class="message">
+
+      {{notification.message}}
+
+    </p>
+
+    <span
+      class="time">
+
+      {{timeAgo}}
+
+    </span>
+
+  </div>
+
+  <!-- Read Button -->
+
+  @if(!notification.isRead){
+
+  <button
+
+    type="button"
+
+    (click)="onMarkRead($event)"
+
+    class="read-btn">
+
+    <i
+      class="fa-solid fa-check">
+    </i>
+
+  </button>
+
+  }
+
+</div>

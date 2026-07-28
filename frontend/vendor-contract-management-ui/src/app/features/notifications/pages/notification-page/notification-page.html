@@ -1,0 +1,170 @@
+<div class="page">
+
+    <!-- Header -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>Notifications</h1>
+
+            <p>
+
+                {{ unreadCount() }} unread notification(s)
+
+            </p>
+
+        </div>
+
+        <div class="actions">
+
+            <button
+                type="button"
+                class="btn"
+                (click)="refresh()">
+
+                <i class="fa-solid fa-rotate-right"></i>
+
+                Refresh
+
+            </button>
+
+            <button
+                type="button"
+                class="btn"
+                [disabled]="unreadCount()===0"
+                (click)="markAllRead()">
+
+                <i class="fa-solid fa-check-double"></i>
+
+                Mark All Read
+
+            </button>
+
+            <button
+                type="button"
+                class="btn btn-danger"
+                [disabled]="notifications().length===0"
+                (click)="clearAll()">
+
+                <i class="fa-solid fa-trash"></i>
+
+                Clear All
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Filters -->
+
+    <div class="toolbar">
+
+        <input
+            #txt
+            type="text"
+            class="search"
+            placeholder="Search notifications..."
+            (input)="search.set(txt.value)" />
+
+        <label class="toggle">
+
+            <input
+                type="checkbox"
+                [checked]="unreadOnly()"
+                (change)="unreadOnly.set(!unreadOnly())" />
+
+            Unread Only
+
+        </label>
+
+    </div>
+
+    <!-- Loading -->
+
+    @if(loading()){
+
+    <div class="loading">
+
+        <i class="fa-solid fa-spinner fa-spin"></i>
+
+        Loading notifications...
+
+    </div>
+
+    }
+
+    @else{
+
+        @if(filteredNotifications().length===0){
+
+        <div class="empty">
+
+            <i class="fa-regular fa-bell-slash"></i>
+
+            <h3>No Notifications</h3>
+
+            <p>
+
+                You're all caught up.
+
+            </p>
+
+        </div>
+
+        }
+
+        @else{
+
+        <div class="list">
+
+            @for(item of filteredNotifications(); track item.id){
+
+            <div class="card">
+
+                <app-notification-item
+
+                    [notification]="item"
+
+                    (open)="open(item)"
+
+                    (markRead)="markRead(item)">
+
+                </app-notification-item>
+
+                <div class="card-actions">
+
+                    @if(!item.isRead){
+
+                    <button
+                        class="link"
+                        (click)="markRead(item)">
+
+                        Mark Read
+
+                    </button>
+
+                    }
+
+                    <button
+                        class="link danger"
+                        (click)="delete(item)">
+
+                        Delete
+
+                    </button>
+
+                </div>
+
+            </div>
+
+            }
+
+        </div>
+
+        }
+
+    }
+
+</div>

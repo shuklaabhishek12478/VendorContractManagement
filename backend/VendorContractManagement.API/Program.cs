@@ -3,21 +3,26 @@ using FluentValidation.AspNetCore;
 using Hangfire;
 using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
 using System.Text;
+using VendorContractManagement.API.Authorization;
 using VendorContractManagement.API.Mappings;
 using VendorContractManagement.API.Middlewares;
 using VendorContractManagement.API.Services;
 using VendorContractManagement.Application.DTOs;
 using VendorContractManagement.Application.Interfaces;
 using VendorContractManagement.Application.Jobs;
+using VendorContractManagement.Application.Services;
 using VendorContractManagement.Application.Services.Helpers;
 using VendorContractManagement.Application.Services.Implementations;
+using VendorContractManagement.Application.Services.Interfaces;
 using VendorContractManagement.Application.Services.Interfaces;
 using VendorContractManagement.Application.Validators;
 using VendorContractManagement.Domain.Entities;
@@ -29,10 +34,6 @@ using VendorContractManagement.Infrastructure.Repository;
 using VendorContractManagement.Infrastructure.Repository.Implementations;
 using VendorContractManagement.Infrastructure.Repository.Interfaces;
 using VendorContractManagement.Infrastructure.Services;
-using Microsoft.AspNetCore.Authorization;
-using VendorContractManagement.API.Authorization;
-using VendorContractManagement.Application.Services;
-using VendorContractManagement.Application.Services.Interfaces;
 using VendorContractManagement.Infrastructure.Services;
 using VendorContractManagement.Infrastructure.SignalR;
 Log.Logger = new LoggerConfiguration()
@@ -127,6 +128,26 @@ builder.Services.AddAuthentication(
                 IssuerSigningKey =
                     new SymmetricSecurityKey(key)
             };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var accessToken =
+                    context.Request.Query["access_token"];
+
+                var path =
+                    context.HttpContext.Request.Path;
+
+                if (!string.IsNullOrEmpty(accessToken)
+                    && path.StartsWithSegments("/hubs/notifications"))
+                {
+                    context.Token = accessToken;
+                }
+
+                return Task.CompletedTask;
+            }
+        };
     });
 builder.Services.AddAuthorization(options =>
 {
@@ -154,7 +175,7 @@ builder.Services
         builder.Configuration
             .GetConnectionString("DefaultConnection")!);
 
-builder.Services.AddCors(options =>
+/*builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular",
         policy =>
@@ -163,7 +184,7 @@ builder.Services.AddCors(options =>
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });
-});
+});*/
 
 builder.Services.AddCors(options =>
 {
@@ -172,6 +193,7 @@ builder.Services.AddCors(options =>
         policy.WithOrigins("http://localhost:4200")
               .AllowAnyHeader()
               .AllowAnyMethod()
+              .AllowCredentials()
               .WithExposedHeaders("Content-Disposition");
     });
 });
@@ -233,6 +255,7 @@ builder.Services.AddScoped<NotificationHelper>();
 builder.Services.AddSignalR();
 builder.Services.AddScoped<INotificationHub, NotificationHubService>();
 builder.Services.AddScoped<IUserContextService, UserContextService>();
+builder.Services.AddSingleton<IUserIdProvider, UserIdProvider>();
 var app = builder.Build();
 
 app.UseSerilogRequestLogging();

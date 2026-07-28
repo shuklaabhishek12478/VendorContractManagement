@@ -1,69 +1,204 @@
-<div class="h-screen w-64 bg-white border-r border-slate-200">
+<!-- ================= Overlay ================= -->
 
-  <div class="p-6 border-b">
-    <h2 class="text-2xl font-bold text-indigo-600">
-      VCMS
-    </h2>
-  </div>
+@if(layout.mobile() && layout.mobileSidebar()){
 
-  <nav class="p-4 space-y-2">
+<div
+class="fixed inset-0 z-40 bg-slate-900/50 backdrop-blur-sm lg:hidden"
+(click)="closeMobile()">
+</div>
 
-    <a
-      routerLink="/dashboard"
-      routerLinkActive="bg-indigo-50 text-indigo-600"
-      [routerLinkActiveOptions]="{ exact: true }"
-      class="block rounded-xl px-4 py-3 hover:bg-slate-100">
-      Dashboard
-    </a>
+}
 
-    <a
-      routerLink="/vendors"
-      routerLinkActive="bg-indigo-50 text-indigo-600"
-      class="block rounded-xl px-4 py-3 hover:bg-slate-100">
-      Vendors
-    </a>
+<!-- ================= Sidebar ================= -->
 
-    <a
-      routerLink="/contracts"
-      routerLinkActive="bg-indigo-50 text-indigo-600"
-      class="block rounded-xl px-4 py-3 hover:bg-slate-100">
-      Contracts
-    </a>
+<aside
 
-    <a
-      routerLink="/documents"
-      routerLinkActive="bg-indigo-50 text-indigo-600"
-      class="block rounded-xl px-4 py-3 hover:bg-slate-100">
-      Documents
-    </a>
+class="fixed left-0 top-0 z-50 flex h-screen flex-col border-r border-slate-200 bg-white shadow-xl transition-all duration-300"
 
-     <a
-      routerLink="/expenditures"
-      routerLinkActive="bg-indigo-50 text-indigo-600"
-      class="block rounded-xl px-4 py-3 hover:bg-slate-100">
-      Expenditure
-    </a>
+[class.w-72]="!layout.collapsed()"
 
-    <a
-      routerLink="/reports"
-      routerLinkActive="bg-indigo-50 text-indigo-600"
-      class="block rounded-xl px-4 py-3 hover:bg-slate-100">
-      Reports
-    </a>
+[class.w-20]="layout.collapsed()"
 
-    <a
-  routerLink="/roles"
-  routerLinkActive="bg-indigo-50 text-indigo-600"
-  class="block rounded-xl px-4 py-3 hover:bg-slate-100">
-  Roles
-</a>
+[class.-translate-x-full]="layout.mobile() && !layout.mobileSidebar()"
 
- <a
-  routerLink="/users"
-  routerLinkActive="bg-indigo-50 text-indigo-600"
-  class="block rounded-xl px-4 py-3 hover:bg-slate-100">
-  Users
-</a>
-  </nav>
+[class.translate-x-0]="!layout.mobile() || layout.mobileSidebar()">
+
+
+
+
+<!-- ================= Logo ================= -->
+
+<div
+class="flex h-20 items-center justify-between border-b border-slate-100 px-5">
+
+    <div class="flex items-center">
+
+        <div
+        class="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-600 to-violet-600 text-white font-bold">
+
+            V
+
+        </div>
+
+        <div
+  class="ml-4 overflow-hidden transition-all duration-300"
+  [class.w-36]="!layout.collapsed()"
+  [class.w-0]="layout.collapsed()">
+
+  @if(!layout.collapsed()){
+
+  <h2 class="font-bold">
+    Vendor CMS
+  </h2>
+
+  <p class="text-xs text-slate-500">
+    Enterprise Suite
+  </p>
+
+  }
 
 </div>
+
+    </div>
+
+    @if(!layout.mobile()){
+
+    <button
+  (click)="layout.toggleSidebar()"
+  class="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white transition-all duration-200 hover:border-indigo-300 hover:bg-indigo-50 hover:text-indigo-600">
+
+  <i
+    class="fa-solid transition-transform duration-300"
+    [class.fa-chevron-left]="!layout.collapsed()"
+    [class.fa-chevron-right]="layout.collapsed()">
+  </i>
+
+</button>
+
+    }
+
+</div>
+
+
+
+
+<!-- ================= Navigation ================= -->
+
+<nav
+class="flex-1 overflow-y-auto px-3 py-5">
+
+@for(menu of menus;track menu.route){
+
+<a
+
+[routerLink]="menu.route"
+
+routerLinkActive="active-menu"
+
+[routerLinkActiveOptions]="{
+exact:menu.route==='/dashboard'
+}"
+
+(click)="navigate(menu.route)"
+
+class="menu-item"
+
+[title]="layout.collapsed()?menu.title:''">
+
+
+
+<i [class]="menu.icon"></i>
+
+@if(!layout.collapsed()){
+
+<span>
+
+{{menu.title}}
+
+</span>
+
+}
+
+
+
+@if(menu.badge && !layout.collapsed()){
+
+<span
+
+class="ml-auto rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-semibold text-amber-700">
+
+{{menu.badge}}
+
+</span>
+
+}
+
+</a>
+
+}
+
+</nav>
+
+
+
+
+
+<!-- ================= Footer ================= -->
+
+<div
+class="border-t border-slate-100 p-4">
+
+@if(!layout.collapsed()){
+
+<div
+class="footer-card rounded-2xl bg-gradient-to-r from-indigo-600 to-violet-600 p-4 text-white shadow-lg">
+
+<div
+class="flex items-center gap-3">
+
+<i
+class="fa-solid fa-shield-halved text-2xl">
+</i>
+
+<div>
+
+<div
+class="font-semibold">
+
+Vendor Contract Management
+
+</div>
+
+<div
+class="text-xs opacity-90">
+
+Enterprise Edition
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+}
+
+@else{
+
+<div class="flex justify-center">
+
+<div
+class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 text-white shadow-lg">
+
+<i class="fa-solid fa-layer-group"></i>
+
+</div>
+
+</div>
+
+}
+
+</div>
+
+</aside>

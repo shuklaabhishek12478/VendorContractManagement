@@ -13,4 +13,8 @@ public interface INotificationRepository
     Task<Notification?> GetByIdAsync(int id);
 
     void Update(Notification notification);
+
+    Task DeleteAsync(int notificationId);
+
+    Task DeleteAllAsync(int userId);
 }

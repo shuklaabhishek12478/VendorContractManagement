@@ -1,0 +1,420 @@
+:host {
+  display: block;
+}
+
+/* ============================
+   Sidebar
+============================ */
+
+aside {
+
+  overflow: hidden;
+
+  transition:
+    width .28s ease,
+    transform .28s ease,
+    box-shadow .28s ease;
+
+  will-change:
+    width,
+    transform;
+
+}
+
+/* ============================
+   Navigation Scrollbar
+============================ */
+
+nav {
+
+  scrollbar-width: thin;
+
+  scrollbar-color: #cbd5e1 transparent;
+
+}
+
+nav::-webkit-scrollbar {
+
+  width: 6px;
+
+}
+
+nav::-webkit-scrollbar-track {
+
+  background: transparent;
+
+}
+
+nav::-webkit-scrollbar-thumb {
+
+  background: #cbd5e1;
+
+  border-radius: 999px;
+
+}
+
+nav::-webkit-scrollbar-thumb:hover {
+
+  background: #94a3b8;
+
+}
+
+/* ============================
+   Menu Item
+============================ */
+
+.menu-item {
+
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  //gap: 14px;
+
+  height: 52px;
+
+  padding-inline: 16px;
+
+  margin-bottom: 8px;
+
+  border-radius: 14px;
+
+  color: #475569;
+
+  font-weight: 500;
+
+  text-decoration: none;
+
+  overflow: hidden;
+
+  cursor: pointer;
+
+  transition:
+    background-color .25s,
+    color .25s,
+    transform .25s;
+
+}
+
+:host-context(.collapsed) .menu-item{
+    justify-content:center;
+}
+
+.menu-item i {
+
+  width: 22px;
+
+  min-width: 22px;
+
+  text-align: center;
+
+  font-size: 18px;
+
+  transition:
+    transform .25s,
+    color .25s;
+
+}
+
+.menu-item span {
+
+  white-space: nowrap;
+
+}
+
+/* ============================
+   Hover
+============================ */
+
+.menu-item:hover {
+
+  background: #f8fafc;
+
+  color: #4f46e5;
+
+  transform: translateX(4px);
+
+}
+
+.menu-item:hover i {
+
+  transform: scale(1.12);
+
+}
+
+/* ============================
+   Active
+============================ */
+
+.active-menu {
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(79,70,229,.12),
+      rgba(99,102,241,.05)
+    );
+
+  color: #4338ca;
+
+  font-weight: 600;
+
+  box-shadow:
+    inset 4px 0 0 #4f46e5;
+
+}
+
+.active-menu i {
+
+  color: #4f46e5;
+
+}
+
+/* ============================
+   Ripple Hover Effect
+============================ */
+
+.menu-item::before {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    rgba(79,70,229,.05);
+
+  transform: scaleX(0);
+
+  transform-origin: left;
+
+  transition:
+    transform .25s ease;
+
+}
+
+.menu-item:hover::before {
+
+  transform: scaleX(1);
+
+}
+
+.menu-item>* {
+
+  position: relative;
+
+  z-index: 1;
+
+}
+
+/* ============================
+   Logo
+============================ */
+
+h2 {
+
+  letter-spacing: .3px;
+
+}
+
+/* ============================
+   Footer Card
+============================ */
+
+.footer-card {
+
+  border-radius: 18px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #4f46e5,
+      #7c3aed
+    );
+
+}
+
+/* ============================
+   Focus Accessibility
+============================ */
+
+.menu-item:focus-visible {
+
+  outline: 2px solid #6366f1;
+
+  outline-offset: 3px;
+
+}
+
+/* ============================
+   Mobile
+============================ */
+
+@media (max-width:1024px) {
+
+  aside {
+
+    width: 288px !important;
+
+  }
+
+}
+
+/* ============================
+   Small Mobile
+============================ */
+
+@media (max-width:640px) {
+
+  aside {
+
+    width: 270px !important;
+
+  }
+
+}
+
+/* ============================
+   Ultra Wide Monitor
+============================ */
+
+@media (min-width:1700px) {
+
+  .menu-item {
+
+    height: 56px;
+
+    font-size: 15px;
+
+  }
+
+}
+
+/* ============================
+   Reduced Motion
+============================ */
+
+@media (prefers-reduced-motion:reduce) {
+
+  * {
+
+    animation: none !important;
+
+    transition: none !important;
+
+  }
+
+}
+
+.active-menu{
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.active-menu::after{
+
+content:"";
+
+position:absolute;
+
+left:0;
+
+top:10%;
+
+width:4px;
+
+height:80%;
+
+background:#4f46e5;
+
+border-radius:999px;
+
+animation:slide .25s;
+
+}
+
+@keyframes slide{
+
+from{
+
+height:0;
+
+}
+
+to{
+
+height:80%;
+
+}
+
+}
+
+.menu-item{
+
+    transition:
+        all .25s ease;
+
+}
+
+.menu-item:hover{
+
+    transform:translateX(6px);
+
+}
+
+.menu-item i{
+
+    transition:
+        transform .25s ease;
+
+}
+
+.menu-item:hover i{
+
+    transform:scale(1.15);
+
+}
+
+.active-menu{
+
+    background:
+    linear-gradient(
+        90deg,
+        rgba(79,70,229,.14),
+        rgba(99,102,241,.04)
+    );
+
+    color:#4338ca;
+
+    font-weight:600;
+
+    box-shadow:
+        inset 4px 0 #4f46e5;
+
+}
+
+.footer-card{
+
+    transition:
+        transform .25s ease;
+
+}
+
+.footer-card:hover{
+
+    transform:
+        translateY(-2px);
+
+}
+
+:host-context(.collapsed) .menu-item{
+
+    justify-content:center;
+
+}

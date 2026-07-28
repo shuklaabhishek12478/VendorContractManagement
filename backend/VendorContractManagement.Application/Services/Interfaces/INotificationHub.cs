@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 using VendorContractManagement.Application.DTOs;
 
-namespace VendorContractManagement.Application.Services.Interfaces
+namespace VendorContractManagement.Application.Services.Interfaces;
+
+public interface INotificationHub
 {
-    public interface INotificationHub
-    {
-        Task SendNotificationAsync(NotificationDto notification);
-    }
+    Task SendNotificationAsync(NotificationDto dto);
+
+    Task SendToUserAsync(int userId, NotificationDto dto);
 }
