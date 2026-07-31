@@ -1,0 +1,1458 @@
+2026-07-29 14:54:37.218 +05:30 [INF] Start installing Hangfire SQL objects...
+2026-07-29 14:54:39.329 +05:30 [INF] Hangfire SQL objects installed.
+2026-07-29 14:54:43.310 +05:30 [WRN] Entity 'Vendor' has a global query filter defined and is the required end of a relationship with the entity 'Contract'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-07-29 14:54:43.317 +05:30 [WRN] Entity 'Vendor' has a global query filter defined and is the required end of a relationship with the entity 'Expenditure'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-07-29 14:54:43.327 +05:30 [WRN] Entity 'Vendor' has a global query filter defined and is the required end of a relationship with the entity 'VendorDocument'. This may lead to unexpected results when the required entity is filtered out. Either configure the navigation as optional, or define matching query filters for both entities in the navigation. See https://go.microsoft.com/fwlink/?linkid=2131316 for more information.
+2026-07-29 14:54:43.468 +05:30 [WRN] The foreign key property 'Expenditure.ContractId1' was created in shadow state because a conflicting property with the simple name 'ContractId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2026-07-29 14:54:43.475 +05:30 [WRN] The foreign key property 'Expenditure.VendorId1' was created in shadow state because a conflicting property with the simple name 'VendorId' exists in the entity type, but is either not mapped, is already used for another relationship, or is incompatible with the associated primary key type. See https://aka.ms/efcore-relationships for information on mapping relationships in EF Core.
+2026-07-29 14:54:44.357 +05:30 [INF] Executed DbCommand (64ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-07-29 14:54:44.513 +05:30 [INF] Executed DbCommand (60ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-07-29 14:54:44.528 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-07-29 14:54:44.536 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-07-29 14:54:44.602 +05:30 [INF] Executed DbCommand (23ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-07-29 14:54:44.741 +05:30 [INF] No migrations were applied. The database is already up to date.
+2026-07-29 14:54:45.788 +05:30 [INF] Executed DbCommand (80ms) [Parameters=[@__role_Name_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Color], [r].[CreatedBy], [r].[CreatedOn], [r].[Description], [r].[Icon], [r].[IsActive], [r].[IsDeleted], [r].[IsSystemRole], [r].[ModifiedBy], [r].[ModifiedOn], [r].[Name], [r].[Priority], [r].[UpdatedOn]
+FROM [Roles] AS [r]
+WHERE [r].[Name] = @__role_Name_0
+2026-07-29 14:54:46.122 +05:30 [INF] Executed DbCommand (35ms) [Parameters=[@__role_Name_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Color], [r].[CreatedBy], [r].[CreatedOn], [r].[Description], [r].[Icon], [r].[IsActive], [r].[IsDeleted], [r].[IsSystemRole], [r].[ModifiedBy], [r].[ModifiedOn], [r].[Name], [r].[Priority], [r].[UpdatedOn]
+FROM [Roles] AS [r]
+WHERE [r].[Name] = @__role_Name_0
+2026-07-29 14:54:46.148 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@__role_Name_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Color], [r].[CreatedBy], [r].[CreatedOn], [r].[Description], [r].[Icon], [r].[IsActive], [r].[IsDeleted], [r].[IsSystemRole], [r].[ModifiedBy], [r].[ModifiedOn], [r].[Name], [r].[Priority], [r].[UpdatedOn]
+FROM [Roles] AS [r]
+WHERE [r].[Name] = @__role_Name_0
+2026-07-29 14:54:46.173 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__role_Name_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Color], [r].[CreatedBy], [r].[CreatedOn], [r].[Description], [r].[Icon], [r].[IsActive], [r].[IsDeleted], [r].[IsSystemRole], [r].[ModifiedBy], [r].[ModifiedOn], [r].[Name], [r].[Priority], [r].[UpdatedOn]
+FROM [Roles] AS [r]
+WHERE [r].[Name] = @__role_Name_0
+2026-07-29 14:54:46.192 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@__role_Name_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Color], [r].[CreatedBy], [r].[CreatedOn], [r].[Description], [r].[Icon], [r].[IsActive], [r].[IsDeleted], [r].[IsSystemRole], [r].[ModifiedBy], [r].[ModifiedOn], [r].[Name], [r].[Priority], [r].[UpdatedOn]
+FROM [Roles] AS [r]
+WHERE [r].[Name] = @__role_Name_0
+2026-07-29 14:54:46.217 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@__role_Name_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Color], [r].[CreatedBy], [r].[CreatedOn], [r].[Description], [r].[Icon], [r].[IsActive], [r].[IsDeleted], [r].[IsSystemRole], [r].[ModifiedBy], [r].[ModifiedOn], [r].[Name], [r].[Priority], [r].[UpdatedOn]
+FROM [Roles] AS [r]
+WHERE [r].[Name] = @__role_Name_0
+2026-07-29 14:54:46.247 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[@__role_Name_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Color], [r].[CreatedBy], [r].[CreatedOn], [r].[Description], [r].[Icon], [r].[IsActive], [r].[IsDeleted], [r].[IsSystemRole], [r].[ModifiedBy], [r].[ModifiedOn], [r].[Name], [r].[Priority], [r].[UpdatedOn]
+FROM [Roles] AS [r]
+WHERE [r].[Name] = @__role_Name_0
+2026-07-29 14:54:46.269 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__role_Name_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Color], [r].[CreatedBy], [r].[CreatedOn], [r].[Description], [r].[Icon], [r].[IsActive], [r].[IsDeleted], [r].[IsSystemRole], [r].[ModifiedBy], [r].[ModifiedOn], [r].[Name], [r].[Priority], [r].[UpdatedOn]
+FROM [Roles] AS [r]
+WHERE [r].[Name] = @__role_Name_0
+2026-07-29 14:54:46.287 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__role_Name_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Color], [r].[CreatedBy], [r].[CreatedOn], [r].[Description], [r].[Icon], [r].[IsActive], [r].[IsDeleted], [r].[IsSystemRole], [r].[ModifiedBy], [r].[ModifiedOn], [r].[Name], [r].[Priority], [r].[UpdatedOn]
+FROM [Roles] AS [r]
+WHERE [r].[Name] = @__role_Name_0
+2026-07-29 14:54:46.334 +05:30 [INF] Executed DbCommand (15ms) [Parameters=[@__role_Name_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Color], [r].[CreatedBy], [r].[CreatedOn], [r].[Description], [r].[Icon], [r].[IsActive], [r].[IsDeleted], [r].[IsSystemRole], [r].[ModifiedBy], [r].[ModifiedOn], [r].[Name], [r].[Priority], [r].[UpdatedOn]
+FROM [Roles] AS [r]
+WHERE [r].[Name] = @__role_Name_0
+2026-07-29 14:54:46.352 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__role_Name_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Color], [r].[CreatedBy], [r].[CreatedOn], [r].[Description], [r].[Icon], [r].[IsActive], [r].[IsDeleted], [r].[IsSystemRole], [r].[ModifiedBy], [r].[ModifiedOn], [r].[Name], [r].[Priority], [r].[UpdatedOn]
+FROM [Roles] AS [r]
+WHERE [r].[Name] = @__role_Name_0
+2026-07-29 14:54:46.363 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__role_Name_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Color], [r].[CreatedBy], [r].[CreatedOn], [r].[Description], [r].[Icon], [r].[IsActive], [r].[IsDeleted], [r].[IsSystemRole], [r].[ModifiedBy], [r].[ModifiedOn], [r].[Name], [r].[Priority], [r].[UpdatedOn]
+FROM [Roles] AS [r]
+WHERE [r].[Name] = @__role_Name_0
+2026-07-29 14:54:46.539 +05:30 [INF] Executed DbCommand (37ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.600 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.608 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.616 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.632 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.652 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.663 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.674 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.683 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.692 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.700 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.710 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.718 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.727 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.734 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.744 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.753 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.766 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.774 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.784 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.794 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.804 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.812 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.821 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.830 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.849 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.867 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.880 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.888 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.898 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.909 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.916 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.926 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.936 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.950 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.966 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.982 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:46.996 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.014 +05:30 [INF] Executed DbCommand (4ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.030 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.045 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.056 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.072 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.083 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.091 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.099 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.110 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.123 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.139 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.148 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.164 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.184 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.196 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.217 +05:30 [INF] Executed DbCommand (7ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.230 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.243 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.264 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.283 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.295 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.303 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.312 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.320 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.327 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.334 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.343 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.353 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__permission_Code_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+WHERE [p].[Code] = @__permission_Code_0
+2026-07-29 14:54:47.433 +05:30 [INF] Executed DbCommand (38ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+2026-07-29 14:54:47.585 +05:30 [INF] Executed DbCommand (37ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.602 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.611 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.624 +05:30 [INF] Executed DbCommand (6ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.637 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.649 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.659 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.668 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.678 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.689 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.708 +05:30 [INF] Executed DbCommand (5ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.717 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.728 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.737 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.746 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.780 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.790 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.799 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.811 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.822 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.831 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.842 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.859 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.867 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.877 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.886 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.899 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.921 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.930 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.940 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.949 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.959 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.969 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.980 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.990 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:47.999 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.009 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.019 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.030 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.039 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.049 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.058 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.066 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.075 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.083 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.093 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.113 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.137 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.161 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.169 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.178 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.190 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.199 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.209 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.217 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.231 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.240 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.249 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.258 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.267 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.276 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.286 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.295 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__dependency_PermissionId_0='?' (DbType = Int32), @__dependency_DependsOnPermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [PermissionDependencies] AS [p]
+        WHERE [p].[PermissionId] = @__dependency_PermissionId_0 AND [p].[DependsOnPermissionId] = @__dependency_DependsOnPermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.324 +05:30 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [r].[Id], [r].[Color], [r].[CreatedBy], [r].[CreatedOn], [r].[Description], [r].[Icon], [r].[IsActive], [r].[IsDeleted], [r].[IsSystemRole], [r].[ModifiedBy], [r].[ModifiedOn], [r].[Name], [r].[Priority], [r].[UpdatedOn]
+FROM [Roles] AS [r]
+2026-07-29 14:54:48.341 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [p].[Id], [p].[Code], [p].[CreatedBy], [p].[CreatedOn], [p].[Description], [p].[IsActive], [p].[IsDeleted], [p].[ModifiedBy], [p].[ModifiedOn], [p].[Module], [p].[Name], [p].[UpdatedOn]
+FROM [Permissions] AS [p]
+2026-07-29 14:54:48.375 +05:30 [INF] Executed DbCommand (8ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.383 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.392 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.401 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.409 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.417 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.425 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.433 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.443 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.451 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.461 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.470 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.479 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.490 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.498 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.507 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.515 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.523 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.530 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.538 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.548 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.561 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.572 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.581 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.590 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.599 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.610 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.619 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.629 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.640 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.649 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.660 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.669 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.679 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.688 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.697 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.707 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.717 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.729 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.739 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.748 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.762 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.775 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.791 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.799 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.808 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.817 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.825 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.832 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.840 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.847 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.855 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.862 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.871 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.879 +05:30 [INF] Executed DbCommand (1ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.888 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.896 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.906 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.918 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.926 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.936 +05:30 [INF] Executed DbCommand (3ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.951 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.961 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.970 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.980 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:48.989 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[@__mapping_RoleId_0='?' (DbType = Int32), @__mapping_PermissionId_1='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [RolePermissions] AS [r]
+        WHERE [r].[RoleId] = @__mapping_RoleId_0 AND [r].[PermissionId] = @__mapping_PermissionId_1) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2026-07-29 14:54:49.181 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-07-29 14:54:49.215 +05:30 [INF] Executed DbCommand (24ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-07-29 14:54:49.229 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-07-29 14:54:49.241 +05:30 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-07-29 14:54:49.259 +05:30 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-07-29 14:54:49.269 +05:30 [INF] No migrations were applied. The database is already up to date.
+2026-07-29 14:54:49.316 +05:30 [INF] Executed DbCommand (19ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [r].[Id], [r].[Color], [r].[CreatedBy], [r].[CreatedOn], [r].[Description], [r].[Icon], [r].[IsActive], [r].[IsDeleted], [r].[IsSystemRole], [r].[ModifiedBy], [r].[ModifiedOn], [r].[Name], [r].[Priority], [r].[UpdatedOn]
+FROM [Roles] AS [r]
+WHERE [r].[Name] = N'Admin'
+2026-07-29 14:54:49.364 +05:30 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [u].[Id], [u].[CreatedBy], [u].[CreatedOn], [u].[Email], [u].[FullName], [u].[IsActive], [u].[IsDeleted], [u].[ModifiedBy], [u].[ModifiedOn], [u].[PasswordHash], [u].[RefreshToken], [u].[RefreshTokenExpiryTime], [u].[UpdatedOn], [u].[VendorId]
+FROM [Users] AS [u]
+WHERE [u].[Email] = N'admin@gmail.com'
+2026-07-29 14:54:49.673 +05:30 [INF] User profile is available. Using 'C:\Users\shukl\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-07-29 14:54:50.807 +05:30 [INF] Now listening on: https://localhost:7220
+2026-07-29 14:54:50.811 +05:30 [INF] Now listening on: http://localhost:5092
+2026-07-29 14:54:51.146 +05:30 [INF] Starting Hangfire Server using job storage: 'SQL Server: LAPTOP-M2UCBO4S\SQLEXPRESS@VendorContractManagementDb'
+2026-07-29 14:54:51.151 +05:30 [INF] Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+2026-07-29 14:54:51.159 +05:30 [INF] Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+2026-07-29 14:54:51.239 +05:30 [INF] Application started. Press Ctrl+C to shut down.
+2026-07-29 14:54:51.244 +05:30 [INF] Hosting environment: Development
+2026-07-29 14:54:51.247 +05:30 [INF] Content root path: E:\Abhi Data\Technical\Job Projects\VendorContractManagement\backend\VendorContractManagement.API
+2026-07-29 14:54:51.299 +05:30 [INF] Server laptop-m2ucbo4s:211116:5a057593 successfully announced in 101.5893 ms
+2026-07-29 14:54:51.312 +05:30 [INF] Server laptop-m2ucbo4s:211116:5a057593 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+2026-07-29 14:54:51.371 +05:30 [INF] 1 servers were removed due to timeout
+2026-07-29 14:54:51.473 +05:30 [INF] Server laptop-m2ucbo4s:211116:5a057593 all the dispatchers started
+2026-07-29 14:54:52.633 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger - null null
+2026-07-29 14:54:52.804 +05:30 [INF] Executed DbCommand (20ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ApprovedBy], [c].[ApprovedOn], [c].[ContractNumber], [c].[ContractValue], [c].[CreatedBy], [c].[CreatedOn], [c].[Description], [c].[EndDate], [c].[IsActive], [c].[IsDeleted], [c].[IsRenewal], [c].[ModifiedBy], [c].[ModifiedOn], [c].[ParentContractId], [c].[RejectionReason], [c].[RenewalApprovedBy], [c].[RenewalApprovedOn], [c].[RenewalRequestedOn], [c].[StartDate], [c].[Status], [c].[SubmittedOn], [c].[TerminatedBy], [c].[TerminatedOn], [c].[TerminationReason], [c].[Title], [c].[UpdatedOn], [c].[VendorId], [t].[Id], [t].[AccountHolderName], [t].[AccountNumber], [t].[Address], [t].[BankName], [t].[BranchName], [t].[CompanyName], [t].[ContactPerson], [t].[CreatedBy], [t].[CreatedOn], [t].[Email], [t].[GSTNumber], [t].[IFSCCode], [t].[IsActive], [t].[IsDeleted], [t].[ModifiedBy], [t].[ModifiedOn], [t].[PANNumber], [t].[PaymentMethod], [t].[PaymentTerms], [t].[Phone], [t].[PreferredCurrency], [t].[SwiftCode], [t].[UpdatedOn], [t].[VendorName]
+FROM [Contracts] AS [c]
+INNER JOIN (
+    SELECT [v].[Id], [v].[AccountHolderName], [v].[AccountNumber], [v].[Address], [v].[BankName], [v].[BranchName], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedBy], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IFSCCode], [v].[IsActive], [v].[IsDeleted], [v].[ModifiedBy], [v].[ModifiedOn], [v].[PANNumber], [v].[PaymentMethod], [v].[PaymentTerms], [v].[Phone], [v].[PreferredCurrency], [v].[SwiftCode], [v].[UpdatedOn], [v].[VendorName]
+    FROM [Vendors] AS [v]
+    WHERE [v].[IsDeleted] = CAST(0 AS bit)
+) AS [t] ON [c].[VendorId] = [t].[Id]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[Status] = 4
+2026-07-29 14:54:52.804 +05:30 [INF] Executed DbCommand (28ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ApprovedBy], [c].[ApprovedOn], [c].[ContractNumber], [c].[ContractValue], [c].[CreatedBy], [c].[CreatedOn], [c].[Description], [c].[EndDate], [c].[IsActive], [c].[IsDeleted], [c].[IsRenewal], [c].[ModifiedBy], [c].[ModifiedOn], [c].[ParentContractId], [c].[RejectionReason], [c].[RenewalApprovedBy], [c].[RenewalApprovedOn], [c].[RenewalRequestedOn], [c].[StartDate], [c].[Status], [c].[SubmittedOn], [c].[TerminatedBy], [c].[TerminatedOn], [c].[TerminationReason], [c].[Title], [c].[UpdatedOn], [c].[VendorId], [t].[Id], [t].[AccountHolderName], [t].[AccountNumber], [t].[Address], [t].[BankName], [t].[BranchName], [t].[CompanyName], [t].[ContactPerson], [t].[CreatedBy], [t].[CreatedOn], [t].[Email], [t].[GSTNumber], [t].[IFSCCode], [t].[IsActive], [t].[IsDeleted], [t].[ModifiedBy], [t].[ModifiedOn], [t].[PANNumber], [t].[PaymentMethod], [t].[PaymentTerms], [t].[Phone], [t].[PreferredCurrency], [t].[SwiftCode], [t].[UpdatedOn], [t].[VendorName]
+FROM [Contracts] AS [c]
+INNER JOIN (
+    SELECT [v].[Id], [v].[AccountHolderName], [v].[AccountNumber], [v].[Address], [v].[BankName], [v].[BranchName], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedBy], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IFSCCode], [v].[IsActive], [v].[IsDeleted], [v].[ModifiedBy], [v].[ModifiedOn], [v].[PANNumber], [v].[PaymentMethod], [v].[PaymentTerms], [v].[Phone], [v].[PreferredCurrency], [v].[SwiftCode], [v].[UpdatedOn], [v].[VendorName]
+    FROM [Vendors] AS [v]
+    WHERE [v].[IsDeleted] = CAST(0 AS bit)
+) AS [t] ON [c].[VendorId] = [t].[Id]
+WHERE [c].[IsDeleted] = CAST(0 AS bit)
+2026-07-29 14:54:53.243 +05:30 [INF] HTTP GET /swagger responded 301 in 27.6394 ms
+2026-07-29 14:54:53.270 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger - 301 0 null 683.1134ms
+2026-07-29 14:54:53.292 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/index.html - null null
+2026-07-29 14:54:53.514 +05:30 [INF] HTTP GET /swagger/index.html responded 200 in 204.6987 ms
+2026-07-29 14:54:53.522 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/index.html - 200 null text/html;charset=utf-8 230.6962ms
+2026-07-29 14:54:53.534 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/swagger-ui.css - null null
+2026-07-29 14:54:53.538 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/swagger-ui-standalone-preset.js - null null
+2026-07-29 14:54:53.543 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/_framework/aspnetcore-browser-refresh.js - null null
+2026-07-29 14:54:53.536 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/swagger-ui-bundle.js - null null
+2026-07-29 14:54:53.550 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/_vs/browserLink - null null
+2026-07-29 14:54:53.593 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/_framework/aspnetcore-browser-refresh.js - 200 13792 application/javascript; charset=utf-8 49.554ms
+2026-07-29 14:54:53.677 +05:30 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2026-07-29 14:54:53.678 +05:30 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2026-07-29 14:54:53.705 +05:30 [INF] HTTP GET /swagger/swagger-ui.css responded 200 in 158.1268 ms
+2026-07-29 14:54:53.712 +05:30 [INF] HTTP GET /swagger/swagger-ui-standalone-preset.js responded 200 in 155.0287 ms
+2026-07-29 14:54:53.741 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/swagger-ui.css - 200 152034 text/css 206.6982ms
+2026-07-29 14:54:53.753 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/swagger-ui-standalone-preset.js - 200 230280 text/javascript 215.8124ms
+2026-07-29 14:54:53.799 +05:30 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2026-07-29 14:54:53.819 +05:30 [INF] HTTP GET /swagger/swagger-ui-bundle.js responded 200 in 241.6487 ms
+2026-07-29 14:54:53.828 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/swagger-ui-bundle.js - 200 1456926 text/javascript 291.6401ms
+2026-07-29 14:54:53.856 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/_vs/browserLink - 200 null text/javascript; charset=UTF-8 306.737ms
+2026-07-29 14:54:54.121 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/v1/swagger.json - null null
+2026-07-29 14:54:54.175 +05:30 [INF] Request starting HTTP/2 GET https://localhost:7220/swagger/favicon-32x32.png - null null
+2026-07-29 14:54:54.273 +05:30 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2026-07-29 14:54:54.286 +05:30 [INF] HTTP GET /swagger/favicon-32x32.png responded 200 in 13.3197 ms
+2026-07-29 14:54:54.292 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/favicon-32x32.png - 200 628 image/png 117.499ms
+2026-07-29 14:54:54.342 +05:30 [INF] HTTP GET /swagger/v1/swagger.json responded 200 in 212.3493 ms
+2026-07-29 14:54:54.348 +05:30 [INF] Request finished HTTP/2 GET https://localhost:7220/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 228.5476ms

@@ -77,12 +77,6 @@ export class Sidebar implements OnInit {
       },
 
       {
-        title: 'Documents',
-        icon: 'fa-solid fa-folder-open',
-        route: '/documents'
-      },
-
-      {
         title: 'Expenditures',
         icon: 'fa-solid fa-wallet',
         route: '/expenditures'
@@ -91,8 +85,7 @@ export class Sidebar implements OnInit {
       {
         title: 'Reports',
         icon: 'fa-solid fa-chart-pie',
-        route: '/reports',
-        badge: 'Soon'
+        route: '/reports'
       },
 
       {

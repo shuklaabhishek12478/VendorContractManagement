@@ -138,6 +138,12 @@ export const routes: Routes = [
       .then(m => m.expenditureRoutes)
 },
 {
+  path: 'reports',
+  loadChildren: () =>
+    import('./features/reports/reports-routes')
+      .then(m => m.reportRoutes)
+},
+{
     path: 'users',
     loadChildren: () =>
         import('./features/admin/users/users.routes')

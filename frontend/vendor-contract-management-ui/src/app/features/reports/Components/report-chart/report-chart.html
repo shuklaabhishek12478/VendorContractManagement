@@ -1,0 +1,179 @@
+<mat-card class="chart-card">
+
+    <!-- ==========================================
+         Header
+    =========================================== -->
+
+    <div class="chart-header">
+
+        <div class="title-section">
+
+            <h3>{{ title }}</h3>
+
+            <p *ngIf="subtitle">
+                {{ subtitle }}
+            </p>
+
+        </div>
+
+        <div class="actions">
+
+            <button
+                mat-icon-button
+                matTooltip="Refresh"
+                (click)="refresh()">
+
+                <mat-icon>refresh</mat-icon>
+
+            </button>
+
+            <button
+                mat-icon-button
+                matTooltip="Download PNG"
+                (click)="downloadPNG()">
+
+                <mat-icon>image</mat-icon>
+
+            </button>
+
+            <button
+                mat-icon-button
+                matTooltip="Download SVG"
+                (click)="downloadSVG()">
+
+                <mat-icon>download</mat-icon>
+
+            </button>
+
+            <button
+                mat-icon-button
+                matTooltip="Fullscreen"
+                (click)="toggleFullscreen()">
+
+                <mat-icon>fullscreen</mat-icon>
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ==========================================
+         Loading
+    =========================================== -->
+
+    <div
+        class="loading-container"
+        *ngIf="loading">
+
+        <mat-spinner
+            diameter="42">
+        </mat-spinner>
+
+        <span>
+            Loading chart...
+        </span>
+
+    </div>
+
+    <!-- ==========================================
+         Empty State
+    =========================================== -->
+
+    <div
+        class="empty-container"
+        *ngIf="!loading && !hasData">
+
+        <mat-icon>
+
+            insert_chart_outlined
+
+        </mat-icon>
+
+        <h4>
+
+            No Data Available
+
+        </h4>
+
+        <p>
+
+            No records found for the selected filters.
+
+        </p>
+
+    </div>
+
+    <!-- ==========================================
+         Axis Chart
+    =========================================== -->
+
+    <div
+        class="chart-container"
+        *ngIf="!loading && hasData && !isPieChart">
+
+        <apx-chart
+
+            #chart
+
+            [series]="chartSeries"
+
+            [chart]="chartOptions"
+
+            [xaxis]="xaxis"
+
+            [yaxis]="yaxis"
+
+            [stroke]="stroke"
+
+            [legend]="legend"
+
+            [tooltip]="tooltip"
+
+            [plotOptions]="plotOptions"
+
+            [fill]="fill"
+
+            [grid]="grid"
+
+            [markers]="markers"
+
+            [responsive]="responsive"
+
+            [dataLabels]="dataLabels">
+
+        </apx-chart>
+
+    </div>
+
+    <!-- ==========================================
+         Pie / Donut
+    =========================================== -->
+
+    <div
+        class="chart-container"
+        *ngIf="!loading && hasData && isPieChart">
+
+        <apx-chart
+
+            #chart
+
+            [series]="chartSeries"
+
+            [chart]="chartOptions"
+
+            [labels]="labels"
+
+            [legend]="legend"
+
+            [tooltip]="tooltip"
+
+            [responsive]="responsive"
+
+            [dataLabels]="dataLabels">
+
+        </apx-chart>
+
+    </div>
+
+</mat-card>

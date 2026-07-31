@@ -1,0 +1,479 @@
+<div
+    class="summary-grid"
+    *ngIf="summary; else loadingTemplate">
+
+    <!-- =========================================================
+         TOTAL SPEND
+    ========================================================== -->
+
+    <mat-card
+        class="summary-card spend"
+        (click)="open('expenditures')">
+
+        <div class="card-top">
+
+            <div class="icon">
+
+                <mat-icon>
+
+                    account_balance_wallet
+
+                </mat-icon>
+
+            </div>
+
+            <div class="trend positive">
+
+                <mat-icon>
+
+                    trending_up
+
+                </mat-icon>
+
+                12%
+
+            </div>
+
+        </div>
+
+        <div class="card-title">
+
+            Total Spend
+
+        </div>
+
+        <div class="card-value">
+
+            {{ summary.totalSpend | number:'1.0-2' }}
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-fill spend-fill"></div>
+
+        </div>
+
+        <div class="card-footer">
+
+            View Expenditure Report →
+
+        </div>
+
+    </mat-card>
+
+    <!-- =========================================================
+         TOTAL CONTRACTS
+    ========================================================== -->
+
+    <mat-card
+        class="summary-card contract"
+        (click)="open('contracts')">
+
+        <div class="card-top">
+
+            <div class="icon">
+
+                <mat-icon>
+
+                    description
+
+                </mat-icon>
+
+            </div>
+
+            <div class="trend positive">
+
+                <mat-icon>
+
+                    trending_up
+
+                </mat-icon>
+
+                {{summary.activeContracts}}
+
+            </div>
+
+        </div>
+
+        <div class="card-title">
+
+            Contracts
+
+        </div>
+
+        <div class="card-value">
+
+            {{summary.totalContracts}}
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-fill contract-fill"></div>
+
+        </div>
+
+        <div class="card-footer">
+
+            Active :
+
+            {{summary.activeContracts}}
+
+        </div>
+
+    </mat-card>
+
+    <!-- =========================================================
+         TOTAL VENDORS
+    ========================================================== -->
+
+    <mat-card
+        class="summary-card vendor"
+        (click)="open('vendors')">
+
+        <div class="card-top">
+
+            <div class="icon">
+
+                <mat-icon>
+
+                    business
+
+                </mat-icon>
+
+            </div>
+
+            <div class="trend positive">
+
+                <mat-icon>
+
+                    trending_up
+
+                </mat-icon>
+
+                {{summary.activeVendors}}
+
+            </div>
+
+        </div>
+
+        <div class="card-title">
+
+            Vendors
+
+        </div>
+
+        <div class="card-value">
+
+            {{summary.totalVendors}}
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-fill vendor-fill"></div>
+
+        </div>
+
+        <div class="card-footer">
+
+            Active Vendors
+
+        </div>
+
+    </mat-card>
+
+    <!-- =========================================================
+         TOTAL EXPENSES
+    ========================================================== -->
+
+    <mat-card
+        class="summary-card expense"
+        (click)="open('expenditures')">
+
+        <div class="card-top">
+
+            <div class="icon">
+
+                <mat-icon>
+
+                    receipt_long
+
+                </mat-icon>
+
+            </div>
+
+            <div class="trend negative">
+
+                <mat-icon>
+
+                    trending_down
+
+                </mat-icon>
+
+                3%
+
+            </div>
+
+        </div>
+
+        <div class="card-title">
+
+            Expenses
+
+        </div>
+
+        <div class="card-value">
+
+            {{summary.totalExpenses | number:'1.0-2'}}
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-fill expense-fill"></div>
+
+        </div>
+
+        <div class="card-footer">
+
+            Total Expense Records
+
+        </div>
+
+    </mat-card>
+
+    <!-- =========================================================
+         PAID
+    ========================================================== -->
+
+    <mat-card
+        class="summary-card paid"
+        (click)="open('expenditures')">
+
+        <div class="card-top">
+
+            <div class="icon">
+
+                <mat-icon>
+
+                    task_alt
+
+                </mat-icon>
+
+            </div>
+
+            <div class="trend positive">
+
+                <mat-icon>
+
+                    check_circle
+
+                </mat-icon>
+
+                Paid
+
+            </div>
+
+        </div>
+
+        <div class="card-title">
+
+            Paid Amount
+
+        </div>
+
+        <div class="card-value">
+
+            {{summary.paidAmount | number:'1.0-2'}}
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-fill paid-fill"></div>
+
+        </div>
+
+        <div class="card-footer">
+
+            Completed Payments
+
+        </div>
+
+    </mat-card>
+
+    <!-- =========================================================
+         PENDING
+    ========================================================== -->
+
+    <mat-card
+        class="summary-card pending"
+        (click)="open('expenditures')">
+
+        <div class="card-top">
+
+            <div class="icon">
+
+                <mat-icon>
+
+                    schedule
+
+                </mat-icon>
+
+            </div>
+
+            <div class="trend warning">
+
+                <mat-icon>
+
+                    pending
+
+                </mat-icon>
+
+                Pending
+
+            </div>
+
+        </div>
+
+        <div class="card-title">
+
+            Pending Amount
+
+        </div>
+
+        <div class="card-value">
+
+            {{summary.pendingAmount | number:'1.0-2'}}
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-fill pending-fill"></div>
+
+        </div>
+
+        <div class="card-footer">
+
+            Awaiting Approval
+
+        </div>
+
+    </mat-card>
+
+    <!-- =========================================================
+         PAID EXPENSES
+    ========================================================== -->
+
+    <mat-card
+        class="summary-card success">
+
+        <div class="card-top">
+
+            <div class="icon">
+
+                <mat-icon>
+
+                    paid
+
+                </mat-icon>
+
+            </div>
+
+        </div>
+
+        <div class="card-title">
+
+            Paid Expenses
+
+        </div>
+
+        <div class="card-value">
+
+            {{summary.paidExpenses}}
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-fill success-fill"></div>
+
+        </div>
+
+        <div class="card-footer">
+
+            Payment Completed
+
+        </div>
+
+    </mat-card>
+
+    <!-- =========================================================
+         PENDING EXPENSES
+    ========================================================== -->
+
+    <mat-card
+        class="summary-card warning-card">
+
+        <div class="card-top">
+
+            <div class="icon">
+
+                <mat-icon>
+
+                    hourglass_top
+
+                </mat-icon>
+
+            </div>
+
+        </div>
+
+        <div class="card-title">
+
+            Pending Expenses
+
+        </div>
+
+        <div class="card-value">
+
+            {{summary.pendingExpenses}}
+
+        </div>
+
+        <div class="progress">
+
+            <div class="progress-fill warning-fill"></div>
+
+        </div>
+
+        <div class="card-footer">
+
+            Waiting for Payment
+
+        </div>
+
+    </mat-card>
+
+</div>
+
+<!-- =========================================================
+     LOADING
+========================================================= -->
+
+<ng-template #loadingTemplate>
+
+<div class="summary-grid">
+
+    <mat-card
+        class="summary-card skeleton"
+        *ngFor="let item of [1,2,3,4,5,6,7,8]">
+
+    </mat-card>
+
+</div>
+
+</ng-template>

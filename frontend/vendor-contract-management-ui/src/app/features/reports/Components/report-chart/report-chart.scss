@@ -1,0 +1,356 @@
+:host {
+    display: block;
+    width: 100%;
+}
+
+/*====================================================
+CARD
+====================================================*/
+
+.chart-card {
+
+    display: flex;
+
+    flex-direction: column;
+
+    height: 100%;
+
+    overflow: hidden;
+
+    border-radius: 18px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    box-shadow:
+        0 2px 8px rgba(15,23,42,.05),
+        0 8px 28px rgba(15,23,42,.08);
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+
+}
+
+.chart-card:hover{
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 14px 36px rgba(15,23,42,.12);
+
+}
+
+/*====================================================
+HEADER
+====================================================*/
+
+.chart-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    padding:20px 24px;
+
+    border-bottom:1px solid #eef2f7;
+
+    background:#fafcff;
+
+}
+
+.title-section{
+
+    flex:1;
+
+    overflow:hidden;
+
+}
+
+.title-section h3{
+
+    margin:0;
+
+    font-size:20px;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+}
+
+.title-section p{
+
+    margin:6px 0 0;
+
+    color:#64748b;
+
+    font-size:13px;
+
+}
+
+/*====================================================
+ACTIONS
+====================================================*/
+
+.actions{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:6px;
+
+}
+
+.actions button{
+
+    transition:.25s;
+
+}
+
+.actions button:hover{
+
+    background:#eff6ff;
+
+    color:#2563eb;
+
+}
+
+/*====================================================
+BODY
+====================================================*/
+
+.chart-container{
+
+    padding:18px;
+
+    min-height:360px;
+
+}
+
+/*====================================================
+LOADING
+====================================================*/
+
+.loading-container{
+
+    min-height:360px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:18px;
+
+}
+
+.loading-container span{
+
+    color:#64748b;
+
+    font-size:14px;
+
+}
+
+/*====================================================
+EMPTY
+====================================================*/
+
+.empty-container{
+
+    min-height:360px;
+
+    display:flex;
+
+    flex-direction:column;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    padding:32px;
+
+    color:#94a3b8;
+
+}
+
+.empty-container mat-icon{
+
+    width:72px;
+
+    height:72px;
+
+    font-size:72px;
+
+    color:#cbd5e1;
+
+    margin-bottom:18px;
+
+}
+
+.empty-container h4{
+
+    margin:0;
+
+    font-size:22px;
+
+    color:#475569;
+
+    font-weight:600;
+
+}
+
+.empty-container p{
+
+    margin-top:10px;
+
+    max-width:320px;
+
+    line-height:1.6;
+
+}
+
+/*====================================================
+APEXCHARTS
+====================================================*/
+
+::ng-deep .apexcharts-toolbar{
+
+    right:8px !important;
+
+}
+
+::ng-deep .apexcharts-tooltip{
+
+    border-radius:12px !important;
+
+}
+
+::ng-deep .apexcharts-menu{
+
+    border-radius:12px !important;
+
+}
+
+::ng-deep .apexcharts-legend{
+
+    padding-top:12px !important;
+
+}
+
+::ng-deep .apexcharts-canvas{
+
+    margin:auto;
+
+}
+
+/*====================================================
+TABLET
+====================================================*/
+
+@media(max-width:1024px){
+
+.chart-container{
+
+    min-height:320px;
+
+}
+
+}
+
+/*====================================================
+MOBILE
+====================================================*/
+
+@media(max-width:768px){
+
+.chart-header{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+}
+
+.actions{
+
+    width:100%;
+
+    justify-content:flex-end;
+
+}
+
+.chart-container{
+
+    min-height:280px;
+
+    padding:14px;
+
+}
+
+.loading-container,
+.empty-container{
+
+    min-height:280px;
+
+}
+
+.title-section h3{
+
+    font-size:18px;
+
+}
+
+}
+
+/*====================================================
+SMALL MOBILE
+====================================================*/
+
+@media(max-width:480px){
+
+.chart-header{
+
+    padding:16px;
+
+}
+
+.chart-container{
+
+    padding:10px;
+
+}
+
+.title-section h3{
+
+    font-size:16px;
+
+}
+
+.title-section p{
+
+    font-size:12px;
+
+}
+
+.actions button{
+
+    width:38px;
+
+    height:38px;
+
+}
+
+}

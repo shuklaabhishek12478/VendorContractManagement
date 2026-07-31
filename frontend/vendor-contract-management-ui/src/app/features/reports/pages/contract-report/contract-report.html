@@ -1,0 +1,167 @@
+<div class="contract-report">
+
+    <!-- ===========================================================
+         PAGE HEADER
+    ============================================================ -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+
+                Contract Report
+
+            </h1>
+
+            <p>
+
+                Contract analytics, lifecycle tracking and financial overview
+
+            </p>
+
+        </div>
+
+        <div class="page-info">
+
+            <span>
+
+                Last Updated
+
+            </span>
+
+            <strong>
+
+                {{ lastUpdated }}
+
+            </strong>
+
+        </div>
+
+    </div>
+
+    <!-- ===========================================================
+         TOOLBAR
+    ============================================================ -->
+
+<app-report-toolbar
+
+    [loading]="loading"
+
+    (refresh)="refresh()"
+
+    (excel)="exportExcel()">
+
+</app-report-toolbar>
+
+    <!-- ===========================================================
+         FILTER
+    ============================================================ -->
+
+    <app-report-filter
+
+        [loading]="loading"
+
+        [filter]="filter"
+
+        (filterChanged)="onFilterChanged($event)"
+
+        (reset)="resetFilters()">
+
+    </app-report-filter>
+
+    <!-- ===========================================================
+         SUMMARY CARDS
+    ============================================================ -->
+
+    <app-report-summary-cards
+
+        [summary]="summary"
+
+        (cardClick)="onSummaryClick($event)">
+
+    </app-report-summary-cards>
+
+    <!-- ===========================================================
+         CHARTS ROW-1
+    ============================================================ -->
+
+    <div class="chart-grid">
+
+        <app-report-chart
+
+            title="Contract Status"
+
+            type="donut"
+
+            [loading]="loading"
+
+            [data]="statusChart">
+
+        </app-report-chart>
+
+        <app-report-chart
+
+            title="Monthly Contract Value"
+
+            type="line"
+
+            [loading]="loading"
+
+            [data]="valueTrendChart">
+
+        </app-report-chart>
+
+    </div>
+
+    <!-- ===========================================================
+         CHARTS ROW-2
+    ============================================================ -->
+
+    <div class="chart-grid">
+
+        <app-report-chart
+
+            title="Department Wise Value"
+
+            type="bar"
+
+            [loading]="loading"
+
+            [data]="departmentChart">
+
+        </app-report-chart>
+
+        <app-report-chart
+
+            title="Category Wise Value"
+
+            type="pie"
+
+            [loading]="loading"
+
+            [data]="categoryChart">
+
+        </app-report-chart>
+
+    </div>
+
+    <!-- ===========================================================
+         CONTRACT TABLE
+    ============================================================ -->
+
+    <app-report-table
+
+        [loading]="loading"
+
+        [columnDefs]="columnDefs"
+
+        [rowData]="rowData"
+
+        [height]="'650px'"
+
+        (rowDoubleClick)="onRowDoubleClick($event)">
+
+    </app-report-table>
+
+</div>

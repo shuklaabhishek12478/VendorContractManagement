@@ -1,0 +1,118 @@
+<div class="report-table-container">
+
+    <!--=====================================================
+    HEADER
+    ======================================================-->
+
+    <div class="table-toolbar">
+
+        <div class="toolbar-left">
+
+            <div class="table-title">
+
+                Report Data
+
+            </div>
+
+            <div class="table-count">
+
+                {{ rowData.length }}
+
+                Records
+
+            </div>
+
+        </div>
+
+        <div class="toolbar-right">
+
+            <button
+                mat-icon-button
+                matTooltip="Refresh Grid"
+                (click)="refresh()">
+
+                <mat-icon>
+
+                    refresh
+
+                </mat-icon>
+
+            </button>
+
+            <button
+                mat-icon-button
+                matTooltip="Auto Size Columns"
+                (click)="autoSize()">
+
+                <mat-icon>
+
+                    view_week
+
+                </mat-icon>
+
+            </button>
+
+            <button
+                mat-icon-button
+                matTooltip="Fit Columns"
+                (click)="fitColumns()">
+
+                <mat-icon>
+
+                    fit_screen
+
+                </mat-icon>
+
+            </button>
+
+            <button
+                mat-icon-button
+                matTooltip="Export CSV"
+                *ngIf="enableExport"
+                (click)="exportCsv()">
+
+                <mat-icon>
+
+                    download
+
+                </mat-icon>
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!--=====================================================
+    GRID
+    ======================================================-->
+
+    <div
+        class="ag-theme-quartz report-grid"
+        [style.height]="height">
+
+        <ag-grid-angular
+
+            class="ag-grid"
+
+            [columnDefs]="columnDefs"
+
+            [rowData]="rowData"
+
+            [defaultColDef]="defaultColDef"
+
+            [gridOptions]="gridOptions"
+
+            (gridReady)="onGridReady($event)"
+
+            (rowClicked)="onRowClicked($event)"
+
+            (rowDoubleClicked)="onRowDoubleClicked($event)"
+
+            (selectionChanged)="onSelectionChanged($event)">
+
+        </ag-grid-angular>
+
+    </div>
+
+</div>

@@ -1,0 +1,149 @@
+<div class="category-report">
+
+    <!-- ==========================================================
+         PAGE HEADER
+    =========================================================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+
+                Category Report
+
+            </h1>
+
+            <p>
+
+                Procurement category analytics, spend insights and vendor performance
+
+            </p>
+
+        </div>
+
+        <div class="page-info">
+
+            <span>
+
+                Last Updated
+
+            </span>
+
+            <strong>
+
+                {{ lastUpdated }}
+
+            </strong>
+
+        </div>
+
+    </div>
+
+    <!-- ==========================================================
+         TOOLBAR
+    =========================================================== -->
+
+    <app-report-toolbar
+
+        [loading]="loading"
+
+        (refresh)="refresh()"
+
+        (excel)="exportExcel()"
+
+        (pdf)="exportPdf()">
+
+    </app-report-toolbar>
+
+    <!-- ==========================================================
+         FILTER
+    =========================================================== -->
+
+    <app-report-filter
+
+        [loading]="loading"
+
+        [filter]="filter"
+
+        (filterChanged)="onFilterChanged($event)"
+
+        (reset)="resetFilters()">
+
+    </app-report-filter>
+
+    <!-- ==========================================================
+         SUMMARY CARDS
+    =========================================================== -->
+
+    <app-report-summary-cards
+
+        [summary]="summary"
+
+        (cardClick)="onSummaryClick($event)">
+
+    </app-report-summary-cards>
+
+    <!-- ==========================================================
+         CHART ROW 1
+    =========================================================== -->
+
+    <div class="chart-grid">
+
+    <app-report-chart
+        title="Category Spend"
+        type="bar"
+        [loading]="loading"
+        [data]="spendChart">
+    </app-report-chart>
+
+    <app-report-chart
+        title="Expense Distribution"
+        type="donut"
+        [loading]="loading"
+        [data]="expenseChart">
+    </app-report-chart>
+
+</div>
+
+    <!-- ==========================================================
+         CHART ROW 2
+    =========================================================== -->
+
+    <div class="chart-grid">
+
+    <app-report-chart
+        title="Category Spend Distribution"
+        type="pie"
+        [loading]="loading"
+        [data]="spendChart">
+    </app-report-chart>
+
+    <app-report-chart
+        title="Category Expenses"
+        type="bar"
+        [loading]="loading"
+        [data]="expenseChart">
+    </app-report-chart>
+
+</div>
+
+    <!-- ==========================================================
+         REPORT TABLE
+    =========================================================== -->
+
+    <app-report-table
+
+        [loading]="loading"
+
+        [columnDefs]="columnDefs"
+
+        [rowData]="rowData"
+
+        [height]="'650px'"
+
+        (rowDoubleClick)="onRowDoubleClick($event)">
+
+    </app-report-table>
+
+</div>

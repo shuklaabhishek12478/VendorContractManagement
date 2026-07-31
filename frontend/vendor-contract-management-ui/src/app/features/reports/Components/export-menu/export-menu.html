@@ -1,1 +1,92 @@
-<p>export-menu works!</p>
+<button
+    mat-flat-button
+    color="primary"
+    [disabled]="loading || disabled"
+    [matMenuTriggerFor]="menu">
+
+    <ng-container *ngIf="!loading">
+
+        <mat-icon>download</mat-icon>
+
+    </ng-container>
+
+    <mat-spinner
+        *ngIf="loading"
+        diameter="18">
+    </mat-spinner>
+
+    Export
+
+</button>
+
+<mat-menu #menu="matMenu">
+
+    <button
+        mat-menu-item
+        *ngIf="showExcel"
+        (click)="excel.emit()">
+
+        <mat-icon>table_view</mat-icon>
+
+        Excel
+
+    </button>
+
+    <button
+        mat-menu-item
+        *ngIf="showPdf"
+        (click)="pdf.emit()">
+
+        <mat-icon>picture_as_pdf</mat-icon>
+
+        PDF
+
+    </button>
+
+    <button
+        mat-menu-item
+        *ngIf="showCsv"
+        (click)="csv.emit()">
+
+        <mat-icon>dataset</mat-icon>
+
+        CSV
+
+    </button>
+
+    <mat-divider></mat-divider>
+
+    <button
+        mat-menu-item
+        *ngIf="showPrint"
+        (click)="print.emit()">
+
+        <mat-icon>print</mat-icon>
+
+        Print
+
+    </button>
+
+    <button
+        mat-menu-item
+        *ngIf="showCopy"
+        (click)="copy.emit()">
+
+        <mat-icon>content_copy</mat-icon>
+
+        Copy Data
+
+    </button>
+
+    <button
+        mat-menu-item
+        *ngIf="showEmail"
+        (click)="email.emit()">
+
+        <mat-icon>mail</mat-icon>
+
+        Email Report
+
+    </button>
+
+</mat-menu>

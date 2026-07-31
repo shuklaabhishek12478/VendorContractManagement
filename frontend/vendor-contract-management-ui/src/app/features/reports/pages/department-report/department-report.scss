@@ -1,0 +1,260 @@
+:host {
+
+    display: block;
+
+    width: 100%;
+
+}
+
+/*=========================================================
+PAGE
+=========================================================*/
+
+.department-report {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 24px;
+
+    padding: 24px;
+
+    background: #f8fafc;
+
+    min-height: 100vh;
+
+}
+
+/*=========================================================
+HEADER
+=========================================================*/
+
+.page-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    gap: 24px;
+
+    flex-wrap: wrap;
+
+}
+
+.page-header h1 {
+
+    margin: 0;
+
+    font-size: 32px;
+
+    font-weight: 700;
+
+    color: #0f172a;
+
+}
+
+.page-header p {
+
+    margin-top: 8px;
+
+    margin-bottom: 0;
+
+    color: #64748b;
+
+    font-size: 15px;
+
+    line-height: 1.5;
+
+}
+
+.page-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    background: #fff;
+
+    padding: 16px 22px;
+
+    border-radius: 14px;
+
+    border: 1px solid #e2e8f0;
+
+    box-shadow: 0 2px 10px rgba(15,23,42,.05);
+
+}
+
+.page-info span {
+
+    color: #94a3b8;
+
+    font-size: 13px;
+
+}
+
+.page-info strong {
+
+    margin-top: 6px;
+
+    color: #0f172a;
+
+    font-size: 15px;
+
+}
+
+/*=========================================================
+CHART GRID
+=========================================================*/
+
+.chart-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2,1fr);
+
+    gap: 24px;
+
+}
+
+/*=========================================================
+COMPONENT SPACING
+=========================================================*/
+
+app-report-toolbar,
+app-report-filter,
+app-report-summary-cards,
+app-report-table{
+
+    display:block;
+
+}
+
+/*=========================================================
+TABLE
+=========================================================*/
+
+app-report-table{
+
+    margin-top:8px;
+
+}
+
+/*=========================================================
+CARD ANIMATION
+=========================================================*/
+
+.chart-grid app-report-chart{
+
+    animation:fadeIn .35s ease;
+
+}
+
+@keyframes fadeIn{
+
+from{
+
+opacity:0;
+
+transform:translateY(10px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:none;
+
+}
+
+}
+
+/*=========================================================
+TABLET
+=========================================================*/
+
+@media(max-width:1200px){
+
+.chart-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+/*=========================================================
+MOBILE
+=========================================================*/
+
+@media(max-width:768px){
+
+.department-report{
+
+padding:16px;
+
+gap:18px;
+
+}
+
+.page-header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.page-header h1{
+
+font-size:26px;
+
+}
+
+.page-info{
+
+width:100%;
+
+align-items:flex-start;
+
+}
+
+}
+
+/*=========================================================
+SMALL MOBILE
+=========================================================*/
+
+@media(max-width:480px){
+
+.department-report{
+
+padding:12px;
+
+}
+
+.page-header h1{
+
+font-size:22px;
+
+}
+
+.page-header p{
+
+font-size:14px;
+
+}
+
+.chart-grid{
+
+gap:16px;
+
+}
+
+}

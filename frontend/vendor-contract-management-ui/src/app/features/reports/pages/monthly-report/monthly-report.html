@@ -1,0 +1,159 @@
+<div class="monthly-report">
+
+    <!-- ==========================================================
+         PAGE HEADER
+    =========================================================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+
+                Monthly Report
+
+            </h1>
+
+            <p>
+
+                Monthly financial trends, contract growth and vendor performance analytics
+
+            </p>
+
+        </div>
+
+        <div class="page-info">
+
+            <span>
+
+                Last Updated
+
+            </span>
+
+            <strong>
+
+                {{ lastUpdated }}
+
+            </strong>
+
+        </div>
+
+    </div>
+
+    <!-- ==========================================================
+         TOOLBAR
+    =========================================================== -->
+
+    <app-report-toolbar
+
+        [loading]="loading"
+
+        (refresh)="refresh()"
+
+        (excel)="exportExcel()"
+
+        (pdf)="exportPdf()">
+
+    </app-report-toolbar>
+
+    <!-- ==========================================================
+         FILTER
+    =========================================================== -->
+
+    <app-report-filter
+
+        [loading]="loading"
+
+        [filter]="filter"
+
+        (filterChanged)="onFilterChanged($event)"
+
+        (reset)="resetFilters()">
+
+    </app-report-filter>
+
+    <!-- ==========================================================
+         SUMMARY
+    =========================================================== -->
+
+    <app-report-summary-cards
+
+        [summary]="summary"
+
+        (cardClick)="onSummaryClick($event)">
+
+    </app-report-summary-cards>
+
+    <!-- ==========================================================
+         CHART ROW - 1
+    =========================================================== -->
+
+    <div class="chart-grid">
+
+        <app-report-chart
+
+            title="Monthly Spend Trend"
+
+            type="line"
+
+            [loading]="loading"
+
+            [data]="spendTrendChart">
+
+        </app-report-chart>
+
+        <app-report-chart
+
+            title="Contract Growth"
+
+            type="bar"
+
+            [loading]="loading"
+
+            [data]="contractTrendChart">
+
+        </app-report-chart>
+
+    </div>
+
+    <!-- ==========================================================
+         CHART ROW - 2
+    =========================================================== -->
+
+    <div class="chart-grid">
+
+    <app-report-chart
+        title="Vendor Growth"
+        type="line"
+        [loading]="loading"
+        [data]="vendorGrowthChart">
+    </app-report-chart>
+
+    <app-report-chart
+        title="Monthly Spend Distribution"
+        type="bar"
+        [loading]="loading"
+        [data]="spendTrendChart">
+    </app-report-chart>
+
+</div>
+
+    <!-- ==========================================================
+         REPORT TABLE
+    =========================================================== -->
+
+    <app-report-table
+
+        [loading]="loading"
+
+        [columnDefs]="columnDefs"
+
+        [rowData]="rowData"
+
+        [height]="'650px'"
+
+        (rowDoubleClick)="onRowDoubleClick($event)">
+
+    </app-report-table>
+
+</div>

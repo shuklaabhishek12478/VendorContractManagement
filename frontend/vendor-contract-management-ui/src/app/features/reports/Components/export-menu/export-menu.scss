@@ -1,0 +1,61 @@
+:host{
+
+    display:inline-flex;
+}
+
+button[mat-flat-button]{
+
+    height:42px;
+
+    border-radius:12px;
+
+    padding:0 18px;
+
+    font-weight:600;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:8px;
+
+    min-width:130px;
+}
+
+button[mat-menu-item]{
+
+    min-width:220px;
+}
+
+button[mat-menu-item] mat-icon{
+
+    color:#64748b;
+
+    margin-right:14px;
+}
+
+mat-spinner{
+
+    margin-right:8px;
+}
+
+::ng-deep .mat-mdc-menu-panel{
+
+    border-radius:14px;
+
+    overflow:hidden;
+}
+
+::ng-deep .mat-mdc-menu-content{
+
+    padding:8px 0;
+}
+
+@media(max-width:768px){
+
+button[mat-flat-button]{
+
+    width:100%;
+}
+
+}

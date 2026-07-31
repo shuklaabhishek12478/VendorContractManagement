@@ -1,0 +1,398 @@
+<mat-card class="report-filter-card">
+
+    <!-- =====================================================
+         HEADER
+    ====================================================== -->
+
+    <div class="filter-header">
+
+        <div class="title">
+
+            <mat-icon>
+
+                tune
+
+            </mat-icon>
+
+            <div>
+
+                <h3>
+
+                    Report Filters
+
+                </h3>
+
+                <span>
+
+                    Filter reports by vendor, contract, department, category and date.
+
+                </span>
+
+            </div>
+
+        </div>
+
+        <div class="actions">
+
+            <button
+                mat-stroked-button
+                color="primary"
+                (click)="saveCurrentFilter()">
+
+                <mat-icon>
+
+                    bookmark
+
+                </mat-icon>
+
+                Save Filter
+
+            </button>
+
+            <button
+                mat-stroked-button
+                color="warn"
+                (click)="clearFilters()">
+
+                <mat-icon>
+
+                    restart_alt
+
+                </mat-icon>
+
+                Reset
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <!-- =====================================================
+         QUICK FILTERS
+    ====================================================== -->
+
+    <div class="quick-filters">
+
+        <button
+            mat-stroked-button
+            (click)="setToday()">
+
+            Today
+
+        </button>
+
+        <button
+            mat-stroked-button
+            (click)="setCurrentMonth()">
+
+            This Month
+
+        </button>
+
+        <button
+            mat-stroked-button
+            (click)="setCurrentYear()">
+
+            This Year
+
+        </button>
+
+    </div>
+
+    <!-- =====================================================
+         FILTER GRID
+    ====================================================== -->
+
+    <div class="filter-grid">
+
+        <!-- From Date -->
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                From Date
+
+            </mat-label>
+
+            <input
+                matInput
+                [matDatepicker]="fromPicker"
+                [(ngModel)]="localFilter.fromDate">
+
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="fromPicker">
+            </mat-datepicker-toggle>
+
+            <mat-datepicker
+                #fromPicker>
+            </mat-datepicker>
+
+        </mat-form-field>
+
+        <!-- To Date -->
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                To Date
+
+            </mat-label>
+
+            <input
+                matInput
+                [matDatepicker]="toPicker"
+                [(ngModel)]="localFilter.toDate">
+
+            <mat-datepicker-toggle
+                matSuffix
+                [for]="toPicker">
+            </mat-datepicker-toggle>
+
+            <mat-datepicker
+                #toPicker>
+            </mat-datepicker>
+
+        </mat-form-field>
+
+        <!-- Vendor -->
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Vendor
+
+            </mat-label>
+
+            <mat-select
+                [(ngModel)]="localFilter.vendorId">
+
+                <mat-option
+                    [value]="null">
+
+                    All Vendors
+
+                </mat-option>
+
+                <mat-option
+                    *ngFor="let vendor of vendors"
+                    [value]="vendor.id">
+
+                    {{ vendor.name }}
+
+                </mat-option>
+
+            </mat-select>
+
+        </mat-form-field>
+
+        <!-- Contract -->
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Contract
+
+            </mat-label>
+
+            <mat-select
+                [(ngModel)]="localFilter.contractId">
+
+                <mat-option
+                    [value]="null">
+
+                    All Contracts
+
+                </mat-option>
+
+                <mat-option
+                    *ngFor="let contract of contracts"
+                    [value]="contract.contractId ?? contract.id">
+
+                    {{ contract.contractNumber }}
+
+                </mat-option>
+
+            </mat-select>
+
+        </mat-form-field>
+
+        <!-- Department -->
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Department
+
+            </mat-label>
+
+            <mat-select
+                [(ngModel)]="localFilter.department">
+
+                <mat-option
+                    [value]="null">
+
+                    All Departments
+
+                </mat-option>
+
+                <mat-option
+                    *ngFor="let department of departments"
+                    [value]="department.id ?? department">
+
+                    {{ department.name ?? department }}
+
+                </mat-option>
+
+            </mat-select>
+
+        </mat-form-field>
+
+        <!-- Category -->
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Category
+
+            </mat-label>
+
+            <mat-select
+                [(ngModel)]="localFilter.category">
+
+                <mat-option
+                    [value]="null">
+
+                    All Categories
+
+                </mat-option>
+
+                <mat-option
+                    *ngFor="let category of categories"
+                    [value]="category.id ?? category">
+
+                    {{ category.name ?? category }}
+
+                </mat-option>
+
+            </mat-select>
+
+        </mat-form-field>
+
+        <!-- Contract Status -->
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Contract Status
+
+            </mat-label>
+
+            <mat-select
+                [(ngModel)]="localFilter.status">
+
+                <mat-option
+                    [value]="null">
+
+                    All Status
+
+                </mat-option>
+
+                <mat-option
+                    *ngFor="let status of statuses"
+                    [value]="status.id ?? status">
+
+                    {{ status.name ?? status }}
+
+                </mat-option>
+
+            </mat-select>
+
+        </mat-form-field>
+
+        <!-- Payment Status -->
+
+        <mat-form-field appearance="outline">
+
+            <mat-label>
+
+                Payment Status
+
+            </mat-label>
+
+            <mat-select
+                [(ngModel)]="localFilter.paymentStatus">
+
+                <mat-option
+                    [value]="null">
+
+                    All Payment Status
+
+                </mat-option>
+
+                <mat-option
+                    *ngFor="let payment of paymentStatuses"
+                    [value]="payment.id ?? payment">
+
+                    {{ payment.name ?? payment }}
+
+                </mat-option>
+
+            </mat-select>
+
+        </mat-form-field>
+
+    </div>
+
+    <!-- =====================================================
+         FOOTER
+    ====================================================== -->
+
+    <div class="filter-footer">
+
+        <div class="filter-info">
+
+            <mat-icon
+                *ngIf="hasFilter()">
+
+                check_circle
+
+            </mat-icon>
+
+            <span>
+
+                {{ hasFilter() ? 'Filters Applied' : 'No Filters Applied' }}
+
+            </span>
+
+        </div>
+
+        <button
+            mat-flat-button
+            color="primary"
+            [disabled]="loading"
+            (click)="applyFilters()">
+
+            <mat-icon>
+
+                search
+
+            </mat-icon>
+
+            Apply Filters
+
+        </button>
+
+    </div>
+
+</mat-card>

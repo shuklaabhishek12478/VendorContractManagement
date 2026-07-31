@@ -72,31 +72,40 @@ public class ReportRepository : IReportRepository
     public async Task<List<MonthlyReportDto>> GetMonthlySpendAsync(
     ReportFilterDto filter)
     {
-        return await _context.Expenditures
-            .Where(x => !x.IsDeleted)
-            .GroupBy(x => new
+        var data = await _context.Expenditures
+    .Where(x => !x.IsDeleted)
+    .GroupBy(x => new
+    {
+        x.ExpenseDate.Year,
+        x.ExpenseDate.Month
+    })
+    .Select(g => new
+    {
+        g.Key.Year,
+        g.Key.Month,
+        Spend = g.Sum(x => x.TotalAmount),
+        Contracts = g.Select(x => x.ContractId).Distinct().Count(),
+        Vendors = g.Select(x => x.VendorId).Distinct().Count()
+    })
+    .ToListAsync();
+
+        return data
+            .Select(x => new MonthlyReportDto
             {
-                x.ExpenseDate.Year,
-                x.ExpenseDate.Month
+                Month = new DateTime(x.Year, x.Month, 1)
+                    .ToString("MMM yyyy"),
+
+                Spend = x.Spend,
+
+                Contracts = x.Contracts,
+
+                Vendors = x.Vendors
             })
-            .Select(g => new MonthlyReportDto
-            {
-                Month = $"{g.Key.Month}/{g.Key.Year}",
-
-                Spend = g.Sum(x => x.TotalAmount),
-
-                Contracts = g
-                    .Select(x => x.ContractId)
-                    .Distinct()
-                    .Count(),
-
-                Vendors = g
-                    .Select(x => x.VendorId)
-                    .Distinct()
-                    .Count()
-            })
-            .OrderBy(x => x.Month)
-            .ToListAsync();
+            .OrderBy(x => DateTime.ParseExact(
+                x.Month,
+                "MMM yyyy",
+                System.Globalization.CultureInfo.InvariantCulture))
+            .ToList();
     }
 
     public async Task<List<VendorReportDto>> GetVendorSpendAsync(

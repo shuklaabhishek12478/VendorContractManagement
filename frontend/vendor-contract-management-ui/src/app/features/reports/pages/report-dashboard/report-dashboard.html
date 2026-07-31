@@ -1,0 +1,197 @@
+<div class="report-dashboard">
+
+    <!-- ==========================================
+         Toolbar
+    =========================================== -->
+
+    <app-report-toolbar
+
+        [loading]="loading"
+
+        (filterChanged)="applyFilter($event)"
+
+        (refresh)="refresh()"
+
+        (reset)="resetFilter()">
+
+    </app-report-toolbar>
+
+    <div class="export-actions">
+
+    <button mat-flat-button color="primary"
+        [disabled]="loading || exportLoading"
+        (click)="exportReport('contracts')">
+
+        Contracts
+
+    </button>
+
+    <button mat-flat-button color="primary"
+      [disabled]="loading || exportLoading"
+        (click)="exportReport('vendors')">
+
+        Vendors
+
+    </button>
+
+    <button mat-flat-button color="primary"
+    [disabled]="loading || exportLoading"
+        (click)="exportReport('departments')">
+
+        Departments
+
+    </button>
+
+    <button mat-flat-button color="primary"
+    [disabled]="loading || exportLoading"
+        (click)="exportReport('categories')">
+
+        Categories
+
+    </button>
+
+    <button mat-flat-button color="primary"
+    [disabled]="loading || exportLoading"
+        (click)="exportReport('monthly')">
+
+        Monthly
+
+    </button>
+
+    <button mat-flat-button color="accent"
+    [disabled]="loading || exportLoading"
+        (click)="exportReport('expenditures')">
+
+        Expenditures
+
+    </button>
+
+</div>
+
+
+
+    <!-- ==========================================
+         Summary
+    =========================================== -->
+
+    <app-report-summary-cards
+
+        *ngIf="dashboard"
+
+        [summary]="dashboard.summary"
+
+        [loading]="loading">
+
+    </app-report-summary-cards>
+
+    <!-- ==========================================
+         Charts
+    =========================================== -->
+
+    <div
+        class="chart-grid"
+        *ngIf="dashboard">
+
+        <!-- Monthly Spend -->
+
+        <app-report-chart
+
+            title="Monthly Spend"
+
+            subtitle="Monthly expenditure trend"
+
+            type="area"
+
+            [loading]="loading"
+
+            [data]="monthlyChart"
+
+            (refreshRequested)="refresh()">
+
+        </app-report-chart>
+
+        <!-- Vendor Spend -->
+
+        <app-report-chart
+
+            title="Vendor Spend"
+
+            subtitle="Top vendor expenditure"
+
+            type="bar"
+
+            [loading]="loading"
+
+            [data]="vendorChart"
+
+            (refreshRequested)="refresh()">
+
+        </app-report-chart>
+
+        <!-- Department -->
+
+        <app-report-chart
+
+            title="Department Spend"
+
+            subtitle="Department wise expenditure"
+
+            type="donut"
+
+            [loading]="loading"
+
+            [data]="departmentChart"
+
+            (refreshRequested)="refresh()">
+
+        </app-report-chart>
+
+        <!-- Category -->
+
+        <app-report-chart
+
+            title="Category Spend"
+
+            subtitle="Category wise expenditure"
+
+            type="pie"
+
+            [loading]="loading"
+
+            [data]="categoryChart"
+
+            (refreshRequested)="refresh()">
+
+        </app-report-chart>
+
+    </div>
+
+    <!-- ==========================================
+         Empty State
+    =========================================== -->
+
+    <div
+        class="empty-dashboard"
+        *ngIf="!loading && dashboard == null">
+
+        <mat-icon>
+
+            analytics
+
+        </mat-icon>
+
+        <h2>
+
+            No Report Available
+
+        </h2>
+
+        <p>
+
+            Try changing filters or refresh dashboard.
+
+        </p>
+
+    </div>
+
+</div>

@@ -1,0 +1,266 @@
+<mat-toolbar class="report-toolbar">
+
+    <!-- ==========================================================
+         LEFT SECTION
+    =========================================================== -->
+
+    <div class="toolbar-left">
+
+        <div class="toolbar-icon">
+
+            <mat-icon>
+
+                {{ icon }}
+
+            </mat-icon>
+
+        </div>
+
+        <div class="toolbar-title">
+
+            <h2>
+
+                {{ title }}
+
+            </h2>
+
+            <div class="toolbar-subtitle">
+
+                <span>
+
+                    {{ subtitle }}
+
+                </span>
+
+                <span
+                    *ngIf="lastUpdated"
+                    class="divider">
+
+                    •
+
+                </span>
+
+                <span
+                    *ngIf="lastUpdated"
+                    class="last-updated">
+
+                    Last Updated :
+                    {{ lastUpdated }}
+
+                </span>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ==========================================================
+         SEARCH
+    =========================================================== -->
+
+    <div
+        class="toolbar-search"
+        *ngIf="showSearch">
+
+        <mat-form-field
+            appearance="outline">
+
+            <mat-icon matPrefix>
+
+                search
+
+            </mat-icon>
+
+            <input
+                matInput
+                placeholder="Search reports..."
+                [(ngModel)]="searchText"
+                (ngModelChange)="onSearch($event)">
+
+        </mat-form-field>
+
+    </div>
+
+    <!-- ==========================================================
+         RIGHT ACTIONS
+    =========================================================== -->
+
+    <div class="toolbar-right">
+
+        <!-- Record Count -->
+
+        <mat-chip
+            *ngIf="showRecordCount"
+            class="record-chip">
+
+            {{ totalRecords }}
+
+            Records
+
+        </mat-chip>
+
+        <!-- Refresh -->
+
+        <button
+            mat-icon-button
+            matTooltip="Refresh"
+            [disabled]="loading"
+            (click)="refresh.emit()">
+
+            <mat-spinner
+                *ngIf="loading"
+                diameter="18">
+
+            </mat-spinner>
+
+            <mat-icon *ngIf="!loading">
+
+                refresh
+
+            </mat-icon>
+
+        </button>
+
+        <!-- Reset -->
+
+        <button
+            mat-icon-button
+            matTooltip="Reset Filters"
+            (click)="reset.emit()">
+
+            <mat-icon>
+
+                filter_alt_off
+
+            </mat-icon>
+
+        </button>
+
+        <!-- Export -->
+
+        <button
+            *ngIf="showExport"
+            mat-flat-button
+            color="primary"
+            [matMenuTriggerFor]="exportMenu">
+
+            <mat-icon>
+
+                download
+
+            </mat-icon>
+
+            Export
+
+        </button>
+
+        <mat-menu #exportMenu="matMenu">
+
+            <button
+                mat-menu-item
+                (click)="excel.emit()">
+
+                <mat-icon>
+
+                    table_view
+
+                </mat-icon>
+
+                Excel
+
+            </button>
+
+            <button
+                mat-menu-item
+                (click)="pdf.emit()">
+
+                <mat-icon>
+
+                    picture_as_pdf
+
+                </mat-icon>
+
+                PDF
+
+            </button>
+
+            <button
+                mat-menu-item
+                (click)="csv.emit()">
+
+                <mat-icon>
+
+                    dataset
+
+                </mat-icon>
+
+                CSV
+
+            </button>
+
+        </mat-menu>
+
+        <!-- More Menu -->
+
+        <button
+            mat-icon-button
+            [matMenuTriggerFor]="moreMenu">
+
+            <mat-icon>
+
+                more_vert
+
+            </mat-icon>
+
+        </button>
+
+        <mat-menu #moreMenu="matMenu">
+
+            <button
+                mat-menu-item
+                (click)="print.emit()">
+
+                <mat-icon>
+
+                    print
+
+                </mat-icon>
+
+                Print
+
+            </button>
+
+            <button
+                mat-menu-item
+                (click)="copy.emit()">
+
+                <mat-icon>
+
+                    content_copy
+
+                </mat-icon>
+
+                Copy Data
+
+            </button>
+
+            <button
+                mat-menu-item
+                (click)="email.emit()">
+
+                <mat-icon>
+
+                    mail
+
+                </mat-icon>
+
+                Email Report
+
+            </button>
+
+        </mat-menu>
+
+    </div>
+
+</mat-toolbar>
