@@ -256,6 +256,8 @@ builder.Services.AddSignalR();
 builder.Services.AddScoped<INotificationHub, NotificationHubService>();
 builder.Services.AddScoped<IUserContextService, UserContextService>();
 builder.Services.AddSingleton<IUserIdProvider, UserIdProvider>();
+builder.Services.AddScoped<IUserApprovalService,UserApprovalService>();
+
 var app = builder.Build();
 
 app.UseSerilogRequestLogging();
@@ -283,6 +285,7 @@ app.UseAuthorization();
 app.UseRateLimiter();
 
 app.MapControllers();
+app.UseDeveloperExceptionPage();
 
 RecurringJob.AddOrUpdate<ContractExpiryJob>(
     "contract-expiry-job",

@@ -1,0 +1,29 @@
+:host {
+
+    display: block;
+
+}
+
+input.ng-invalid.ng-touched {
+
+    border-color: #dc2626;
+
+}
+
+button {
+
+    transition: all .25s ease;
+
+}
+
+button:hover:not(:disabled) {
+
+    transform: translateY(-1px);
+
+}
+
+button:disabled {
+
+    opacity: .7;
+
+}

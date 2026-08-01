@@ -6,7 +6,7 @@ using VendorContractManagement.Application.Services.Interfaces;
 
 namespace VendorContractManagement.API.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Super Admin,Admin")]
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase

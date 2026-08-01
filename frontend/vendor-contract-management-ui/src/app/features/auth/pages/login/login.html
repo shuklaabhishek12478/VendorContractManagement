@@ -31,6 +31,16 @@
         formControlName="password"
         placeholder="Password"
         class="w-full rounded-xl border p-3" />
+        
+        
+
+<div class="flex justify-end">
+  <a
+    routerLink="/forgot-password"
+    class="text-sm text-indigo-600 hover:underline">
+    Forgot Password?
+  </a>
+</div>
 
       <button
         type="submit"
@@ -39,6 +49,25 @@
         Login
 
       </button>
+      <div class="mt-6 text-center">
+
+  <span class="text-slate-500">
+
+    Don't have an account?
+
+  </span>
+
+  <a
+
+    routerLink="/register"
+
+    class="ml-1 font-semibold text-indigo-600 hover:underline">
+
+    Create Account
+
+  </a>
+
+</div>
 
     </form>
 

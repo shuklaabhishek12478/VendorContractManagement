@@ -1,4 +1,5 @@
 ﻿using VendorContractManagement.Application.DTOs;
+using VendorContractManagement.Application.DTOs.Auth;
 
 namespace VendorContractManagement.Application.Services.Interfaces
 {
@@ -10,5 +11,9 @@ namespace VendorContractManagement.Application.Services.Interfaces
         Task<LoginResponseDto> RefreshTokenAsync(RefreshTokenDto dto);
 
         Task LogoutAsync(string refreshToken);
+
+        Task ForgotPasswordAsync(ForgotPasswordDto dto);
+
+        Task ResetPasswordAsync(ResetPasswordRequestDto dto);
     }
 }

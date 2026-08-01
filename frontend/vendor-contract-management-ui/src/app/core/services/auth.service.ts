@@ -2,10 +2,11 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-
+import { RegisterRequest } from '../models/register-request.model';
 import { environment } from '../../../environments/environment';
 import { LoginRequest } from '../models/login-request.model';
 import { LoginResponse } from '../models/login-response.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +14,7 @@ import { LoginResponse } from '../models/login-response.model';
 export class AuthService {
 
   private http = inject(HttpClient);
+  private router = inject(Router);
 
   private apiUrl =
     `${environment.apiUrl}/Auth`;
@@ -27,11 +29,14 @@ export class AuthService {
     );
   }
 
-  logout() {
+  logout(): void {
 
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
-  }
+  localStorage.removeItem('access_token');
+  localStorage.removeItem('refresh_token');
+
+  this.router.navigate(['/login']);
+
+}
 
   isLoggedIn(): boolean {
 
@@ -61,4 +66,58 @@ isAdmin(): boolean {
   return this.getRole() === 'Admin';
 
 }
+
+
+getToken(): string | null {
+
+    return localStorage.getItem('access_token');
+
+}
+
+register(model: RegisterRequest) {
+
+  return this.http.post(
+    `${environment.apiUrl}/auth/register`,
+    model,
+    {
+      responseType: 'text'
+    }
+  );
+}
+
+forgotPassword(email: string) {
+
+  return this.http.post(
+
+    `${this.apiUrl}/forgot-password`,
+
+    {
+      email
+    }
+
+  );
+
+}
+
+resetForgotPassword(
+  token: string,
+  password: string
+) {
+
+  return this.http.post(
+
+    `${this.apiUrl}/reset-password`,
+
+    {
+
+      token,
+
+      password
+
+    }
+
+  );
+
+}
+
 }

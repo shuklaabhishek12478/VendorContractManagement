@@ -1,0 +1,234 @@
+<div class="approval-page">
+
+    <!-- ===================================================== -->
+    <!-- Page Header -->
+    <!-- ===================================================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h1 class="page-title">
+
+                Pending User Approvals
+
+            </h1>
+
+            <p class="page-subtitle">
+
+                Review newly registered users before granting
+                access to the Vendor Contract Management System.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- Toolbar -->
+    <!-- ===================================================== -->
+
+    <app-user-approval-toolbar
+
+        [selectedUser]="selectedUser"
+
+        (refresh)="refresh()"
+
+        (view)="openDetails()"
+
+        (approve)="approveSelected()"
+
+        (reject)="rejectSelected()">
+
+    </app-user-approval-toolbar>
+
+    <!-- ===================================================== -->
+    <!-- Statistics -->
+    <!-- ===================================================== -->
+
+    <div class="stats-grid">
+
+        <mat-card class="stat-card">
+
+            <div class="stat-icon">
+
+                <mat-icon>pending_actions</mat-icon>
+
+            </div>
+
+            <div class="stat-content">
+
+                <div class="stat-value">
+
+                    {{ pendingUsers.length }}
+
+                </div>
+
+                <div class="stat-label">
+
+                    Pending Requests
+
+                </div>
+
+            </div>
+
+        </mat-card>
+
+        <mat-card class="stat-card">
+
+            <div class="stat-icon">
+
+                <mat-icon>today</mat-icon>
+
+            </div>
+
+            <div class="stat-content">
+
+                <div class="stat-value">
+
+                    {{ todayCount }}
+
+                </div>
+
+                <div class="stat-label">
+
+                    Today's Requests
+
+                </div>
+
+            </div>
+
+        </mat-card>
+
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- Grid -->
+    <!-- ===================================================== -->
+
+    <mat-card class="grid-card">
+
+        <div class="grid-header">
+
+            <div class="grid-title">
+
+                Pending Registration Requests
+
+            </div>
+
+            <mat-form-field
+                appearance="outline"
+                class="search-box">
+
+                <mat-label>
+
+                    Search
+
+                </mat-label>
+
+                <input
+                    matInput
+                    [(ngModel)]="searchText"
+                    (keyup)="onSearch()"
+                    placeholder="Search by name or email">
+
+                <mat-icon matSuffix>
+
+                    search
+
+                </mat-icon>
+
+            </mat-form-field>
+
+        </div>
+
+        <ag-grid-angular
+
+            class="ag-theme-quartz"
+
+            style="width:100%;height:650px;"
+
+            [rowData]="pendingUsers"
+
+            [columnDefs]="columnDefs"
+
+            [defaultColDef]="defaultColDef"
+
+            [rowSelection]="rowSelection"
+
+            [pagination]="true"
+
+            [paginationPageSize]="20"
+
+            [animateRows]="true"
+
+            [suppressRowClickSelection]="false"
+
+            (gridReady)="onGridReady($event)"
+
+            (selectionChanged)="onSelectionChanged()"
+
+            (rowDoubleClicked)="onRowDoubleClicked($event)">
+
+        </ag-grid-angular>
+
+    </mat-card>
+
+    <!-- ===================================================== -->
+    <!-- Loading -->
+    <!-- ===================================================== -->
+
+    <mat-card
+        class="empty-card"
+        *ngIf="loading">
+
+        <mat-icon>
+
+            hourglass_top
+
+        </mat-icon>
+
+        <h3>
+
+            Loading...
+
+        </h3>
+
+        <p>
+
+            Fetching pending approval requests.
+
+        </p>
+
+    </mat-card>
+
+    <!-- ===================================================== -->
+    <!-- Empty State -->
+    <!-- ===================================================== -->
+
+    <mat-card
+        class="empty-card"
+        *ngIf="!loading && pendingUsers.length === 0">
+
+        <mat-icon>
+
+            verified_user
+
+        </mat-icon>
+
+        <h3>
+
+            No Pending Approvals
+
+        </h3>
+
+        <p>
+
+            There are currently no pending user registrations awaiting approval.
+
+        </p>
+
+    </mat-card>
+
+</div>

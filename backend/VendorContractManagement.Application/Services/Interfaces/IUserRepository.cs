@@ -31,5 +31,21 @@ namespace VendorContractManagement.Application.Interfaces
 
         Task<(List<User> Items, int TotalCount)> GetPagedAsync(
     UserQueryDto query);
+
+        Task<List<User>> GetPendingApprovalUsersAsync();
+
+        Task ApproveUserAsync(
+            int userId,
+            int roleId,
+            int approvedByUserId);
+
+        Task RejectUserAsync(
+    int userId,
+    string reason,
+    int rejectedByUserId);
+
+        Task<User?> GetByPasswordResetTokenAsync(string token);
+
+
     }
 }

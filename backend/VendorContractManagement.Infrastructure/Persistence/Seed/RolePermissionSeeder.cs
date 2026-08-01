@@ -419,18 +419,6 @@ public static class RolePermissionSeeder
                 });
             }
 
-            return result;
-
-            foreach (var permission in rolePermissions.Distinct())
-            {
-                result.Add(new RolePermission
-                {
-                    RoleId = role.Id,
-                    PermissionId = permission.Id,
-                    AssignedOn = DateTime.UtcNow,
-                    AssignedBy = "System"
-                });
-            }
         }
 
         return result;

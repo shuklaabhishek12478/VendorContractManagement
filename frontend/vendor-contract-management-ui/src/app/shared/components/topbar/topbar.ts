@@ -13,6 +13,7 @@ import { Router, RouterLink } from '@angular/router';
 
 import { NotificationBellComponent } from '../../../features/notifications/components/notification-bell/notification-bell';
 import { LayoutService } from '../../../core/services/layout/layout.service';
+import { AuthService } from '../../../core/services/auth.service';
 
 @Component({
   selector: 'app-topbar',
@@ -33,6 +34,8 @@ export class Topbar implements OnInit {
 
   private readonly router = inject(Router);
 
+  private readonly authService =
+    inject(AuthService);
   profileOpened = signal(false);
 
   search = '';
@@ -138,21 +141,27 @@ keyboard.preventDefault();
 
   }
 
-  logout(): void {
 
-    /**
-     * Future:
-     * AuthService.logout();
-     */
+logout(): void {
 
-    localStorage.removeItem('token');
+    this.authService.logout();
 
-    localStorage.removeItem('refreshToken');
+}
 
-    localStorage.removeItem('user');
+canActivate(): boolean {
+
+    if (this.authService.isLoggedIn()) {
+
+        return true;
+
+    }
 
     this.router.navigate(['/login']);
 
-  }
+    return false;
+
+}
+
+
 
 }

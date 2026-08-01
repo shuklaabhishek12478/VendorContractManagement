@@ -1,0 +1,115 @@
+:host {
+
+    display: block;
+
+}
+
+mat-dialog-content {
+
+    min-width: 480px;
+
+    max-width: 100%;
+
+}
+
+.user-summary {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 14px;
+
+    margin-bottom: 24px;
+
+    padding: 18px;
+
+    background: #fafafa;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+}
+
+.summary-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 16px;
+
+}
+
+.summary-row label {
+
+    font-weight: 600;
+
+    color: #6b7280;
+
+}
+
+.summary-row span {
+
+    font-weight: 500;
+
+    color: #111827;
+
+}
+
+.full-width {
+
+    width: 100%;
+
+}
+
+mat-dialog-actions {
+
+    gap: 12px;
+
+    padding-top: 18px;
+
+}
+
+mat-dialog-actions button {
+
+    min-width: 130px;
+
+}
+
+button mat-spinner {
+
+    margin: auto;
+
+}
+
+@media (max-width:768px) {
+
+    mat-dialog-content {
+
+        min-width: auto;
+
+    }
+
+    .summary-row {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+    mat-dialog-actions {
+
+        flex-direction: column-reverse;
+
+    }
+
+    mat-dialog-actions button {
+
+        width: 100%;
+
+    }
+
+}

@@ -1,0 +1,262 @@
+<div class="approval-details-page">
+
+    <!-- ===================================================== -->
+    <!-- Header -->
+    <!-- ===================================================== -->
+
+    <div class="page-header">
+
+        <div>
+
+            <button
+                mat-button
+                color="primary"
+                (click)="back()">
+
+                <mat-icon>
+
+                    arrow_back
+
+                </mat-icon>
+
+                Back
+
+            </button>
+
+            <h1 class="page-title">
+
+                User Approval Details
+
+            </h1>
+
+            <p class="page-subtitle">
+
+                Review the registration request before approving
+                or rejecting system access.
+
+            </p>
+
+        </div>
+
+        <div
+            class="status-chip">
+
+            <mat-icon>
+
+                pending_actions
+
+            </mat-icon>
+
+            Pending Approval
+
+        </div>
+
+    </div>
+
+    <!-- ===================================================== -->
+    <!-- Loading -->
+    <!-- ===================================================== -->
+
+    <mat-card
+        *ngIf="loading"
+        class="loading-card">
+
+        <mat-icon>
+
+            hourglass_top
+
+        </mat-icon>
+
+        <h3>
+
+            Loading...
+
+        </h3>
+
+    </mat-card>
+
+    <!-- ===================================================== -->
+    <!-- Content -->
+    <!-- ===================================================== -->
+
+    <ng-container
+        *ngIf="!loading && user">
+
+        <!-- ============================================= -->
+        <!-- General -->
+        <!-- ============================================= -->
+
+        <mat-card class="detail-card">
+
+            <div class="card-header">
+
+                <mat-icon>
+
+                    person
+
+                </mat-icon>
+
+                General Information
+
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="detail-grid">
+
+                <div>
+
+                    <label>
+
+                        Full Name
+
+                    </label>
+
+                    <div>
+
+                        {{user.fullName}}
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <label>
+
+                        Email
+
+                    </label>
+
+                    <div>
+
+                        {{user.email}}
+
+                    </div>
+
+                </div>
+
+               
+
+            </div>
+
+        </mat-card>
+        
+
+        <!-- ============================================= -->
+        <!-- Registration -->
+        <!-- ============================================= -->
+
+        <mat-card class="detail-card">
+
+            <div class="card-header">
+
+                <mat-icon>
+
+                    fact_check
+
+                </mat-icon>
+
+                Registration Information
+
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="detail-grid">
+
+                <div>
+
+                    <label>
+
+                        Requested On
+
+                    </label>
+
+                    <div>
+
+                        {{user.createdOn | date:'medium'}}
+
+                    </div>
+
+                </div>
+
+                <div>
+
+                    <label>
+
+                        Current Status
+
+                    </label>
+
+                    <div class="pending-status">
+
+                        Pending Approval
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </mat-card>
+
+    </ng-container>
+
+    <!-- ===================================================== -->
+    <!-- Sticky Footer -->
+    <!-- ===================================================== -->
+
+    <div
+        class="sticky-toolbar"
+        *ngIf="!loading && user">
+
+        <button
+            mat-stroked-button
+            (click)="back()">
+
+            <mat-icon>
+
+                arrow_back
+
+            </mat-icon>
+
+            Back
+
+        </button>
+
+        <span class="spacer"></span>
+
+        <button
+            mat-raised-button
+            color="warn"
+            (click)="reject()">
+
+            <mat-icon>
+
+                cancel
+
+            </mat-icon>
+
+            Reject
+
+        </button>
+
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="approve()">
+
+            <mat-icon>
+
+                check_circle
+
+            </mat-icon>
+
+            Approve
+
+        </button>
+
+    </div>
+
+</div>

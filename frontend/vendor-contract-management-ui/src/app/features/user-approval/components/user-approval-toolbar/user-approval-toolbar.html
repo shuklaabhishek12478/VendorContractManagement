@@ -1,0 +1,71 @@
+<mat-toolbar class="approval-toolbar">
+
+    <div class="toolbar-left">
+
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="view.emit()"
+            [disabled]="!selectedUser">
+
+            <mat-icon>
+
+                visibility
+
+            </mat-icon>
+
+            View Details
+
+        </button>
+
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="approve.emit()"
+            [disabled]="!selectedUser">
+
+            <mat-icon>
+
+                check_circle
+
+            </mat-icon>
+
+            Approve
+
+        </button>
+
+        <button
+            mat-raised-button
+            color="warn"
+            (click)="reject.emit()"
+            [disabled]="!selectedUser">
+
+            <mat-icon>
+
+                cancel
+
+            </mat-icon>
+
+            Reject
+
+        </button>
+
+    </div>
+
+    <span class="toolbar-spacer"></span>
+
+    <button
+        mat-stroked-button
+        (click)="refresh.emit()">
+
+        <mat-icon>
+
+            refresh
+
+        </mat-icon>
+
+        Refresh
+
+    </button>
+
+</mat-toolbar>

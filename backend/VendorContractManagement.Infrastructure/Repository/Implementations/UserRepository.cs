@@ -2,6 +2,7 @@
 using VendorContractManagement.Application.DTOs.Users;
 using VendorContractManagement.Application.Interfaces;
 using VendorContractManagement.Domain.Entities;
+using VendorContractManagement.Domain.Enums;
 using VendorContractManagement.Infrastructure.Data;
 
 namespace VendorContractManagement.Infrastructure.Repository.Implementations
@@ -40,6 +41,7 @@ namespace VendorContractManagement.Infrastructure.Repository.Implementations
         public async Task<IEnumerable<User>> GetAllAsync()
         {
             return await _context.Users
+                 .Where(x => x.ApprovalStatus == ApprovalStatus.Approved)
      .Include(x => x.Vendor)
     .Include(x => x.UserRoles)
         .ThenInclude(x => x.Role)
@@ -112,6 +114,9 @@ namespace VendorContractManagement.Infrastructure.Repository.Implementations
         .ThenInclude(x => x.Role)
     .AsQueryable();
 
+            users = users.Where(x =>
+    x.ApprovalStatus == ApprovalStatus.Approved);
+
             // Search
             if (!string.IsNullOrWhiteSpace(query.Search))
             {
@@ -153,6 +158,84 @@ namespace VendorContractManagement.Infrastructure.Repository.Implementations
                 .ToListAsync();
 
             return (items, totalCount);
+        }
+
+        public async Task<List<User>> GetPendingApprovalUsersAsync()
+        {
+            return await _context.Users
+
+                .Where(x =>
+    x.IsActive &&
+    x.ApprovalStatus == ApprovalStatus.Pending)
+
+                .OrderBy(x => x.CreatedOn)
+
+                .ToListAsync();
+        }
+
+        public async Task ApproveUserAsync(
+    int userId,
+    int roleId,
+    int approvedByUserId)
+        {
+            var user = await _context.Users
+
+                .Include(x => x.UserRoles)
+
+                .FirstOrDefaultAsync(x => x.Id == userId);
+
+            if (user == null)
+                throw new Exception("User not found.");
+
+            user.ApprovalStatus = ApprovalStatus.Approved;
+
+            user.ApprovedOn = DateTime.UtcNow;
+
+            user.ApprovedBy = approvedByUserId;
+
+            user.UserRoles.Clear();
+
+            user.UserRoles.Add(new UserRole
+            {
+                UserId = userId,
+
+                RoleId = roleId,
+
+                AssignedOn = DateTime.UtcNow,
+
+                AssignedBy = approvedByUserId.ToString()
+            });
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task RejectUserAsync(
+    int userId,
+    string reason,
+    int rejectedByUserId)
+        {
+            var user = await _context.Users
+                .FirstOrDefaultAsync(x => x.Id == userId);
+
+            if (user == null)
+                throw new Exception("User not found.");
+
+            user.ApprovalStatus = ApprovalStatus.Rejected;
+
+            user.RejectionReason = reason;
+
+            user.ApprovedBy = rejectedByUserId;
+
+            user.ApprovedOn = DateTime.UtcNow;
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<User?> GetByPasswordResetTokenAsync(string token)
+        {
+            return await _context.Users
+                .FirstOrDefaultAsync(x =>
+                    x.PasswordResetToken == token);
         }
     }
 }

@@ -135,6 +135,8 @@ public static class UserPermissions
                 Module = "User",
                 Description = "Export users"
             }
+
+
         };
     }
 }

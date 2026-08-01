@@ -27,9 +27,9 @@ import { EditUserComponent } from './features/admin/users/pages/edit-user/edit-u
 import { ResetPasswordComponent } from './features/admin/users/components/reset-password/reset-password';
 import { AssignRolesComponent } from './features/admin/users/components/assign-roles/assign-roles';
 import { NotificationPageComponent } from './features/notifications/pages/notification-page/notification-page';
-
-
-
+import { RegisterComponent } from './features/auth/pages/register/register';
+import { ForgotPasswordComponent } from './features/auth/pages/forgot-password/forgot-password';
+import { ForgotPasswordResetComponent } from './features/auth/pages/forgot-password-reset/forgot-password-reset';
 
 export const routes: Routes = [
 
@@ -38,6 +38,18 @@ export const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   },
+  {
+  path:'register',
+  component:RegisterComponent
+},
+{
+    path: 'forgot-password',
+    component: ForgotPasswordComponent
+},
+{
+    path: 'forgot-password-reset',
+    component: ForgotPasswordResetComponent
+},
 
   {
     path: '',
@@ -149,6 +161,7 @@ export const routes: Routes = [
         import('./features/admin/users/users.routes')
             .then(m => m.USER_ROUTES)
 },
+
 {
   path: 'users/:id',
   component: UserDetailsComponent
@@ -165,6 +178,13 @@ export const routes: Routes = [
     path:'users/reset-password/:id',
     component:ResetPasswordComponent
 },
+{
+    path: 'user-approval',
+    loadChildren: () =>
+        import('./features/user-approval/user-approval.routes')
+        .then(m => m.USER_APPROVAL_ROUTES)
+}
+
 
     ]
   },

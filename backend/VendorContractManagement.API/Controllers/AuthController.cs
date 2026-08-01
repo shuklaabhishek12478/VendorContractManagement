@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
 using VendorContractManagement.Application.DTOs;
+using VendorContractManagement.Application.DTOs.Auth;
 using VendorContractManagement.Application.Services.Interfaces;
 
 namespace VendorContractManagement.API.Controllers
@@ -22,7 +24,10 @@ namespace VendorContractManagement.API.Controllers
         {
             await _authService.RegisterAsync(dto);
 
-            return Ok("User registered successfully");
+            return Ok(new
+            {
+                message = "User registered successfully"
+            });
         }
 
         [HttpPost("login")]
@@ -53,6 +58,32 @@ namespace VendorContractManagement.API.Controllers
             return Ok(new
             {
                 Message = "Logged out successfully"
+            });
+        }
+
+        [HttpPost("forgot-password")]
+        
+        public async Task<IActionResult> ForgotPassword(
+    ForgotPasswordDto dto)
+        {
+            await _authService.ForgotPasswordAsync(dto);
+
+            return Ok(new
+            {
+                message = "If an account with that email exists, a password reset link has been sent."
+            });
+        }
+
+        [HttpPost("reset-password")]
+     
+        public async Task<IActionResult> ResetPassword(
+    ResetPasswordRequestDto dto)
+        {
+            await _authService.ResetPasswordAsync(dto);
+
+            return Ok(new
+            {
+                message = "Password reset successfully."
             });
         }
     }

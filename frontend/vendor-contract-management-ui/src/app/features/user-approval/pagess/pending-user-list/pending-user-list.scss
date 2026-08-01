@@ -1,0 +1,359 @@
+/* ==========================================================
+   Page
+========================================================== */
+
+.approval-page {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 24px;
+
+    padding: 24px;
+
+    background: #f5f7fb;
+
+    min-height: 100%;
+
+}
+
+/* ==========================================================
+   Header
+========================================================== */
+
+.page-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 16px;
+
+}
+
+.page-title {
+
+    margin: 0;
+
+    font-size: 30px;
+
+    font-weight: 700;
+
+    color: #1f2937;
+
+}
+
+.page-subtitle {
+
+    margin-top: 6px;
+
+    color: #6b7280;
+
+    font-size: 14px;
+
+}
+
+/* ==========================================================
+   Statistics
+========================================================== */
+
+.stats-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+
+    gap: 20px;
+
+}
+
+.stat-card {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 22px;
+
+    border-radius: 14px;
+
+    box-shadow: 0 6px 18px rgba(0,0,0,.06);
+
+}
+
+.stat-icon {
+
+    width: 62px;
+
+    height: 62px;
+
+    border-radius: 14px;
+
+    background: #1976d2;
+
+    color: white;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+}
+
+.stat-icon mat-icon{
+
+    font-size:30px;
+
+    width:30px;
+
+    height:30px;
+
+}
+
+.stat-content{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.stat-value{
+
+    font-size:32px;
+
+    font-weight:700;
+
+    line-height:1;
+
+}
+
+.stat-label{
+
+    margin-top:6px;
+
+    color:#6b7280;
+
+}
+
+/* ==========================================================
+   Grid
+========================================================== */
+
+.grid-card{
+
+    padding:20px;
+
+    border-radius:14px;
+
+    overflow:hidden;
+
+}
+
+.grid-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    flex-wrap:wrap;
+
+    gap:16px;
+
+    margin-bottom:18px;
+
+}
+
+.grid-title{
+
+    font-size:20px;
+
+    font-weight:600;
+
+}
+
+.search-box{
+
+    width:340px;
+
+    max-width:100%;
+
+}
+
+/* ==========================================================
+   AG Grid
+========================================================== */
+
+.ag-theme-quartz{
+
+    width:100%;
+
+    border-radius:12px;
+
+    overflow:hidden;
+
+}
+
+/* ==========================================================
+   Empty / Loading
+========================================================== */
+
+.empty-card{
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+
+    padding:60px 20px;
+
+    text-align:center;
+
+}
+
+.empty-card mat-icon{
+
+    width:64px;
+
+    height:64px;
+
+    font-size:64px;
+
+    color:#9ca3af;
+
+    margin-bottom:16px;
+
+}
+
+.empty-card h3{
+
+    margin:0;
+
+    font-size:22px;
+
+    font-weight:600;
+
+}
+
+.empty-card p{
+
+    margin-top:8px;
+
+    color:#6b7280;
+
+}
+
+/* ==========================================================
+   Material
+========================================================== */
+
+::ng-deep .mat-mdc-form-field-subscript-wrapper{
+
+    display:none;
+
+}
+
+::ng-deep .mat-mdc-card{
+
+    border-radius:14px;
+
+}
+
+/* ==========================================================
+   Responsive
+========================================================== */
+
+@media (max-width:992px){
+
+    .page-title{
+
+        font-size:26px;
+
+    }
+
+    .grid-header{
+
+        flex-direction:column;
+
+        align-items:stretch;
+
+    }
+
+    .search-box{
+
+        width:100%;
+
+    }
+
+}
+
+@media (max-width:768px){
+
+    .approval-page{
+
+        padding:16px;
+
+    }
+
+    .page-title{
+
+        font-size:22px;
+
+    }
+
+    .page-subtitle{
+
+        font-size:13px;
+
+    }
+
+    .stat-card{
+
+        padding:18px;
+
+    }
+
+    .stat-value{
+
+        font-size:26px;
+
+    }
+
+    .grid-card{
+
+        padding:14px;
+
+    }
+
+}
+
+@media (max-width:480px){
+
+    .stat-card{
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+    .stat-icon{
+
+        margin-bottom:8px;
+
+    }
+
+}

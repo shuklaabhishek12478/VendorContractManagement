@@ -1,0 +1,116 @@
+<h2 mat-dialog-title>
+
+    Reject Registration
+
+</h2>
+
+<mat-dialog-content>
+
+    <div class="user-summary">
+
+        <div class="summary-row">
+
+            <label>Name</label>
+
+            <span>{{user.fullName}}</span>
+
+        </div>
+
+        <div class="summary-row">
+
+            <label>Email</label>
+
+            <span>{{user.email}}</span>
+
+        </div>
+
+    </div>
+
+    <form [formGroup]="form">
+
+        <mat-form-field
+            appearance="outline"
+            class="full-width">
+
+            <mat-label>
+
+                Rejection Reason
+
+            </mat-label>
+
+            <textarea
+
+                matInput
+
+                rows="5"
+
+                maxlength="500"
+
+                formControlName="reason">
+
+            </textarea>
+
+            <mat-hint align="end">
+
+                {{form.controls['reason'].value?.length || 0}} / 500
+
+            </mat-hint>
+
+            <mat-error
+                *ngIf="
+                form.controls['reason'].hasError('required')
+                ">
+
+                Reason is required.
+
+            </mat-error>
+
+        </mat-form-field>
+
+    </form>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+
+    <button
+
+        mat-stroked-button
+
+        color="primary"
+
+        (click)="cancel()"
+
+        [disabled]="saving">
+
+        Cancel
+
+    </button>
+
+    <button
+
+        mat-flat-button
+
+        color="warn"
+
+        (click)="reject()"
+
+        [disabled]="form.invalid || saving">
+
+        <mat-spinner
+
+            *ngIf="saving"
+
+            diameter="20">
+
+        </mat-spinner>
+
+        <span *ngIf="!saving">
+
+            Reject User
+
+        </span>
+
+    </button>
+
+</mat-dialog-actions>

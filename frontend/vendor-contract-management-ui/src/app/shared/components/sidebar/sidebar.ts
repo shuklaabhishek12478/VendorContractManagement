@@ -98,6 +98,11 @@ export class Sidebar implements OnInit {
         title: 'Users',
         icon: 'fa-solid fa-users',
         route: '/users'
+      },
+      {
+        title: 'Pending Users',
+        icon: 'fa-solid fa-users',
+        route: '/user-approval'
       }
 
     ];
