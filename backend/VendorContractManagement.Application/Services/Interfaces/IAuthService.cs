@@ -15,5 +15,7 @@ namespace VendorContractManagement.Application.Services.Interfaces
         Task ForgotPasswordAsync(ForgotPasswordDto dto);
 
         Task ResetPasswordAsync(ResetPasswordRequestDto dto);
+
+        Task<CurrentUserDto> GetCurrentUserAsync();
     }
 }

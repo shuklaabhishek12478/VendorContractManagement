@@ -14,6 +14,9 @@ import { Router, RouterLink } from '@angular/router';
 import { NotificationBellComponent } from '../../../features/notifications/components/notification-bell/notification-bell';
 import { LayoutService } from '../../../core/services/layout/layout.service';
 import { AuthService } from '../../../core/services/auth.service';
+import { SessionService } from '../../../core/services/session.service';
+import { IdleTimeoutService } from '../../../core/services/idle-timeout.service';
+import { CurrentUser } from '../../../core/models/user-approval-model/current-user.model';
 
 @Component({
   selector: 'app-topbar',
@@ -31,22 +34,25 @@ import { AuthService } from '../../../core/services/auth.service';
 export class Topbar implements OnInit {
 
   readonly layout = inject(LayoutService);
-
+private sessionService = inject(SessionService);
   private readonly router = inject(Router);
-
+private idleTimeoutService =
+inject(IdleTimeoutService);
   private readonly authService =
     inject(AuthService);
   profileOpened = signal(false);
 
   search = '';
 
-  fullName = 'Abhishek Shukla';
+  currentUser?: CurrentUser;
 
-  email = 'abhishek@example.com';
+fullName = '';
 
-  role = 'Software Engineer';
+email = '';
 
-  initials = 'A';
+role = '';
+
+initials = '';
 
   ngOnInit(): void {
 
@@ -54,30 +60,41 @@ export class Topbar implements OnInit {
 
   }
 
-  /**
-   * Temporary User
-   * Future:
-   * AuthService -> Current User API
-   */
-  private loadCurrentUser(): void {
+ private loadCurrentUser(): void {
 
-    // TODO
-    // Replace with API call
+  this.authService
+      .getCurrentUser()
+      .subscribe({
 
-    this.fullName = 'Abhishek Shukla';
+        next: user => {
 
-    this.email = 'abhishek@example.com';
+          this.currentUser = user;
 
-    this.role = 'Software Engineer';
+          this.fullName = user.fullName;
 
-    this.initials = this.fullName
-      .split(' ')
-      .map(x => x.charAt(0))
-      .join('')
-      .substring(0, 2)
-      .toUpperCase();
+          this.email = user.email;
 
-  }
+          this.role = user.role;
+
+          this.initials = user.fullName
+            .split(' ')
+            .map(x => x.charAt(0))
+            .join('')
+            .substring(0, 2)
+            .toUpperCase();
+
+        },
+
+        error: err => {
+
+          console.error(err);
+
+        }
+
+      });
+
+}
+  
 
   toggleSidebar(): void {
 
@@ -144,6 +161,8 @@ keyboard.preventDefault();
 
 logout(): void {
 
+  this.idleTimeoutService.stop();
+     this.sessionService.stop();
     this.authService.logout();
 
 }

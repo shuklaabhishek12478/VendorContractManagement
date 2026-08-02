@@ -257,6 +257,7 @@ builder.Services.AddScoped<INotificationHub, NotificationHubService>();
 builder.Services.AddScoped<IUserContextService, UserContextService>();
 builder.Services.AddSingleton<IUserIdProvider, UserIdProvider>();
 builder.Services.AddScoped<IUserApprovalService,UserApprovalService>();
+builder.Services.AddHttpContextAccessor();
 
 var app = builder.Build();
 

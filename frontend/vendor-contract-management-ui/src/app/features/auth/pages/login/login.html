@@ -21,34 +21,112 @@
       class="space-y-4">
 
       <input
-        type="email"
-        formControlName="email"
-        placeholder="Email"
-        class="w-full rounded-xl border p-3" />
+    type="email"
+    formControlName="email"
+    autocomplete="username"
+    placeholder="Email Address"
+    class="w-full rounded-xl border p-3" />
 
-      <input
-        type="password"
-        formControlName="password"
-        placeholder="Password"
-        class="w-full rounded-xl border p-3" />
-        
+@if(loginForm.controls.email.touched &&
+    loginForm.controls.email.invalid){
+
+<div class="text-sm text-red-600">
+
+    @if(loginForm.controls.email.errors?.['required']){
+
+        Email is required.
+
+    }
+
+    @if(loginForm.controls.email.errors?.['email']){
+
+        Enter a valid email.
+
+    }
+
+</div>
+
+}
+
+     <div class="relative">
+
+  <input
+    [type]="hidePassword ? 'password' : 'text'"
+    formControlName="password"
+    autocomplete="current-password"
+    placeholder="Password"
+    class="w-full rounded-xl border p-3 pr-14" >
+
+  <button
+  mat-icon-button
+  type="button"
+  (click)="hidePassword = !hidePassword"
+  class="!absolute right-2 top-1/2 -translate-y-1/2 flex h-8 w-8 items-center justify-center">
+  <mat-icon>
+    {{ hidePassword ? 'visibility' : 'visibility_off' }}
+  </mat-icon>
+</button>
+
+</div>
+
+@if(loginForm.controls.password.touched &&
+    loginForm.controls.password.invalid){
+
+<div class="mt-1 text-sm text-red-600">
+
+  Password is required.
+
+</div>
+
+}
         
 
-<div class="flex justify-end">
+
+
+<div class="flex items-center justify-between">
+
+  <label class="flex items-center gap-2 cursor-pointer">
+
+    <input
+      type="checkbox"
+      formControlName="rememberMe"
+      class="h-4 w-4 rounded" />
+
+    <span class="text-sm text-slate-600">
+
+      Remember Me
+
+    </span>
+
+  </label>
+
   <a
     routerLink="/forgot-password"
     class="text-sm text-indigo-600 hover:underline">
+
     Forgot Password?
+
   </a>
+
 </div>
 
       <button
-        type="submit"
-        class="w-full rounded-xl bg-indigo-600 py-3 text-white">
+    type="submit"
+    [disabled]="loading || loginForm.invalid"
+    class="w-full rounded-xl bg-indigo-600 py-3 text-white disabled:opacity-60">
+
+    @if(loading){
+
+        Signing In...
+
+    }
+    @else{
 
         Login
 
-      </button>
+    }
+
+</button>
       <div class="mt-6 text-center">
 
   <span class="text-slate-500">

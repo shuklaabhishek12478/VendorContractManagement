@@ -1,24 +1,42 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
-import { authInterceptor } from './core/interceptors/auth.interceptor';
-import { routes } from './app.routes';
+
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptorsFromDi
+} from '@angular/common/http';
+
 import { provideAnimations } from '@angular/platform-browser/animations';
-
-
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { provideNativeDateAdapter } from '@angular/material/core';
+
+import { routes } from './app.routes';
+import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+
 export const appConfig: ApplicationConfig = {
+
   providers: [
-  provideBrowserGlobalErrorListeners(),
-  provideRouter(routes),
-  provideNativeDateAdapter(),
-  
-  provideAnimations(),
-  provideHttpClient(
-    withInterceptors([
-      authInterceptor
-    ])
-  )
-]
+
+    provideBrowserGlobalErrorListeners(),
+
+    provideRouter(routes),
+
+    provideAnimations(),
+
+    provideNativeDateAdapter(),
+
+    provideHttpClient(
+
+      withInterceptorsFromDi()
+
+    ),
+
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
+
+  ]
+
 };

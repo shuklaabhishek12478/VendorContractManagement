@@ -46,6 +46,8 @@ namespace VendorContractManagement.Application.Interfaces
 
         Task<User?> GetByPasswordResetTokenAsync(string token);
 
+       
+
 
     }
 }

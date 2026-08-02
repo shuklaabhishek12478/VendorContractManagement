@@ -237,5 +237,7 @@ namespace VendorContractManagement.Infrastructure.Repository.Implementations
                 .FirstOrDefaultAsync(x =>
                     x.PasswordResetToken == token);
         }
+
+        
     }
 }

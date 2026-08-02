@@ -86,5 +86,12 @@ namespace VendorContractManagement.API.Controllers
                 message = "Password reset successfully."
             });
         }
+
+        [Authorize]
+        [HttpGet("me")]
+        public async Task<IActionResult> Me()
+        {
+            return Ok(await _authService.GetCurrentUserAsync());
+        }
     }
 }

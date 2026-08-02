@@ -1,0 +1,61 @@
+<div class="dialog-container">
+
+  <div class="icon">
+
+    <mat-icon>
+
+      schedule
+
+    </mat-icon>
+
+  </div>
+
+  <h2>
+
+    Session Expiring Soon
+
+  </h2>
+
+  <p>
+
+    Your session will expire in
+
+    <strong>2 minutes</strong>.
+
+  </p>
+
+  <p>
+
+    Would you like to continue?
+
+  </p>
+
+  <div class="actions">
+
+    <button
+
+      mat-stroked-button
+
+      color="warn"
+
+      (click)="logout()">
+
+      Logout
+
+    </button>
+
+    <button
+
+      mat-flat-button
+
+      color="primary"
+
+      (click)="continueSession()">
+
+      Continue
+
+    </button>
+
+  </div>
+
+</div>

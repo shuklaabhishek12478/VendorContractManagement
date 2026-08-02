@@ -1,5 +1,7 @@
 ﻿using BCrypt.Net;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using System.Security.Claims;
 using System.Security.Cryptography;
 using VendorContractManagement.Application.DTOs;
 using VendorContractManagement.Application.DTOs.Auth;
@@ -17,19 +19,21 @@ namespace VendorContractManagement.Application.Services.Implementations
         private readonly IJwtTokenService _jwtTokenService;
         private readonly IEmailService _emailService;
         private readonly IConfiguration _configuration;
-
+        private readonly IHttpContextAccessor _httpContextAccessor;
         public AuthService(
             IUserRepository userRepository,
             IUnitOfWork unitOfWork,
             IJwtTokenService jwtTokenService,
              IEmailService emailService,
-             IConfiguration configuration)
+             IConfiguration configuration,
+             IHttpContextAccessor httpContextAccessor)
         {
             _userRepository = userRepository;
             _unitOfWork = unitOfWork;
             _jwtTokenService = jwtTokenService;
             _emailService = emailService;
             _configuration = configuration;
+            _httpContextAccessor = httpContextAccessor;
         }
 
         public async Task RegisterAsync(RegisterDto dto)
@@ -286,6 +290,35 @@ please ignore this email.
             user.RefreshTokenExpiryTime = null;
 
             await _unitOfWork.SaveChangesAsync();
+        }
+
+        public async Task<CurrentUserDto> GetCurrentUserAsync()
+        {
+            var userIdClaim = _httpContextAccessor
+                .HttpContext?
+                .User?
+                .FindFirst(ClaimTypes.NameIdentifier)?
+                .Value;
+
+            if (string.IsNullOrWhiteSpace(userIdClaim))
+                throw new Exception("User not authenticated.");
+
+            var user = await _userRepository.GetByIdAsync(
+                int.Parse(userIdClaim));
+
+            if (user == null)
+                throw new Exception("User not found.");
+
+            return new CurrentUserDto
+            {
+                Id = user.Id,
+                FullName = user.FullName,
+                Email = user.Email,
+                VendorId = user.VendorId,
+                Role = user.UserRoles
+                            .Select(x => x.Role.Name)
+                            .FirstOrDefault() ?? string.Empty
+            };
         }
     }
 }

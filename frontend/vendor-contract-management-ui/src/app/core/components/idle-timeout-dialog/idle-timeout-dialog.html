@@ -1,0 +1,67 @@
+<div class="dialog">
+
+    <div class="icon">
+
+        <mat-icon>
+
+            timer
+
+        </mat-icon>
+
+    </div>
+
+    <h2>
+
+        Session Timeout Warning
+
+    </h2>
+
+    <p>
+
+        You have been inactive.
+
+    </p>
+
+    <p>
+
+        Your session will expire in
+
+        <strong>{{ seconds }}</strong>
+
+        seconds.
+
+    </p>
+
+    <div class="progress">
+
+        <div
+            class="progress-fill"
+            [style.width.%]="progress">
+
+        </div>
+
+    </div>
+
+    <div class="buttons">
+
+        <button
+            mat-stroked-button
+            color="warn"
+            (click)="logout()">
+
+            Logout
+
+        </button>
+
+        <button
+            mat-flat-button
+            color="primary"
+            (click)="continueSession()">
+
+            Continue Session
+
+        </button>
+
+    </div>
+
+</div>

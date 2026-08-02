@@ -6,14 +6,24 @@ import {
 } from '@angular/forms';
 
 import { Router, RouterLink } from '@angular/router';
-
+import { IdleTimeoutService } from '../../../../core/services/idle-timeout.service';
 import { AuthService } from '../../../../core/services/auth.service';
+import { CommonModule } from '@angular/common';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { SessionService } from '../../../../core/services/session.service';
 
 @Component({
   selector: 'app-login',
   standalone:true,
-  imports: [ReactiveFormsModule,
-    RouterLink
+  imports: [
+     CommonModule,
+  ReactiveFormsModule,
+  RouterLink,
+  MatSnackBarModule,
+  MatIconModule,
+  MatButtonModule
   ],
   templateUrl: './login.html',
   styleUrl: './login.scss'
@@ -23,12 +33,17 @@ export class LoginComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private snackBar = inject(MatSnackBar);
+  private sessionService = inject(SessionService);
+  private idleTimeoutService = inject(IdleTimeoutService);
 
   loading = false;
+  hidePassword = true;
 
   loginForm = this.fb.group({
-    email: ['', [Validators.required]],
-    password: ['', [Validators.required]]
+    email: ['', [Validators.required,  Validators.email]],
+    password: ['', [Validators.required,  Validators.minLength(6)]],
+    rememberMe: [false]
   });
 
   login() {
@@ -42,34 +57,82 @@ export class LoginComponent {
       .login(this.loginForm.getRawValue() as any)
       .subscribe({
 
-        next: (response) => {
+       next: (response) => {
 
-          localStorage.setItem(
-            'access_token',
-            response.accessToken
-          );
+          console.log('LOGIN SUCCESS');
+  console.log(response);
 
-          localStorage.setItem(
-            'refresh_token',
-            response.refreshToken
-          );
+  this.loading = false;
 
-          this.router.navigate(['/dashboard']);
-        },
+  this.authService.saveTokens(
+
+      response.accessToken,
+
+      response.refreshToken,
+
+      this.loginForm.value.rememberMe ?? false
+
+  );
+
+  this.authService.startRefreshTimer();
+  this.sessionService.start();
+  this.idleTimeoutService.start();
+  this.router.navigateByUrl('/dashboard').then(result => {
+
+  console.log('Navigation Result : ', result);
+
+});
+      localStorage.getItem('access_token');
+      sessionStorage.getItem('access_token');
+
+  this.snackBar.open(
+
+      'Login successful',
+
+      'Close',
+
+      {
+
+        duration:2000,
+
+        horizontalPosition:'right',
+
+        verticalPosition:'top'
+
+      }
+
+  );
+
+  
+
+},
 
         error: (err) => {
 
   this.loading = false;
 
-  alert(
+  this.snackBar.open(
 
     err.error?.message ??
+    'Login failed.',
 
-    'Login failed.'
+    'Close',
+
+    {
+
+      duration: 4000,
+
+      horizontalPosition: 'right',
+
+      verticalPosition: 'top'
+
+    }
 
   );
 
 }
       });
   }
+
+  
 }
