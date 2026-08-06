@@ -19,7 +19,6 @@ export class NotificationSignalRService {
 
   readonly notificationReceived =
     this.notificationSubject.asObservable();
-  HubConnectionBuilder: any;
 
   startConnection(): void {
 
@@ -27,48 +26,49 @@ export class NotificationSignalRService {
       return;
     }
 
-    this.hubConnection =
-      new signalR.HubConnectionBuilder()
+    const hubUrl =
+      environment.apiUrl.replace('/api', '') +
+      '/hubs/notifications';
+const token =
+  localStorage.getItem('access_token') ??
+  sessionStorage.getItem('access_token') ??
+  '';
 
-        .withUrl(
-          `${environment.hubUrl}/hubs/notifications`,
-          {
-            accessTokenFactory: () =>
-              localStorage.getItem('token') ?? ''
-          })
+console.log('Hub URL:', hubUrl);
+console.log('SignalR Token:', token);
 
-        .withAutomaticReconnect([0, 2000, 5000, 10000])
-
-        .build();
+this.hubConnection =
+  new signalR.HubConnectionBuilder()
+    .withUrl(hubUrl, {
+      accessTokenFactory: () =>
+        localStorage.getItem('access_token') ??
+        sessionStorage.getItem('access_token') ??
+        ''
+    })
+    .withAutomaticReconnect()
+    .build();
 
     this.registerHubEvents();
 
     this.hubConnection
       .start()
-      .then(() => {
+      .then(() => console.log('SignalR Connected'))
+      .catch(err => console.error(err));
 
-        console.log(
-          'SignalR Connected.'
-        );
+      this.hubConnection.on(
+    'ReceiveNotification',
+    (notification) => {
 
-      })
-      .catch(error => {
+        console.log('LIVE Notification', notification);
 
-        console.error(
-          'SignalR Connection Error',
-          error
-        );
-
-      });
-
+        this.notificationSubject.next(notification);
+    }
+);
   }
 
   stopConnection(): void {
 
-    if (!this.hubConnection)
-      return;
-
-    this.hubConnection.stop();
+    this.hubConnection?.stop();
 
     this.hubConnection = undefined;
 
@@ -76,50 +76,26 @@ export class NotificationSignalRService {
 
   private registerHubEvents(): void {
 
-    if (!this.hubConnection)
-      return;
+    if (!this.hubConnection) return;
 
     this.hubConnection.on(
-
       'ReceiveNotification',
-
       (notification: AppNotification) => {
+        this.notificationSubject.next(notification);
+      }
+    );
 
-        this.notificationSubject.next(
-          notification
-        );
+    this.hubConnection.onreconnecting(err =>
+      console.warn(err)
+    );
 
-      });
+    this.hubConnection.onreconnected(id =>
+      console.log(id)
+    );
 
-    this.hubConnection.onreconnecting(error => {
-
-      console.warn(
-        'SignalR reconnecting...',
-        error
-      );
-
-    });
-
-    this.hubConnection.onreconnected(id => {
-
-      console.log(
-        'SignalR reconnected',
-        id
-      );
-
-    });
-
-    this.hubConnection.onclose(error => {
-
-      console.warn(
-        'SignalR closed',
-        error
-      );
-
-    });
+    this.hubConnection.onclose(err =>
+      console.warn(err)
+    );
 
   }
-
-  
-
 }
