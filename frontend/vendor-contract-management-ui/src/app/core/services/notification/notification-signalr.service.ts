@@ -19,6 +19,7 @@ export class NotificationSignalRService {
 
   readonly notificationReceived =
     this.notificationSubject.asObservable();
+  HubConnectionBuilder: any;
 
   startConnection(): void {
 
@@ -30,7 +31,7 @@ export class NotificationSignalRService {
       new signalR.HubConnectionBuilder()
 
         .withUrl(
-          `${environment.apiUrl}/hubs/notifications`,
+          `${environment.hubUrl}/hubs/notifications`,
           {
             accessTokenFactory: () =>
               localStorage.getItem('token') ?? ''
@@ -118,5 +119,7 @@ export class NotificationSignalRService {
     });
 
   }
+
+  
 
 }

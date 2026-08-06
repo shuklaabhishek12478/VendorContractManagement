@@ -22,7 +22,7 @@ namespace VendorContractManagement.API.Controllers
             return Ok(result);
         }
 
-        [Authorize(Roles = "Vendor")]
+        [Authorize(Roles = "Admin,Vendor")]
         [HttpGet("vendor")]
         public async Task<IActionResult>VendorDashboard()
         {

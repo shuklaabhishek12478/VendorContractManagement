@@ -6,11 +6,11 @@
 
         class="notification-card"
 
-        [ngClass]="item.type">
+        [ngClass]="getCssClass(item.type)">
 
         <div class="notification-dot"
 
-             *ngIf="item.unread">
+             *ngIf="!item.isRead">
 
         </div>
 
@@ -30,7 +30,7 @@
 
             <div class="notification-time">
 
-                {{item.time}}
+                {{ getTime(item.createdOn)}}
 
             </div>
 

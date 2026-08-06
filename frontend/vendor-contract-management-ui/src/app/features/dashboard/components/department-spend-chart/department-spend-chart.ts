@@ -84,6 +84,6 @@ ngOnChanges(){
 
 this.series=this.values;
 
-}
+} 
 
 }

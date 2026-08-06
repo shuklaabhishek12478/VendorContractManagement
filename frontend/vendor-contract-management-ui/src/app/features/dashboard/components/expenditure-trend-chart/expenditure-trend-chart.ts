@@ -31,6 +31,9 @@ implements OnChanges{
 actual:number[]=[];
 
 @Input()
+categories: string[] = [];
+
+@Input()
 forecast:number[]=[];
 
 series:ApexAxisChartSeries=[];
@@ -91,46 +94,29 @@ formatter:(val)=>'₹ '+(val/100000).toFixed(1)+'L'
 
 };
 
-xaxis:ApexXAxis={
+xaxis:ApexXAxis={};
 
-categories:[
-'Jan',
-'Feb',
-'Mar',
-'Apr',
-'May',
-'Jun',
-'Jul',
-'Aug',
-'Sep',
-'Oct',
-'Nov',
-'Dec'
-]
+ngOnChanges(): void {
 
-};
+  this.series = [
 
-ngOnChanges(){
+    {
+      name: 'Actual',
+      data: this.actual
+    },
 
-this.series=[
+    {
+      name: 'Forecast',
+      data: this.forecast
+    }
 
-{
+  ];
 
-name:'Actual',
+  this.xaxis = {
 
-data:this.actual
+    categories: this.categories
 
-},
-
-{
-
-name:'Forecast',
-
-data:this.forecast
-
-}
-
-];
+  };
 
 }
 

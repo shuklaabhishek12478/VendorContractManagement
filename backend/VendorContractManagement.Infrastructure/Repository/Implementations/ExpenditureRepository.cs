@@ -211,19 +211,17 @@ public class ExpenditureRepository : IExpenditureRepository
 
     public async Task<List<MonthlySpendDto>> GetMonthlySpendAsync()
     {
-        return await _context.Expenditures
-
+        var data = await _context.Expenditures
             .Where(x => !x.IsDeleted)
-
             .GroupBy(x => new
             {
                 x.ExpenseDate.Year,
                 x.ExpenseDate.Month
             })
-
-            .Select(g => new MonthlySpendDto
+            .Select(g => new
             {
-                Month = $"{g.Key.Month}/{g.Key.Year}",
+                g.Key.Year,
+                g.Key.Month,
 
                 Actual = g
                     .Where(x => !x.IsForecasted)
@@ -233,12 +231,17 @@ public class ExpenditureRepository : IExpenditureRepository
                     .Where(x => x.IsForecasted)
                     .Sum(x => x.TotalAmount)
             })
-
-            .OrderBy(x => x.Month)
-
+            .OrderBy(x => x.Year)
+            .ThenBy(x => x.Month)
             .ToListAsync();
-    }
 
+        return data.Select(x => new MonthlySpendDto
+        {
+            Month = $"{x.Month:00}-{x.Year}",
+            Actual = x.Actual,
+            Forecast = x.Forecast
+        }).ToList();
+    }
     public async Task<List<DepartmentSpendDto>> GetDepartmentSpendAsync()
     {
         return await _context.Expenditures

@@ -64,8 +64,39 @@ export class ContractStatusChartComponent implements OnChanges {
 
   ngOnChanges(): void {
 
+      console.log('Status Labels:', this.labels);
+  console.log('Status Values:', this.values);
+
     this.series = this.values;
 
   }
+
+  getColor(status: string): string {
+
+  switch (status) {
+
+    case 'Draft':
+      return '#94a3b8';
+
+    case 'Pending':
+      return '#f59e0b';
+
+    case 'Approved':
+      return '#2563eb';
+
+    case 'Active':
+      return '#16a34a';
+
+    case 'Expired':
+      return '#ef4444';
+
+    case 'Renewed':
+      return '#7c3aed';
+
+    default:
+      return '#64748b';
+  }
+
+}
 
 }

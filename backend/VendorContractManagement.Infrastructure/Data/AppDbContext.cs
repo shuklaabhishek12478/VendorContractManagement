@@ -119,5 +119,27 @@ namespace VendorContractManagement.Infrastructure.Data
                 .HasIndex(x => x.Code)
                 .IsUnique();
         }
+
+        public override async Task<int> SaveChangesAsync(
+    CancellationToken cancellationToken = default)
+        {
+            foreach (var entry in ChangeTracker.Entries())
+            {
+                if (entry.Entity is Domain.Common.BaseEntity entity)
+                {
+                    if (entry.State == EntityState.Added)
+                    {
+                        entity.CreatedOn = DateTime.UtcNow;
+                    }
+
+                    if (entry.State == EntityState.Modified)
+                    {
+                        entity.ModifiedOn = DateTime.UtcNow;
+                    }
+                }
+            }
+
+            return await base.SaveChangesAsync(cancellationToken);
+        }
     }
 }

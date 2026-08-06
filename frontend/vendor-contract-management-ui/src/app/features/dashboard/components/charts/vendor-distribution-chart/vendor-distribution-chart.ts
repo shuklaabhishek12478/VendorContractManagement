@@ -1,63 +1,66 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import {
   NgApexchartsModule,
-  ApexChart,
   ApexNonAxisChartSeries,
-  ApexResponsive,
-  ApexLegend
+  ApexChart,
+  ApexLegend,
+  ApexResponsive
 } from 'ng-apexcharts';
+
+export type ChartOptions = {
+  series: ApexNonAxisChartSeries;
+  chart: ApexChart;
+  labels: string[];
+  legend: ApexLegend;
+  responsive: ApexResponsive[];
+};
 
 @Component({
   selector: 'app-vendor-distribution-chart',
   standalone: true,
-  imports: [
-    CommonModule,
-    NgApexchartsModule
-  ],
-  templateUrl: './vendor-distribution-chart.html',
-  styleUrls: ['./vendor-distribution-chart.scss']
+  imports: [CommonModule, NgApexchartsModule],
+  templateUrl: './vendor-distribution-chart.html'
 })
-export class VendorDistributionChartComponent {
+export class VendorDistributionChartComponent implements OnChanges {
 
-  series: ApexNonAxisChartSeries = [
-    45,
-    25,
-    15,
-    10,
-    5
-  ];
+  @Input() labels: string[] = [];
+  @Input() values: number[] = [];
 
-  chart: ApexChart = {
-    type: 'donut',
-    height: 320
-  };
-
-  labels: string[] = [
-    'IT',
-    'Finance',
-    'Legal',
-    'HR',
-    'Others'
-  ];
-
-  legend: ApexLegend = {
-    position: 'bottom'
-  };
-
-  responsive: ApexResponsive[] = [
-    {
-      breakpoint: 768,
-      options: {
-        chart: {
-          height: 280
-        },
-        legend: {
-          position: 'bottom'
+  chartOptions: ChartOptions = {
+    series: [],
+    chart: {
+      type: 'donut',
+      height: 320
+    },
+    labels: [],
+    legend: {
+      position: 'bottom'
+    },
+    responsive: [
+      {
+        breakpoint: 768,
+        options: {
+          chart: {
+            height: 280
+          }
         }
       }
-    }
-  ];
+    ]
+  };
+
+  ngOnChanges() {
+
+    console.log(this.labels);
+    console.log(this.values);
+
+    this.chartOptions = {
+      ...this.chartOptions,
+      series: [...this.values],
+      labels: [...this.labels]
+    };
+
+  }
 
 }

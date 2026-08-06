@@ -237,66 +237,83 @@ namespace VendorContractManagement.Infrastructure.Repository
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<ContractStatusAnalyticsDto>>GetStatusDistributionAsync()
+        public async Task<IEnumerable<ContractStatusAnalyticsDto>> GetStatusDistributionAsync()
         {
-            return await _context.Contracts
+            var data = await _context.Contracts
                 .Where(x => !x.IsDeleted)
                 .GroupBy(x => x.Status)
-                .Select(g => new ContractStatusAnalyticsDto
+                .Select(g => new
                 {
-                    Status = g.Key.ToString(),
+                    Status = g.Key,
                     Count = g.Count()
                 })
+                .ToListAsync();
+
+            return data
                 .OrderBy(x => x.Status)
-                .ToListAsync();
+                .Select(x => new ContractStatusAnalyticsDto
+                {
+                    Status = x.Status.ToString(),
+                    Count = x.Count
+                });
         }
 
 
-        public async Task<IEnumerable<MonthlyContractTrendDto>>GetMonthlyContractTrendAsync()
+        public async Task<IEnumerable<MonthlyContractTrendDto>>
+ GetMonthlyContractTrendAsync()
         {
-            return await _context.Contracts
+            var data = await _context.Contracts
                 .Where(x => !x.IsDeleted)
                 .GroupBy(x => new
                 {
                     x.CreatedOn.Year,
                     x.CreatedOn.Month
                 })
-                .Select(g => new MonthlyContractTrendDto
+                .Select(g => new
                 {
-                    Month =
-                        $"{g.Key.Year}-{g.Key.Month:D2}",
-
-                    TotalContracts =
-                        g.Count()
+                    g.Key.Year,
+                    g.Key.Month,
+                    TotalContracts = g.Count()
                 })
-                .OrderBy(x => x.Month)
                 .ToListAsync();
+
+            return data
+                .OrderBy(x => x.Year)
+                .ThenBy(x => x.Month)
+                .Select(x => new MonthlyContractTrendDto
+                {
+                    Month = $"{x.Year}-{x.Month:D2}",
+                    TotalContracts = x.TotalContracts
+                });
         }
 
-
-
-        public async Task<IEnumerable<ContractValueTrendDto>>GetContractValueTrendAsync()
+        public async Task<IEnumerable<ContractValueTrendDto>>
+GetContractValueTrendAsync()
         {
-            return await _context.Contracts
+            var data = await _context.Contracts
                 .Where(x => !x.IsDeleted)
                 .GroupBy(x => new
                 {
                     x.CreatedOn.Year,
                     x.CreatedOn.Month
                 })
-                .Select(g => new ContractValueTrendDto
+                .Select(g => new
                 {
-                    Month =
-                        $"{g.Key.Year}-{g.Key.Month:D2}",
-
-                    TotalValue =
-                        g.Sum(x => x.ContractValue)
+                    g.Key.Year,
+                    g.Key.Month,
+                    TotalValue = g.Sum(x => x.ContractValue)
                 })
-                .OrderBy(x => x.Month)
                 .ToListAsync();
+
+            return data
+                .OrderBy(x => x.Year)
+                .ThenBy(x => x.Month)
+                .Select(x => new ContractValueTrendDto
+                {
+                    Month = $"{x.Year}-{x.Month:D2}",
+                    TotalValue = x.TotalValue
+                });
         }
-
-
 
         public async Task<ExpiryAnalyticsDto>
     GetExpiryAnalyticsAsync()

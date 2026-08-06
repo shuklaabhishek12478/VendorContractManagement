@@ -311,7 +311,7 @@ remainingTime - (2 * 60 * 1000),
 
 }
 
-getCurrentUser() {
+getCurrentUser(): Observable<CurrentUser> {
 
   return this.http.get<CurrentUser>(
     `${this.apiUrl}/me`

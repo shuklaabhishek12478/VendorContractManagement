@@ -10,31 +10,18 @@ styleUrls:['./budget-health-card.scss']
 })
 export class BudgetHealthCardComponent{
 
+@Input() budget = 0;
+
+@Input() spent = 0;
+
+@Input() remaining = 0;
+
+@Input() percentage = 0;
+
 @Input()
 
-budget=0;
 
-@Input()
 
-spent=0;
-
-get remaining(){
-
-return this.budget-this.spent;
-
-}
-
-get percentage(){
-
-if(this.budget===0){
-
-return 0;
-
-}
-
-return Math.round((this.spent/this.budget)*100);
-
-}
 
 get status(){
 

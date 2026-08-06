@@ -1,22 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
+import { ExpiringContract } from '../../../../core/models/dashboard-model/expiring-contract.model';
 
-export interface ExpiringContract{
 
-id:number;
-
-contractNumber:string;
-
-vendorName:string;
-
-endDate:string;
-
-daysLeft:number;
-
-contractValue:number;
-
-}
 
 @Component({
 

@@ -2,6 +2,7 @@
 using ClosedXML.Excel;
 using VendorContractManagement.Application.DTOs.Expenditure;
 using VendorContractManagement.Application.Exceptions;
+using VendorContractManagement.Application.Helpers;
 using VendorContractManagement.Application.Interfaces;
 using VendorContractManagement.Application.Services.Helpers;
 using VendorContractManagement.Application.Services.Interfaces;
@@ -192,7 +193,7 @@ public class ExpenditureService
                     EntityId = entity.Id,
                     PerformedBy = entity.CreatedBy,
                     OldValues = null,
-                    NewValues = System.Text.Json.JsonSerializer.Serialize(entity),
+                    NewValues = AuditSerializationHelper.Serialize(GetAuditObject(entity)),
                     CreatedOn = DateTime.UtcNow
                 });
         }
@@ -231,7 +232,7 @@ public class ExpenditureService
         // Store Old Values
 
         var oldValues =
-            System.Text.Json.JsonSerializer.Serialize(entity);
+            AuditSerializationHelper.Serialize(GetAuditObject(entity));
 
         // Update Properties
 
@@ -293,8 +294,8 @@ public class ExpenditureService
 
                 OldValues = oldValues,
 
-                NewValues =
-                    System.Text.Json.JsonSerializer.Serialize(entity),
+                NewValues = AuditSerializationHelper.Serialize(GetAuditObject(entity)),
+
 
                 CreatedOn = DateTime.UtcNow
             });
@@ -313,9 +314,9 @@ public class ExpenditureService
     "Expenditure not found.");
         }
 
-        var oldValues =
-            System.Text.Json.JsonSerializer.Serialize(entity);
-
+        var oldValues = AuditSerializationHelper.Serialize(
+                    GetAuditObject(entity));
+       
         _repository.Delete(entity);
 
         await _unitOfWork.SaveChangesAsync();
@@ -521,5 +522,45 @@ public class ExpenditureService
         workbook.SaveAs(stream);
 
         return stream.ToArray();
+    }
+
+    private static object GetAuditObject(Expenditure entity)
+    {
+        return new
+        {
+            entity.Id,
+            entity.ExpenseNumber,
+            entity.Title,
+            entity.VendorId,
+            entity.ContractId,
+            entity.Department,
+            entity.CostCenter,
+            entity.Category,
+            entity.ExpenseType,
+            entity.ExpenseDate,
+            entity.InvoiceNumber,
+            entity.PurchaseOrderNumber,
+            entity.InvoiceDate,
+            entity.DueDate,
+            entity.Currency,
+            entity.Amount,
+            entity.TaxPercentage,
+            entity.TaxAmount,
+            entity.TotalAmount,
+            entity.PaymentStatus,
+            entity.PaymentMethod,
+            entity.Status,
+            entity.Description,
+            entity.Remarks,
+            entity.IsRecurring,
+            entity.RecurringMonths,
+            entity.IsForecasted,
+            entity.IsActive,
+            entity.IsDeleted,
+            entity.CreatedOn,
+            entity.CreatedBy,
+            entity.UpdatedOn,
+            entity.UpdatedBy
+        };
     }
 }
