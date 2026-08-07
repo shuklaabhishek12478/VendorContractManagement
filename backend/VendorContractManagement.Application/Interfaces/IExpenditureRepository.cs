@@ -48,4 +48,6 @@ public interface IExpenditureRepository
 
     Task<List<Expenditure>> ExportAsync(
     ExpenditureFilterDto filter);
+
+    Task<List<Expenditure>> GetExpenditureForecastInnerAsync(int year);
 }

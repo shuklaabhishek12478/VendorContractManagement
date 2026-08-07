@@ -1,1 +1,142 @@
-<p>expenditure-forecast works!</p>
+@if (loading) {
+
+<div class="loading">
+    <mat-spinner></mat-spinner>
+</div>
+
+}
+
+@else {
+
+<div class="page-header">
+
+    <div>
+
+        <h1 class="page-title">
+            Expenditure Forecast
+        </h1>
+
+        <p class="page-subtitle">
+            Budget Forecast & Spending Analytics
+        </p>
+
+    </div>
+
+    <div class="year-selector">
+
+        <label>
+
+            Forecast Year
+
+        </label>
+
+        <select
+            [(ngModel)]="selectedYear"
+            (change)="onYearChanged()">
+
+            <option
+                *ngFor="let year of years"
+                [value]="year">
+
+                {{ year }}
+
+            </option>
+
+        </select>
+
+    </div>
+
+</div>
+
+<div class="stats-grid">
+
+    <app-stats-card
+        *ngFor="let card of forecastCards"
+        [title]="card.title"
+        [value]="card.value"
+        [icon]="card.icon"
+        [color]="card.color"
+        [trend]="card.trend">
+    </app-stats-card>
+
+</div>
+
+<div class="forecast-grid">
+
+    <section class="forecast-card large">
+
+        <h3>
+
+            Monthly Forecast Trend
+
+        </h3>
+
+        <app-expenditure-trend-chart
+
+            [categories]="monthlyLabels"
+
+            [actual]="actualSpend"
+
+            [forecast]="forecastSpendData">
+
+        </app-expenditure-trend-chart>
+
+    </section>
+
+    <section class="forecast-card">
+
+    <h3>
+
+        Vendor Forecast
+
+    </h3>
+
+    <app-vendor-spend-chart
+
+        [vendors]="vendorLabels"
+
+        [amounts]="vendorAmounts">
+
+    </app-vendor-spend-chart>
+
+</section>
+
+<section class="forecast-card">
+
+    <h3>
+
+        Department Forecast
+
+    </h3>
+
+    <app-department-spend-chart
+
+        [labels]="departmentLabels"
+
+        [values]="departmentAmounts">
+
+    </app-department-spend-chart>
+
+</section>
+
+<section class="forecast-card">
+
+    <h3>
+
+        Category Forecast
+
+    </h3>
+
+    <app-category-spend-chart
+
+        [labels]="categoryLabels"
+
+        [values]="categoryAmounts">
+
+    </app-category-spend-chart>
+
+</section>
+
+</div>
+
+}

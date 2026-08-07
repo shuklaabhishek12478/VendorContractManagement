@@ -17,13 +17,6 @@ export const expenditureRoutes: Routes = [
   },
 
   {
-    path: ':id',
-    loadComponent: () =>
-      import('./pages/expenditure-details/expenditure-details')
-        .then(m => m.ExpenditureDetailsComponent)
-  },
-
-  {
     path: 'edit/:id',
     loadComponent: () =>
       import('./pages/edit-expenditure/edit-expenditure')
@@ -42,6 +35,14 @@ export const expenditureRoutes: Routes = [
     loadComponent: () =>
       import('./pages/expenditure-forecast/expenditure-forecast')
         .then(m => m.ExpenditureForecastComponent)
+  },
+
+  
+  {
+    path: ':id',
+    loadComponent: () =>
+      import('./pages/expenditure-details/expenditure-details')
+        .then(m => m.ExpenditureDetailsComponent)
   }
 
 ];

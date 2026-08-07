@@ -509,4 +509,14 @@ public class ExpenditureRepository : IExpenditureRepository
             .ThenByDescending(x => x.CreatedOn)
             .ToListAsync();
     }
+
+    public async Task<List<Expenditure>> GetExpenditureForecastInnerAsync(int year)
+    {
+        return await _context.Expenditures
+            .Where(x =>
+                !x.IsDeleted &&
+                x.ExpenseDate.Year == year)
+            .Include(x => x.Vendor)
+            .ToListAsync();
+    }
 }

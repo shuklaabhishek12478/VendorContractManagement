@@ -1,1 +1,206 @@
-<p>edit-expenditure works!</p>
+@if(loading){
+
+<div class="loading-container">
+
+    <mat-spinner diameter="60"></mat-spinner>
+
+    <h3>Loading Expenditure...</h3>
+
+    <p>Please wait while we load expenditure information.</p>
+
+</div>
+
+}
+
+@else{
+
+<div class="edit-page">
+
+    <!-- Header -->
+
+    <div class="hero-header">
+
+        <div>
+
+            <button
+                mat-icon-button
+                class="back-btn"
+                (click)="cancel()">
+
+                <mat-icon>arrow_back</mat-icon>
+
+            </button>
+
+        </div>
+
+        <div class="hero-content">
+
+            <div class="title-row">
+
+                <h1>Edit Expenditure</h1>
+
+                <span class="status-chip">
+
+                    {{ expenditure?.status }}
+
+                </span>
+
+            </div>
+
+            <h3>
+
+                {{ expenditure?.expenseNumber }}
+
+            </h3>
+
+            <p>
+
+                Update expenditure information and financial details.
+
+            </p>
+
+        </div>
+
+    </div>
+
+    <!-- Summary -->
+
+    <div class="summary-grid">
+
+        <mat-card>
+
+            <span>Vendor</span>
+
+            <h3>{{ expenditure?.vendorName }}</h3>
+
+        </mat-card>
+
+        <mat-card>
+
+            <span>Total Amount</span>
+
+            <h3>
+
+                ₹ {{ expenditure?.totalAmount | number:'1.2-2' }}
+
+            </h3>
+
+        </mat-card>
+
+        <mat-card>
+
+            <span>Invoice</span>
+
+            <h3>
+
+                {{ expenditure?.invoiceNumber }}
+
+            </h3>
+
+        </mat-card>
+
+        <mat-card>
+
+            <span>Due Date</span>
+
+            <h3>
+
+                {{ expenditure?.dueDate | date }}
+
+            </h3>
+
+        </mat-card>
+
+    </div>
+
+    <!-- Form -->
+
+    <mat-card class="form-card">
+
+        <mat-card-content>
+
+            <app-expenditure-form
+                [model]="expenditure">
+            </app-expenditure-form>
+
+        </mat-card-content>
+
+         <mat-divider></mat-divider>
+ <!-- Sticky Footer -->
+          <mat-card-actions class="footer-toolbar">
+
+        <button
+            mat-stroked-button
+            (click)="cancel()">
+
+            <mat-icon>close</mat-icon>
+
+            Cancel
+
+        </button>
+
+        <span class="spacer"></span>
+
+        <button
+            mat-flat-button
+            color="primary"
+            [disabled]="saving"
+            (click)="save()">
+
+            <mat-icon>save</mat-icon>
+
+            @if(!saving){
+
+                Update Expenditure
+
+            }
+
+            @else{
+
+                Updating...
+
+            }
+
+        </button>
+
+    </mat-card-actions>
+
+    </mat-card>
+
+    <!-- Sticky Footer -->
+
+    <div class="footer-toolbar">
+
+        <button
+            mat-stroked-button
+            (click)="cancel()">
+
+            Cancel
+
+        </button>
+
+        <button
+            mat-flat-button
+            color="primary"
+            [disabled]="saving"
+            (click)="save()">
+
+            @if(!saving){
+
+                Update Expenditure
+
+            }
+
+            @else{
+
+                Updating...
+
+            }
+
+        </button>
+
+    </div>
+
+</div>
+
+}

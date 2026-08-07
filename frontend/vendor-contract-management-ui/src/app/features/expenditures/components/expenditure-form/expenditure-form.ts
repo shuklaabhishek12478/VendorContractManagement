@@ -1,6 +1,9 @@
 import {
   Component,
+  Input,
+  OnChanges,
   OnInit,
+  SimpleChanges,
   inject
 } from '@angular/core';
 
@@ -38,6 +41,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
+import { MatCardModule } from '@angular/material/card';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-expenditure-form',
@@ -53,7 +58,9 @@ import { MatIconModule } from '@angular/material/icon';
   MatNativeDateModule,
   MatCheckboxModule,
   MatDividerModule,
-  MatIconModule
+  MatIconModule,
+  MatCardModule,
+  MatProgressSpinnerModule
   ],
   templateUrl: './expenditure-form.html',
   styleUrl: './expenditure-form.scss'
@@ -90,6 +97,10 @@ readonly currencies =
 
 readonly paymentMethods =
   EnumHelper.toOptions(PaymentMethod);
+@Input()
+model: Expenditure | null = null;
+
+
 
   ngOnInit(): void {
 
@@ -98,6 +109,11 @@ readonly paymentMethods =
     this.loadVendors();
 
     this.loadContracts();
+     if (this.model) {
+
+        this.load(this.model);
+
+    }
 
   }
 
@@ -165,27 +181,47 @@ readonly paymentMethods =
 
   private loadVendors(): void {
 
-    this.vendorService
+  this.vendorService
       .getAll()
       .subscribe(v => {
 
         this.vendors = v;
 
+        if(this.model){
+
+            this.form.patchValue({
+
+                vendorId:this.model.vendorId
+
+            });
+
+        }
+
       });
 
-  }
+}
 
   private loadContracts(): void {
 
-    this.contractService
+  this.contractService
       .getAll()
       .subscribe(c => {
 
         this.contracts = c;
 
+        if(this.model){
+
+            this.form.patchValue({
+
+                contractId:this.model.contractId
+
+            });
+
+        }
+
       });
 
-  }
+}
 
   isValid(): boolean {
 
@@ -211,11 +247,65 @@ readonly paymentMethods =
 
   }
 
-  load(expenditure: Expenditure): void {
+ load(data: Expenditure): void {
 
-    this.form.patchValue(expenditure);
+  console.log("LOAD CALLED");
+    console.log(data);
+  this.form.patchValue({
 
-  }
+    title: data.title,
+
+    vendorId: data.vendorId,
+
+    contractId: data.contractId ?? null,
+
+    department: data.department,
+
+    costCenter: data.costCenter,
+
+    category: data.category,
+
+    expenseType: data.expenseType,
+
+    expenseDate: data.expenseDate
+      ? new Date(data.expenseDate)
+      : null,
+
+    invoiceNumber: data.invoiceNumber,
+
+    purchaseOrderNumber: data.purchaseOrderNumber,
+
+    invoiceDate: data.invoiceDate
+      ? new Date(data.invoiceDate)
+      : null,
+
+    dueDate: data.dueDate
+      ? new Date(data.dueDate)
+      : null,
+
+    currency: data.currency,
+
+    amount: data.amount,
+
+    taxPercentage: data.taxPercentage,
+
+    paymentMethod: data.paymentMethod,
+
+    description: data.description,
+
+    remarks: data.remarks,
+
+    isRecurring: data.isRecurring,
+
+    recurringMonths: data.recurringMonths,
+
+    isForecasted: data.isForecasted
+
+  });
+
+  this.form.updateValueAndValidity();
+
+}
 
   
 

@@ -1,1 +1,682 @@
-<p>expenditure-details works!</p>
+@if(loading){
+
+<div class="loading-container">
+
+    <mat-spinner diameter="60"></mat-spinner>
+
+    <h2>Loading Expenditure...</h2>
+
+</div>
+
+}
+
+@else {
+
+<div class="details-page">
+
+    <!-- ======================================= -->
+    <!-- HEADER -->
+    <!-- ======================================= -->
+
+    <div class="hero">
+
+        <div>
+
+            <div class="caption">
+
+                Expense #
+
+                {{expenditure.expenseNumber}}
+
+            </div>
+
+            <h1>
+
+                {{expenditure.title}}
+
+            </h1>
+
+            <p>
+
+                {{expenditure.vendorName}}
+
+            </p>
+
+        </div>
+
+        <div class="hero-actions">
+
+            <button
+                mat-stroked-button
+                (click)="back()">
+
+                <mat-icon>
+
+                    arrow_back
+
+                </mat-icon>
+
+                Back
+
+            </button>
+
+            <button
+                mat-flat-button
+                color="primary"
+                (click)="edit()">
+
+                <mat-icon>
+
+                    edit
+
+                </mat-icon>
+
+                Edit
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- ======================================= -->
+    <!-- STATUS -->
+    <!-- ======================================= -->
+
+    <div class="status-row">
+
+        <mat-chip color="primary">
+
+            {{expenditure.status}}
+
+        </mat-chip>
+
+        <mat-chip color="accent">
+
+            {{expenditure.paymentStatus}}
+
+        </mat-chip>
+
+    </div>
+
+    <!-- ======================================= -->
+    <!-- SUMMARY -->
+    <!-- ======================================= -->
+
+    <div class="summary-grid">
+
+        <mat-card class="summary-card">
+
+            <div class="label">
+
+                Amount
+
+            </div>
+
+            <h2>
+
+                ₹ {{expenditure.amount | number:'1.2-2'}}
+
+            </h2>
+
+        </mat-card>
+
+        <mat-card class="summary-card">
+
+            <div class="label">
+
+                Tax
+
+            </div>
+
+            <h2>
+
+                ₹ {{expenditure.taxAmount | number:'1.2-2'}}
+
+            </h2>
+
+        </mat-card>
+
+        <mat-card class="summary-card">
+
+            <div class="label">
+
+                Total
+
+            </div>
+
+            <h2>
+
+                ₹ {{expenditure.totalAmount | number:'1.2-2'}}
+
+            </h2>
+
+        </mat-card>
+
+        <mat-card class="summary-card">
+
+            <div class="label">
+
+                Expense Date
+
+            </div>
+
+            <h2>
+
+                {{expenditure.expenseDate | date}}
+
+            </h2>
+
+        </mat-card>
+
+    </div>
+
+    <!-- ======================================= -->
+    <!-- GENERAL -->
+    <!-- ======================================= -->
+
+    <mat-card class="section-card">
+
+        <div class="section-title">
+
+            <mat-icon>
+
+                receipt_long
+
+            </mat-icon>
+
+            General Information
+
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <table class="details-table">
+
+            <tr>
+
+                <th>Expense Number</th>
+
+                <td>
+
+                    {{expenditure.expenseNumber}}
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>Title</th>
+
+                <td>
+
+                    {{expenditure.title}}
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>Vendor</th>
+
+                <td>
+
+                    {{expenditure.vendorName}}
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>Contract</th>
+
+                <td>
+
+                    {{expenditure.contractNumber || '-'}}
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>Category</th>
+
+                <td>
+
+                    {{expenditure.category}}
+
+                </td>
+
+            </tr>
+
+            <tr>
+
+                <th>Expense Type</th>
+
+                <td>
+
+                    {{expenditure.expenseType}}
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </mat-card>
+
+    <!-- ======================================= -->
+<!-- ORGANIZATION -->
+<!-- ======================================= -->
+
+<mat-card class="section-card">
+
+    <div class="section-title">
+
+        <mat-icon>
+
+            business
+
+        </mat-icon>
+
+        Organization
+
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <table class="details-table">
+
+        <tr>
+
+            <th>Department</th>
+
+            <td>
+
+                {{expenditure.department}}
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <th>Cost Center</th>
+
+            <td>
+
+                {{expenditure.costCenter}}
+
+            </td>
+
+        </tr>
+
+    </table>
+
+</mat-card>
+
+<!-- ======================================= -->
+<!-- FINANCIAL -->
+<!-- ======================================= -->
+
+<mat-card class="section-card">
+
+    <div class="section-title">
+
+        <mat-icon>
+
+            account_balance_wallet
+
+        </mat-icon>
+
+        Financial Information
+
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <table class="details-table">
+
+        <tr>
+
+            <th>Currency</th>
+
+            <td>
+
+                {{expenditure.currency}}
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <th>Amount</th>
+
+            <td>
+
+                ₹ {{expenditure.amount | number:'1.2-2'}}
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <th>Tax %</th>
+
+            <td>
+
+                {{expenditure.taxPercentage}} %
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <th>Tax Amount</th>
+
+            <td>
+
+                ₹ {{expenditure.taxAmount | number:'1.2-2'}}
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <th>Total Amount</th>
+
+            <td>
+
+                ₹ {{expenditure.totalAmount | number:'1.2-2'}}
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <th>Payment Method</th>
+
+            <td>
+
+                {{expenditure.paymentMethod}}
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <th>Payment Status</th>
+
+            <td>
+
+                {{expenditure.paymentStatus}}
+
+            </td>
+
+        </tr>
+
+    </table>
+
+</mat-card>
+
+<!-- ======================================= -->
+<!-- INVOICE -->
+<!-- ======================================= -->
+
+<mat-card class="section-card">
+
+    <div class="section-title">
+
+        <mat-icon>
+
+            receipt
+
+        </mat-icon>
+
+        Invoice Information
+
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <table class="details-table">
+
+        <tr>
+
+            <th>Invoice Number</th>
+
+            <td>
+
+                {{expenditure.invoiceNumber}}
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <th>Purchase Order</th>
+
+            <td>
+
+                {{expenditure.purchaseOrderNumber || '-'}}
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <th>Invoice Date</th>
+
+            <td>
+
+                {{expenditure.invoiceDate | date}}
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <th>Due Date</th>
+
+            <td>
+
+                {{expenditure.dueDate | date}}
+
+            </td>
+
+        </tr>
+
+    </table>
+
+</mat-card>
+
+<!-- ======================================= -->
+<!-- DESCRIPTION -->
+<!-- ======================================= -->
+
+<mat-card class="section-card">
+
+    <div class="section-title">
+
+        <mat-icon>
+
+            description
+
+        </mat-icon>
+
+        Additional Information
+
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div class="content-block">
+
+        <h4>
+
+            Description
+
+        </h4>
+
+        <p>
+
+            {{expenditure.description}}
+
+        </p>
+
+        <h4>
+
+            Remarks
+
+        </h4>
+
+        <p>
+
+            {{expenditure.remarks || '-'}}
+
+        </p>
+
+    </div>
+
+</mat-card>
+
+<!-- ======================================= -->
+<!-- RECURRING -->
+<!-- ======================================= -->
+
+<mat-card class="section-card">
+
+    <div class="section-title">
+
+        <mat-icon>
+
+            repeat
+
+        </mat-icon>
+
+        Recurring Information
+
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <table class="details-table">
+
+        <tr>
+
+            <th>Recurring</th>
+
+            <td>
+
+                {{expenditure.isRecurring ? 'Yes' : 'No'}}
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <th>Recurring Months</th>
+
+            <td>
+
+                {{expenditure.recurringMonths || '-'}}
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <th>Forecasted</th>
+
+            <td>
+
+                {{expenditure.isForecasted ? 'Yes' : 'No'}}
+
+            </td>
+
+        </tr>
+
+    </table>
+
+</mat-card>
+
+<!-- ======================================= -->
+<!-- AUDIT -->
+<!-- ======================================= -->
+
+<mat-card class="section-card">
+
+    <div class="section-title">
+
+        <mat-icon>
+
+            history
+
+        </mat-icon>
+
+        Audit Information
+
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <table class="details-table">
+
+        <tr>
+
+            <th>Created On</th>
+
+            <td>
+
+                {{expenditure.createdOn | date:'medium'}}
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <th>Status</th>
+
+            <td>
+
+                {{expenditure.status}}
+
+            </td>
+
+        </tr>
+
+        <tr>
+
+            <th>Payment Status</th>
+
+            <td>
+
+                {{expenditure.paymentStatus}}
+
+            </td>
+
+        </tr>
+
+    </table>
+
+</mat-card>
+
+</div>
+
+}

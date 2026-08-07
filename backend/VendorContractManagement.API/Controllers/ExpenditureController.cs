@@ -107,7 +107,10 @@ public class ExpenditureController : ControllerBase
         return Ok(result);
     }
 
+
+
     [HttpGet("export/excel")]
+    [Authorize(Policy = "Expenditure.Export")]
     public async Task<IActionResult> ExportExcel(
     [FromQuery] ExpenditureFilterDto filter)
     {
@@ -119,4 +122,16 @@ public class ExpenditureController : ControllerBase
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             $"ExpenditureReport_{DateTime.Now:yyyyMMddHHmmss}.xlsx");
     }
+
+    [HttpGet("forecast/details/{year:int}")]
+    [Authorize(Policy = "Expenditure.Forecast")]
+    public async Task<IActionResult> GetExpenditureForecast(int year)
+    {
+        var result =
+            await _service.GetExpenditureForecastInnerAsync(year);
+
+        return Ok(result);
+    }
+
+
 }

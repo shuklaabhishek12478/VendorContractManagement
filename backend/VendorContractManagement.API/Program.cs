@@ -107,6 +107,11 @@ var jwtSettings =
     builder.Configuration
         .GetSection("JwtSettings")
         .Get<JwtSettings>();
+Console.WriteLine("========== JWT SETTINGS ==========");
+Console.WriteLine($"SecretKey : {jwtSettings?.SecretKey}");
+Console.WriteLine($"Issuer    : {jwtSettings?.Issuer}");
+Console.WriteLine($"Audience  : {jwtSettings?.Audience}");
+Console.WriteLine("==================================");
 
 var key = Encoding.UTF8.GetBytes(jwtSettings!.SecretKey);
 
@@ -258,6 +263,8 @@ builder.Services.AddScoped<IUserContextService, UserContextService>();
 builder.Services.AddSingleton<IUserIdProvider, UserIdProvider>();
 builder.Services.AddScoped<IUserApprovalService,UserApprovalService>();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 var app = builder.Build();
 

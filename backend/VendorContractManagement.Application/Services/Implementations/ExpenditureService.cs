@@ -25,13 +25,16 @@ public class ExpenditureService
 
     private readonly NotificationHelper _notificationHelper;
 
+    private readonly ICurrentUserService _currentUser;
+
     public ExpenditureService(
         IExpenditureRepository repository,
         IUnitOfWork unitOfWork,
         IMapper mapper,
         IRecentActivityService recentActivityService,
         IAuditLogService auditLogService,
-        NotificationHelper notificationHelper)
+        NotificationHelper notificationHelper,
+        ICurrentUserService currentUser)
     {
         _repository = repository;
 
@@ -44,6 +47,7 @@ public class ExpenditureService
         _auditLogService = auditLogService;
 
         _notificationHelper = notificationHelper;
+        _currentUser = currentUser;
     }
 
     public async Task<List<ExpenditureDto>> GetAllAsync()
@@ -211,6 +215,7 @@ public class ExpenditureService
     int id,
     UpdateExpenditureDto dto)
     {
+        
         var entity = await _repository.GetByIdAsync(id);
 
         if (entity == null)
@@ -239,6 +244,9 @@ public class ExpenditureService
         _mapper.Map(dto, entity);
 
         entity.UpdatedOn = DateTime.UtcNow;
+
+        entity.UpdatedBy =
+            _currentUser.UserId.ToString();
 
         // Recalculate Tax
 
@@ -290,7 +298,7 @@ public class ExpenditureService
 
                 EntityId = entity.Id,
 
-                PerformedBy = entity.UpdatedBy,
+                PerformedBy = entity.UpdatedBy!,
 
                 OldValues = oldValues,
 
@@ -561,6 +569,115 @@ public class ExpenditureService
             entity.CreatedBy,
             entity.UpdatedOn,
             entity.UpdatedBy
+        };
+
+
+
+    }
+
+    public async Task<ExpenditureForecastInnerDto> GetExpenditureForecastInnerAsync(int year)
+    {
+        var expenditures =
+            await _repository.GetExpenditureForecastInnerAsync(year);
+
+        decimal currentSpend =
+            expenditures.Sum(x => x.TotalAmount);
+
+        decimal forecastSpend =
+            expenditures
+                .Where(x => x.IsForecasted)
+                .Sum(x => x.TotalAmount);
+
+        // TODO: Budget module se replace karna
+        decimal budget = 10000000m;
+
+        decimal remainingBudget =
+            budget - currentSpend;
+
+        decimal utilization =
+            budget == 0
+                ? 0
+                : (currentSpend / budget) * 100;
+
+        int monthsPassed =
+            year == DateTime.UtcNow.Year
+                ? DateTime.UtcNow.Month
+                : 12;
+
+        if (monthsPassed <= 0)
+            monthsPassed = 1;
+
+        decimal monthlyBurnRate =
+            currentSpend / monthsPassed;
+
+        decimal estimatedYearEndSpend =
+            monthlyBurnRate * 12;
+
+        return new ExpenditureForecastInnerDto
+        {
+            Summary = new ExpenditureForecastSummaryDto
+            {
+                Year = year,
+                CurrentSpend = currentSpend,
+                ForecastSpend = forecastSpend,
+                Budget = budget,
+                RemainingBudget = remainingBudget,
+                BudgetUtilizationPercentage =
+                    Math.Round(utilization, 2),
+                MonthlyBurnRate =
+                    Math.Round(monthlyBurnRate, 2),
+                EstimatedYearEndSpend =
+                    Math.Round(estimatedYearEndSpend, 2)
+            },
+
+            MonthlyForecast = expenditures
+                .GroupBy(x => x.ExpenseDate.Month)
+                .OrderBy(g => g.Key)
+                .Select(g => new ExpenditureForecastMonthlyDto
+                {
+                    Month = new DateTime(year, g.Key, 1)
+                        .ToString("MMM"),
+
+                    ActualSpend = g
+                        .Where(x => !x.IsForecasted)
+                        .Sum(x => x.TotalAmount),
+
+                    ForecastSpend = g
+                        .Where(x => x.IsForecasted)
+                        .Sum(x => x.TotalAmount)
+                })
+                .ToList(),
+
+            VendorForecast = expenditures
+                .GroupBy(x => x.Vendor.CompanyName)
+                .Select(g => new ExpenditureForecastVendorDto
+                {
+                    VendorName = g.Key,
+                    ForecastAmount = g.Sum(x => x.TotalAmount)
+                })
+                .OrderByDescending(x => x.ForecastAmount)
+                .Take(10)
+                .ToList(),
+
+            CategoryForecast = expenditures
+                .GroupBy(x => x.Category)
+                .Select(g => new ExpenditureForecastCategoryDto
+                {
+                    Category = g.Key.ToString(),
+                    ForecastAmount = g.Sum(x => x.TotalAmount)
+                })
+                .OrderByDescending(x => x.ForecastAmount)
+                .ToList(),
+
+            DepartmentForecast = expenditures
+                .GroupBy(x => x.Department)
+                .Select(g => new ExpenditureForecastDepartmentDto
+                {
+                    Department = g.Key.ToString(),
+                    ForecastAmount = g.Sum(x => x.TotalAmount)
+                })
+                .OrderByDescending(x => x.ForecastAmount)
+                .ToList()
         };
     }
 }

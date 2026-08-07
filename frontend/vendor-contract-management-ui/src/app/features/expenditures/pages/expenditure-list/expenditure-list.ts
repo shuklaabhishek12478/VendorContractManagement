@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { AgGridAngular } from 'ag-grid-angular';
@@ -48,6 +48,11 @@ import { ExpenditureFilterComponent } from '../../components/expenditure-filter/
   styleUrl: './expenditure-list.scss'
 })
 export class ExpenditureListComponent implements OnInit {
+
+  constructor(
+  private cdr: ChangeDetectorRef,
+ 
+) {}
 
   private expenditureService = inject(ExpenditureService);
 
@@ -646,7 +651,7 @@ openDashboard(): void {
 }
 
 openForecast(): void {
-
+   console.log('Forecast Click');
   this.router.navigate([
     '/expenditures/forecast'
   ]);

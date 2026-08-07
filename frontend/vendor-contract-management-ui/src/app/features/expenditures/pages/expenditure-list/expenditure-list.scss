@@ -1,60 +1,53 @@
 :host {
-
   display: block;
-
-  padding: 1.5rem;
-
-  background: #f8fafc;
-
+  width: 100%;
   min-height: 100vh;
 
+  padding: 24px;
+
+  background: #f8fafc;
+  box-sizing: border-box;
 }
 
 /* ===========================
-   Header
+   Typography
 =========================== */
 
 h1 {
-
+  margin: 0;
   color: #0f172a;
-
+  font-size: 2rem;
+  font-weight: 700;
+  line-height: 1.2;
   letter-spacing: -.5px;
-
 }
 
 p {
-
+  margin-top: 6px;
   color: #64748b;
-
+  font-size: .95rem;
 }
 
 /* ===========================
-   Grid Container
+   AG Grid
 =========================== */
 
 .ag-theme-quartz {
 
+  width: 100%;
+
   --ag-font-size: 13px;
-
   --ag-font-family: Inter, Roboto, Arial, sans-serif;
-
   --ag-header-height: 54px;
-
   --ag-row-height: 52px;
 
   --ag-border-color: #e2e8f0;
-
   --ag-header-background-color: #f8fafc;
-
   --ag-odd-row-background-color: #fcfcfd;
-
   --ag-selected-row-background-color: #dbeafe;
 
   border-radius: 16px;
-
 }
-
-/* Header */
 
 ::ng-deep .ag-header {
 
@@ -65,34 +58,31 @@ p {
 ::ng-deep .ag-header-cell-label {
 
   font-weight: 600;
-
   color: #334155;
 
 }
 
-/* Row Hover */
-
 ::ng-deep .ag-row:hover {
 
   background: #f1f5f9;
-
   transition: .2s;
 
 }
 
-/* Selected */
-
 ::ng-deep .ag-row-selected {
 
-  background: #e0f2fe !important;
+  background: #dbeafe !important;
 
 }
 
 /* ===========================
-   Search Box
+   Search
 =========================== */
 
 input[type="text"] {
+
+  width: 100%;
+  min-width: 0;
 
   transition: .25s;
 
@@ -104,9 +94,7 @@ input[type="text"]:focus {
 
   border-color: #2563eb;
 
-  box-shadow:
-
-      0 0 0 4px rgba(37,99,235,.10);
+  box-shadow: 0 0 0 4px rgba(37,99,235,.10);
 
 }
 
@@ -116,15 +104,13 @@ input[type="text"]:focus {
 
 .grid-card {
 
-  background: white;
+  background: #fff;
 
   border-radius: 18px;
 
   overflow: hidden;
 
-  box-shadow:
-
-      0 10px 25px rgba(15,23,42,.05);
+  box-shadow: 0 10px 25px rgba(15,23,42,.05);
 
 }
 
@@ -134,7 +120,7 @@ input[type="text"]:focus {
 
 .footer {
 
-  margin-top: 20px;
+  margin-top: 24px;
 
   display: flex;
 
@@ -142,9 +128,15 @@ input[type="text"]:focus {
 
   align-items: center;
 
+  gap: 20px;
+
+  flex-wrap: wrap;
+
 }
 
 .footer select {
+
+  min-width: 100px;
 
   border: 1px solid #cbd5e1;
 
@@ -155,7 +147,7 @@ input[type="text"]:focus {
 }
 
 /* ===========================
-   Material Buttons
+   Buttons
 =========================== */
 
 button {
@@ -171,38 +163,146 @@ button:hover {
 }
 
 /* ===========================
-   Responsive
+   Large Desktop
+=========================== */
+
+@media (min-width:1600px){
+
+  :host{
+
+    padding:32px;
+
+  }
+
+}
+
+/* ===========================
+   Laptop
 =========================== */
 
 @media (max-width:1200px){
 
   :host{
 
-      padding:1rem;
+    padding:20px;
 
   }
 
 }
 
-@media (max-width:768px){
+/* ===========================
+   Tablet
+=========================== */
 
-  .footer{
+@media (max-width:992px){
 
-      flex-direction:column;
+  :host{
 
-      gap:16px;
-
-      align-items:flex-start;
+    padding:18px;
 
   }
-
-}
-
-@media (max-width:640px){
 
   h1{
 
-      font-size:1.8rem;
+    font-size:1.8rem;
+
+  }
+
+}
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media (max-width:768px){
+
+  :host{
+
+    padding:16px;
+
+  }
+
+  h1{
+
+    font-size:1.5rem;
+
+  }
+
+  p{
+
+    font-size:.9rem;
+
+  }
+
+  .footer{
+
+    flex-direction:column;
+
+    align-items:stretch;
+
+  }
+
+  .footer > div{
+
+    width:100%;
+
+  }
+
+  .footer select{
+
+    width:100%;
+
+  }
+
+}
+
+/* ===========================
+   Small Mobile
+=========================== */
+
+@media (max-width:480px){
+
+  :host{
+
+    padding:12px;
+
+  }
+
+  h1{
+
+    font-size:1.35rem;
+
+  }
+
+  p{
+
+    font-size:.85rem;
+
+  }
+
+  ::ng-deep .ag-header{
+
+    font-size:12px;
+
+  }
+
+  ::ng-deep .ag-cell{
+
+    font-size:12px;
+
+  }
+
+}
+
+/* ===========================
+   Extra Small
+=========================== */
+
+@media (max-width:360px){
+
+  h1{
+
+    font-size:1.2rem;
 
   }
 

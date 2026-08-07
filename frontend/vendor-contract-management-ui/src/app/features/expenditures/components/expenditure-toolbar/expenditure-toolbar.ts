@@ -21,6 +21,7 @@ export class ExpenditureToolbarComponent {
   @Input() selectedExpenditure: Expenditure | null = null;
 
   @Input() selectedExpenditures: Expenditure[] = [];
+  
 
   @Output() add = new EventEmitter<void>();
 

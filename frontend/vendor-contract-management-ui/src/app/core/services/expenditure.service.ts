@@ -8,7 +8,7 @@ import { ExpenditureFilter } from '../models/expenditures-model/expenditure-filt
 import { ExpenditureDashboard } from '../models/expenditures-model/expenditure-dashboard.model';
 import { ExpenditureForecast } from '../models/expenditures-model/expenditure-forecast.model';
 import { UpdateExpenditure } from '../models/expenditures-model/update-expenditure.model';
-
+import { ExpenditureForecastInner } from '../models/expenditures-model/forecast-inner/expenditure-forecast-inner.model';
 
 @Injectable({
   providedIn: 'root'
@@ -122,4 +122,13 @@ export class ExpenditureService {
     );
   }
 
+  getForecastInner(
+  year: number
+): Observable<ExpenditureForecastInner> {
+
+  return this.http.get<ExpenditureForecastInner>(
+    `${this.apiUrl}/forecast/details/${year}`
+  );
+
+}
 }
