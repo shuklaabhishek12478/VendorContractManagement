@@ -1,29 +1,161 @@
-:host {
+:host{
+    display:block;
+    width:100%;
+    box-sizing:border-box;
+}
 
-    display: block;
+*,
+*::before,
+*::after{
+    box-sizing:border-box;
+}
+
+input.ng-invalid.ng-touched{
+
+    border-color:#dc2626 !important;
+
+    box-shadow:0 0 0 3px rgba(220,38,38,.12);
 
 }
 
-input.ng-invalid.ng-touched {
 
-    border-color: #dc2626;
+button{
+
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        background-color .25s ease,
+        color .25s ease;
+
+    white-space:nowrap;
+
+    min-height:42px;
+
+    border-radius:10px;
 
 }
 
-button {
+button:hover:not(:disabled){
 
-    transition: all .25s ease;
+    transform:translateY(-2px);
 
-}
-
-button:hover:not(:disabled) {
-
-    transform: translateY(-1px);
+    box-shadow:0 6px 14px rgba(15,23,42,.10);
 
 }
 
-button:disabled {
+button:active:not(:disabled){
 
-    opacity: .7;
+    transform:translateY(0);
+
+}
+
+button:focus-visible{
+
+    outline:3px solid rgba(37,99,235,.20);
+
+    outline-offset:2px;
+
+}
+
+button:disabled{
+
+    opacity:.65;
+
+    cursor:not-allowed;
+
+    box-shadow:none;
+
+}
+
+
+input,
+textarea,
+select{
+
+    width:100%;
+
+    max-width:100%;
+
+}
+
+
+@media(min-width:1600px){
+
+button{
+
+    min-height:48px;
+
+    padding:0 24px;
+
+    font-size:15px;
+
+}
+
+}
+
+
+@media(max-width:1200px){
+
+button{
+
+    min-height:44px;
+
+}
+
+}
+
+
+@media(max-width:992px){
+
+button{
+
+    min-height:44px;
+
+}
+
+}
+
+
+@media(max-width:768px){
+
+button{
+
+    width:100%;
+
+    min-height:44px;
+
+    font-size:14px;
+
+}
+
+}
+
+
+@media(max-width:576px){
+
+button{
+
+    min-height:42px;
+
+    font-size:13px;
+
+    border-radius:8px;
+
+}
+
+}
+
+
+@media(max-width:360px){
+
+button{
+
+    min-height:40px;
+
+    font-size:12px;
+
+    padding:0 12px;
+
+}
 
 }

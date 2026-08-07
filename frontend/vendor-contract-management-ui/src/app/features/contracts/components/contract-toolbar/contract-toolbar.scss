@@ -1,0 +1,135 @@
+
+
+/* ==========================================
+   Contract Toolbar
+========================================== */
+
+.flex{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:flex-start;
+
+    flex-wrap:wrap;
+
+    gap:12px;
+
+    width:100%;
+
+}
+
+.mb-6{
+
+    margin-bottom:24px;
+
+}
+
+/* Child Components */
+
+.flex > *{
+
+    display:inline-block;
+
+    flex:0 0 auto;
+
+    max-width:100%;
+
+}
+
+/* ==========================================
+   4K
+========================================== */
+
+@media(min-width:1600px){
+
+.flex{
+
+    gap:16px;
+
+}
+
+}
+
+/* ==========================================
+   Desktop
+========================================== */
+
+@media(max-width:1200px){
+
+.flex{
+
+    gap:12px;
+
+}
+
+}
+
+/* ==========================================
+   Tablet
+========================================== */
+
+@media(max-width:992px){
+
+.flex{
+
+    gap:10px;
+
+}
+
+}
+
+/* ==========================================
+   Mobile
+========================================== */
+
+@media(max-width:768px){
+
+.flex{
+
+    gap:10px;
+
+    justify-content:flex-start;
+
+}
+
+}
+
+/* ==========================================
+   Small Mobile
+========================================== */
+
+@media(max-width:480px){
+
+.flex{
+
+    gap:8px;
+
+}
+
+.mb-6{
+
+    margin-bottom:18px;
+
+}
+
+}
+
+/* ==========================================
+   320px
+========================================== */
+
+@media(max-width:360px){
+
+.flex{
+
+       display:flex;
+   align-items:center;
+   justify-content:flex-start;
+   flex-wrap:wrap;
+   gap:12px;
+
+}
+
+}

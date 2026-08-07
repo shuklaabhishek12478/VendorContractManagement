@@ -1,4 +1,4 @@
-<mat-toolbar class="approval-toolbar">
+<div class="approval-toolbar">
 
     <div class="toolbar-left">
 
@@ -55,17 +55,14 @@
     <span class="toolbar-spacer"></span>
 
     <button
-        mat-stroked-button
-        (click)="refresh.emit()">
+    class="refresh-btn"
+    mat-stroked-button
+    (click)="refresh.emit()">
 
-        <mat-icon>
+    <mat-icon>refresh</mat-icon>
 
-            refresh
+    Refresh
 
-        </mat-icon>
+</button>
 
-        Refresh
-
-    </button>
-
-</mat-toolbar>
+</div>

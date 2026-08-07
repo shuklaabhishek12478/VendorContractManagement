@@ -1,106 +1,106 @@
-<div class="flex flex-wrap gap-3 mb-6">
+<div class="role-toolbar">
 
-  <button
-    mat-raised-button
-    color="primary"
-    (click)="add.emit()">
+    <button
+        mat-raised-button
+        color="primary"
+        class="primary-btn"
+        (click)="add.emit()">
 
-    <mat-icon>add</mat-icon>
+        <mat-icon>add</mat-icon>
+        <span>Add Role</span>
 
-    Add Role
+    </button>
 
-  </button>
+    <button
+        mat-stroked-button
+        class="action-btn"
+        [disabled]="!hasSelection || !canEdit"
+        (click)="edit.emit()">
 
-  <button
-  mat-stroked-button
-  [disabled]="!hasSelection || !canEdit"
-  (click)="edit.emit()">
+        <mat-icon>edit</mat-icon>
+        <span>Edit</span>
 
-  <mat-icon>edit</mat-icon>
+    </button>
 
-  Edit
+    <button
+        mat-stroked-button
+        color="warn"
+        class="action-btn"
+        [disabled]="!hasSelection || !canDelete"
+        (click)="delete.emit()">
 
-</button>
+        <mat-icon>delete</mat-icon>
+        <span>Delete</span>
 
-  <button
-  mat-stroked-button
-  color="warn"
-  [disabled]="!hasSelection || !canDelete"
-  (click)="delete.emit()">
+    </button>
 
-  <mat-icon>delete</mat-icon>
+    <button
+        mat-stroked-button
+        color="primary"
+        class="action-btn"
+        [disabled]="!hasSelection || isActive"
+        (click)="activate.emit()">
 
-  Delete
+        <mat-icon>check_circle</mat-icon>
+        <span>Activate</span>
 
-</button>
+    </button>
 
-  <button
-    mat-stroked-button
-    color="primary"
-    [disabled]="!hasSelection || isActive"
-    (click)="activate.emit()">
+    <button
+        mat-stroked-button
+        color="warn"
+        class="action-btn"
+        [disabled]="!hasSelection || !isActive"
+        (click)="deactivate.emit()">
 
-    <mat-icon>check_circle</mat-icon>
+        <mat-icon>block</mat-icon>
+        <span>Deactivate</span>
 
-    Activate
+    </button>
 
-  </button>
+    <button
+        mat-stroked-button
+        class="action-btn"
+        [disabled]="!hasSelection"
+        (click)="assignPermissions.emit()">
 
-  <button
-    mat-stroked-button
-    color="warn"
-    [disabled]="!hasSelection || !isActive"
-    (click)="deactivate.emit()">
+        <mat-icon>security</mat-icon>
+        <span>Permissions</span>
 
-    <mat-icon>block</mat-icon>
+    </button>
 
-    Deactivate
+    <button
+        mat-stroked-button
+        class="action-btn"
+        [disabled]="!hasSelection"
+        (click)="assignUsers.emit()">
 
-  </button>
+        <mat-icon>groups</mat-icon>
+        <span>Users</span>
 
-  <button
-    mat-stroked-button
-    [disabled]="!hasSelection"
-    (click)="assignPermissions.emit()">
+    </button>
 
-    <mat-icon>security</mat-icon>
+    <button
+        mat-stroked-button
+        class="action-btn"
+        [disabled]="!hasSelection"
+        (click)="clone.emit()">
 
-    Permissions
+        <mat-icon>content_copy</mat-icon>
+        <span>Clone</span>
 
-  </button>
+    </button>
 
-  <button
-    mat-stroked-button
-    [disabled]="!hasSelection"
-    (click)="assignUsers.emit()">
+    <button
+        mat-raised-button
+        color="accent"
+        class="accent-btn"
+        [disabled]="!hasSelection"
+        (click)="permissionMatrix.emit()">
 
-    <mat-icon>groups</mat-icon>
+        <mat-icon>verified_user</mat-icon>
+        <span>Permission Matrix</span>
 
-    Users
-
-  </button>
-
-  <button
-    mat-stroked-button
-    [disabled]="!hasSelection"
-    (click)="clone.emit()">
-
-    <mat-icon>content_copy</mat-icon>
-
-    Clone
-
-  </button>
-
-  <button
-    mat-raised-button
-    color="accent"
-    (click)="permissionMatrix.emit()"
-    [disabled]="!hasSelection">
-
-    <mat-icon>security</mat-icon>
-
-    Permission Matrix
-
-</button>
+    </button>
 
 </div>

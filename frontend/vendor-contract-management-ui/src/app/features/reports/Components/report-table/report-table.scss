@@ -1,9 +1,6 @@
 :host {
-
     display: block;
-
     width: 100%;
-
 }
 
 /*=====================================================
@@ -12,20 +9,19 @@ CONTAINER
 
 .report-table-container {
 
-    background: #ffffff;
+    width: 100%;
+    overflow: hidden;
 
-    border-radius: 20px;
+    background: #fff;
 
     border: 1px solid #e2e8f0;
-
-    overflow: hidden;
+    border-radius: 20px;
 
     box-shadow:
         0 4px 12px rgba(15,23,42,.05),
         0 12px 28px rgba(15,23,42,.04);
 
-    transition: .30s;
-
+    transition: .3s;
 }
 
 .report-table-container:hover{
@@ -42,42 +38,41 @@ HEADER
 .table-toolbar{
 
     display:flex;
-
     justify-content:space-between;
-
     align-items:center;
-
     gap:20px;
 
-    padding:18px 24px;
-
-    border-bottom:1px solid #eef2f7;
+    padding:20px 24px;
 
     background:#fafbfd;
+    border-bottom:1px solid #eef2f7;
 
 }
 
 .toolbar-left{
 
     display:flex;
-
     align-items:center;
-
     gap:18px;
+
+    min-width:0;
+    flex-wrap:wrap;
 
 }
 
 .table-title{
 
     font-size:20px;
-
     font-weight:700;
-
     color:#0f172a;
+
+    word-break:break-word;
 
 }
 
 .table-count{
+
+    white-space:nowrap;
 
     padding:6px 14px;
 
@@ -99,7 +94,11 @@ HEADER
 
     align-items:center;
 
-    gap:8px;
+    justify-content:flex-end;
+
+    gap:10px;
+
+    flex-wrap:wrap;
 
 }
 
@@ -124,13 +123,14 @@ GRID
 .report-grid{
 
     width:100%;
+    overflow:auto;
 
 }
 
 .ag-grid{
 
     width:100%;
-
+    min-width:900px;
     height:100%;
 
 }
@@ -171,7 +171,7 @@ AG GRID
 
 ::ng-deep .ag-row{
 
-    transition:all .2s;
+    transition:.2s;
 
 }
 
@@ -199,25 +199,24 @@ AG GRID
 
 ::ng-deep .ag-paging-panel{
 
+    min-height:52px;
+
     border-top:1px solid #e5e7eb;
 
     background:#fafafa;
 
-    min-height:52px;
-
 }
 
 ::ng-deep .ag-overlay-loading-center,
-
 ::ng-deep .ag-overlay-no-rows-center{
 
     padding:22px;
 
     border-radius:14px;
 
-    border:1px solid #e2e8f0;
+    background:#fff;
 
-    background:#ffffff;
+    border:1px solid #e2e8f0;
 
     box-shadow:0 8px 24px rgba(15,23,42,.08);
 
@@ -230,7 +229,6 @@ SCROLLBAR
 .report-grid::-webkit-scrollbar{
 
     width:10px;
-
     height:10px;
 
 }
@@ -250,20 +248,78 @@ SCROLLBAR
 }
 
 /*=====================================================
-TABLET
+LARGE DESKTOP
 =====================================================*/
 
-@media(max-width:1024px){
+@media (min-width:1600px){
 
 .table-toolbar{
 
-padding:16px 18px;
+    padding:24px 30px;
 
 }
 
 .table-title{
 
-font-size:18px;
+    font-size:22px;
+
+}
+
+}
+
+/*=====================================================
+LAPTOP
+=====================================================*/
+
+@media(max-width:1200px){
+
+.table-toolbar{
+
+    padding:18px 20px;
+
+}
+
+.table-title{
+
+    font-size:19px;
+
+}
+
+}
+
+/*=====================================================
+TABLET
+=====================================================*/
+
+@media(max-width:992px){
+
+.table-toolbar{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+}
+
+.toolbar-left{
+
+    width:100%;
+
+    justify-content:space-between;
+
+}
+
+.toolbar-right{
+
+    width:100%;
+
+    justify-content:flex-end;
+
+}
+
+.report-grid{
+
+    height:560px;
 
 }
 
@@ -277,41 +333,47 @@ MOBILE
 
 .table-toolbar{
 
-flex-direction:column;
+    padding:16px;
 
-align-items:flex-start;
-
-gap:14px;
+    gap:16px;
 
 }
 
 .toolbar-left{
 
-width:100%;
+    flex-direction:column;
 
-justify-content:space-between;
+    align-items:flex-start;
+
+    gap:12px;
 
 }
 
 .toolbar-right{
 
-width:100%;
+    width:100%;
 
-justify-content:flex-end;
+    justify-content:flex-start;
 
-flex-wrap:wrap;
-
-}
-
-.report-grid{
-
-height:500px !important;
+    gap:8px;
 
 }
 
 .table-title{
 
-font-size:17px;
+    font-size:17px;
+
+}
+
+.report-grid{
+
+    height:500px;
+
+}
+
+.ag-grid{
+
+    min-width:850px;
 
 }
 
@@ -321,37 +383,67 @@ font-size:17px;
 SMALL MOBILE
 =====================================================*/
 
-@media(max-width:480px){
+@media(max-width:576px){
 
-.toolbar-left{
+.report-table-container{
 
-flex-direction:column;
+    border-radius:16px;
 
-align-items:flex-start;
+}
 
-gap:10px;
+.table-toolbar{
+
+    padding:14px;
 
 }
 
 .toolbar-right{
 
-justify-content:center;
+    display:grid;
 
-width:100%;
+    grid-template-columns:repeat(4,1fr);
+
+    width:100%;
 
 }
 
 .toolbar-right button{
 
-width:42px;
-
-height:42px;
+    width:100%;
 
 }
 
 .table-count{
 
-font-size:12px;
+    font-size:12px;
+
+    padding:6px 10px;
+
+}
+
+}
+
+/*=====================================================
+EXTRA SMALL
+=====================================================*/
+
+@media(max-width:400px){
+
+.table-title{
+
+    font-size:16px;
+
+}
+
+.table-count{
+
+    font-size:11px;
+
+}
+
+.report-grid{
+
+    height:420px;
 
 }
 

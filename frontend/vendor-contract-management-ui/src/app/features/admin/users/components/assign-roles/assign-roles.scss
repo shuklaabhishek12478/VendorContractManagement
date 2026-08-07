@@ -1,215 +1,584 @@
+:host{
+    display:block;
+    width:100%;
+    box-sizing:border-box;
+}
+
+/*=========================================================
+HERO
+=========================================================*/
+
 .hero{
 
-display:flex;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:24px;
 
-justify-content:space-between;
+    margin-bottom:24px;
 
-align-items:center;
-
-margin-bottom:24px;
+    width:100%;
 
 }
 
+.hero>*{
+    min-width:0;
+}
+
+/*=========================================================
+TOOLBAR
+=========================================================*/
+
 .toolbar{
 
-display:flex;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
 
-justify-content:space-between;
+    gap:16px;
 
-gap:16px;
+    margin-bottom:20px;
 
-margin-bottom:20px;
+    width:100%;
 
 }
 
 .toolbar mat-form-field{
 
-flex:1;
+    flex:1;
+
+    min-width:260px;
 
 }
 
 .toolbar-actions{
 
-display:flex;
+    display:flex;
 
-gap:10px;
+    flex-wrap:wrap;
+
+    align-items:center;
+
+    justify-content:flex-end;
+
+    gap:10px;
 
 }
 
+/*=========================================================
+ROLE ITEM
+=========================================================*/
+
 .role-item{
 
-display:flex;
+    display:flex;
 
-justify-content:space-between;
+    justify-content:space-between;
 
-align-items:center;
+    align-items:center;
 
-width:100%;
+    gap:16px;
 
-padding:6px 0;
+    width:100%;
+
+    padding:8px 0;
+
+}
+
+.role-item>div{
+
+    min-width:0;
 
 }
 
 .description{
 
-font-size:12px;
+    font-size:12px;
 
-color:#64748b;
+    color:#64748b;
 
-margin-top:4px;
+    margin-top:4px;
+
+    word-break:break-word;
 
 }
+
+/*=========================================================
+LIST
+=========================================================*/
 
 mat-selection-list{
 
-max-height:500px;
+    max-height:500px;
 
-overflow:auto;
-
-}
-
-@media(max-width:768px){
-
-.hero{
-
-flex-direction:column;
-
-align-items:flex-start;
-
-gap:16px;
+    overflow:auto;
 
 }
 
-.toolbar{
-
-flex-direction:column;
-
-}
-
-.toolbar-actions{
-
-width:100%;
-
-justify-content:flex-end;
-
-}
-
-}
+/*=========================================================
+ROLE TRANSFER
+=========================================================*/
 
 .role-transfer{
 
-display:grid;
+    display:grid;
 
-grid-template-columns:1fr 90px 1fr;
+    grid-template-columns:1fr 90px 1fr;
 
-gap:24px;
+    gap:24px;
 
-align-items:center;
+    align-items:center;
 
-margin-top:20px;
+    margin-top:20px;
 
 }
 
 .role-panel{
 
-height:520px;
+    display:flex;
 
-display:flex;
+    flex-direction:column;
 
-flex-direction:column;
+    height:520px;
+
+    border-radius:16px;
+
+    overflow:hidden;
 
 }
 
 .role-panel mat-selection-list{
 
-flex:1;
+    flex:1;
 
-overflow:auto;
+    overflow:auto;
 
-margin-top:12px;
+    margin-top:12px;
 
 }
 
+/*=========================================================
+TRANSFER BUTTONS
+=========================================================*/
+
 .transfer-buttons{
 
-display:flex;
+    display:flex;
 
-flex-direction:column;
+    flex-direction:column;
 
-justify-content:center;
+    justify-content:center;
 
-align-items:center;
+    align-items:center;
 
-gap:20px;
+    gap:20px;
 
 }
 
 .transfer-buttons button{
 
-width:52px;
+    width:52px;
 
-height:52px;
+    height:52px;
 
-}
-
-@media(max-width:900px){
-
-.role-transfer{
-
-grid-template-columns:1fr;
+    border-radius:12px;
 
 }
 
-.transfer-buttons{
-
-flex-direction:row;
-
-}
-
-.role-panel{
-
-height:320px;
-
-}
-
-}
+/*=========================================================
+STATS
+=========================================================*/
 
 .stats{
 
-display:grid;
+    display:grid;
 
-grid-template-columns:repeat(2,220px);
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
 
-gap:16px;
+    gap:16px;
 
-margin-bottom:20px;
+    margin-bottom:20px;
 
 }
 
 .stats mat-card{
 
-padding:18px;
+    padding:18px;
 
-text-align:center;
+    text-align:center;
 
-border-radius:16px;
+    border-radius:16px;
+
+    transition:.25s;
+
+    box-shadow:0 6px 18px rgba(15,23,42,.06);
+
+}
+
+.stats mat-card:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 12px 28px rgba(15,23,42,.10);
 
 }
 
 .stats h2{
 
-margin:0;
+    margin:0;
 
-font-size:30px;
+    font-size:30px;
 
-color:#2563EB;
+    color:#2563EB;
 
 }
 
 .stats span{
 
-color:#64748B;
+    color:#64748B;
 
-font-size:13px;
+    font-size:13px;
+
+}
+
+/*=========================================================
+LARGE DESKTOP
+=========================================================*/
+
+@media (min-width:1600px){
+
+.hero{
+
+    margin-bottom:32px;
+
+}
+
+.toolbar{
+
+    gap:24px;
+
+}
+
+.role-panel{
+
+    height:600px;
+
+}
+
+.stats{
+
+    gap:20px;
+
+}
+
+.stats h2{
+
+    font-size:34px;
+
+}
+
+}
+
+/*=========================================================
+LAPTOP
+=========================================================*/
+
+@media (max-width:1400px){
+
+.role-panel{
+
+    height:480px;
+
+}
+
+}
+
+/*=========================================================
+TABLET LANDSCAPE
+=========================================================*/
+
+@media (max-width:1200px){
+
+.hero{
+
+    flex-wrap:wrap;
+
+}
+
+.toolbar{
+
+    flex-wrap:wrap;
+
+}
+
+.toolbar mat-form-field{
+
+    min-width:220px;
+
+}
+
+.stats{
+
+    grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+/*=========================================================
+TABLET
+=========================================================*/
+
+@media (max-width:900px){
+
+.role-transfer{
+
+    grid-template-columns:1fr;
+
+    gap:20px;
+
+}
+
+.transfer-buttons{
+
+    flex-direction:row;
+
+}
+
+.transfer-buttons button{
+
+    width:48px;
+
+    height:48px;
+
+}
+
+.role-panel{
+
+    height:340px;
+
+}
+
+}
+
+/*=========================================================
+TABLET PORTRAIT
+=========================================================*/
+
+@media (max-width:768px){
+
+.hero{
+
+    flex-direction:column;
+
+    align-items:flex-start;
+
+    gap:18px;
+
+}
+
+.toolbar{
+
+    flex-direction:column;
+
+}
+
+.toolbar mat-form-field{
+
+    width:100%;
+
+    min-width:100%;
+
+}
+
+.toolbar-actions{
+
+    width:100%;
+
+    justify-content:flex-start;
+
+}
+
+.toolbar-actions button{
+
+    flex:1;
+
+    min-width:140px;
+
+}
+
+.stats{
+
+    grid-template-columns:1fr;
+
+}
+
+.stats h2{
+
+    font-size:28px;
+
+}
+
+.role-item{
+
+    align-items:flex-start;
+
+}
+
+}
+
+/*=========================================================
+MOBILE
+=========================================================*/
+
+@media (max-width:576px){
+
+.toolbar-actions{
+
+    display:grid;
+
+    grid-template-columns:1fr;
+
+    width:100%;
+
+}
+
+.toolbar-actions button{
+
+    width:100%;
+
+}
+
+.transfer-buttons{
+
+    width:100%;
+
+    justify-content:center;
+
+    flex-wrap:wrap;
+
+}
+
+.transfer-buttons button{
+
+    flex:1;
+
+    max-width:60px;
+
+}
+
+.role-panel{
+
+    height:300px;
+
+}
+
+.stats mat-card{
+
+    padding:16px;
+
+}
+
+.stats h2{
+
+    font-size:24px;
+
+}
+
+}
+
+/*=========================================================
+SMALL MOBILE
+=========================================================*/
+
+@media (max-width:480px){
+
+.hero{
+
+    gap:14px;
+
+}
+
+.toolbar{
+
+    gap:14px;
+
+}
+
+.role-panel{
+
+    height:260px;
+
+}
+
+.stats{
+
+    gap:12px;
+
+}
+
+.stats mat-card{
+
+    padding:14px;
+
+}
+
+.stats h2{
+
+    font-size:22px;
+
+}
+
+.stats span{
+
+    font-size:12px;
+
+}
+
+.description{
+
+    font-size:11px;
+
+}
+
+}
+
+/*=========================================================
+320px DEVICES
+=========================================================*/
+
+@media (max-width:360px){
+
+.transfer-buttons button{
+
+    width:42px;
+
+    height:42px;
+
+}
+
+.role-panel{
+
+    height:230px;
+
+}
+
+.stats h2{
+
+    font-size:20px;
+
+}
+
+.stats span{
+
+    font-size:11px;
+
+}
+
+.description{
+
+    font-size:10px;
+
+}
 
 }

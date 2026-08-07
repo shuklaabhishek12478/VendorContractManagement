@@ -1,0 +1,274 @@
+:host{
+    display:block;
+    width:100%;
+    box-sizing:border-box;
+}
+
+/* ==========================================================
+Page
+========================================================== */
+
+.space-y-6{
+    display:flex;
+    flex-direction:column;
+    gap:24px;
+    width:100%;
+}
+
+/* ==========================================================
+Header
+========================================================== */
+
+.space-y-6 > .flex:first-child{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:20px;
+    width:100%;
+    flex-wrap:wrap;
+}
+
+.space-y-6 h1{
+    margin:0;
+    line-height:1.2;
+}
+
+.space-y-6 p{
+    margin-top:6px;
+}
+
+/* ==========================================================
+Search + Filter
+========================================================== */
+
+.space-y-6 > .flex.items-center.gap-3.mb-4{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    width:100%;
+    flex-wrap:wrap;
+}
+
+.space-y-6 input[type="text"]{
+    flex:1;
+    min-width:260px;
+    box-sizing:border-box;
+}
+
+.space-y-6 select{
+    width:180px;
+    min-width:160px;
+    height:46px;
+    box-sizing:border-box;
+}
+
+/* ==========================================================
+Grid Container
+========================================================== */
+
+.rounded-2xl{
+    width:100%;
+    overflow:hidden;
+    box-sizing:border-box;
+}
+
+/* ==========================================================
+AG Grid
+========================================================== */
+
+.ag-theme-quartz{
+    width:100%;
+    height:100%;
+}
+
+/* ==========================================================
+Pagination
+========================================================== */
+
+.rounded-2xl > .flex.items-center.justify-between.mt-4{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:18px;
+    padding:16px;
+    flex-wrap:wrap;
+}
+
+.rounded-2xl > .flex.items-center.justify-between.mt-4 > div:first-child{
+    color:#64748b;
+    font-size:14px;
+}
+
+.rounded-2xl > .flex.items-center.justify-between.mt-4 > div:last-child{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    flex-wrap:wrap;
+}
+
+.rounded-2xl select{
+    min-width:90px;
+    height:38px;
+}
+
+/* ==========================================================
+Large Desktop
+========================================================== */
+
+@media (min-width:1600px){
+
+.space-y-6 h1{
+    font-size:36px;
+}
+
+}
+
+/* ==========================================================
+Laptop
+========================================================== */
+
+@media (max-width:1200px){
+
+.space-y-6 > .flex:first-child{
+    gap:18px;
+}
+
+}
+
+/* ==========================================================
+Tablet
+========================================================== */
+
+@media (max-width:992px){
+
+.space-y-6 > .flex:first-child{
+    flex-direction:column;
+    align-items:flex-start;
+}
+
+.space-y-6 > .flex.items-center.gap-3.mb-4{
+    flex-direction:column;
+    align-items:stretch;
+}
+
+.space-y-6 input[type="text"]{
+    width:100%;
+    min-width:100%;
+}
+
+.space-y-6 select{
+    width:100%;
+}
+
+.rounded-2xl > .flex.items-center.justify-between.mt-4{
+    flex-direction:column;
+    align-items:flex-start;
+}
+
+.rounded-2xl > .flex.items-center.justify-between.mt-4 > div:last-child{
+    width:100%;
+}
+
+}
+
+/* ==========================================================
+Mobile
+========================================================== */
+
+@media (max-width:768px){
+
+.space-y-6{
+    gap:20px;
+}
+
+.space-y-6 h1{
+    font-size:28px;
+}
+
+.rounded-2xl{
+    height:600px;
+}
+
+@media (max-width:768px){
+
+    .rounded-2xl{
+        height:450px;
+    }
+
+}
+
+@media (max-width:576px){
+
+    .rounded-2xl{
+        height:400px;
+    }
+
+}
+
+.rounded-2xl > .flex.items-center.justify-between.mt-4{
+    padding:14px;
+}
+
+.rounded-2xl > .flex.items-center.justify-between.mt-4 > div:last-child{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+    width:100%;
+}
+
+.rounded-2xl button,
+.rounded-2xl select{
+    width:100%;
+}
+
+}
+
+/* ==========================================================
+Small Mobile
+========================================================== */
+
+@media (max-width:576px){
+
+.space-y-6 h1{
+    font-size:24px;
+}
+
+.rounded-2xl > .flex.items-center.justify-between.mt-4 > div:last-child{
+    grid-template-columns:1fr;
+}
+
+.rounded-2xl > .flex.items-center.justify-between.mt-4 > div:first-child{
+    width:100%;
+    text-align:center;
+}
+
+}
+
+/* ==========================================================
+320px Devices
+========================================================== */
+
+@media (max-width:360px){
+
+.space-y-6 h1{
+    font-size:22px;
+}
+
+.space-y-6 p{
+    font-size:13px;
+}
+
+.rounded-2xl > .flex.items-center.justify-between.mt-4{
+    padding:12px;
+}
+
+.rounded-2xl button{
+    min-height:40px;
+    font-size:13px;
+}
+
+.rounded-2xl select{
+    font-size:13px;
+}
+
+}

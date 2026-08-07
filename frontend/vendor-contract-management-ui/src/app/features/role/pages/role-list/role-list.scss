@@ -1,0 +1,544 @@
+:host{
+    display:block;
+    width:100%;
+    min-height:100%;
+    background:#f8fafc;
+    box-sizing:border-box;
+}
+
+*,
+*::before,
+*::after{
+    box-sizing:border-box;
+}
+
+/*==========================================================
+Page Container
+==========================================================*/
+
+.page-container{
+
+    display:flex;
+    flex-direction:column;
+
+    gap:24px;
+
+    padding:24px;
+
+    width:100%;
+
+}
+
+/*==========================================================
+Header
+==========================================================*/
+
+.page-header app-role-toolbar{
+    width:100%;
+    display:block;
+}
+
+.page-heading{
+
+    flex:1;
+
+    min-width:250px;
+
+}
+
+.page-title{
+
+    margin:0;
+
+    font-size:30px;
+
+    font-weight:700;
+
+    color:#0f172a;
+
+    line-height:1.2;
+
+}
+
+.page-subtitle{
+
+    margin-top:8px;
+
+    font-size:15px;
+
+    color:#64748b;
+
+}
+
+/*==========================================================
+Statistics
+==========================================================*/
+
+.stats-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(5,1fr);
+
+    gap:20px;
+
+}
+
+.stats-grid mat-card{
+
+    border-radius:18px;
+
+    border:1px solid #e2e8f0;
+
+    box-shadow:0 6px 20px rgba(15,23,42,.05);
+
+    transition:.25s;
+
+}
+
+.stats-grid mat-card:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:0 18px 30px rgba(15,23,42,.08);
+
+}
+
+.stats-grid mat-card-content{
+
+    padding:22px !important;
+
+}
+
+/*==========================================================
+Filters
+==========================================================*/
+
+/*=========================================
+Statistics
+=========================================*/
+
+.stats-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+    gap:20px;
+    width:100%;
+}
+
+.stats-grid mat-card{
+    min-height:130px;
+    border-radius:18px;
+    border:1px solid #e2e8f0;
+    box-shadow:0 8px 20px rgba(15,23,42,.05);
+    transition:.25s;
+}
+
+.stats-grid mat-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 16px 28px rgba(15,23,42,.10);
+}
+
+.stats-grid mat-card-content{
+    height:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    padding:24px !important;
+}
+
+.stats-grid .text-sm{
+    font-size:15px;
+}
+
+.stats-grid .text-3xl{
+    font-size:40px;
+    font-weight:700;
+    margin-top:12px;
+}
+.filter-section{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    gap:20px;
+
+    flex-wrap:wrap;
+
+}
+
+.search-field{
+
+    flex:1;
+
+    min-width:320px;
+
+}
+
+.status-field{
+
+    width:220px;
+
+}
+
+@media (max-width:1200px){
+
+    .stats-grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+}
+
+@media (max-width:992px){
+
+    .stats-grid{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media (max-width:576px){
+
+    .stats-grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+/*==========================================================
+Grid Card
+==========================================================*/
+
+.grid-card{
+
+    border-radius:20px;
+
+    border:1px solid #e2e8f0;
+
+    overflow:hidden;
+
+    box-shadow:0 8px 20px rgba(15,23,42,.05);
+
+}
+
+.grid-card mat-card-content{
+
+    padding:0 !important;
+
+}
+
+/*==========================================================
+AG GRID
+==========================================================*/
+
+.ag-theme-alpine{
+
+    width:100%;
+
+    --ag-font-family:Inter,Roboto,sans-serif;
+
+    --ag-font-size:13px;
+
+    --ag-header-height:54px;
+
+    --ag-row-height:50px;
+
+    --ag-border-color:#e2e8f0;
+
+    --ag-header-background-color:#f8fafc;
+
+    --ag-selected-row-background-color:#dbeafe;
+
+    --ag-odd-row-background-color:#fcfcfd;
+
+}
+
+::ng-deep .ag-root-wrapper{
+
+    border:none !important;
+
+}
+
+::ng-deep .ag-header{
+
+    border-bottom:1px solid #e2e8f0;
+
+}
+
+::ng-deep .ag-header-cell-label{
+
+    font-weight:700;
+
+    color:#334155;
+
+}
+
+::ng-deep .ag-row{
+
+    transition:.2s;
+
+}
+
+::ng-deep .ag-row:hover{
+
+    background:#f8fafc !important;
+
+}
+
+::ng-deep .ag-row-selected{
+
+    background:#dbeafe !important;
+
+}
+
+/*==========================================================
+Large Desktop
+==========================================================*/
+
+@media(min-width:1600px){
+
+.page-container{
+
+padding:32px;
+
+}
+
+.page-title{
+
+font-size:34px;
+
+}
+
+.stats-grid{
+
+gap:24px;
+
+}
+
+}
+
+/*==========================================================
+Desktop
+==========================================================*/
+
+@media(max-width:1400px){
+
+.page-container{
+
+padding:20px;
+
+}
+
+.page-title{
+
+font-size:28px;
+
+}
+
+.stats-grid{
+
+grid-template-columns:repeat(4,1fr);
+
+}
+
+}
+
+/*==========================================================
+Laptop
+==========================================================*/
+
+@media(max-width:1200px){
+
+.stats-grid{
+
+grid-template-columns:repeat(3,1fr);
+
+}
+
+.search-field{
+
+min-width:250px;
+
+}
+
+}
+
+/*==========================================================
+Tablet
+==========================================================*/
+
+@media(max-width:992px){
+
+.page-header{
+
+flex-direction:column;
+
+align-items:stretch;
+
+}
+
+.page-heading{
+
+width:100%;
+
+}
+
+app-role-toolbar{
+
+width:100%;
+
+}
+
+.filter-section{
+
+flex-direction:column;
+
+align-items:stretch;
+
+}
+
+.search-field{
+
+width:100%;
+
+min-width:100%;
+
+}
+
+.status-field{
+
+width:100%;
+
+}
+
+.stats-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+}
+
+/*==========================================================
+Mobile
+==========================================================*/
+
+@media(max-width:768px){
+
+.page-container{
+
+padding:16px;
+
+gap:18px;
+
+}
+
+.page-title{
+
+font-size:24px;
+
+}
+
+.page-subtitle{
+
+font-size:14px;
+
+}
+
+.stats-grid{
+
+grid-template-columns:1fr;
+
+}
+
+.ag-theme-alpine{
+
+height:500px !important;
+
+}
+
+}
+
+/*==========================================================
+Small Mobile
+==========================================================*/
+
+@media(max-width:480px){
+
+.page-container{
+
+padding:12px;
+
+}
+
+.page-title{
+
+font-size:20px;
+
+}
+
+.page-subtitle{
+
+font-size:13px;
+
+}
+
+.stats-grid{
+
+gap:14px;
+
+}
+
+.stats-grid mat-card-content{
+
+padding:18px !important;
+
+}
+
+.ag-theme-alpine{
+
+height:450px !important;
+
+}
+
+}
+
+/*==========================================================
+320px Devices
+==========================================================*/
+
+@media(max-width:360px){
+
+.page-container{
+
+padding:10px;
+
+}
+
+.page-title{
+
+font-size:18px;
+
+}
+
+.page-subtitle{
+
+font-size:12px;
+
+}
+
+.stats-grid mat-card-content{
+
+padding:16px !important;
+
+}
+
+.ag-theme-alpine{
+
+height:400px !important;
+
+}
+
+}

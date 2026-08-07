@@ -1,119 +1,133 @@
 /* ==========================================================
-   Page
+   HOST
 ========================================================== */
 
-.approval-page {
+:host{
+    display:block;
+    width:100%;
+    min-height:100%;
+    background:#f5f7fb;
+    box-sizing:border-box;
+}
 
-    display: flex;
+/* ==========================================================
+   PAGE
+========================================================== */
 
-    flex-direction: column;
+.approval-page{
 
-    gap: 24px;
+    display:flex;
+    flex-direction:column;
 
-    padding: 24px;
+    gap:24px;
 
-    background: #f5f7fb;
+    width:100%;
 
-    min-height: 100%;
+    padding:24px;
+
+    box-sizing:border-box;
 
 }
 
 /* ==========================================================
-   Header
+   HEADER
 ========================================================== */
 
-.page-header {
+.page-header{
 
-    display: flex;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
 
-    justify-content: space-between;
+    gap:20px;
 
-    align-items: center;
-
-    flex-wrap: wrap;
-
-    gap: 16px;
+    flex-wrap:wrap;
 
 }
 
-.page-title {
+.page-title{
 
-    margin: 0;
+    margin:0;
 
-    font-size: 30px;
+    font-size:30px;
+    font-weight:700;
 
-    font-weight: 700;
+    color:#1f2937;
 
-    color: #1f2937;
+    line-height:1.2;
 
 }
 
-.page-subtitle {
+.page-subtitle{
 
-    margin-top: 6px;
+    margin-top:8px;
 
-    color: #6b7280;
+    color:#6b7280;
 
-    font-size: 14px;
+    font-size:14px;
+
+    max-width:900px;
 
 }
 
 /* ==========================================================
-   Statistics
+   STATS
 ========================================================== */
 
-.stats-grid {
+.stats-grid{
 
-    display: grid;
+    display:grid;
 
-    grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
 
-    gap: 20px;
+    gap:20px;
 
-}
-
-.stat-card {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 18px;
-
-    padding: 22px;
-
-    border-radius: 14px;
-
-    box-shadow: 0 6px 18px rgba(0,0,0,.06);
+    width:100%;
 
 }
 
-.stat-icon {
+.stat-card{
 
-    width: 62px;
+    display:flex;
 
-    height: 62px;
+    align-items:center;
 
-    border-radius: 14px;
+    gap:18px;
 
-    background: #1976d2;
+    padding:22px;
 
-    color: white;
+    border-radius:16px;
 
-    display: flex;
+    background:#fff;
 
-    align-items: center;
+    box-shadow:
+        0 6px 18px rgba(0,0,0,.06);
 
-    justify-content: center;
+}
+
+.stat-icon{
+
+    width:62px;
+    height:62px;
+
+    border-radius:14px;
+
+    background:#1976d2;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    color:#fff;
+
+    flex-shrink:0;
 
 }
 
 .stat-icon mat-icon{
 
     font-size:30px;
-
     width:30px;
-
     height:30px;
 
 }
@@ -121,7 +135,6 @@
 .stat-content{
 
     display:flex;
-
     flex-direction:column;
 
 }
@@ -129,9 +142,7 @@
 .stat-value{
 
     font-size:32px;
-
     font-weight:700;
-
     line-height:1;
 
 }
@@ -140,19 +151,21 @@
 
     margin-top:6px;
 
-    color:#6b7280;
+    color:#64748b;
+
+    font-size:14px;
 
 }
 
 /* ==========================================================
-   Grid
+   GRID
 ========================================================== */
 
 .grid-card{
 
-    padding:20px;
+    border-radius:16px;
 
-    border-radius:14px;
+    padding:20px;
 
     overflow:hidden;
 
@@ -166,9 +179,9 @@
 
     align-items:center;
 
-    flex-wrap:wrap;
+    gap:18px;
 
-    gap:16px;
+    flex-wrap:wrap;
 
     margin-bottom:18px;
 
@@ -191,12 +204,14 @@
 }
 
 /* ==========================================================
-   AG Grid
+   AG GRID
 ========================================================== */
 
 .ag-theme-quartz{
 
     width:100%;
+
+    height:650px;
 
     border-radius:12px;
 
@@ -205,7 +220,7 @@
 }
 
 /* ==========================================================
-   Empty / Loading
+   EMPTY
 ========================================================== */
 
 .empty-card{
@@ -218,7 +233,7 @@
 
     justify-content:center;
 
-    padding:60px 20px;
+    padding:70px 20px;
 
     text-align:center;
 
@@ -226,11 +241,11 @@
 
 .empty-card mat-icon{
 
+    font-size:64px;
+
     width:64px;
 
     height:64px;
-
-    font-size:64px;
 
     color:#9ca3af;
 
@@ -252,12 +267,12 @@
 
     margin-top:8px;
 
-    color:#6b7280;
+    color:#64748b;
 
 }
 
 /* ==========================================================
-   Material
+   MATERIAL
 ========================================================== */
 
 ::ng-deep .mat-mdc-form-field-subscript-wrapper{
@@ -268,92 +283,304 @@
 
 ::ng-deep .mat-mdc-card{
 
-    border-radius:14px;
+    border-radius:16px;
 
 }
 
 /* ==========================================================
-   Responsive
+   4K
 ========================================================== */
 
-@media (max-width:992px){
+@media(min-width:1800px){
 
-    .page-title{
+.approval-page{
 
-        font-size:26px;
-
-    }
-
-    .grid-header{
-
-        flex-direction:column;
-
-        align-items:stretch;
-
-    }
-
-    .search-box{
-
-        width:100%;
-
-    }
+padding:40px;
 
 }
 
-@media (max-width:768px){
+.page-title{
 
-    .approval-page{
-
-        padding:16px;
-
-    }
-
-    .page-title{
-
-        font-size:22px;
-
-    }
-
-    .page-subtitle{
-
-        font-size:13px;
-
-    }
-
-    .stat-card{
-
-        padding:18px;
-
-    }
-
-    .stat-value{
-
-        font-size:26px;
-
-    }
-
-    .grid-card{
-
-        padding:14px;
-
-    }
+font-size:38px;
 
 }
 
-@media (max-width:480px){
+.stats-grid{
 
-    .stat-card{
+grid-template-columns:repeat(4,1fr);
 
-        flex-direction:column;
+gap:28px;
 
-        text-align:center;
+}
 
-    }
+.stat-card{
 
-    .stat-icon{
+padding:28px;
 
-        margin-bottom:8px;
+}
 
-    }
+.stat-value{
+
+font-size:40px;
+
+}
+
+.ag-theme-quartz{
+
+height:800px;
+
+}
+
+}
+
+/* ==========================================================
+   Laptop
+========================================================== */
+
+@media(max-width:1400px){
+
+.page-title{
+
+font-size:28px;
+
+}
+
+.ag-theme-quartz{
+
+height:600px;
+
+}
+
+}
+
+/* ==========================================================
+   Tablet Landscape
+========================================================== */
+
+@media(max-width:1200px){
+
+.stats-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+.grid-header{
+
+flex-direction:column;
+
+align-items:stretch;
+
+}
+
+.search-box{
+
+width:100%;
+
+}
+
+}
+
+/* ==========================================================
+   Tablet
+========================================================== */
+
+@media(max-width:992px){
+
+.approval-page{
+
+padding:20px;
+
+}
+
+.page-header{
+
+flex-direction:column;
+
+align-items:flex-start;
+
+}
+
+.page-title{
+
+font-size:26px;
+
+}
+
+.stats-grid{
+
+grid-template-columns:repeat(2,1fr);
+
+}
+
+.stat-card{
+
+padding:18px;
+
+}
+
+.ag-theme-quartz{
+
+height:550px;
+
+}
+
+}
+
+/* ==========================================================
+   Mobile
+========================================================== */
+
+@media(max-width:768px){
+
+.approval-page{
+
+padding:16px;
+
+gap:18px;
+
+}
+
+.page-title{
+
+font-size:22px;
+
+}
+
+.page-subtitle{
+
+font-size:13px;
+
+}
+
+.stats-grid{
+
+grid-template-columns:1fr;
+
+gap:16px;
+
+}
+
+.stat-card{
+
+padding:18px;
+
+}
+
+.stat-value{
+
+font-size:26px;
+
+}
+
+.grid-card{
+
+padding:14px;
+
+}
+
+.search-box{
+
+width:100%;
+
+}
+
+.ag-theme-quartz{
+
+height:500px;
+
+}
+
+}
+
+/* ==========================================================
+   Small Mobile
+========================================================== */
+
+@media(max-width:480px){
+
+.approval-page{
+
+padding:12px;
+
+}
+
+.page-title{
+
+font-size:20px;
+
+}
+
+.page-subtitle{
+
+font-size:12px;
+
+}
+
+.stat-card{
+
+flex-direction:column;
+
+text-align:center;
+
+padding:18px;
+
+}
+
+.stat-icon{
+
+margin-bottom:10px;
+
+}
+
+.stat-value{
+
+font-size:24px;
+
+}
+
+.grid-card{
+
+padding:10px;
+
+}
+
+.ag-theme-quartz{
+
+height:430px;
+
+}
+
+}
+
+/* ==========================================================
+   320px
+========================================================== */
+
+@media(max-width:360px){
+
+.page-title{
+
+font-size:18px;
+
+}
+
+.stat-value{
+
+font-size:22px;
+
+}
+
+.stat-label{
+
+font-size:12px;
+
+}
+
+.ag-theme-quartz{
+
+height:380px;
+
+}
 
 }

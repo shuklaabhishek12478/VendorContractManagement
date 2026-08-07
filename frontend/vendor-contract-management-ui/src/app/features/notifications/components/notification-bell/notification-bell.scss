@@ -1,75 +1,373 @@
 :host{
-  display:block;
-  position:relative;
+    display:block;
+    position:relative;
+    width:fit-content;
+    box-sizing:border-box;
 }
 
 .relative{
-  position:relative;
+    position:relative;
 }
+
+/*====================================
+Bell Button
+====================================*/
 
 .bell-button{
-  position:relative;
-  width:44px;
-  height:44px;
-  border:none;
-  border-radius:50%;
-  background:white;
-  cursor:pointer;
+
+    position:relative;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    width:44px;
+    height:44px;
+
+    border:none;
+    border-radius:50%;
+
+    background:#fff;
+
+    cursor:pointer;
+
+    flex-shrink:0;
+
+    transition:.25s ease;
 }
 
+.bell-button:hover{
+
+    background:#f8fafc;
+
+    transform:translateY(-1px);
+
+}
+
+.bell-button:active{
+
+    transform:scale(.96);
+
+}
+
+/*====================================
+Badge
+====================================*/
+
 .badge{
-  position:absolute;
-  top:-5px;
-  right:-5px;
-  min-width:20px;
-  height:20px;
-  border-radius:999px;
-  background:#ef4444;
-  color:#fff;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  font-size:11px;
-  font-weight:700;
+
+    position:absolute;
+
+    top:-5px;
+    right:-5px;
+
+    min-width:20px;
+    height:20px;
+
+    padding:0 5px;
+
+    border-radius:999px;
+
+    background:#ef4444;
+
+    color:#fff;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    font-size:11px;
+    font-weight:700;
+
+    line-height:1;
+
+    white-space:nowrap;
+
+}
+
+/*====================================
+Notification Panel
+====================================*/
+
+.notification-panel{
+
+    position:absolute;
+
+    top:56px;
+
+    right:0;
+
+    width:420px;
+
+    max-width:calc(100vw - 32px);
+
+    max-height:75vh;
+
+    overflow:auto;
+
+    border-radius:18px;
+
+    z-index:9999;
+
+    animation:fade .18s ease;
+
+    box-sizing:border-box;
+
+}
+
+/*====================================
+Scrollbar
+====================================*/
+
+.notification-panel::-webkit-scrollbar{
+
+    width:6px;
+
+}
+
+.notification-panel::-webkit-scrollbar-thumb{
+
+    background:#cbd5e1;
+
+    border-radius:999px;
+
+}
+
+.notification-panel::-webkit-scrollbar-track{
+
+    background:transparent;
+
 }
 
 .notification-panel{
 
-  position:absolute;
+    scrollbar-width:thin;
 
-  top:55px;
-
-  right:0;
-
-  width:420px;
-
-  z-index:9999;
-
-  animation:fade .18s ease;
+    scrollbar-color:#cbd5e1 transparent;
 
 }
+
+/*====================================
+Animation
+====================================*/
 
 @keyframes fade{
 
 from{
+
 opacity:0;
+
 transform:translateY(-8px);
+
 }
 
 to{
+
 opacity:1;
+
 transform:translateY(0);
+
 }
 
 }
+
+/*====================================
+4K
+====================================*/
+
+@media(min-width:1800px){
+
+.notification-panel{
+
+width:460px;
+
+}
+
+}
+
+/*====================================
+Desktop
+====================================*/
+
+@media(max-width:1400px){
+
+.notification-panel{
+
+width:420px;
+
+}
+
+}
+
+/*====================================
+Laptop
+====================================*/
+
+@media(max-width:1200px){
+
+.notification-panel{
+
+width:390px;
+
+}
+
+}
+
+/*====================================
+Tablet Landscape
+====================================*/
+
+@media(max-width:992px){
+
+.notification-panel{
+
+width:360px;
+
+max-width:calc(100vw - 24px);
+
+}
+
+}
+
+/*====================================
+Tablet Portrait
+====================================*/
 
 @media(max-width:768px){
 
 .notification-panel{
 
-right:-15px;
+right:0;
 
-width:calc(100vw - 30px);
+width:340px;
+
+max-width:calc(100vw - 20px);
+
+top:54px;
+
+max-height:70vh;
+
+}
+
+.bell-button{
+
+width:42px;
+
+height:42px;
+
+}
+
+}
+
+/*====================================
+Mobile
+====================================*/
+
+@media(max-width:576px){
+
+:host{
+
+position:static;
+
+}
+
+.notification-panel{
+
+position:fixed;
+
+top:72px;
+
+left:12px;
+
+right:12px;
+
+width:auto;
+
+max-width:none;
+
+max-height:75vh;
+
+border-radius:16px;
+
+}
+
+.bell-button{
+
+width:40px;
+
+height:40px;
+
+}
+
+.badge{
+
+min-width:18px;
+
+height:18px;
+
+font-size:10px;
+
+top:-4px;
+
+right:-4px;
+
+}
+
+}
+
+/*====================================
+320px Devices
+====================================*/
+
+@media(max-width:360px){
+
+.notification-panel{
+
+top:68px;
+
+left:8px;
+
+right:8px;
+
+border-radius:14px;
+
+}
+
+.bell-button{
+
+width:38px;
+
+height:38px;
+
+}
+
+.badge{
+
+min-width:16px;
+
+height:16px;
+
+font-size:9px;
+
+}
+
+}
+
+/*====================================
+Reduced Motion
+====================================*/
+
+@media(prefers-reduced-motion:reduce){
+
+.notification-panel{
+
+animation:none;
+
+}
+
+.bell-button{
+
+transition:none;
 
 }
 
