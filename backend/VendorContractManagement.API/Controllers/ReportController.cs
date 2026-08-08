@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VendorContractManagement.API.Authorization;
 using VendorContractManagement.Application.DTOs.Reports;
 using VendorContractManagement.Application.Services.Interfaces;
 
@@ -12,14 +13,14 @@ public class ReportController : ControllerBase
 {
     private readonly IReportService _service;
 
-    public ReportController(
-        IReportService service)
+    public ReportController(IReportService service)
     {
         _service = service;
     }
 
+   
     [HttpGet("dashboard")]
-    [Authorize(Policy = "Report.View")]
+    [PermissionAuthorize("Report.View")]
     public async Task<IActionResult> Dashboard(
         [FromQuery] ReportFilterDto filter)
     {
@@ -30,7 +31,7 @@ public class ReportController : ControllerBase
     }
 
     [HttpGet("contracts")]
-    [Authorize(Policy = "Report.View")]
+    [PermissionAuthorize("Report.View")]
     public async Task<IActionResult> Contracts(
         [FromQuery] ReportFilterDto filter)
     {
@@ -41,7 +42,7 @@ public class ReportController : ControllerBase
     }
 
     [HttpGet("expenditures")]
-    [Authorize(Policy = "Report.View")]
+    [PermissionAuthorize("Report.View")]
     public async Task<IActionResult> Expenditures(
         [FromQuery] ReportFilterDto filter)
     {
@@ -51,8 +52,54 @@ public class ReportController : ControllerBase
         return Ok(result);
     }
 
+    [HttpGet("vendors")]
+    [PermissionAuthorize("Report.View")]
+    public async Task<IActionResult> Vendors(
+        [FromQuery] ReportFilterDto filter)
+    {
+        var result =
+            await _service.GetVendorsAsync(filter);
+
+        return Ok(result);
+    }
+
+    [HttpGet("departments")]
+    [PermissionAuthorize("Report.View")]
+    public async Task<IActionResult> Departments(
+        [FromQuery] ReportFilterDto filter)
+    {
+        var result =
+            await _service.GetDepartmentsAsync(filter);
+
+        return Ok(result);
+    }
+
+    [HttpGet("categories")]
+    [PermissionAuthorize("Report.View")]
+    public async Task<IActionResult> Categories(
+        [FromQuery] ReportFilterDto filter)
+    {
+        var result =
+            await _service.GetCategoriesAsync(filter);
+
+        return Ok(result);
+    }
+
+    [HttpGet("monthly")]
+    [PermissionAuthorize("Report.View")]
+    public async Task<IActionResult> Monthly(
+        [FromQuery] ReportFilterDto filter)
+    {
+        var result =
+            await _service.GetMonthlyAsync(filter);
+
+        return Ok(result);
+    }
+
+
+   
     [HttpGet("export/contracts/excel")]
-    [Authorize(Policy = "Report.Export")]
+    [PermissionAuthorize("Report.Export")]
     public async Task<IActionResult> ExportContracts(
         [FromQuery] ReportFilterDto filter)
     {
@@ -66,7 +113,7 @@ public class ReportController : ControllerBase
     }
 
     [HttpGet("export/expenditures/excel")]
-    [Authorize(Policy = "Report.Export")]
+    [PermissionAuthorize("Report.Export")]
     public async Task<IActionResult> ExportExpenditures(
         [FromQuery] ReportFilterDto filter)
     {
@@ -79,21 +126,10 @@ public class ReportController : ControllerBase
             $"Expenditures_{DateTime.Now:yyyyMMddHHmmss}.xlsx");
     }
 
-    [HttpGet("vendors")]
-    [Authorize(Policy = "Report.View")]
-    public async Task<IActionResult> Vendors(
-    [FromQuery] ReportFilterDto filter)
-    {
-        var result =
-            await _service.GetVendorsAsync(filter);
-
-        return Ok(result);
-    }
-
     [HttpGet("export/vendors/excel")]
-    [Authorize(Policy = "Report.Export")]
+    [PermissionAuthorize("Report.Export")]
     public async Task<IActionResult> ExportVendors(
-    [FromQuery] ReportFilterDto filter)
+        [FromQuery] ReportFilterDto filter)
     {
         var file =
             await _service.ExportVendorExcelAsync(filter);
@@ -104,21 +140,10 @@ public class ReportController : ControllerBase
             $"VendorReport_{DateTime.Now:yyyyMMddHHmmss}.xlsx");
     }
 
-    [HttpGet("departments")]
-    [Authorize(Policy = "Report.View")]
-    public async Task<IActionResult> Departments(
-    [FromQuery] ReportFilterDto filter)
-    {
-        var result =
-            await _service.GetDepartmentsAsync(filter);
-
-        return Ok(result);
-    }
-
     [HttpGet("export/departments/excel")]
-    [Authorize(Policy = "Report.Export")]
+    [PermissionAuthorize("Report.Export")]
     public async Task<IActionResult> ExportDepartments(
-    [FromQuery] ReportFilterDto filter)
+        [FromQuery] ReportFilterDto filter)
     {
         var file =
             await _service.ExportDepartmentExcelAsync(filter);
@@ -129,21 +154,10 @@ public class ReportController : ControllerBase
             $"DepartmentReport_{DateTime.Now:yyyyMMddHHmmss}.xlsx");
     }
 
-    [HttpGet("categories")]
-    [Authorize(Policy = "Report.View")]
-    public async Task<IActionResult> Categories(
-    [FromQuery] ReportFilterDto filter)
-    {
-        var result =
-            await _service.GetCategoriesAsync(filter);
-
-        return Ok(result);
-    }
-
     [HttpGet("export/categories/excel")]
-    [Authorize(Policy = "Report.Export")]
+    [PermissionAuthorize("Report.Export")]
     public async Task<IActionResult> ExportCategories(
-    [FromQuery] ReportFilterDto filter)
+        [FromQuery] ReportFilterDto filter)
     {
         var file =
             await _service.ExportCategoryExcelAsync(filter);
@@ -154,21 +168,10 @@ public class ReportController : ControllerBase
             $"CategoryReport_{DateTime.Now:yyyyMMddHHmmss}.xlsx");
     }
 
-    [HttpGet("monthly")]
-    [Authorize(Policy = "Report.View")]
-    public async Task<IActionResult> Monthly(
-    [FromQuery] ReportFilterDto filter)
-    {
-        var result =
-            await _service.GetMonthlyAsync(filter);
-
-        return Ok(result);
-    }
-
     [HttpGet("export/monthly/excel")]
-    [Authorize(Policy = "Report.Export")]
+    [PermissionAuthorize("Report.Export")]
     public async Task<IActionResult> ExportMonthly(
-    [FromQuery] ReportFilterDto filter)
+        [FromQuery] ReportFilterDto filter)
     {
         var file =
             await _service.ExportMonthlyExcelAsync(filter);
@@ -178,6 +181,4 @@ public class ReportController : ControllerBase
             "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             $"MonthlyReport_{DateTime.Now:yyyyMMddHHmmss}.xlsx");
     }
-
-
 }

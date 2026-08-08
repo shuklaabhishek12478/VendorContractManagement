@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
+using VendorContractManagement.API.Authorization;
 using VendorContractManagement.Application.DTOs;
 using VendorContractManagement.Application.Services.Interfaces;
 
 namespace VendorContractManagement.API.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize]
     [EnableRateLimiting("fixed")]
     [ApiController]
     [Route("api/[controller]")]
@@ -20,7 +21,7 @@ namespace VendorContractManagement.API.Controllers
         }
 
 
-        [Authorize(Roles = "Admin,Manager,Viewer")]
+        [PermissionAuthorize("Vendor.View")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -30,7 +31,7 @@ namespace VendorContractManagement.API.Controllers
         }
 
 
-        [Authorize(Roles = "Admin,Manager,Viewer")]
+        [PermissionAuthorize("Vendor.ViewDetails")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -43,7 +44,7 @@ namespace VendorContractManagement.API.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")]
+        [PermissionAuthorize("Vendor.Create")]
         [HttpPost]
         public async Task<IActionResult> Create(CreateVendorDto dto)
         {
@@ -56,7 +57,7 @@ namespace VendorContractManagement.API.Controllers
         }
 
 
-        [Authorize(Roles = "Admin,Manager")]
+        [PermissionAuthorize("Vendor.Edit")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(
              int id, UpdateVendorDto dto)
@@ -67,7 +68,7 @@ namespace VendorContractManagement.API.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")]
+        [PermissionAuthorize("Vendor.Delete")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -78,7 +79,7 @@ namespace VendorContractManagement.API.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")]
+        [PermissionAuthorize("Vendor.Activate")]
         [HttpPut("{id}/activate")]
         public async Task<IActionResult> Activate(int id)
         {
@@ -88,7 +89,7 @@ namespace VendorContractManagement.API.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")]
+        [PermissionAuthorize("Vendor.Deactivate")]
         [HttpPut("{id}/deactivate")]
         public async Task<IActionResult> Deactivate(int id)
         {
@@ -97,7 +98,7 @@ namespace VendorContractManagement.API.Controllers
             return NoContent();
         }
 
-
+        [PermissionAuthorize("Vendor.View")]
         [HttpGet("paged")]
         public async Task<IActionResult>GetPaged([FromQuery]VendorQueryParams query)
         {
@@ -108,7 +109,7 @@ namespace VendorContractManagement.API.Controllers
             return Ok(result);
         }
 
-
+        [PermissionAuthorize("Vendor.ViewDetails")]
         [HttpGet("{id}/contracts")]
         public async Task<IActionResult>GetContracts(int id)
         {
@@ -119,6 +120,7 @@ namespace VendorContractManagement.API.Controllers
             return Ok(result);
         }
 
+        [PermissionAuthorize("Vendor.Documents")]
         [HttpGet("{id}/documents")]
         public async Task<IActionResult> GetDocuments(int id)
         {

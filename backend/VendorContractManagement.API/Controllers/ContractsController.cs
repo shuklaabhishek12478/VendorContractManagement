@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
+using VendorContractManagement.API.Authorization;
 using VendorContractManagement.Application.DTOs;
 using VendorContractManagement.Application.Services.Interfaces;
 
 namespace VendorContractManagement.API.Controllers
 {
+    [Authorize]
     [EnableRateLimiting("fixed")]
     [ApiController]
     [Route("api/[controller]")]
@@ -18,7 +20,7 @@ namespace VendorContractManagement.API.Controllers
             _contractService = contractService;
         }
 
-        [Authorize(Roles = "Admin,Manager,Viewer")]
+        [PermissionAuthorize("Contract.View")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -27,7 +29,7 @@ namespace VendorContractManagement.API.Controllers
             return Ok(contracts);
         }
 
-        [Authorize(Roles = "Admin,Manager,Viewer")]
+        [PermissionAuthorize("Contract.ViewDetails")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -39,7 +41,7 @@ namespace VendorContractManagement.API.Controllers
             return Ok(contract);
         }
 
-        [Authorize(Roles = "Admin,Manager")]
+        [PermissionAuthorize("Contract.Create")]
         [HttpPost]
         public async Task<IActionResult> Create(CreateContractDto dto)
         {
@@ -48,7 +50,7 @@ namespace VendorContractManagement.API.Controllers
             return NoContent();
         }
 
-        [Authorize(Roles = "Admin,Manager")]
+        [PermissionAuthorize("Contract.Edit")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(
           int id,
@@ -59,7 +61,7 @@ namespace VendorContractManagement.API.Controllers
             return NoContent();
         }
 
-        [Authorize(Roles = "Admin")]
+        [PermissionAuthorize("Contract.Edit")]
         [HttpPost("{id}/archive")]
         public async Task<IActionResult> Archive(int id)
         {
@@ -68,7 +70,7 @@ namespace VendorContractManagement.API.Controllers
             return NoContent();
         }
 
-        [Authorize(Roles = "Admin")]
+        [PermissionAuthorize("Contract.Delete")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -77,7 +79,7 @@ namespace VendorContractManagement.API.Controllers
             return NoContent();
         }
 
-        [Authorize(Roles = "Admin,Manager,Vendor")]
+        [PermissionAuthorize("Contract.View")]
         [HttpGet("expiring-soon")]
         public async Task<IActionResult> GetExpiringSoon(int days = 30)
         {
@@ -85,7 +87,7 @@ namespace VendorContractManagement.API.Controllers
                 await _contractService.GetExpiringSoonAsync(days));
         }
 
-        [Authorize(Roles = "Admin,Manager,Vendor")]
+        [PermissionAuthorize("Contract.View")]
         [HttpGet("expired")]
         public async Task<IActionResult> GetExpired()
         {
@@ -93,7 +95,7 @@ namespace VendorContractManagement.API.Controllers
                 await _contractService.GetExpiredAsync());
         }
 
-        [Authorize(Roles = "Admin,Manager,Vendor")]
+        [PermissionAuthorize("Contract.View")]
         [HttpGet("active")]
         public async Task<IActionResult> GetActive()
         {
@@ -101,7 +103,7 @@ namespace VendorContractManagement.API.Controllers
                 await _contractService.GetActiveAsync());
         }
 
-        [Authorize(Roles = "Admin,Manager")]
+        [PermissionAuthorize("Contract.Activate")]
         [HttpPost("{id}/activate")]
         public async Task<IActionResult> Activate(int id)
         {
@@ -110,6 +112,7 @@ namespace VendorContractManagement.API.Controllers
             return NoContent();
         }
 
+        [PermissionAuthorize("Contract.Activate")]
         [HttpPost("expire")]
         public async Task<IActionResult> Expire()
         {
@@ -119,7 +122,7 @@ namespace VendorContractManagement.API.Controllers
         }
 
 
-        [Authorize(Roles = "Admin,Manager")]
+        [PermissionAuthorize("Contract.Activate")]
         [HttpPost("{id}/submit")]
         public async Task<IActionResult>Submit(int id)
         {
@@ -130,7 +133,7 @@ namespace VendorContractManagement.API.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")]
+        [PermissionAuthorize("Contract.Approve")]
         [HttpPost("{id}/approve")]
         public async Task<IActionResult>Approve(int id)
         {
@@ -141,7 +144,7 @@ namespace VendorContractManagement.API.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")]
+        [PermissionAuthorize("Contract.Reject")]
         [HttpPost("{id}/reject")]
         public async Task<IActionResult>Reject(
         int id,
@@ -156,7 +159,7 @@ namespace VendorContractManagement.API.Controllers
         }
 
 
-        [Authorize(Roles = "Admin,Manager,Viewer")]
+        [PermissionAuthorize("Contract.View")]
         [HttpGet("paged")]
         public async Task<IActionResult> GetPaged([FromQuery] ContractQueryParams query)
         {
@@ -167,6 +170,7 @@ namespace VendorContractManagement.API.Controllers
             return Ok(result);
         }
 
+        [PermissionAuthorize("Contract.Submit")]
         [HttpPost("{id}/submit-again")]
         public async Task<IActionResult> SubmitAgain(int id)
         {
@@ -175,7 +179,7 @@ namespace VendorContractManagement.API.Controllers
             return NoContent();
         }
 
-        [Authorize(Roles = "Admin,Manager")]
+        [PermissionAuthorize("Contract.Renew")]
         [HttpPost("{id}/renew")]
         public async Task<IActionResult> Renew(int id,RenewContractDto dto)
         {
@@ -185,7 +189,7 @@ namespace VendorContractManagement.API.Controllers
             return NoContent();
         }
 
-        [Authorize(Roles = "Admin,Manager")]
+        [PermissionAuthorize("Contract.RenewHistory")]
         [HttpGet("{id}/renewals")]
         public async Task<IActionResult> GetRenewals(int id)
         {
@@ -195,7 +199,7 @@ namespace VendorContractManagement.API.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")]
+        [PermissionAuthorize("Contract.RenewApprove")]
         [HttpPost("{id}/approve-renewal")]
         public async Task<IActionResult> ApproveRenewal(int id)
         {
@@ -206,7 +210,7 @@ namespace VendorContractManagement.API.Controllers
         }
 
 
-        [Authorize(Roles = "Admin")]
+        [PermissionAuthorize("Contract.Activate")]
         [HttpPost("{id}/activate-renewal")]
         public async Task<IActionResult>ActivateRenewal(int id)
         {
@@ -216,7 +220,7 @@ namespace VendorContractManagement.API.Controllers
             return NoContent();
         }
 
-        [Authorize(Roles = "Admin")]
+        [PermissionAuthorize("Contract.RenewReject")]
         [HttpPost("{id}/reject-renewal")]
         public async Task<IActionResult> RejectRenewal(int id, RejectContractDto dto)
         {
@@ -228,7 +232,7 @@ namespace VendorContractManagement.API.Controllers
             return NoContent();
         }
 
-        [Authorize(Roles = "Admin")]
+        [PermissionAuthorize("Contract.Terminate")]
         [HttpPost("{id}/terminate")]
         public async Task<IActionResult> Terminate(int id,TerminateContractDto dto)
         {
@@ -239,7 +243,7 @@ namespace VendorContractManagement.API.Controllers
         }
 
 
-        [Authorize(Roles = "Admin,Manager,Viewer")]
+        [PermissionAuthorize("Report.View")]
         [HttpGet("report")]
         public async Task<IActionResult> GetReport([FromQuery] ContractReportFilterDto filter)
         {
@@ -251,7 +255,7 @@ namespace VendorContractManagement.API.Controllers
         }
 
 
-        [Authorize(Roles = "Admin,Manager")]
+        [PermissionAuthorize("Contract.Export")]
         [HttpGet("export")]
         public async Task<IActionResult> Export([FromQuery] ContractReportFilterDto filter)
         {

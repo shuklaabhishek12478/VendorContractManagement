@@ -134,6 +134,14 @@ public static class UserPermissions
                 Code = "User.Export",
                 Module = "User",
                 Description = "Export users"
+            },
+
+            new()
+            {
+                Name = "Import Users",
+                Code = "User.Import",
+                Module = "User",
+                Description = "Import users"
             }
 
 

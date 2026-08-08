@@ -22,6 +22,7 @@ namespace VendorContractManagement.API.Controllers
         }
 
         [HttpGet]
+        [PermissionAuthorize("Role.View")]
         public async Task<IActionResult> GetAll()
         {
             var permissions =

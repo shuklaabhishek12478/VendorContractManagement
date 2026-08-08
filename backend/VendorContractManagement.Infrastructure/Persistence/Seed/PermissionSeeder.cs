@@ -17,6 +17,10 @@ public static class PermissionSeeder
         permissions.AddRange(ReportPermissions.Get());
         permissions.AddRange(NotificationPermissions.Get());
         permissions.AddRange(UserApprovalPermissions.Get());
+        permissions.AddRange(AuditLogPermissions.Get());
+        permissions.AddRange(DashboardPermissions.Get());
+        permissions.AddRange(RecentActivityPermissions.Get());
+        permissions.AddRange(AnalyticsPermissions.Get());
         return permissions;
     }
 }

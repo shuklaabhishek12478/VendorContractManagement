@@ -1,30 +1,36 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VendorContractManagement.API.Authorization;
 using VendorContractManagement.Application.Services.Interfaces;
 
 namespace VendorContractManagement.API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class DashboardController : ControllerBase
     {
         private readonly IDashboardService _dashboardService;
 
-        public DashboardController(IDashboardService dashboardService)
+        public DashboardController(
+            IDashboardService dashboardService)
         {
             _dashboardService = dashboardService;
         }
-        [Authorize(Roles = "Admin,Manager,Viewer")]
+
+        [PermissionAuthorize("Dashboard.View")]
         [HttpGet]
         public async Task<IActionResult> GetDashboard()
         {
-            var result = await _dashboardService.GetDashboardAsync();
+            var result =
+                await _dashboardService.GetDashboardAsync();
+
             return Ok(result);
         }
 
-        [Authorize(Roles = "Admin,Vendor")]
+        [PermissionAuthorize("Dashboard.Vendor")]
         [HttpGet("vendor")]
-        public async Task<IActionResult>VendorDashboard()
+        public async Task<IActionResult> VendorDashboard()
         {
             var data =
                 await _dashboardService
@@ -33,8 +39,7 @@ namespace VendorContractManagement.API.Controllers
             return Ok(data);
         }
 
-
-        [Authorize(Roles = "Admin,Manager")]
+        [PermissionAuthorize("Dashboard.Analytics")]
         [HttpGet("analytics")]
         public async Task<IActionResult> GetAnalytics()
         {
@@ -43,73 +48,73 @@ namespace VendorContractManagement.API.Controllers
                     .GetAnalyticsAsync());
         }
 
-
+        [PermissionAuthorize("Dashboard.TopVendors")]
         [HttpGet("top-vendors")]
-        public async Task<IActionResult>GetTopVendors(int count = 5)
+        public async Task<IActionResult> GetTopVendors(
+            int count = 5)
         {
             return Ok(
                 await _dashboardService
                     .GetTopVendorsAsync(count));
         }
 
-
+        [PermissionAuthorize("Dashboard.StatusDistribution")]
         [HttpGet("status-distribution")]
-        public async Task<IActionResult>GetStatusDistribution()
+        public async Task<IActionResult> GetStatusDistribution()
         {
             return Ok(
                 await _dashboardService
                     .GetStatusDistributionAsync());
         }
 
-
+        [PermissionAuthorize("Dashboard.MonthlyTrend")]
         [HttpGet("monthly-trend")]
-        public async Task<IActionResult>GetMonthlyTrend()
+        public async Task<IActionResult> GetMonthlyTrend()
         {
             return Ok(
                 await _dashboardService
                     .GetMonthlyContractTrendAsync());
         }
 
-
-
+        [PermissionAuthorize("Dashboard.ContractValueTrend")]
         [HttpGet("contract-value-trend")]
-        public async Task<IActionResult>GetContractValueTrend()
+        public async Task<IActionResult> GetContractValueTrend()
         {
             return Ok(
                 await _dashboardService
                     .GetContractValueTrendAsync());
         }
 
-
+        [PermissionAuthorize("Dashboard.ExpiryAnalytics")]
         [HttpGet("expiry-analytics")]
-        public async Task<IActionResult>GetExpiryAnalytics()
+        public async Task<IActionResult> GetExpiryAnalytics()
         {
             return Ok(
                 await _dashboardService
                     .GetExpiryAnalyticsAsync());
         }
 
-
+        [PermissionAuthorize("Dashboard.Charts")]
         [HttpGet("charts")]
-        public async Task<IActionResult>GetCharts()
+        public async Task<IActionResult> GetCharts()
         {
             return Ok(
                 await _dashboardService
                     .GetChartsAsync());
         }
 
-
+        [PermissionAuthorize("Dashboard.Notifications")]
         [HttpGet("notifications")]
-        public async Task<IActionResult>GetNotifications()
+        public async Task<IActionResult> GetNotifications()
         {
             return Ok(
                 await _dashboardService
                     .GetNotificationsAsync());
         }
 
-
+        [PermissionAuthorize("Dashboard.RecentActivities")]
         [HttpGet("recent-activities")]
-        public async Task<IActionResult>GetRecentActivities()
+        public async Task<IActionResult> GetRecentActivities()
         {
             return Ok(
                 await _dashboardService

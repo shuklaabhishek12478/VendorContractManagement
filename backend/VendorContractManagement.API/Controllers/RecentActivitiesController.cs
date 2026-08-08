@@ -1,31 +1,39 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using VendorContractManagement.Application.Services.Implementations;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using VendorContractManagement.API.Authorization;
 using VendorContractManagement.Application.Services.Interfaces;
 
 namespace VendorContractManagement.API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class RecentActivitiesController : ControllerBase
     {
         private readonly IRecentActivityService _service;
 
-        public RecentActivitiesController(IRecentActivityService service)
+        public RecentActivitiesController(
+            IRecentActivityService service)
         {
             _service = service;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetRecent([FromQuery] int count = 20)
+        [PermissionAuthorize("RecentActivity.View")]
+        public async Task<IActionResult> GetRecent(
+            [FromQuery] int count = 20)
         {
-            var result = await _service.GetRecentAsync(count);
+            var result =
+                await _service.GetRecentAsync(count);
+
             return Ok(result);
         }
 
         [HttpGet("vendor/{vendorId}")]
+        [PermissionAuthorize("RecentActivity.View")]
         public async Task<IActionResult> GetVendorActivities(
-    int vendorId,
-    [FromQuery] int count = 20)
+            int vendorId,
+            [FromQuery] int count = 20)
         {
             var result =
                 await _service.GetByVendorIdAsync(
@@ -36,23 +44,24 @@ namespace VendorContractManagement.API.Controllers
         }
 
         [HttpGet("contract/{contractId}")]
+        [PermissionAuthorize("RecentActivity.View")]
         public async Task<IActionResult> GetContractActivities(
-    int contractId,
-    int count = 20)
+            int contractId,
+            [FromQuery] int count = 20)
         {
-            var result = await _service
-    .GetContractActivitiesAsync(
-        contractId,
-        count);
+            var result =
+                await _service.GetContractActivitiesAsync(
+                    contractId,
+                    count);
 
             return Ok(result);
         }
 
-
         [HttpGet("user/{userId}")]
+        [PermissionAuthorize("RecentActivity.View")]
         public async Task<IActionResult> GetUserActivities(
-    int userId,
-    [FromQuery] int count = 20)
+            int userId,
+            [FromQuery] int count = 20)
         {
             var result =
                 await _service.GetUserActivitiesAsync(

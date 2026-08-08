@@ -284,6 +284,7 @@ public class RoleController : ControllerBase
     }
 
     [HttpGet("{id}/permissions/export/csv")]
+    [PermissionAuthorize("Role.View")]
     public async Task<IActionResult> ExportCsv(int id)
     {
         var file = await _permissionExportService
@@ -299,6 +300,7 @@ public class RoleController : ControllerBase
     }
 
     [HttpGet("{id}/permissions/export/json")]
+    [PermissionAuthorize("Role.View")]
     public async Task<IActionResult> ExportJson(int id)
     {
         var file = await _permissionExportService

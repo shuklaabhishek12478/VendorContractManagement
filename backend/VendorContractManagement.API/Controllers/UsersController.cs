@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VendorContractManagement.API.Authorization;
 using VendorContractManagement.Application.DTOs;
 using VendorContractManagement.Application.DTOs.Users;
 using VendorContractManagement.Application.Services.Interfaces;
 
 namespace VendorContractManagement.API.Controllers
 {
-    [Authorize(Roles = "Super Admin,Admin")]
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UsersController : ControllerBase
@@ -19,6 +20,7 @@ namespace VendorContractManagement.API.Controllers
             _userService = userService;
         }
 
+        [PermissionAuthorize("User.View")]
         [HttpGet("paged")]
         public async Task<IActionResult> GetPaged(
     [FromQuery] UserQueryDto query)
@@ -27,6 +29,7 @@ namespace VendorContractManagement.API.Controllers
                 await _userService.GetPagedAsync(query));
         }
 
+        [PermissionAuthorize("User.View")]
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
@@ -34,7 +37,7 @@ namespace VendorContractManagement.API.Controllers
                 await _userService.GetAllAsync());
         }
 
-
+        [PermissionAuthorize("User.ViewDetails")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -46,6 +49,7 @@ namespace VendorContractManagement.API.Controllers
             return Ok(user);
         }
 
+        [PermissionAuthorize("User.Create")]
         [HttpPost]
         public async Task<IActionResult> Create(
             CreateUserDto dto)
@@ -55,6 +59,7 @@ namespace VendorContractManagement.API.Controllers
             return Ok("User created successfully");
         }
 
+        [PermissionAuthorize("User.Activate")]
         [HttpPut("{id}/activate")]
         public async Task<IActionResult>
             Activate(int id)
@@ -67,6 +72,7 @@ namespace VendorContractManagement.API.Controllers
             });
         }
 
+        [PermissionAuthorize("User.Deactivate")]
         [HttpPut("{id}/deactivate")]
         public async Task<IActionResult>
             Deactivate(int id)
@@ -79,6 +85,7 @@ namespace VendorContractManagement.API.Controllers
             });
         }
 
+        [PermissionAuthorize("User.Edit")]
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(
         int id,
@@ -99,6 +106,7 @@ namespace VendorContractManagement.API.Controllers
             }
         }
 
+        [PermissionAuthorize("User.Delete")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -107,6 +115,7 @@ namespace VendorContractManagement.API.Controllers
             return Ok("User deleted successfully");
         }
 
+        [PermissionAuthorize("User.ResetPassword")]
         [HttpPut("{id}/reset-password")]
         public async Task<IActionResult> ResetPassword(
     int id,
@@ -119,6 +128,7 @@ namespace VendorContractManagement.API.Controllers
             return Ok("Password reset successfully");
         }
 
+        [PermissionAuthorize("User.AssignRole")]
         [HttpPut("{id}/roles")]
         public async Task<IActionResult> AssignRoles(
     int id,
@@ -131,7 +141,7 @@ namespace VendorContractManagement.API.Controllers
             return Ok("Roles assigned successfully");
         }
 
-
+        [PermissionAuthorize("User.Export")]
         [HttpGet("export")]
         public async Task<IActionResult> Export()
         {
@@ -143,7 +153,7 @@ namespace VendorContractManagement.API.Controllers
                 $"Users_{DateTime.Now:yyyyMMddHHmmss}.xlsx");
         }
 
-
+        [PermissionAuthorize("User.Import")]
         [HttpPost("import")]
         public async Task<IActionResult> Import(IFormFile file)
         {

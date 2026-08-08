@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using VendorContractManagement.API.Authorization;
 using VendorContractManagement.Application.DTOs;
 using VendorContractManagement.Application.Interfaces;
 using VendorContractManagement.Application.Services.Interfaces;
@@ -26,11 +27,12 @@ namespace VendorContractManagement.API.Controllers
         /// Dashboard Notifications
         /// </summary>
         [HttpGet]
-        [Authorize(Policy = "Notification.View")]
+        [PermissionAuthorize("Notification.View")]
         public async Task<IActionResult> Get()
         {
             var result =
-                await _notificationService.GetNotificationsAsync();
+                await _notificationService
+                    .GetNotificationsAsync();
 
             return Ok(result);
         }
@@ -39,15 +41,16 @@ namespace VendorContractManagement.API.Controllers
         /// Logged-in User Notifications
         /// </summary>
         [HttpGet("my")]
-        [Authorize(Policy = "Notification.View")]
+        [PermissionAuthorize("Notification.View")]
         public async Task<IActionResult> MyNotifications()
         {
             if (!_userContext.UserId.HasValue)
                 return Unauthorized();
 
             var result =
-                await _notificationService.GetUserNotificationsAsync(
-                    _userContext.UserId.Value);
+                await _notificationService
+                    .GetUserNotificationsAsync(
+                        _userContext.UserId.Value);
 
             return Ok(result);
         }
@@ -56,15 +59,16 @@ namespace VendorContractManagement.API.Controllers
         /// Logged-in User Unread Count
         /// </summary>
         [HttpGet("unread-count")]
-        [Authorize(Policy = "Notification.View")]
+        [PermissionAuthorize("Notification.View")]
         public async Task<IActionResult> UnreadCount()
         {
             if (!_userContext.UserId.HasValue)
                 return Unauthorized();
 
             var count =
-                await _notificationService.GetUnreadCountAsync(
-                    _userContext.UserId.Value);
+                await _notificationService
+                    .GetUnreadCountAsync(
+                        _userContext.UserId.Value);
 
             return Ok(count);
         }
@@ -73,7 +77,7 @@ namespace VendorContractManagement.API.Controllers
         /// Create Notification
         /// </summary>
         [HttpPost]
-        [Authorize(Policy = "Notification.Create")]
+        [PermissionAuthorize("Notification.Create")]
         public async Task<IActionResult> Create(
             CreateNotificationDto dto)
         {
@@ -89,7 +93,7 @@ namespace VendorContractManagement.API.Controllers
         /// Mark Notification As Read
         /// </summary>
         [HttpPut("read/{id}")]
-        [Authorize(Policy = "Notification.Update")]
+        [PermissionAuthorize("Notification.Update")]
         public async Task<IActionResult> MarkAsRead(int id)
         {
             await _notificationService.MarkAsReadAsync(id);
@@ -104,7 +108,7 @@ namespace VendorContractManagement.API.Controllers
         /// Mark All Notifications As Read
         /// </summary>
         [HttpPut("read-all")]
-        [Authorize(Policy = "Notification.Update")]
+        [PermissionAuthorize("Notification.Update")]
         public async Task<IActionResult> MarkAllAsRead()
         {
             if (!_userContext.UserId.HasValue)
@@ -119,9 +123,8 @@ namespace VendorContractManagement.API.Controllers
             });
         }
 
-       
         [HttpDelete("{id}")]
-        [Authorize(Policy = "Notification.Delete")]
+        [PermissionAuthorize("Notification.Delete")]
         public async Task<IActionResult> Delete(int id)
         {
             await _notificationService.DeleteAsync(id);
@@ -132,9 +135,8 @@ namespace VendorContractManagement.API.Controllers
             });
         }
 
-        
         [HttpDelete("clear-all")]
-        [Authorize(Policy = "Notification.Delete")]
+        [PermissionAuthorize("Notification.Delete")]
         public async Task<IActionResult> ClearAll()
         {
             if (!_userContext.UserId.HasValue)

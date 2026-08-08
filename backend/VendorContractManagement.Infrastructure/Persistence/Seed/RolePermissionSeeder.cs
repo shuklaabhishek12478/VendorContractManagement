@@ -63,6 +63,7 @@ public static class RolePermissionSeeder
                         x.Code == "Vendor.Import" ||
                         x.Code == "Vendor.Documents" ||
                         x.Code == "Vendor.Dashboard" ||
+                        x.Code == "RecentActivity.View"||
 
                         // -------------------------
                         // Contract
@@ -93,13 +94,20 @@ public static class RolePermissionSeeder
                         x.Code == "Report.View" ||
                         x.Code == "Report.Export" ||
 
+                        // Analytics
+                        x.Code == "Analytics.ContractTrend" ||
+                        x.Code == "Analytics.VendorTrend" ||
+                        x.Code == "Analytics.ContractStatus" ||
+
                         // -------------------------
                         // Notifications
                         // -------------------------
 
                         x.Code == "Notification.View" ||
-                        x.Code == "Notification.Update"
+                        x.Code == "Notification.Update" ||
 
+                        // Recent Activities
+                        x.Code == "RecentActivity.View"
                     );
 
                     break;
@@ -135,10 +143,17 @@ public static class RolePermissionSeeder
                         x.Code == "Report.View" ||
                         x.Code == "Report.Export" ||
 
+                        // Analytics
+                        x.Code == "Analytics.ContractTrend" ||
+                        x.Code == "Analytics.VendorTrend" ||
+                        x.Code == "Analytics.ContractStatus" ||
+
                         // Notifications
                         x.Code == "Notification.View" ||
-                        x.Code == "Notification.Update"
+                        x.Code == "Notification.Update" ||
 
+                        // Recent Activities
+                        x.Code == "RecentActivity.View"
                     );
 
                     break;
@@ -178,9 +193,17 @@ public static class RolePermissionSeeder
                         x.Code == "Report.View" ||
                         x.Code == "Report.Export" ||
 
+                        // Analytics
+                        x.Code == "Analytics.ContractTrend" ||
+                        x.Code == "Analytics.VendorTrend" ||
+                        x.Code == "Analytics.ContractStatus" ||
+
                         // Notifications
                         x.Code == "Notification.View" ||
-                        x.Code == "Notification.Update"
+                        x.Code == "Notification.Update" ||
+
+                        // Recent Activities
+                        x.Code == "RecentActivity.View"
 
                     );
 
@@ -218,7 +241,10 @@ public static class RolePermissionSeeder
 
                         // Notifications
                         x.Code == "Notification.View" ||
-                        x.Code == "Notification.Update"
+                        x.Code == "Notification.Update" ||
+
+                        // Recent Activities
+                        x.Code == "RecentActivity.View"
 
                     );
 
@@ -250,7 +276,10 @@ public static class RolePermissionSeeder
 
                         // Notifications
                         x.Code == "Notification.View" ||
-                        x.Code == "Notification.Update"
+                        x.Code == "Notification.Update" ||
+
+                        // Recent Activities
+                        x.Code == "RecentActivity.View"
 
                     );
 
@@ -283,7 +312,10 @@ public static class RolePermissionSeeder
 
                         // Notifications
                         x.Code == "Notification.View" ||
-                        x.Code == "Notification.Update"
+                        x.Code == "Notification.Update" ||
+
+                        // Recent Activities
+                        x.Code == "RecentActivity.View"
 
                     );
 
@@ -312,9 +344,17 @@ public static class RolePermissionSeeder
                         // Reports
                         x.Code == "Report.View" ||
 
+                        // Analytics
+                        x.Code == "Analytics.ContractTrend" ||
+                        x.Code == "Analytics.VendorTrend" ||
+                        x.Code == "Analytics.ContractStatus" ||
+
                         // Notifications
                         x.Code == "Notification.View" ||
-                        x.Code == "Notification.Update"
+                        x.Code == "Notification.Update" ||
+
+                        // Recent Activities
+                        x.Code == "RecentActivity.View"
 
                     );
 
@@ -341,6 +381,11 @@ public static class RolePermissionSeeder
                         x.Code == "Contract.Dashboard" ||
                         x.Code == "Expenditure.Dashboard" ||
 
+                        // Analytics
+                        x.Code == "Analytics.ContractTrend" ||
+                        x.Code == "Analytics.VendorTrend" ||
+                        x.Code == "Analytics.ContractStatus" ||
+
                         // Notifications
                         x.Code == "Notification.View" ||
                         x.Code == "Notification.Update"
@@ -362,8 +407,12 @@ public static class RolePermissionSeeder
 
                         x.Code.EndsWith(".ViewDetails") ||
 
-                        x.Code == "Notification.View"
+                        x.Code == "Notification.View" ||
 
+                        // Analytics
+                        x.Code == "Analytics.ContractTrend" ||
+                        x.Code == "Analytics.VendorTrend" ||
+                        x.Code == "Analytics.ContractStatus" 
                     );
 
                     break;

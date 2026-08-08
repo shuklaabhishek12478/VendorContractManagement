@@ -19,6 +19,7 @@ namespace VendorContractManagement.API.Controllers
             _authService = authService;
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register(RegisterDto dto)
         {
@@ -30,6 +31,7 @@ namespace VendorContractManagement.API.Controllers
             });
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)
         {
@@ -39,6 +41,7 @@ namespace VendorContractManagement.API.Controllers
             return Ok(result);
         }
 
+        [AllowAnonymous]
         [HttpPost("refresh-token")]
         public async Task<IActionResult> RefreshToken(RefreshTokenDto dto)
         {
@@ -48,7 +51,7 @@ namespace VendorContractManagement.API.Controllers
             return Ok(result);
         }
 
-
+        [AllowAnonymous]
         [HttpPost("logout")]
         public async Task<IActionResult> Logout(LogoutDto dto)
         {
@@ -61,8 +64,8 @@ namespace VendorContractManagement.API.Controllers
             });
         }
 
+        [AllowAnonymous]
         [HttpPost("forgot-password")]
-        
         public async Task<IActionResult> ForgotPassword(
     ForgotPasswordDto dto)
         {
@@ -74,8 +77,8 @@ namespace VendorContractManagement.API.Controllers
             });
         }
 
+        [AllowAnonymous]
         [HttpPost("reset-password")]
-     
         public async Task<IActionResult> ResetPassword(
     ResetPasswordRequestDto dto)
         {

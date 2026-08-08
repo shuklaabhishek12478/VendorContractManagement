@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.RateLimiting;
+using VendorContractManagement.API.Authorization;
 using VendorContractManagement.Application.DTOs;
 using VendorContractManagement.Application.Services.Interfaces;
 
 namespace VendorContractManagement.API.Controllers
 {
-    [Authorize(Roles = "Admin,Manager,Vendor,Viewer")]
+    [Authorize]
     [EnableRateLimiting("fixed")]
     [ApiController]
     [Route("api/[controller]")]
@@ -19,13 +20,14 @@ namespace VendorContractManagement.API.Controllers
             _documentService = documentService;
         }
 
+        [PermissionAuthorize("Contract.ViewDetails")]
         [HttpGet("contract/{contractId}")]
         public async Task<IActionResult> GetByContractId(int contractId)
         {
             return Ok(await _documentService.GetByContractIdAsync(contractId));
         }
 
-        [Authorize(Roles = "Admin,Manager")]
+        [PermissionAuthorize("Contract.Edit")]
         [HttpPost("upload")]
         [Consumes("multipart/form-data")]
         public async Task<IActionResult> Upload([FromForm] DocumentUploadRequest request)
@@ -47,7 +49,7 @@ namespace VendorContractManagement.API.Controllers
             return Ok(result);
         }
 
-        [Authorize]
+        [PermissionAuthorize("Contract.ViewDetails")]
         [HttpGet("download/{id}")]
         public async Task<IActionResult> Download(int id)
         {
@@ -63,7 +65,7 @@ namespace VendorContractManagement.API.Controllers
 );
         }
 
-        [Authorize(Roles = "Admin")]
+        [PermissionAuthorize("Contract.Delete")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -75,7 +77,7 @@ namespace VendorContractManagement.API.Controllers
             return Ok("Deleted successfully");
         }
 
-        [Authorize]
+        [PermissionAuthorize("Contract.ViewDetails")]
         [HttpGet("preview/{id}")]
         public async Task<IActionResult> Preview(int id)
         {
