@@ -75,7 +75,10 @@ export class UserService {
 
     return this.http.put(
       `${this.apiUrl}/${id}`,
-      model
+      model,
+      {
+      responseType:'text'
+    }
     );
 
   }
@@ -108,17 +111,20 @@ export class UserService {
 
  
 
-  assignRoles(
-    id: number,
-    roleIds: number[]
-  ) {
+ assignRoles(
+  id: number,
+  roleIds: number[]
+) {
 
-    return this.http.put(
-      `${this.apiUrl}/${id}/roles`,
-      roleIds
-    );
+  return this.http.put(
+    `${this.apiUrl}/${id}/roles`,
+    roleIds,
+    {
+      responseType: 'text'
+    }
+  );
 
-  }
+}
 
   create(model: any) {
 
@@ -196,6 +202,9 @@ resetPassword(
     `${this.apiUrl}/${id}/reset-password`,
     {
       newPassword: password
+    },
+    {
+      responseType: 'text'
     }
   );
 

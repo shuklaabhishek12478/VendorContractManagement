@@ -5,6 +5,7 @@
     <div class="toolbar-right">
 
         <button
+          *ngIf="canRefresh"
             mat-stroked-button
             color="primary"
             (click)="refresh.emit()">
@@ -20,6 +21,7 @@
         </button>
 
         <button
+        *ngIf="canExport"
     mat-raised-button
     color="primary"
     (click)="export.emit()">
@@ -30,6 +32,7 @@
 
 </button>
 
+<ng-container *ngIf="canImport">
 <input
     #fileInput
     type="file"
@@ -47,8 +50,9 @@
     Import
 
 </button>
-
+</ng-container>
         <button
+            *ngIf="canEdit"
             mat-stroked-button
             color="primary"
             [disabled]="selectedUserId===0"
@@ -65,6 +69,7 @@
         </button>
 
         <button
+        *ngIf="canAdd"
             mat-raised-button
             color="primary"
             routerLink="/users/add">

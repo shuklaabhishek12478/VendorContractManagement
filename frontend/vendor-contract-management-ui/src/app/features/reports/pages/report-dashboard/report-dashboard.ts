@@ -23,6 +23,7 @@ import { saveAs } from 'file-saver';
 import { MatIconModule } from '@angular/material/icon';
 import { ReportExportService } from '../../../../core/services/report-export.service';
 import { MatCardModule } from '@angular/material/card';
+import { PermissionService } from '../../../../core/services/permission';
 
 export type ReportExportType =
     | 'contracts'
@@ -60,11 +61,9 @@ export type ReportExportType =
 export class ReportDashboardComponent
 implements OnInit {
 
-    //=========================================================
-    // Services
-    //=========================================================
-
-
+   
+private readonly permissionService =
+  inject(PermissionService);
 
     private readonly reportService =
         inject(ReportService);
@@ -87,9 +86,9 @@ implements OnInit {
 
     loading = false;
     exportLoading = false;
-
+    canExport = false;
     dashboard: ReportDashboard | null = null;
-
+    exportingType: ReportExportType | null = null;
     filter: ReportFilter = {};
 
     //=========================================================
@@ -109,10 +108,22 @@ implements OnInit {
     //=========================================================
 
     ngOnInit(): void {
+           this.canExport =
+        this.permissionService.hasPermission(
+            'Report.Export'
+        );
 
         this.loadDashboard();
 
     }
+
+    canExportReports(): boolean {
+
+  return this.permissionService.hasPermission(
+    'Report.Export'
+  );
+
+}
 
     //=========================================================
     // Load Dashboard

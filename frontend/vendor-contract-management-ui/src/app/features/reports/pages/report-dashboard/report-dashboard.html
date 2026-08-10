@@ -8,6 +8,8 @@
 
         [loading]="loading"
 
+        [showExport]="canExport"
+
         (filterChanged)="applyFilter($event)"
 
         (refresh)="refresh()"
@@ -16,7 +18,7 @@
 
     </app-report-toolbar>
 
-    <div class="export-actions">
+    <div class="export-actions" *ngIf="canExport">
 
     <button mat-flat-button color="primary"
         [disabled]="loading || exportLoading"

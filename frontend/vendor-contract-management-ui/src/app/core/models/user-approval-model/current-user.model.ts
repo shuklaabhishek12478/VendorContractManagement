@@ -8,6 +8,10 @@ export interface CurrentUser {
 
   role: string;
 
+  roles?: string[];
+
   vendorId: number | null;
+
+  permissions: string[];
 
 }

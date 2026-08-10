@@ -20,13 +20,12 @@ import { VendorService } from '../../../../core/services/vendor.service';
 import { MatTableModule } from '@angular/material/table';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { MatMenuModule } from '@angular/material/menu';
-
+import { HasPermissionDirective } from '../../../../core/directives/has-permission.directive';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FileSizePipe } from '../../../../shared/pipes/file-size-pipe';
 import { HttpEvent, HttpEventType } from '@angular/common/http';
@@ -41,7 +40,7 @@ import { DocumentPreviewDialogComponent } from '../../../../shared/components/do
   standalone: true,
   imports: [
     CommonModule,
-
+HasPermissionDirective,
 MatCardModule,
 FormsModule,
 MatButtonModule,

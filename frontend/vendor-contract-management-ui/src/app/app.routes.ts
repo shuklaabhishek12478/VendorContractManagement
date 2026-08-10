@@ -30,6 +30,7 @@ import { NotificationPageComponent } from './features/notifications/pages/notifi
 import { RegisterComponent } from './features/auth/pages/register/register';
 import { ForgotPasswordComponent } from './features/auth/pages/forgot-password/forgot-password';
 import { ForgotPasswordResetComponent } from './features/auth/pages/forgot-password-reset/forgot-password-reset';
+import { permissionGuard } from './core/guards/permission.guard';
 
 export const routes: Routes = [
 
@@ -54,130 +55,229 @@ export const routes: Routes = [
   {
     path: '',
     component: DashboardLayout,
-    canActivate: [authGuard],
+    canActivate: [authGuard, permissionGuard],
     children: [
       {
         path: 'dashboard',
-        component: DashboardComponent
+        component: DashboardComponent,
+      
+        data: {
+  permission: 'Dashboard.View'
+}
       },
       {
   path: 'notifications',
-  component: NotificationPageComponent
+  component: NotificationPageComponent,
+   canActivate: [
+          permissionGuard
+        ],
+
+        data: {
+          permission: 'Notification.View'
+        }
 },
       {
         path: 'vendors',
-        component: VendorListComponent
+        component: VendorListComponent,
+        canActivate: [
+          permissionGuard
+        ],
+
+        data: {
+          permission: 'Vendor.View'
+        }
       },   
       {
         path: 'vendors/add',
-        component: AddVendorComponent
+        component: AddVendorComponent,
+         canActivate: [
+          permissionGuard
+        ],
+
+        data: {
+          permission: 'Vendor.Create'
+        }
       },   
       {
         path:'vendors/edit/:id',
         component:EditVendorComponent,
-        canDeactivate:[
-         pendingChangesGuard
-        ]
+        canActivate: [
+          permissionGuard
+        ],
+
+        canDeactivate: [
+          pendingChangesGuard
+        ],
+
+        data: {
+          permission: 'Vendor.Edit'
+        }
 
       },
       {
         path: 'vendors/:id',
-        component: VendorDetailsComponent
+        component: VendorDetailsComponent,
+        canActivate: [
+          permissionGuard
+        ],
+        data: {
+          permission: 'Vendor.ViewDetails'
+        }
       },
       {
   path: 'contracts',
-  component: ContractListComponent
+  component: ContractListComponent,
+  canActivate: [
+          permissionGuard
+        ],
+        data: {
+          permission: 'Contract.View'
+        }
 },
 
 {
   path: 'contracts/add',
-  component: AddContractComponent
+  component: AddContractComponent,
+  canActivate: [
+          permissionGuard
+        ],
+        data: {
+          permission: 'Contract.Create'
+        }
  
 },
 
 {
   path: 'contracts/edit/:id',
   component: EditContractComponent,
-  canDeactivate:[
-         pendingChangesGuard
-        ]
+  canActivate: [
+          permissionGuard
+        ],
+        canDeactivate: [
+          pendingChangesGuard
+        ],
+        data: {
+          permission: 'Contract.Edit'
+        }
 },
 
 {
   path: 'contracts/:id',
-  component: ContractDetailsComponent
+  component: ContractDetailsComponent,
+  canActivate: [
+          permissionGuard
+        ],
+        data: {
+          permission: 'Contract.ViewDetails'
+        }
+  
 },
 {
   path: 'roles',
-  component: RoleListComponent
+  component: RoleListComponent,
+  canActivate: [permissionGuard],
+  data: {
+    permission: 'Role.View'
+  }
 },
 {
   path: 'roles/add',
-  component: AddRoleComponent
+  component: AddRoleComponent,
+  canActivate: [permissionGuard],
+  data: {
+    permission: 'Role.Create'
+  }
 },
 {
   path: 'roles/edit/:id',
   component: EditRoleComponent,
-   canDeactivate: [pendingChangesGuard]
+    canActivate: [permissionGuard],
+  canDeactivate: [pendingChangesGuard],
+  data: {
+    permission: 'Role.Edit'
+  }
 },
 {
   path: 'roles/:id',
-  component: RoleDetailsComponent
+  component: RoleDetailsComponent,
+  canActivate: [permissionGuard],
+  data: {
+    permission: 'Role.View'
+  }
 },
 {
     path: 'roles/clone/:id',
-    component: CloneRoleComponent
+    component: CloneRoleComponent,
+     canActivate: [permissionGuard],
+  data: {
+    permission: 'Role.Clone'
+  }
 },
 {
   path: 'roles/:id/permission-matrix',
   component: PermissionMatrixComponent,
-  canActivate: [authGuard]
+  canActivate: [authGuard, permissionGuard],
+  data: {
+    permission: 'Role.PermissionMatrix'
+  }
 },
 {
     path: 'roles/:id/permission-matrix/export',
     component: PermissionExportComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard, permissionGuard],
+     data: {
+    permission: 'Role.PermissionMatrix'
+  }
 },
 {
     path: 'roles/:id/permission-matrix/import',
     component: PermissionImportComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard, permissionGuard],
+    data: {
+    permission: 'Role.PermissionMatrix'
+  }
 },
 {
   path: 'expenditures',
+
+  canActivate: [
+    authGuard,
+    permissionGuard
+  ],
+
+  data: {
+    permission: 'Expenditure.View'
+  },
+
   loadChildren: () =>
     import('./features/expenditures/expenditure.routes')
       .then(m => m.expenditureRoutes)
 },
 {
   path: 'reports',
+  canActivate: [authGuard, permissionGuard],
+  data: {
+    permission: 'Report.View'
+  },
   loadChildren: () =>
     import('./features/reports/reports-routes')
       .then(m => m.reportRoutes)
 },
+
 {
     path: 'users',
+    canActivate: [
+          permissionGuard
+        ],
+        data: {
+          permission: 'User.View'
+        },
     loadChildren: () =>
         import('./features/admin/users/users.routes')
             .then(m => m.USER_ROUTES)
 },
 
-{
-  path: 'users/:id',
-  component: UserDetailsComponent
-},
-{
-  path: 'users/edit/:id',
-  component: EditUserComponent
-},
-{
-    path: 'users/:id/roles',
-    component: AssignRolesComponent
-},
-{
-    path:'users/reset-password/:id',
-    component:ResetPasswordComponent
-},
+
 {
     path: 'user-approval',
     loadChildren: () =>

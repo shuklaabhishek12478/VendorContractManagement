@@ -3,11 +3,12 @@
     <div class="toolbar-left">
 
         <button
+            *ngIf="canView"
             mat-raised-button
             color="primary"
             (click)="view.emit()"
             [disabled]="!selectedUser">
-
+       
             <mat-icon>
 
                 visibility
@@ -19,6 +20,7 @@
         </button>
 
         <button
+            *ngIf="canApprove"
             mat-raised-button
             color="primary"
             (click)="approve.emit()"
@@ -35,6 +37,7 @@
         </button>
 
         <button
+            *ngIf="canReject"
             mat-raised-button
             color="warn"
             (click)="reject.emit()"

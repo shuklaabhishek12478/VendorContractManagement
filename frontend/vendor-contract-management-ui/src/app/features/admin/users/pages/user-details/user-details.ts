@@ -18,6 +18,7 @@ import { UserGeneralInfoComponent } from '../../components/user-general-info/use
 import { UserRoleCardComponent } from '../../components/user-role-card/user-role-card';
 import { UserSecurityCardComponent } from '../../components/user-security-card/user-security-card';
 import { UserRecentActivityComponent } from '../../components/user-recent-activity/user-recent-activity';
+import { PermissionService } from '../../../../../core/services/permission';
 
 @Component({
   selector: 'app-user-details',
@@ -54,8 +55,65 @@ export class UserDetailsComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private snackBar: MatSnackBar,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private permissionService: PermissionService
   ) {}
+
+  get canViewUserDetails(): boolean {
+
+  return this.permissionService.hasPermission(
+    'User.ViewDetails'
+  );
+
+}
+
+get canEditUser(): boolean {
+
+  return this.permissionService.hasPermission(
+    'User.Edit'
+  );
+
+}
+
+get canActivateUser(): boolean {
+
+  return this.permissionService.hasPermission(
+    'User.Activate'
+  );
+
+}
+
+get canDeactivateUser(): boolean {
+
+  return this.permissionService.hasPermission(
+    'User.Deactivate'
+  );
+
+}
+
+get canDeleteUser(): boolean {
+
+  return this.permissionService.hasPermission(
+    'User.Delete'
+  );
+
+}
+
+get canResetPassword(): boolean {
+
+  return this.permissionService.hasPermission(
+    'User.ResetPassword'
+  );
+
+}
+
+get canAssignRoles(): boolean {
+
+  return this.permissionService.hasPermission(
+    'User.AssignRoles'
+  );
+
+}
 
   ngOnInit(): void {
 
@@ -186,38 +244,18 @@ deactivate(): void {
 
 }
 
+
+
 resetPassword(): void {
 
   if (!this.user)
     return;
 
-  const password =
-    prompt('Enter new password');
+  this.router.navigate([
+    '/users/reset-password',
+    this.user.id
+  ]);
 
-  if (!password)
-    return;
-
-  this.userService
-    .resetPassword(
-      this.user.id,
-      password
-    )
-    .subscribe({
-
-      next: () => {
-
-        this.snackBar.open(
-          'Password reset successfully.',
-          'Close',
-          {
-            duration: 3000
-          });
-
-      }
-      
-
-    });
-this.cdr.detectChanges();
 }
 
 deleteUser(): void {

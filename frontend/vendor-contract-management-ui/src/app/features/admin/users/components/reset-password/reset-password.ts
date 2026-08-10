@@ -150,6 +150,8 @@ strengthText = 'Weak';
 
         next:()=>{
 
+          this.saving = false;
+
           this.snackBar.open(
 
             'Password reset successfully.',
@@ -172,11 +174,24 @@ strengthText = 'Weak';
 
         },
 
-        error:()=>{
+        error: (err) => {
 
-          this.saving=false;
+        console.error(
+          'Reset password failed:',
+          err
+        );
 
-        }
+        this.saving = false;
+
+        this.snackBar.open(
+          'Unable to reset password.',
+          'Close',
+          {
+            duration: 3000
+          }
+        );
+
+      }
 
       });
 

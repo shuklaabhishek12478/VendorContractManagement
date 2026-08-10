@@ -80,7 +80,15 @@
 
         (deactivate)="deactivate()"
 
-        (delete)="deleteUser()">
+        (delete)="deleteUser()"
+
+        (resetPassword)="resetPassword()"
+        
+        [canEdit]="canEditUser"
+    [canActivate]="canActivateUser"
+    [canDeactivate]="canDeactivateUser"
+    [canResetPassword]="canResetPassword"
+    [canDelete]="canDeleteUser">
 
     </app-user-details-toolbar>
 
@@ -123,6 +131,14 @@
 <app-user-security-card
 
     [user]="user!"
+
+     [canAssignRoles]="canAssignRoles"
+
+    [canResetPassword]="canResetPassword"
+
+    [canActivate]="canActivateUser"
+
+    [canDeactivate]="canDeactivateUser"
 
     (activate)="activate()"
 

@@ -219,7 +219,7 @@
         <button
             mat-raised-button
             color="primary"
-            [disabled]="loading"
+            [disabled]="loading || !canAssignRoles"
             (click)="save()">
 
             Save Roles

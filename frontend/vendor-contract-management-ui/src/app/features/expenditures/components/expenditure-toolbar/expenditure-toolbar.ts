@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Expenditure } from '../../../../core/models/expenditures-model/expenditure.model';
-
+import { HasPermissionDirective } from '../../../../core/directives/has-permission.directive';
 
 @Component({
   selector: 'app-expenditure-toolbar',
@@ -11,7 +11,8 @@ import { Expenditure } from '../../../../core/models/expenditures-model/expendit
   imports: [
     CommonModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    HasPermissionDirective
   ],
   templateUrl: './expenditure-toolbar.html',
   styleUrl: './expenditure-toolbar.scss'

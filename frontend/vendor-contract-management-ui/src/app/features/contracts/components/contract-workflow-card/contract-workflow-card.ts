@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { Contract } from '../../../../core/models/contract.model';
 import { CONTRACT_STATUS_OPTIONS } from '../../../../core/constants/contract-status-options';
 import { ContractStatus } from '../../../../core/models/contract-status.enum';
+import { HasPermissionDirective } from '../../../../core/directives/has-permission.directive';
 
 @Component({
   selector: 'app-contract-workflow-card',
@@ -12,7 +13,8 @@ import { ContractStatus } from '../../../../core/models/contract-status.enum';
   imports: [
     CommonModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    HasPermissionDirective
   ],
   templateUrl: './contract-workflow-card.html',
   styleUrls: ['./contract-workflow-card.scss']
@@ -20,7 +22,7 @@ import { ContractStatus } from '../../../../core/models/contract-status.enum';
 export class ContractWorkflowCardComponent {
 
   protected readonly ContractStatus = ContractStatus;
-
+ 
   @Input({ required: true })
   contract!: Contract;
 

@@ -2,6 +2,7 @@ import {
     ChangeDetectionStrategy,
     Component,
     EventEmitter,
+    inject,
     Input,
     OnChanges,
     Output,
@@ -39,7 +40,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { PermissionService } from '../../../../core/services/permission';
 export type ReportChartType =
     | 'line'
     | 'area'
@@ -89,12 +90,11 @@ export interface ReportChartData {
 
 export class ReportChartComponent implements OnChanges {
 
+    private readonly permissionService =
+    inject(PermissionService);
+
     @ViewChild('chart')
     chart?: ChartComponent;
-
-    //====================================================
-    // INPUTS
-    //====================================================
 
     @Input()
     title = '';
@@ -772,6 +772,14 @@ get minValue(): number {
             x => x.value
         )
 
+    );
+
+}
+
+get canExport(): boolean {
+
+    return this.permissionService.hasPermission(
+        'Report.Export'
     );
 
 }

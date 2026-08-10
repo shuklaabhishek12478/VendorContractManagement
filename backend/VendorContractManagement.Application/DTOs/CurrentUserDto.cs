@@ -11,5 +11,7 @@
         public string Role { get; set; } = string.Empty;
 
         public int? VendorId { get; set; }
+
+        public List<string> Permissions { get; set; } = new();
     }
 }

@@ -1,13 +1,12 @@
-<!--<button mat-icon-button (click)="edit()">
-  ✏️
-</button>
+@if (canToggleStatus()) {
 
-<button mat-icon-button (click)="delete()">
-  🗑️
-</button>-->
+  <button
+    mat-icon-button
+    type="button"
+    (click)="toggleStatus()">
 
-<button mat-icon-button (click)="toggleStatus()">
+    {{ params.data.isActive ? '🔴' : '🟢' }}
 
-  {{ params.data.isActive ? '🔴' : '🟢' }}
+  </button>
 
-</button>
+}

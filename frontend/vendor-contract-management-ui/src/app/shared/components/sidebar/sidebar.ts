@@ -10,10 +10,9 @@ import {
   RouterLink,
   RouterLinkActive
 } from '@angular/router';
-
 import { CommonModule } from '@angular/common';
-
 import { LayoutService } from '../../../core/services/layout/layout.service';
+import { PermissionService } from '../../../core/services/permission';
 
 interface SidebarMenu {
 
@@ -43,7 +42,8 @@ interface SidebarMenu {
 export class Sidebar implements OnInit {
 
   readonly layout = inject(LayoutService);
-
+  private readonly permissionService =
+  inject(PermissionService);
   private readonly router = inject(Router);
 
   menus: SidebarMenu[] = [];
@@ -61,55 +61,71 @@ export class Sidebar implements OnInit {
       {
         title: 'Dashboard',
         icon: 'fa-solid fa-chart-line',
-        route: '/dashboard'
+        route: '/dashboard',
+         permission: 'Dashboard.View'
       },
 
       {
-        title: 'Vendors',
-        icon: 'fa-solid fa-building',
-        route: '/vendors'
+         title: 'Vendors',
+         icon: 'fa-solid fa-building',
+         route: '/vendors',
+         permission: 'Vendor.View'
       },
 
-      {
-        title: 'Contracts',
-        icon: 'fa-solid fa-file-signature',
-        route: '/contracts'
-      },
+     {
+  title: 'Contracts',
+  icon: 'fa-solid fa-file-signature',
+  route: '/contracts',
+  permission: 'Contract.View'
+},
 
       {
         title: 'Expenditures',
         icon: 'fa-solid fa-wallet',
-        route: '/expenditures'
+        route: '/expenditures',
+        permission: 'Expenditure.View'
       },
 
       {
         title: 'Reports',
         icon: 'fa-solid fa-chart-pie',
-        route: '/reports'
+        route: '/reports',
+        permission: 'Report.View'
       },
 
       {
-        title: 'Roles',
-        icon: 'fa-solid fa-user-shield',
-        route: '/roles'
-      },
+  title: 'Roles',
+  icon: 'fa-solid fa-user-shield',
+  route: '/roles',
+  permission: 'Role.View'
+},
 
       {
-        title: 'Users',
-        icon: 'fa-solid fa-users',
-        route: '/users'
-      },
+  title: 'Users',
+  icon: 'fa-solid fa-users',
+  route: '/users',
+  permission: 'User.View'
+},
       {
-        title: 'Pending Users',
-        icon: 'fa-solid fa-users',
-        route: '/user-approval'
-      }
+  title: 'Pending Users',
+  icon: 'fa-solid fa-users',
+  route: '/user-approval',
+  permission: 'UserApproval.View'
+}
 
     ];
 
-    // Future
-    // this.menus = this.permissionService.filterMenus(this.menus);
+   this.menus = this.menus.filter(menu => {
 
+  if (!menu.permission) {
+    return true;
+  }
+
+  return this.permissionService.hasPermission(
+    menu.permission
+  );
+
+});
   }
 
   navigate(route: string): void {

@@ -11,7 +11,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-
+import { PermissionService } from '../../../../../core/services/permission';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { UserService } from '../../../../../core/services/user.service';
@@ -76,10 +76,34 @@ selectedAssignedRoles: Role[] = [];
     private userService: UserService,
     private roleService: RoleService,
     private snackBar: MatSnackBar,
-     private cdr: ChangeDetectorRef
+     private cdr: ChangeDetectorRef,
+      private permissionService: PermissionService
   ) {}
 
+  get canAssignRoles(): boolean {
+
+  return this.permissionService.hasPermission(
+    'User.AssignRoles'
+  );
+
+}
+
   ngOnInit(): void {
+
+    if (!this.canAssignRoles) {
+
+    this.snackBar.open(
+      'You do not have permission to assign roles.',
+      'Close',
+      {
+        duration: 3000
+      }
+    );
+
+    this.router.navigate(['/users']);
+
+    return;
+  }
 
   this.userId = Number(
     this.route.snapshot.paramMap.get('id')
@@ -196,23 +220,21 @@ filterRoles(): void {
 
             },
 
-            error: () => {
+           error: (err) => {
 
-                this.loading = false;
+  this.loading = false;
 
-                this.snackBar.open(
+  console.error('Assign Roles Error:', err);
 
-                    'Unable to update roles.',
+  this.snackBar.open(
+    err?.error || 'Unable to update roles.',
+    'Close',
+    {
+      duration: 3000
+    }
+  );
 
-                    'Close',
-
-                    {
-
-                        duration:3000
-
-                    });
-
-            }
+}
 
         });
 

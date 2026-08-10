@@ -180,6 +180,7 @@ export class NotificationPageComponent
     this.destroy$.next();
 
     this.destroy$.complete();
+     this.signalR.stopConnection();
 
   }
 

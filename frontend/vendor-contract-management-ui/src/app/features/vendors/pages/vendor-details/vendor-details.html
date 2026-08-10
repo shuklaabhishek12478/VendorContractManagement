@@ -44,6 +44,7 @@
 
             </button>
 
+            <ng-container *appHasPermission="'Vendor.Edit'">
             <button
                 class="primary-btn"
                 (click)="editVendor()">
@@ -51,7 +52,7 @@
                 ✏ Edit Vendor
 
             </button>
-
+            </ng-container>
         </div>
 
     </div>
@@ -116,7 +117,7 @@
     </mat-expansion-panel>
 
     <!-- Compliance -->
-
+<ng-container *appHasPermission="'Vendor.Documents'">
     <mat-expansion-panel
         [expanded]="step === 2"
         (opened)="setStep(2)">
@@ -142,9 +143,9 @@
         </app-vendor-compliance-info>
 
     </mat-expansion-panel>
-
+</ng-container>
     <!-- Financial -->
-
+<ng-container *appHasPermission="'Vendor.Documents'">
     <mat-expansion-panel
         [expanded]="step === 3"
         (opened)="setStep(3)">
@@ -170,7 +171,7 @@
         </app-vendor-financial-info>
 
     </mat-expansion-panel>
-
+</ng-container>
     <!-- Contracts -->
 
     <mat-expansion-panel
@@ -200,7 +201,7 @@
     </mat-expansion-panel>
 
     <!-- Documents -->
-
+   <ng-container *appHasPermission="'Vendor.Documents'">
     <mat-expansion-panel
         [expanded]="step === 5"
         (opened)="setStep(5)">
@@ -219,6 +220,7 @@
 
 </mat-panel-title>
 
+
         </mat-expansion-panel-header>
 
         <app-vendor-documents
@@ -226,9 +228,9 @@
 </app-vendor-documents>
 
     </mat-expansion-panel>
-
+</ng-container>
     <!-- Activity -->
-
+<ng-container *appHasPermission="'Vendor.ViewDetails'">
     <mat-expansion-panel
         [expanded]="step === 6"
         (opened)="setStep(6)">
@@ -253,7 +255,7 @@
 </app-vendor-recent-activity>
 
     </mat-expansion-panel>
-
+</ng-container>
 </mat-accordion>
 
 </div>

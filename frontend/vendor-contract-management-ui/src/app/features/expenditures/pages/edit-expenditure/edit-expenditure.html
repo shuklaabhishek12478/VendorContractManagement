@@ -178,7 +178,8 @@
             Cancel
 
         </button>
-
+        
+        <ng-container *appHasPermission="'Expenditure.Update'">
         <button
             mat-flat-button
             color="primary"
@@ -198,7 +199,7 @@
             }
 
         </button>
-
+          </ng-container>
     </div>
 
 </div>

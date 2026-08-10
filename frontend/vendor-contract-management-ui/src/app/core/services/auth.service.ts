@@ -1,13 +1,14 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { RegisterRequest } from '../models/register-request.model';
 import { environment } from '../../../environments/environment';
 import { LoginRequest } from '../models/login-request.model';
 import { LoginResponse } from '../models/login-response.model';
 import { Router } from '@angular/router';
 import { CurrentUser } from '../models/user-approval-model/current-user.model';
+import { PermissionService } from './permission';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class AuthService {
 
   private http = inject(HttpClient);
   private router = inject(Router);
- 
+ private permissionService = inject( PermissionService);
   private apiUrl =
     `${environment.apiUrl}/Auth`;
 
@@ -32,10 +33,22 @@ export class AuthService {
     );
   }
 
+  loadCurrentUserPermissions(): Observable<CurrentUser> {
+     return this.getCurrentUser().pipe(
+       tap(user => {
+         this.permissionService.setPermissions(
+           user.permissions ?? []
+          );
+       })
+      ); 
+  }
+
+
 logout(): void {
 
   clearTimeout(this.refreshTimer);
 
+  this.permissionService.clearPermissions();
    // this.idleTimeoutService.stop();
   localStorage.removeItem('access_token');
   localStorage.removeItem('refresh_token');

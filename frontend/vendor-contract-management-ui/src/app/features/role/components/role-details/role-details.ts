@@ -5,7 +5,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-
+import { PermissionService } from '../../../../core/services/permission';
 import { Role } from '../../../../core/models/role.model';
 import { RoleService } from '../../../../core/services/role.service';
 import { ChangeDetectorRef } from '@angular/core';
@@ -37,28 +37,37 @@ export class RoleDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private roleService: RoleService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private permissionService: PermissionService
   ) { }
 
   ngOnInit(): void {
 
-    this.route.paramMap.subscribe(params => {
+  if (!this.canViewRoleDetails) {
 
-      const id = Number(params.get('id'));
+    this.router.navigate(['/roles']);
 
-      if (!id) {
-
-        this.router.navigate(['/roles']);
-
-        return;
-
-      }
-
-      this.loadRole(id);
-
-    });
+    return;
 
   }
+
+  this.route.paramMap.subscribe(params => {
+
+    const id = Number(params.get('id'));
+
+    if (!id) {
+
+      this.router.navigate(['/roles']);
+
+      return;
+
+    }
+
+    this.loadRole(id);
+
+  });
+
+}
 
   private loadRole(id: number): void {
 
@@ -112,6 +121,22 @@ this.role.id
   canDeactivate(): boolean {
 
   return true;
+
+}
+
+get canEditRole(): boolean {
+
+  return this.permissionService.hasPermission(
+    'Role.Edit'
+  );
+
+}
+
+get canViewRoleDetails(): boolean {
+
+  return this.permissionService.hasPermission(
+    'Role.ViewDetails'
+  );
 
 }
 

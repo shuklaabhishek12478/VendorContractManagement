@@ -20,6 +20,7 @@ import { ConfirmationDialogComponent }
 from '../../../../shared/components/confirmation-dialog/confirmation-dialog';
 import { AssignPermissionsDialogComponent } from '../../dialogs/assign-permissions-dialog/assign-permissions-dialog';
 import { AssignUserDialogComponent } from '../../dialogs/assign-user-dialog/assign-user-dialog';
+import { PermissionService } from '../../../../core/services/permission';
 
 @Component({
   selector: 'app-role-list',
@@ -67,15 +68,114 @@ rowSelection: RowSelectionOptions = {
   private cdr: ChangeDetectorRef,
   private router: Router, private dialog: MatDialog,
   private snackBar: MatSnackBar,
+  private permissionService: PermissionService
   ) { }
+
+
+
+
+// Role Permissions
+
+get canViewRoles(): boolean {
+
+  return this.permissionService.hasPermission(
+    'Role.View'
+  );
+
+}
+
+get canCreateRole(): boolean {
+
+  return this.permissionService.hasPermission(
+    'Role.Create'
+  );
+
+}
+
+get canEditRole(): boolean {
+
+  return this.permissionService.hasPermission(
+    'Role.Edit'
+  );
+
+}
+
+get canDeleteRole(): boolean {
+
+  return this.permissionService.hasPermission(
+    'Role.Delete'
+  );
+
+}
+
+get canActivateRole(): boolean {
+
+  return this.permissionService.hasPermission(
+    'Role.Activate'
+  );
+
+}
+
+get canDeactivateRole(): boolean {
+
+  return this.permissionService.hasPermission(
+    'Role.Deactivate'
+  );
+
+}
+
+get canAssignPermissions(): boolean {
+
+  return this.permissionService.hasPermission(
+    'Role.AssignPermissions'
+  );
+
+}
+
+get canAssignUsers(): boolean {
+
+  return this.permissionService.hasPermission(
+    'Role.AssignUsers'
+  );
+
+}
+
+get canCloneRole(): boolean {
+
+  return this.permissionService.hasPermission(
+    'Role.Clone'
+  );
+
+}
+
+get canPermissionMatrix(): boolean {
+
+  return this.permissionService.hasPermission(
+    'Role.PermissionMatrix'
+  );
+
+}
+
+
 
   ngOnInit(): void {
 
+   console.log(
+    'Role.View =',
+    this.permissionService.hasPermission('Role.View')
+  );
+
+  console.log(
+    'All permissions =',
+    this.permissionService.getPermissions()
+  );
+
+  if (!this.canViewRoles) {
+    return;
+  }
+
   this.initializeColumns();
-
   this.loadRoles();
-  this.search();
-
   this.loadStatistics();
 
 }
@@ -461,6 +561,10 @@ deactivateRole(): void {
 
 assignPermissions(): void {
 
+   if (!this.canAssignPermissions) {
+    return;
+  }
+
   if (!this.selectedRole) return;
 
   this.roleService
@@ -555,6 +659,9 @@ assignPermissions(): void {
 }
 
 assignUsers(): void {
+  if (!this.canAssignUsers) {
+    return;
+  }
 
   if (!this.selectedRole) {
     return;
@@ -629,6 +736,9 @@ assignUsers(): void {
 
 cloneRole(): void {
 
+   if (!this.canCloneRole) {
+    return;
+  }
     if (!this.selectedRole) {
         return;
     }
@@ -659,6 +769,10 @@ onRowDoubleClicked(
 
 openPermissionMatrix(): void {
 
+   if (!this.canPermissionMatrix) {
+    return;
+  }
+  
   if (!this.selectedRole) {
     return;
   }

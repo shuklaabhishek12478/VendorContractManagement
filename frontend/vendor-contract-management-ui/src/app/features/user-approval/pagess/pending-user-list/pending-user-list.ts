@@ -1,36 +1,20 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectorRef
-} from '@angular/core';
-
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-
-import {
-  GridApi,
-  GridReadyEvent,
-  ColDef,
-  RowDoubleClickedEvent,
-  RowSelectionOptions
-} from 'ag-grid-community';
-
+import { GridApi, GridReadyEvent, ColDef, RowDoubleClickedEvent, RowSelectionOptions } from 'ag-grid-community';
 import { AgGridModule } from 'ag-grid-angular';
-
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
-
 import { PendingUser } from '../../../../core/models/user-approval-model/pending-user.model';
 import { UserApprovalService } from '../../../../core/services/user-approval.service';
-
-import { UserApprovalToolbarComponent }
-from '../../components/user-approval-toolbar/user-approval-toolbar';
+import { UserApprovalToolbarComponent } from '../../components/user-approval-toolbar/user-approval-toolbar';
 import { MatDialog } from '@angular/material/dialog';
 import { ApproveUserDialogComponent } from '../../dialogs/approve-user-dialog/approve-user-dialog';
 import { RejectUserDialogComponent } from '../../dialogs/reject-user-dialog/reject-user-dialog';
+import { PermissionService } from '../../../../core/services/permission';
 
 @Component({
   selector: 'app-pending-user-list',
@@ -55,7 +39,8 @@ export class PendingUserListComponent implements OnInit {
     private approvalService: UserApprovalService,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private permissionService: PermissionService
   ) { }
 
   private gridApi!: GridApi;
@@ -118,6 +103,38 @@ columnDefs: ColDef[] = [
   }
 
 ];
+
+get canViewApproval(): boolean {
+
+  return this.permissionService.hasPermission(
+    'UserApproval.View'
+  );
+
+}
+
+get canViewApprovalDetails(): boolean {
+
+  return this.permissionService.hasPermission(
+    'UserApproval.ViewDetails'
+  );
+
+}
+
+get canApproveUser(): boolean {
+
+  return this.permissionService.hasPermission(
+    'UserApproval.Approve'
+  );
+
+}
+
+get canRejectUser(): boolean {
+
+  return this.permissionService.hasPermission(
+    'UserApproval.Reject'
+  );
+
+}
 
 ngOnInit(): void {
 
@@ -199,30 +216,38 @@ refresh(): void {
 }
 
 onRowDoubleClicked(
-    event: RowDoubleClickedEvent
+  event: RowDoubleClickedEvent
 ): void {
 
+  if (!this.canViewApprovalDetails)
+    return;
+
   this.router.navigate([
-      '/user-approval',
-      event.data.id
+    '/user-approval',
+    event.data.id
   ]);
 
 }
 
 openDetails(): void {
 
+  if (!this.canViewApprovalDetails)
+    return;
+
   if (!this.selectedUser)
-      return;
+    return;
 
   this.router.navigate([
-      '/user-approval',
-      this.selectedUser.id
+    '/user-approval',
+    this.selectedUser.id
   ]);
-  
 
 }
 
 approveSelected(): void {
+
+   if (!this.canApproveUser)
+    return;
 
     if (!this.selectedUser)
         return;
@@ -249,6 +274,9 @@ approveSelected(): void {
 }
 
 rejectSelected(): void {
+
+    if (!this.canRejectUser)
+    return;
 
     if (!this.selectedUser)
         return;

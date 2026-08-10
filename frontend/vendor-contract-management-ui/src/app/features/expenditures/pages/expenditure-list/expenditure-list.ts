@@ -31,6 +31,8 @@ import { ExpenditureActionsRenderer } from '../../../../shared/components/expend
 import { ExpenditureToolbarComponent } from '../../components/expenditure-toolbar/expenditure-toolbar';
 import { ExpenditureSummaryCardsComponent } from '../../components/expenditure-summary-cards/expenditure-summary-cards';
 import { ExpenditureFilterComponent } from '../../components/expenditure-filter/expenditure-filter';
+import { PermissionService } from '../../../../core/services/permission';
+import { HasPermissionDirective } from '../../../../core/directives/has-permission.directive';
 
 @Component({
   selector: 'app-expenditure-list',
@@ -39,7 +41,7 @@ import { ExpenditureFilterComponent } from '../../components/expenditure-filter/
     AgGridAngular,
     MatButtonModule,
     MatIconModule,
-
+     HasPermissionDirective,
     ExpenditureToolbarComponent,
     ExpenditureSummaryCardsComponent,
     ExpenditureFilterComponent
@@ -66,6 +68,7 @@ export class ExpenditureListComponent implements OnInit {
 
   private snackbar = inject(SnackbarService);
 
+  private permissionService = inject(PermissionService);
   gridApi!: GridApi;
 
   context = {

@@ -157,6 +157,7 @@
     <mat-card-actions align="end">
 
        <button
+       *ngIf="canAssignRoles"
     mat-stroked-button
     color="primary"
     [routerLink]="['/users', user.id, 'roles']">
@@ -172,6 +173,7 @@
 </button>
 
         <button
+           *ngIf="canResetPassword"
             mat-stroked-button
             color="primary"
             (click)="resetPassword.emit()">
@@ -187,7 +189,7 @@
         </button>
 
         <button
-            *ngIf="user.isActive"
+            *ngIf="canDeactivate && user.isActive"
             mat-raised-button
             color="warn"
             (click)="deactivate.emit()">
@@ -203,7 +205,7 @@
         </button>
 
         <button
-            *ngIf="!user.isActive"
+            *ngIf="canActivate && !user.isActive"
             mat-raised-button
             color="primary"
             (click)="activate.emit()">

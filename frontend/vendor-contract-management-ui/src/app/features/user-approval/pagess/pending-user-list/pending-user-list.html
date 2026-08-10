@@ -1,9 +1,6 @@
 <div class="approval-page">
-
-    <!-- ===================================================== -->
-    <!-- Page Header -->
-    <!-- ===================================================== -->
-
+ <!-- Page Header -->
+   
     <div class="page-header">
 
         <div>
@@ -32,6 +29,11 @@
     <app-user-approval-toolbar
 
         [selectedUser]="selectedUser"
+
+        [canView]="canViewApprovalDetails"
+    [canApprove]="canApproveUser"
+    [canReject]="canRejectUser"
+
 
         (refresh)="refresh()"
 

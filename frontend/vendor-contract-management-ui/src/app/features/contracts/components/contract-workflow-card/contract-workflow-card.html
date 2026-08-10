@@ -114,122 +114,198 @@
             <div class="actions">
 
                 <!-- Draft -->
+               
+    <ng-container
+    *ngIf="contract.status === ContractStatus.Draft">
 
-                <button
-                    *ngIf="contract.status === ContractStatus.Draft"
-                    mat-raised-button
-                    color="primary"
-                    (click)="submit.emit()">
+    <ng-container *appHasPermission="'Contract.Submit'">
 
-                    Submit for Approval
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="submit.emit()">
 
-                </button>
+            Submit for Approval
+
+        </button>
+
+    </ng-container>
+
+</ng-container>
 
                 <!-- Pending Approval -->
 
-                <button
-                    *ngIf="contract.status === ContractStatus.PendingApproval"
-                    mat-raised-button
-                    color="primary"
-                    (click)="approve.emit()">
+               <ng-container
+    *ngIf="contract.status === ContractStatus.PendingApproval">
 
-                    Approve
+    <ng-container *appHasPermission="'Contract.Approve'">
 
-                </button>
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="approve.emit()">
 
-                <button
-                    *ngIf="contract.status === ContractStatus.PendingApproval"
-                    mat-raised-button
-                    color="warn"
-                    (click)="reject.emit()">
+            Approve
 
-                    Reject
+        </button>
 
-                </button>
+    </ng-container>
 
+</ng-container>
 
-                <button
-    mat-raised-button
-    color="primary"
-    *ngIf="contract.status === ContractStatus.Rejected"
-    (click)="submitAgain.emit()">
+                <ng-container
+    *ngIf="contract.status === ContractStatus.PendingApproval">
 
-    Submit Again
+    <ng-container *appHasPermission="'Contract.Reject'">
 
-</button>
+        <button
+            mat-raised-button
+            color="warn"
+            (click)="reject.emit()">
+
+            Reject
+
+        </button>
+
+    </ng-container>
+
+</ng-container>
+
+      <ng-container
+    *ngIf="contract.status === ContractStatus.Rejected">
+
+    <button
+        mat-raised-button
+        color="primary"
+        appHasPermission="Contract.Submit"
+        (click)="submitAgain.emit()">
+
+        Submit Again
+
+    </button>
+
+</ng-container>
 
                 <!-- Approved -->
 
-                <button
-                    *ngIf="contract.status === ContractStatus.Approved"
-                    mat-raised-button
-                    color="accent"
-                    (click)="activate.emit()">
+               <ng-container
+    *ngIf="contract.status === ContractStatus.Approved">
 
-                    Activate
+    <ng-container *appHasPermission="'Contract.Activate'">
 
-                </button>
+        <button
+            mat-raised-button
+            color="accent"
+            (click)="activate.emit()">
+
+            Activate
+
+        </button>
+
+    </ng-container>
+
+</ng-container>
 
                 <!-- Active OR Expired -->
 
-                <button
-                    *ngIf="
-                        contract.status === ContractStatus.Active ||
-                        contract.status === ContractStatus.Expired
-                    "
-                    mat-raised-button
-                    color="primary"
-                    (click)="onRenew()">
+                <ng-container
+    *ngIf="
+        contract.status === ContractStatus.Active ||
+        contract.status === ContractStatus.Expired
+    ">
 
-                    Renew
+    <ng-container *appHasPermission="'Contract.Renew'">
 
-                </button>
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="onRenew()">
+
+            Renew
+
+        </button>
+
+    </ng-container>
+
+</ng-container>
 
                 <!-- Renewal Pending -->
 
-                <button
-                    *ngIf="contract.status === ContractStatus.RenewalPendingApproval"
-                    mat-raised-button
-                    color="primary"
-                    (click)="onApproveRenewal()">
+                <ng-container
+    *ngIf="contract.status === ContractStatus.RenewalPendingApproval">
 
-                    Approve Renewal
+    <ng-container *appHasPermission="'Contract.RenewApprove'">
 
-                </button>
+        <button
+            mat-raised-button
+            color="primary"
+            (click)="onApproveRenewal()">
 
-                <button
-                    *ngIf="contract.status === ContractStatus.RenewalPendingApproval"
-                    mat-raised-button
-                    color="warn"
-                    (click)="onRejectRenewal()">
+            Approve Renewal
 
-                    Reject Renewal
+        </button>
 
-                </button>
+    </ng-container>
+
+</ng-container>
+
+                <ng-container
+    *ngIf="contract.status === ContractStatus.RenewalPendingApproval">
+
+    <ng-container *appHasPermission="'Contract.RenewReject'">
+
+        <button
+            mat-raised-button
+            color="warn"
+            (click)="onRejectRenewal()">
+
+            Reject Renewal
+
+        </button>
+
+    </ng-container>
+
+</ng-container>
 
                 <!-- Renewal Approved -->
 
-                <button
-                    *ngIf="contract.status === ContractStatus.RenewalApproved"
-                    mat-raised-button
-                    color="accent"
-                    (click)="onActivateRenewal()">
+                <ng-container
+    *ngIf="contract.status === ContractStatus.RenewalApproved">
 
-                    Activate Renewal
+    <ng-container *appHasPermission="'Contract.Activate'">
 
-                </button>
+        <button
+            mat-raised-button
+            color="accent"
+            (click)="onActivateRenewal()">
+
+            Activate Renewal
+
+        </button>
+
+    </ng-container>
+
+</ng-container>
 
                 <!-- Terminate -->
 
-                <button
-                    *ngIf="contract.status === ContractStatus.Active"
-                    mat-raised-button
-                    color="warn"
-                    (click)="onTerminate()">
+                <ng-container
+    *ngIf="contract.status === ContractStatus.Active">
 
-                    Terminate
+    <ng-container *appHasPermission="'Contract.Terminate'">
 
-                </button>
+        <button
+            mat-raised-button
+            color="warn"
+            (click)="onTerminate()">
+
+            Terminate
+
+        </button>
+
+    </ng-container>
+
+</ng-container>
 
             </div>
 

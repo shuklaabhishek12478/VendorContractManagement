@@ -17,10 +17,6 @@ import { MatSelectModule } from '@angular/material/select';
     RouterModule,
     MatButtonModule,
     MatIconModule,
-    CommonModule,
-  RouterModule,
-  MatButtonModule,
-  MatIconModule,
   FormsModule,
 
 MatInputModule,
@@ -36,6 +32,12 @@ export class UserToolbarComponent {
 
   @Input()
   selectedUserId = 0;
+
+  @Input() canAdd = true;
+@Input() canEdit = true;
+@Input() canExport = true;
+@Input() canImport = true;
+@Input() canRefresh = true;
 
   @Output()
   edit = new EventEmitter<void>();

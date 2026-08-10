@@ -13,7 +13,13 @@
     <app-user-toolbar
 
     [selectedUserId]="selectedUserId"
-
+    
+     [canAdd]="canCreateUser"
+    [canEdit]="canEditUser"
+    [canExport]="canExportUsers"
+    [canImport]="canImportUsers"
+    [canRefresh]="canViewUsers"
+    
     (edit)="editUser()"
 
     (refresh)="refresh()"

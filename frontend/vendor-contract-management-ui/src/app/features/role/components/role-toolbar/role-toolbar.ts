@@ -48,11 +48,17 @@ export class RoleToolbarComponent {
   @Output()
   clone = new EventEmitter<void>();
 
-  @Input() canEdit = true;
-
-@Input() canDelete = true;
-
 @Output()
 permissionMatrix = new EventEmitter<void>();
 
+
+@Input() canAdd = false;
+@Input() canEdit = false;
+@Input() canDelete = false;
+@Input() canActivate = false;
+@Input() canDeactivate = false;
+@Input() canAssignPermissions = false;
+@Input() canAssignUsers = false;
+@Input() canClone = false;
+@Input() canPermissionMatrix = false;
 }

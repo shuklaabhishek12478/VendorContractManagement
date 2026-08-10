@@ -1,26 +1,16 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  OnInit,
-  ViewChild,
-  inject
-} from '@angular/core';
-
+import {ChangeDetectorRef, Component, OnInit,ViewChild, inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatIconModule } from '@angular/material/icon';
-
 import { ExpenditureService } from '../../../../core/services/expenditure.service';
-
 import { Expenditure } from '../../../../core/models/expenditures-model/expenditure.model';
-
 import { ExpenditureFormComponent } from '../../components/expenditure-form/expenditure-form';
 import { MatDividerModule } from '@angular/material/divider';
+import { HasPermissionDirective } from '../../../../core/directives/has-permission.directive';
 
 @Component({
   selector: 'app-edit-expenditure',
@@ -34,7 +24,8 @@ import { MatDividerModule } from '@angular/material/divider';
     MatIconModule,
     MatDividerModule,
     RouterModule,
-    ExpenditureFormComponent
+    ExpenditureFormComponent,
+    HasPermissionDirective
   ],
   templateUrl: './edit-expenditure.html',
   styleUrl: './edit-expenditure.scss'

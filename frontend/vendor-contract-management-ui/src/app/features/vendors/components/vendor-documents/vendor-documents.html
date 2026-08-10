@@ -30,7 +30,7 @@
         
 
        
-
+<ng-container *appHasPermission="'Vendor.Documents'">
 <button
     mat-raised-button
     color="primary"
@@ -43,6 +43,7 @@
     Upload Document
 
 </button>
+</ng-container>
 
 @if(uploading){
 
@@ -362,7 +363,7 @@ class="mt-5 rounded-xl border bg-white p-4">
                 </th>
 
                 <td mat-cell *matCellDef="let document">
-
+<ng-container *appHasPermission="'Vendor.Documents'">
                    <button
     mat-icon-button
     color="primary"
@@ -413,6 +414,7 @@ class="mt-5 rounded-xl border bg-white p-4">
                         </mat-icon>
 
                     </button>
+                    </ng-container>
 
                 </td>
 

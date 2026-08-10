@@ -65,6 +65,8 @@
 
   <!-- Search -->
 
+  <ng-container *appHasPermission="'Expenditure.Search'">
+
   <div class="flex items-center gap-4">
 
       <input
@@ -78,6 +80,7 @@
           (input)="onSearch($event)">
 
   </div>
+  </ng-container>
 
   <!-- Grid -->
 

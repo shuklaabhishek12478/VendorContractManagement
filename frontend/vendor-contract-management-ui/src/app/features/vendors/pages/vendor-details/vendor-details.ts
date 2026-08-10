@@ -15,6 +15,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { VendorDocumentsComponent } from '../../components/vendor-documents/vendor-documents';
 import { VendorRecentActivityComponent } from '../vendor-recent-activity/vendor-recent-activity';
+import { HasPermissionDirective } from '../../../../core/directives/has-permission.directive';
 
 @Component({
   selector: 'app-vendor-details',
@@ -30,7 +31,8 @@ import { VendorRecentActivityComponent } from '../vendor-recent-activity/vendor-
     VendorFinancialInfoComponent,
     MatIconModule,
     VendorDocumentsComponent,
-    VendorRecentActivityComponent
+    VendorRecentActivityComponent,
+    HasPermissionDirective,
   ],
   templateUrl: './vendor-details.html',
   styleUrl: './vendor-details.scss'

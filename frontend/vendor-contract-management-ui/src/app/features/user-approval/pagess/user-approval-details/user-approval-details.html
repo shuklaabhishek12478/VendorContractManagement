@@ -228,8 +228,10 @@
         <span class="spacer"></span>
 
         <button
+            *ngIf="canReject"
             mat-raised-button
             color="warn"
+            [disabled]="actionLoading"
             (click)="reject()">
 
             <mat-icon>
@@ -243,8 +245,10 @@
         </button>
 
         <button
+            *ngIf="canApprove"
             mat-raised-button
             color="primary"
+             [disabled]="actionLoading"
             (click)="approve()">
 
             <mat-icon>

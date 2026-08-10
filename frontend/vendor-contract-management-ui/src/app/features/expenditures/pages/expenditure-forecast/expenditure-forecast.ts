@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { HasPermissionDirective } from '../../../../core/directives/has-permission.directive';
 import { ExpenditureService } from '../../../../core/services/expenditure.service';
 import { ExpenditureForecastInner } from '../../../../core/models/expenditures-model/forecast-inner/expenditure-forecast-inner.model';
 import { StatsCardComponent } from '../../../dashboard/components/stats-card/stats-card';
@@ -14,6 +14,7 @@ import { DepartmentSpendChartComponent } from '../../../dashboard/components/dep
 import { VendorSpendChartComponent } from '../../../dashboard/components/vendor-spend-chart/vendor-spend-chart';
 import { CategorySpendChartComponent } from '../../../expenditures/components/category-spend-chart/category-spend-chart';
 import { FormsModule } from '@angular/forms';
+
 @Component({
   selector: 'app-expenditure-forecast',
   standalone: true,
@@ -29,7 +30,8 @@ import { FormsModule } from '@angular/forms';
     ExpenditureTrendChartComponent,
     VendorSpendChartComponent,
     DepartmentSpendChartComponent,
-   CategorySpendChartComponent
+   CategorySpendChartComponent,
+    HasPermissionDirective
   ],
   templateUrl: './expenditure-forecast.html',
   styleUrls: ['./expenditure-forecast.scss']

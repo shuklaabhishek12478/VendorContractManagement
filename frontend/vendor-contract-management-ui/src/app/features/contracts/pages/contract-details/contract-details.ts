@@ -34,6 +34,7 @@ import { HttpResponse } from '@angular/common/http';
 import { ContractRecentActivityComponent } from '../../components/contract-recent-activity/contract-recent-activity';
 import { RecentActivityService } from '../../../../core/services/recent-activity.service';
 import { RecentActivity } from '../../../../core/models/recent-activity.model';
+import { HasPermissionDirective } from '../../../../core/directives/has-permission.directive';
 
 @Component({
   selector: 'app-contract-details',
@@ -48,7 +49,8 @@ import { RecentActivity } from '../../../../core/models/recent-activity.model';
    ContractWorkflowCardComponent,
    ContractVersionHistoryComponent,
    ContractDocumentsComponent,
-   ContractRecentActivityComponent
+   ContractRecentActivityComponent,
+   HasPermissionDirective
 ],
   templateUrl: './contract-details.html',
   styleUrls: ['./contract-details.scss']

@@ -309,15 +309,25 @@ please ignore this email.
             if (user == null)
                 throw new Exception("User not found.");
 
+            var permissions = user.UserRoles
+                .SelectMany(x => x.Role.RolePermissions)
+                .Select(x => x.Permission.Code)
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Distinct()
+                .ToList();
+
             return new CurrentUserDto
             {
                 Id = user.Id,
                 FullName = user.FullName,
                 Email = user.Email,
                 VendorId = user.VendorId,
+
                 Role = user.UserRoles
-                            .Select(x => x.Role.Name)
-                            .FirstOrDefault() ?? string.Empty
+                    .Select(x => x.Role.Name)
+                    .FirstOrDefault() ?? string.Empty,
+
+                Permissions = permissions
             };
         }
     }

@@ -1,106 +1,123 @@
-<div class="role-toolbar">
+<div class="flex flex-wrap gap-3 mb-6">
 
-    <button
-        mat-raised-button
-        color="primary"
-        class="primary-btn"
-        (click)="add.emit()">
+  <!-- Add -->
+  <button
+    *ngIf="canAdd"
+    mat-raised-button
+    color="primary"
+    (click)="add.emit()">
 
-        <mat-icon>add</mat-icon>
-        <span>Add Role</span>
+    <mat-icon>add</mat-icon>
+    Add Role
 
-    </button>
+  </button>
 
-    <button
-        mat-stroked-button
-        class="action-btn"
-        [disabled]="!hasSelection || !canEdit"
-        (click)="edit.emit()">
 
-        <mat-icon>edit</mat-icon>
-        <span>Edit</span>
+  <!-- Edit -->
+  <button
+    *ngIf="canEdit"
+    mat-stroked-button
+    [disabled]="!hasSelection"
+    (click)="edit.emit()">
 
-    </button>
+    <mat-icon>edit</mat-icon>
+    Edit
 
-    <button
-        mat-stroked-button
-        color="warn"
-        class="action-btn"
-        [disabled]="!hasSelection || !canDelete"
-        (click)="delete.emit()">
+  </button>
 
-        <mat-icon>delete</mat-icon>
-        <span>Delete</span>
 
-    </button>
+  <!-- Delete -->
+  <button
+    *ngIf="canDelete"
+    mat-stroked-button
+    color="warn"
+    [disabled]="!hasSelection"
+    (click)="delete.emit()">
 
-    <button
-        mat-stroked-button
-        color="primary"
-        class="action-btn"
-        [disabled]="!hasSelection || isActive"
-        (click)="activate.emit()">
+    <mat-icon>delete</mat-icon>
+    Delete
 
-        <mat-icon>check_circle</mat-icon>
-        <span>Activate</span>
+  </button>
 
-    </button>
 
-    <button
-        mat-stroked-button
-        color="warn"
-        class="action-btn"
-        [disabled]="!hasSelection || !isActive"
-        (click)="deactivate.emit()">
+  <!-- Activate -->
+  <button
+    *ngIf="canActivate"
+    mat-stroked-button
+    color="primary"
+    [disabled]="!hasSelection || isActive"
+    (click)="activate.emit()">
 
-        <mat-icon>block</mat-icon>
-        <span>Deactivate</span>
+    <mat-icon>check_circle</mat-icon>
+    Activate
 
-    </button>
+  </button>
 
-    <button
-        mat-stroked-button
-        class="action-btn"
-        [disabled]="!hasSelection"
-        (click)="assignPermissions.emit()">
 
-        <mat-icon>security</mat-icon>
-        <span>Permissions</span>
+  <!-- Deactivate -->
+  <button
+    *ngIf="canDeactivate"
+    mat-stroked-button
+    color="warn"
+    [disabled]="!hasSelection || !isActive"
+    (click)="deactivate.emit()">
 
-    </button>
+    <mat-icon>block</mat-icon>
+    Deactivate
 
-    <button
-        mat-stroked-button
-        class="action-btn"
-        [disabled]="!hasSelection"
-        (click)="assignUsers.emit()">
+  </button>
 
-        <mat-icon>groups</mat-icon>
-        <span>Users</span>
 
-    </button>
+  <!-- Permissions -->
+  <button
+    *ngIf="canAssignPermissions"
+    mat-stroked-button
+    [disabled]="!hasSelection"
+    (click)="assignPermissions.emit()">
 
-    <button
-        mat-stroked-button
-        class="action-btn"
-        [disabled]="!hasSelection"
-        (click)="clone.emit()">
+    <mat-icon>security</mat-icon>
+    Permissions
 
-        <mat-icon>content_copy</mat-icon>
-        <span>Clone</span>
+  </button>
 
-    </button>
 
-    <button
-        mat-raised-button
-        color="accent"
-        class="accent-btn"
-        [disabled]="!hasSelection"
-        (click)="permissionMatrix.emit()">
+  <!-- Users -->
+  <button
+    *ngIf="canAssignUsers"
+    mat-stroked-button
+    [disabled]="!hasSelection"
+    (click)="assignUsers.emit()">
 
-        <mat-icon>verified_user</mat-icon>
-        <span>Permission Matrix</span>
+    <mat-icon>groups</mat-icon>
+    Users
 
-    </button>
+  </button>
+
+
+  <!-- Clone -->
+  <button
+    *ngIf="canClone"
+    mat-stroked-button
+    [disabled]="!hasSelection"
+    (click)="clone.emit()">
+
+    <mat-icon>content_copy</mat-icon>
+    Clone
+
+  </button>
+
+
+  <!-- Permission Matrix -->
+  <button
+    *ngIf="canPermissionMatrix"
+    mat-raised-button
+    color="accent"
+    [disabled]="!hasSelection"
+    (click)="permissionMatrix.emit()">
+
+    <mat-icon>security</mat-icon>
+    Permission Matrix
+
+  </button>
 
 </div>

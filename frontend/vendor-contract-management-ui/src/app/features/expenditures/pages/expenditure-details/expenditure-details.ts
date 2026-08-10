@@ -15,7 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-
+import { HasPermissionDirective } from '../../../../core/directives/has-permission.directive';
 import { ExpenditureService } from '../../../../core/services/expenditure.service';
 import { Expenditure } from '../../../../core/models/expenditures-model/expenditure.model';
 
@@ -29,7 +29,8 @@ import { Expenditure } from '../../../../core/models/expenditures-model/expendit
     MatIconModule,
     MatDividerModule,
     MatProgressSpinnerModule,
-    MatChipsModule
+    MatChipsModule,
+    HasPermissionDirective
   ],
   templateUrl: './expenditure-details.html',
   styleUrl: './expenditure-details.scss'

@@ -6,7 +6,7 @@ import { ArchiveContractButtonComponent } from '../archive-contract-button/archi
 import { RemoveContractButtonComponent } from '../remove-contract-button/remove-contract-button';
 import { Contract } from '../../../../core/models/contract.model';
 import { ContractStatus } from '../../../../core/models/contract-status.enum';
-
+import { HasPermissionDirective } from '../../../../core/directives/has-permission.directive';
 
 @Component({
   selector: 'app-contract-toolbar',
@@ -15,7 +15,8 @@ import { ContractStatus } from '../../../../core/models/contract-status.enum';
     AddContractButtonComponent,
     EditContractButtonComponent,
     ArchiveContractButtonComponent,
-    RemoveContractButtonComponent
+    RemoveContractButtonComponent,
+     HasPermissionDirective
   ],
   templateUrl: './contract-toolbar.html',
   styleUrls: ['./contract-toolbar.scss']

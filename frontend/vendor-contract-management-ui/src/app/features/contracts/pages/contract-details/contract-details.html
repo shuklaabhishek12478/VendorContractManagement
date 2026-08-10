@@ -16,7 +16,7 @@
     </div>
 
     <div class="flex gap-3">
-
+     <ng-container *appHasPermission="'Contract.Edit'">
       <button
         mat-raised-button
         class="primary-btn"
@@ -27,6 +27,7 @@
          ✏ Edit Contract
 
       </button>
+    </ng-container>
 
       <button
         mat-stroked-button

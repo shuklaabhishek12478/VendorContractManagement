@@ -142,7 +142,15 @@ public static class ContractPermissions
                 Code = "Contract.Dashboard",
                 Module = "Contract",
                 Description = "View contract dashboard"
-            }
+            },
+
+            new Permission
+            {
+               Name = "Contract Documents",
+               Code = "Contract.Documents",
+               Module = "Contract",
+               Description = "View contract documents"
+}
         };
     }
 }

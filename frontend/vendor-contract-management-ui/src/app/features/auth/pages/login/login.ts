@@ -13,6 +13,7 @@ import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { SessionService } from '../../../../core/services/session.service';
+import { PermissionService } from '../../../../core/services/permission';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +37,7 @@ export class LoginComponent {
   private snackBar = inject(MatSnackBar);
   private sessionService = inject(SessionService);
   private idleTimeoutService = inject(IdleTimeoutService);
-
+  private permissionService = inject(PermissionService);
   loading = false;
   hidePassword = true;
 
@@ -46,93 +47,118 @@ export class LoginComponent {
     rememberMe: [false]
   });
 
-  login() {
+login() {
 
-    if (this.loginForm.invalid)
-      return;
+  if (this.loginForm.invalid)
+    return;
 
-    this.loading = true;
+  this.loading = true;
 
-    this.authService
-      .login(this.loginForm.getRawValue() as any)
-      .subscribe({
+  this.authService
+    .login(this.loginForm.getRawValue() as any)
+    .subscribe({
 
-       next: (response) => {
+      next: (response) => {
 
-          console.log('LOGIN SUCCESS');
-  console.log(response);
+        this.loading = false;
 
-  this.loading = false;
+       
+        this.authService.saveTokens(
+          response.accessToken,
+          response.refreshToken,
+          this.loginForm.value.rememberMe ?? false
+        );
 
-  this.authService.saveTokens(
+       
+        this.authService.getCurrentUser().subscribe({
 
-      response.accessToken,
+          next: (currentUser) => {
 
-      response.refreshToken,
+            console.log('CURRENT USER:', currentUser);
 
-      this.loginForm.value.rememberMe ?? false
+  console.log(
+    'USER PERMISSIONS:',
+    currentUser.permissions
+  );
+  // Store current user's role
+this.permissionService.setUserRole(
+  currentUser.role
+);
 
+            this.permissionService.setPermissions(
+              currentUser.permissions ?? []
+            );
+
+             console.log(
+    'STORED PERMISSIONS:',
+    this.permissionService.getPermissions()
   );
 
-  this.authService.startRefreshTimer();
-  this.sessionService.start();
-  this.idleTimeoutService.start();
-  this.router.navigateByUrl('/dashboard').then(result => {
 
-  console.log('Navigation Result : ', result);
+           
+            this.authService.startRefreshTimer();
 
-});
-      localStorage.getItem('access_token');
-      sessionStorage.getItem('access_token');
+            this.sessionService.start();
 
-  this.snackBar.open(
+            this.idleTimeoutService.start();
 
-      'Login successful',
+            
+            this.router.navigateByUrl('/dashboard');
 
-      'Close',
+           
+            this.snackBar.open(
+              'Login successful',
+              'Close',
+              {
+                duration: 2000,
+                horizontalPosition: 'right',
+                verticalPosition: 'top'
+              }
+            );
 
-      {
+          },
 
-        duration:2000,
+          error: () => {
 
-        horizontalPosition:'right',
+           this.authService.logout();
 
-        verticalPosition:'top'
+            this.loading = false;
+
+            this.snackBar.open(
+              'Unable to load user permissions.',
+              'Close',
+              {
+                duration: 4000,
+                horizontalPosition: 'right',
+                verticalPosition: 'top'
+              }
+            );
+
+          }
+
+        });
+
+      },
+
+      error: (err) => {
+
+        this.loading = false;
+
+        this.snackBar.open(
+          err.error?.message ??
+          'Login failed.',
+          'Close',
+          {
+            duration: 4000,
+            horizontalPosition: 'right',
+            verticalPosition: 'top'
+          }
+        );
 
       }
 
-  );
-
-  
-
-},
-
-        error: (err) => {
-
-  this.loading = false;
-
-  this.snackBar.open(
-
-    err.error?.message ??
-    'Login failed.',
-
-    'Close',
-
-    {
-
-      duration: 4000,
-
-      horizontalPosition: 'right',
-
-      verticalPosition: 'top'
-
-    }
-
-  );
-
+    });
 }
-      });
-  }
 
   
 }

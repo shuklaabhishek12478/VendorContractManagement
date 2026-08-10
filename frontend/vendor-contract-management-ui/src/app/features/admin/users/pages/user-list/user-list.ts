@@ -23,6 +23,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {
   DomLayoutType
 } from 'ag-grid-community';
+import { PermissionService } from '../../../../../core/services/permission';
 
 
 @Component({
@@ -40,6 +41,7 @@ import {
 })
 export class UserListComponent implements OnInit {
 
+  
   users: User[] = [];
 
   loading = false;
@@ -248,13 +250,28 @@ Inactive
     private router: Router,
     private cdr: ChangeDetectorRef,
      private snackBar: MatSnackBar,
+     private permissionService: PermissionService
   ) { }
 
   ngOnInit(): void {
 
-    this.loadUsers();
+  console.log(
+    'User.View =',
+    this.permissionService.hasPermission('User.View')
+  );
 
+  console.log(
+    'User Permissions =',
+    this.permissionService.getPermissions()
+  );
+
+  if (!this.canViewUsers) {
+    return;
   }
+
+  this.loadUsers();
+
+}
 
   loadUsers(): void {
 
@@ -369,6 +386,10 @@ changePageSize(event: Event) {
 
   refresh(): void {
 
+   if (!this.canViewUsers) {
+    return;
+  }
+
     this.loadUsers();
 
   }
@@ -415,6 +436,10 @@ onSelectionChanged(): void {
 }
 
 editUser(): void {
+
+  if (!this.canEditUser) {
+    return;
+  }
 
   if (!this.selectedUserId)
     return;
@@ -482,6 +507,10 @@ applyFilters(): void {
 
 exportUsers() {
 
+  if (!this.canExportUsers) {
+    return;
+  }
+
   this.userService
       .exportUsers()
       .subscribe({
@@ -527,6 +556,10 @@ exportUsers() {
 }
 
 importUsers(file: File) {
+
+    if (!this.canImportUsers) {
+    return;
+  }
 
   this.userService
       .importUsers(file)
@@ -579,6 +612,46 @@ onPaginationChanged(): void {
 
     this.totalPages =
         this.gridApi.paginationGetTotalPages();
+
+}
+
+get canViewUsers(): boolean {
+
+  return this.permissionService.hasPermission(
+    'User.View'
+  );
+
+}
+
+get canCreateUser(): boolean {
+
+  return this.permissionService.hasPermission(
+    'User.Create'
+  );
+
+}
+
+get canEditUser(): boolean {
+
+  return this.permissionService.hasPermission(
+    'User.Edit'
+  );
+
+}
+
+get canExportUsers(): boolean {
+
+  return this.permissionService.hasPermission(
+    'User.Export'
+  );
+
+}
+
+get canImportUsers(): boolean {
+
+  return this.permissionService.hasPermission(
+    'User.Import'
+  );
 
 }
 }

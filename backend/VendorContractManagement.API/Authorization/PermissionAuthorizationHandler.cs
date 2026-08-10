@@ -22,9 +22,13 @@ namespace VendorContractManagement.API.Authorization
             var userIdClaim =
                 context.User.FindFirst(ClaimTypes.NameIdentifier);
 
+
+
             Console.WriteLine("========== AUTH ==========");
             Console.WriteLine($"JWT UserId = {userIdClaim?.Value}");
             Console.WriteLine($"Required Permission = {requirement.Permission}");
+
+           
 
             if (userIdClaim == null)
                 return;

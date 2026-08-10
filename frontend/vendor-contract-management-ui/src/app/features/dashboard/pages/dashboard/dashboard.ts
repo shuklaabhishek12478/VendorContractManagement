@@ -22,6 +22,7 @@ import { forkJoin } from 'rxjs';
 import { ExpiringContract } from '../../../../core/models/dashboard-model/expiring-contract.model';
 import { AppNotification } from '../../../../core/models/notifications-model/notification.model';
 import { NgApexchartsModule } from 'ng-apexcharts';
+import { PermissionService } from '../../../../core/services/permission';
 
 @Component({
   selector: 'app-dashboard',
@@ -52,7 +53,8 @@ export class DashboardComponent {
     private authService = inject(AuthService);
     private dashboardService = inject(DashboardService);
 constructor(
-  private cdr: ChangeDetectorRef
+  private cdr: ChangeDetectorRef,
+   private permissionService: PermissionService
 ) {
   console.log('Dashboard Constructor');
 }
@@ -92,6 +94,12 @@ forecastCurrentSpend = 0;
 forecastSpendAmount = 0;
 cards: any[] = [];
   router: any;
+
+  get canViewFinancials(): boolean {
+  return this.permissionService.hasPermission(
+    'Dashboard.ViewFinancials'
+  );
+}
 
 ngOnInit(): void {
      console.log('Dashboard ngOnInit');

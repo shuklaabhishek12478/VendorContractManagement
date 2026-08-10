@@ -7,18 +7,35 @@
 
     </h3>
 
-    <button
-        *ngIf="canUpload()"
-        mat-raised-button
-        color="primary"
-        [disabled]="uploading"
-        (click)="upload.emit(null)">
+    <ng-container
+    *ngIf="
+        contract.status === ContractStatus.Approved ||
+        contract.status === ContractStatus.Active
+    ">
 
-        {{ uploading ? 'Uploading...' : 'Upload Document' }}
+    <ng-container *appHasPermission="'Contract.Documents'">
 
-    </button>
+        <button
+            mat-raised-button
+            color="primary"
+            [disabled]="uploading"
+            (click)="upload.emit(null)">
+
+            <mat-icon>
+                upload
+            </mat-icon>
+
+            {{ uploading ? 'Uploading...' : 'Upload Document' }}
+
+        </button>
+
+    </ng-container>
+
+</ng-container>
 
 </div>
+
+
 
 <div
 
@@ -183,15 +200,18 @@
 
                 </button>
 
-                <button
-                    *ngIf="canDelete()"
-                    mat-button
-                    color="warn"
-                    (click)="delete.emit(doc.id)">
+                <ng-container *appHasPermission="'Contract.Delete'">
 
-                    Delete
+    <button
+        mat-button
+        color="warn"
+        (click)="delete.emit(doc.id)">
 
-                </button>
+        Delete
+
+    </button>
+
+</ng-container>
 
             </td>
 

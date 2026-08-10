@@ -28,6 +28,18 @@ export class UserSecurityCardComponent {
   @Input({ required: true })
   user!: User;
 
+   @Input()
+  canAssignRoles = false;
+
+  @Input()
+  canResetPassword = false;
+
+  @Input()
+  canActivate = false;
+
+  @Input()
+  canDeactivate = false;
+
   @Output()
   activate = new EventEmitter<void>();
 

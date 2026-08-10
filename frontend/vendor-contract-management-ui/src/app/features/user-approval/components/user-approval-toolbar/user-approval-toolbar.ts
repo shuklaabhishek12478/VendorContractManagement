@@ -31,6 +31,15 @@ export class UserApprovalToolbarComponent {
   @Input()
   selectedUser?: PendingUser;
 
+  @Input()
+canView = false;
+
+@Input()
+canApprove = false;
+
+@Input()
+canReject = false;
+
   @Output()
   refresh = new EventEmitter<void>();
 

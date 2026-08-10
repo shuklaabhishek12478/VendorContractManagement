@@ -11,7 +11,7 @@ import { SnackbarService } from '../../../../core/services/snackbar.service';
 import { Vendor } from '../../../../core/models/vendor.model';
 import { Contract } from '../../../../core/models/contract.model';
 import { CreateExpenditure } from '../../../../core/models/expenditures-model/create-expenditure.model';
-
+import { HasPermissionDirective } from '../../../../core/directives/has-permission.directive';
 import { Department } from '../../../../core/models/expenditures-model/expenditure-enum/department.enum';
 import { CostCenter } from '../../../../core/models/expenditures-model/expenditure-enum/cost-center.enum';
 import { ExpenseCategory } from '../../../../core/models/expenditures-model/expenditure-enum/expense-category.enum';
@@ -29,7 +29,7 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [
    CommonModule,
-
+  HasPermissionDirective,
   ReactiveFormsModule,
   MatButtonModule,
   MatIconModule,
