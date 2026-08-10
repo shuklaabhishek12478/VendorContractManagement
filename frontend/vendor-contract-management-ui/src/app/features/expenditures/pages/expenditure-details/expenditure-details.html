@@ -11,8 +11,8 @@
 }
 
 @else {
-
-<div class="details-page">
+  
+    <div class="details-page">
 
     <!-- ======================================= -->
     <!-- HEADER -->
@@ -89,13 +89,13 @@
 
         <mat-chip color="primary">
 
-            {{expenditure.status}}
+            {{getStatusLabel(expenditure.status)}}
 
         </mat-chip>
 
         <mat-chip color="accent">
 
-            {{expenditure.paymentStatus}}
+            {{getPaymentStatusLabel(expenditure.paymentStatus)}}
 
         </mat-chip>
 
@@ -249,7 +249,7 @@
 
                 <td>
 
-                    {{expenditure.category}}
+                    {{getCategoryLabel(expenditure.category)}}
 
                 </td>
 
@@ -261,7 +261,7 @@
 
                 <td>
 
-                    {{expenditure.expenseType}}
+                    {{getExpenseTypeLabel(expenditure.expenseType)}}
 
                 </td>
 
@@ -299,7 +299,7 @@
 
             <td>
 
-                {{expenditure.department}}
+                {{getDepartmentLabel(expenditure.department)}}
 
             </td>
 
@@ -311,7 +311,7 @@
 
             <td>
 
-                {{expenditure.costCenter}}
+                {{getCostCenterLabel(expenditure.costCenter)}}
 
             </td>
 
@@ -349,7 +349,7 @@
 
             <td>
 
-                {{expenditure.currency}}
+                {{getCurrencyLabel(expenditure.currency)}}
 
             </td>
 
@@ -409,7 +409,7 @@
 
             <td>
 
-                {{expenditure.paymentMethod}}
+                {{getPaymentMethodLabel(expenditure.paymentMethod)}}
 
             </td>
 
@@ -421,7 +421,7 @@
 
             <td>
 
-                {{expenditure.paymentStatus}}
+                {{getPaymentStatusLabel(expenditure.paymentStatus)}}
 
             </td>
 
@@ -527,31 +527,31 @@
 
     <div class="content-block">
 
-        <h4>
+    <div class="content-item">
 
+        <div class="content-label">
             Description
+        </div>
 
-        </h4>
-
-        <p>
-
-            {{expenditure.description}}
-
-        </p>
-
-        <h4>
-
-            Remarks
-
-        </h4>
-
-        <p>
-
-            {{expenditure.remarks || '-'}}
-
-        </p>
+        <div class="content-value">
+            {{ expenditure.description || '-' }}
+        </div>
 
     </div>
+
+    <div class="content-item">
+
+        <div class="content-label">
+            Remarks
+        </div>
+
+        <div class="content-value">
+            {{ expenditure.remarks || '-' }}
+        </div>
+
+    </div>
+
+</div>
 
 </mat-card>
 
@@ -595,7 +595,7 @@
 
             <td>
 
-                {{expenditure.recurringMonths || '-'}}
+               {{ expenditure.recurringMonths ?? '-' }}
 
             </td>
 
@@ -657,7 +657,7 @@
 
             <td>
 
-                {{expenditure.status}}
+                {{getStatusLabel(expenditure.status)}}
 
             </td>
 
@@ -669,7 +669,7 @@
 
             <td>
 
-                {{expenditure.paymentStatus}}
+               {{getPaymentStatusLabel(expenditure.paymentStatus)}}
 
             </td>
 
@@ -680,5 +680,8 @@
 </mat-card>
 
 </div>
-
 }
+
+
+
+

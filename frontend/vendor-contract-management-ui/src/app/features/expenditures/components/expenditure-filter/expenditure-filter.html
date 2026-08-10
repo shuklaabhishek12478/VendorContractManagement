@@ -40,11 +40,11 @@
 
             </option>
 
-            @for(item of departments;track item){
+            @for(item of departments;track item.value){
 
-            <option [ngValue]="item">
+            <option [ngValue]="item.value">
 
-                {{item}}
+                {{item.label}}
 
             </option>
 
@@ -62,11 +62,11 @@
 
             </option>
 
-            @for(item of categories;track item){
+            @for(item of categories;track item.value){
 
-            <option [ngValue]="item">
+            <option [ngValue]="item.label">
 
-                {{item}}
+                {{item.label}}
 
             </option>
 
@@ -84,11 +84,11 @@
 
             </option>
 
-            @for(item of paymentStatuses;track item){
+            @for(item of paymentStatuses;track item.value){
 
-            <option [ngValue]="item">
+            <option [ngValue]="item.value">
 
-                {{item}}
+                {{item.label}}
 
             </option>
 
@@ -106,11 +106,11 @@
 
             </option>
 
-            @for(item of statuses;track item){
+            @for(item of statuses;track item.value){
 
-            <option [ngValue]="item">
+            <option [ngValue]="item.value">
 
-                {{item}}
+                {{item.label}}
 
             </option>
 

@@ -17,6 +17,7 @@ export class ContractStatusInfoComponent {
 
   @Input({ required: true })
   contract!: Contract;
+  approvedByName?: string;
 
   get statusName(): string {
 

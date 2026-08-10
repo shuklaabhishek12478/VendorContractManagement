@@ -26,34 +26,44 @@ namespace VendorContractManagement.Infrastructure.Repository.Implementations
         public async Task<IEnumerable<RecentActivity>>
             GetRecentAsync(int count = 20)
         {
-            return await _context.RecentActivities
+            var activities = await _context.RecentActivities
                 .OrderByDescending(x => x.CreatedOn)
                 .Take(count)
                 .ToListAsync();
+            await PopulatePerformedByNamesAsync(activities);
+
+            return activities;
         }
 
         public async Task<List<RecentActivity>> GetByVendorIdAsync(
     int vendorId,
     int count)
         {
-            return await _context.RecentActivities
+            var activities = await _context.RecentActivities
                 .Where(x => x.Module == "Vendor")
                 .Where(x => x.EntityId == vendorId)
                 .OrderByDescending(x => x.CreatedOn)
                 .Take(count)
                 .ToListAsync();
+
+            await PopulatePerformedByNamesAsync(activities);
+            return activities;
         }
 
         public async Task<List<RecentActivity>> GetByContractIdAsync(
     int contractId,
     int count)
         {
-            return await _context.RecentActivities
+            var activities = await _context.RecentActivities
                 .Where(x => x.Module == "Contract")
                 .Where(x => x.EntityId == contractId)
                 .OrderByDescending(x => x.CreatedOn)
                 .Take(count)
                 .ToListAsync();
+
+            await PopulatePerformedByNamesAsync(activities);
+
+            return activities;
         }
 
 
@@ -61,12 +71,71 @@ namespace VendorContractManagement.Infrastructure.Repository.Implementations
     int userId,
     int count)
         {
-            return await _context.RecentActivities
+            var activities = await _context.RecentActivities
                 .Where(x => x.Module == "User")
                 .Where(x => x.EntityId == userId)
                 .OrderByDescending(x => x.CreatedOn)
                 .Take(count)
                 .ToListAsync();
+
+            await PopulatePerformedByNamesAsync(activities);
+
+            return activities;
+        }
+
+        private async Task PopulatePerformedByNamesAsync(
+    List<RecentActivity> activities)
+        {
+            var userIds = activities
+                .Where(x => !string.IsNullOrWhiteSpace(x.PerformedBy))
+                .Select(x =>
+                {
+                    return int.TryParse(
+                        x.PerformedBy,
+                        out var userId)
+                        ? userId
+                        : (int?)null;
+                })
+                .Where(x => x.HasValue)
+                .Select(x => x!.Value)
+                .Distinct()
+                .ToList();
+
+            if (userIds.Count == 0)
+            {
+                return;
+            }
+
+            var users = await _context.Users
+                .Where(x => userIds.Contains(x.Id))
+                .Select(x => new
+                {
+                    x.Id,
+                    x.FullName
+                })
+                .ToListAsync();
+
+            var userDictionary = users
+                .ToDictionary(
+                    x => x.Id,
+                    x => x.FullName);
+
+            foreach (var activity in activities)
+            {
+                if (!int.TryParse(
+                    activity.PerformedBy,
+                    out var userId))
+                {
+                    continue;
+                }
+
+                if (userDictionary.TryGetValue(
+                    userId,
+                    out var fullName))
+                {
+                    activity.PerformedBy = fullName;
+                }
+            }
         }
     }
 }

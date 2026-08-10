@@ -422,7 +422,7 @@ namespace VendorContractManagement.Application.Services.Implementations
                 ContractStatus.Approved;
 
             contract.ApprovedBy =
-                 _userContext.UserId?.ToString() ?? "System";
+                 _userContext.Role?.ToString() ?? "System";
 
             contract.ApprovedOn =
                 DateTime.UtcNow;
@@ -857,7 +857,7 @@ namespace VendorContractManagement.Application.Services.Implementations
                 DateTime.UtcNow;
 
             renewal.RenewalApprovedBy =
-                 _userContext.UserId?.ToString() ?? "System";
+                 _userContext.Role?.ToString() ?? "System";
 
             /*renewal.Status = ContractStatus.Active;
 

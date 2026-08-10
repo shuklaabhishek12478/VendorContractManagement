@@ -17,6 +17,11 @@ import { ExpenseType } from '../../../../core/models/expenditures-model/expendit
 import { PaymentStatus } from '../../../../core/models/expenditures-model/expenditure-enum/payment-status.enum';
 import { ExpenditureStatus } from '../../../../core/models/expenditures-model/expenditure-enum/expenditure-status.enum';
 
+interface EnumOption {
+  value: number;
+  label: string;
+}
+
 @Component({
   selector: 'app-expenditure-filter',
   standalone: true,
@@ -27,6 +32,7 @@ import { ExpenditureStatus } from '../../../../core/models/expenditures-model/ex
   templateUrl: './expenditure-filter.html',
   styleUrl: './expenditure-filter.scss'
 })
+
 export class ExpenditureFilterComponent {
 
   @Input() filter!: ExpenditureFilter;
@@ -40,25 +46,23 @@ export class ExpenditureFilterComponent {
 
   @Output() clear =
     new EventEmitter<void>();
+readonly departments: EnumOption[] =
+  this.getEnumOptions(Department);
 
-  readonly departments = Object.values(Department)
-    .filter(v => typeof v === 'number');
+readonly costCenters: EnumOption[] =
+  this.getEnumOptions(CostCenter);
 
-  readonly costCenters = Object.values(CostCenter)
-    .filter(v => typeof v === 'number');
+readonly categories: EnumOption[] =
+  this.getEnumOptions(ExpenseCategory);
 
-  readonly categories = Object.values(ExpenseCategory)
-    .filter(v => typeof v === 'number');
+readonly expenseTypes: EnumOption[] =
+  this.getEnumOptions(ExpenseType);
 
-  readonly expenseTypes = Object.values(ExpenseType)
-    .filter(v => typeof v === 'number');
+readonly paymentStatuses: EnumOption[] =
+  this.getEnumOptions(PaymentStatus);
 
-  readonly paymentStatuses = Object.values(PaymentStatus)
-    .filter(v => typeof v === 'number');
-
-  readonly statuses = Object.values(ExpenditureStatus)
-    .filter(v => typeof v === 'number');
-
+readonly statuses: EnumOption[] =
+  this.getEnumOptions(ExpenditureStatus);
   applyFilters(): void {
 
     this.filterChange.emit(this.filter);
@@ -70,5 +74,14 @@ export class ExpenditureFilterComponent {
     this.clear.emit();
 
   }
+
+  private getEnumOptions(enumObject: any): EnumOption[] {
+  return Object.keys(enumObject)
+    .filter(key => isNaN(Number(key)))
+    .map(key => ({
+      value: enumObject[key],
+      label: key
+    }));
+}
 
 }

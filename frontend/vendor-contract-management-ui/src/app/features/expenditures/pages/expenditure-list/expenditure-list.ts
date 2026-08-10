@@ -1,38 +1,31 @@
 import { ChangeDetectorRef, Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
-
 import { AgGridAngular } from 'ag-grid-angular';
-
-import {
-  ColDef,
-  GridApi,
-  GridReadyEvent
-} from 'ag-grid-community';
+import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { forkJoin } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-
 import { Vendor } from '../../../../core/models/vendor.model';
 import { Contract } from '../../../../core/models/contract.model';
-
 import { VendorService } from '../../../../core/services/vendor.service';
 import { ContractService } from '../../../../core/services/contract.service';
 import { SnackbarService } from '../../../../core/services/snackbar.service';
 import { ExpenditureService } from '../../../../core/services/expenditure.service';
-
 import { Expenditure } from '../../../../core/models/expenditures-model/expenditure.model';
 import { ExpenditureSummary } from '../../../../core/models/expenditures-model/expenditure-summary.model';
 import { ExpenditureFilter } from '../../../../core/models/expenditures-model/expenditure-filter.model';
-
 import { ConfirmationDialogComponent } from '../../../../shared/components/confirmation-dialog/confirmation-dialog';
 import { ExpenditureActionsRenderer } from '../../../../shared/components/expenditure-actions-renderer/expenditure-actions-renderer';
-
 import { ExpenditureToolbarComponent } from '../../components/expenditure-toolbar/expenditure-toolbar';
 import { ExpenditureSummaryCardsComponent } from '../../components/expenditure-summary-cards/expenditure-summary-cards';
 import { ExpenditureFilterComponent } from '../../components/expenditure-filter/expenditure-filter';
 import { PermissionService } from '../../../../core/services/permission';
 import { HasPermissionDirective } from '../../../../core/directives/has-permission.directive';
+import { Department } from '../../../../core/models/expenditures-model/expenditure-enum/department.enum';
+import { ExpenseCategory } from '../../../../core/models/expenditures-model/expenditure-enum/expense-category.enum';
+import { PaymentStatus } from '../../../../core/models/expenditures-model/expenditure-enum/payment-status.enum';
+import { ExpenditureStatus } from '../../../../core/models/expenditures-model/expenditure-enum/expenditure-status.enum';
 
 @Component({
   selector: 'app-expenditure-list',
@@ -113,26 +106,31 @@ export class ExpenditureListComponent implements OnInit {
   };
 
   filter: ExpenditureFilter = {
-
     page: 1,
-
     pageSize: 20,
-
     sortBy: 'ExpenseDate',
-
     descending: true
 
   };
 
   totalRecords = 0;
-
   totalPages = 0;
-
   currentPage = 1;
-
   pageSize = 20;
-
   pageSizeOptions = [10, 20, 50, 100];
+
+  private getEnumLabel(
+  enumObject: any,
+  value: number | null | undefined
+): string {
+
+  if (value === null || value === undefined) {
+    return '';
+  }
+
+  return enumObject[value] ?? value.toString();
+}
+
 
   columnDefs: ColDef<Expenditure>[] = [
 
@@ -165,13 +163,23 @@ export class ExpenditureListComponent implements OnInit {
 {
     field:'department',
     headerName:'Department',
-    width:150
+    width:150,
+    valueFormatter: params =>
+      this.getEnumLabel(
+        Department,
+        params.value
+      )
 },
 
 {
     field:'category',
     headerName:'Category',
-    width:170
+    width:170,
+    valueFormatter: params =>
+      this.getEnumLabel(
+        ExpenseCategory,
+        params.value
+      )
 },
 
 {
@@ -207,13 +215,23 @@ export class ExpenditureListComponent implements OnInit {
 {
     field:'paymentStatus',
     headerName:'Payment',
-    width:150
+    width:150,
+    valueFormatter: params =>
+      this.getEnumLabel(
+        PaymentStatus,
+        params.value
+      )
 },
 
 {
     field:'status',
     headerName:'Status',
-    width:150
+    width:150,
+    valueFormatter: params =>
+      this.getEnumLabel(
+        ExpenditureStatus,
+        params.value
+      )
 },
 
 {
