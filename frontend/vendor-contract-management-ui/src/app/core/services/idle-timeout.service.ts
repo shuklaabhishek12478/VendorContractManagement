@@ -18,7 +18,7 @@ export class IdleTimeoutService {
 private readonly idleMinutes = 10;
 private readonly warningSeconds = 60;
 
-  // Testing
+  
   // private readonly idleMinutes = 1;
   // private readonly warningSeconds = 20;
 

@@ -97,10 +97,8 @@ export class PermissionService {
       permission.trim();
 
 
-    // ============================================
-    // 1. Super Admin / Admin full access
-    // ============================================
-
+    // Super Admin / Admin full access
+    
     if (
       this.userRole === 'Super Admin' ||
       this.userRole === 'Admin'
@@ -109,10 +107,8 @@ export class PermissionService {
     }
 
 
-    // ============================================
-    // 2. Wildcard full access
-    // ============================================
-
+    //Wildcard full access
+    
     if (
       this.userPermissions.has('*') ||
       this.userPermissions.has('ALL')
@@ -121,10 +117,8 @@ export class PermissionService {
     }
 
 
-    // ============================================
-    // 3. Normal permission check
-    // ============================================
-
+   // Normal permission check
+ 
     return this.userPermissions.has(
       normalizedPermission
     );

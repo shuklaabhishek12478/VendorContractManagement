@@ -26,10 +26,8 @@ export class DashboardService {
 
   private readonly api = `${environment.apiUrl}`;
 
-  // ====================================================
-  // Dashboard Summary
-  // ====================================================
-
+ // Dashboard Summary
+ 
   getDashboard(): Observable<Dashboard> {
 
     return this.http.get<Dashboard>(
@@ -38,10 +36,8 @@ export class DashboardService {
 
   }
 
-  // ====================================================
   // Charts
-  // ====================================================
-
+  
   getCharts(): Observable<DashboardCharts> {
 
     return this.http.get<DashboardCharts>(
@@ -87,10 +83,8 @@ getTopVendors(count = 5): Observable<TopVendor[]> {
 
   }
 
-  // ====================================================
   // Notifications
-  // ====================================================
-
+ 
   getNotifications(): Observable<AppNotification[]> {
 
     return this.http.get<AppNotification[]>(
@@ -99,10 +93,8 @@ getTopVendors(count = 5): Observable<TopVendor[]> {
 
   }
 
-  // ====================================================
   // Recent Activity
-  // ====================================================
-
+  
   getRecentActivities(): Observable<RecentActivity[]> {
 
     return this.http.get<RecentActivity[]>(
@@ -111,10 +103,8 @@ getTopVendors(count = 5): Observable<TopVendor[]> {
 
   }
 
-  // ====================================================
-  // Contracts
-  // ====================================================
-
+ // Contracts
+  
   getExpiringContracts(days = 30): Observable<ExpiringContract[]> {
 
     const params =
@@ -127,10 +117,8 @@ getTopVendors(count = 5): Observable<TopVendor[]> {
 
   }
 
-  // ====================================================
   // Expenditure
-  // ====================================================
-
+  
   getExpenditureDashboard(): Observable<ExpenditureDashboard> {
 
     return this.http.get<ExpenditureDashboard>(
@@ -147,10 +135,8 @@ getTopVendors(count = 5): Observable<TopVendor[]> {
 
   }
 
-  // ====================================================
   // Vendor Dashboard
-  // ====================================================
-
+ 
   getVendorDashboard() {
 
     return this.http.get(
@@ -159,10 +145,8 @@ getTopVendors(count = 5): Observable<TopVendor[]> {
 
   }
 
-  // ====================================================
   // Load Complete Dashboard
-  // ====================================================
-
+ 
   loadDashboard(year: number = new Date().getFullYear()) {
 
     return forkJoin({
