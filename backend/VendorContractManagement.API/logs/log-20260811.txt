@@ -1,0 +1,45 @@
+2026-08-11 07:55:25.626 +05:30 [INF] Executed DbCommand (65ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ApprovedBy], [c].[ApprovedOn], [c].[ContractNumber], [c].[ContractValue], [c].[CreatedBy], [c].[CreatedOn], [c].[Description], [c].[EndDate], [c].[IsActive], [c].[IsDeleted], [c].[IsRenewal], [c].[ModifiedBy], [c].[ModifiedOn], [c].[ParentContractId], [c].[RejectionReason], [c].[RenewalApprovedBy], [c].[RenewalApprovedOn], [c].[RenewalRequestedOn], [c].[StartDate], [c].[Status], [c].[SubmittedOn], [c].[TerminatedBy], [c].[TerminatedOn], [c].[TerminationReason], [c].[Title], [c].[UpdatedOn], [c].[VendorId], [t].[Id], [t].[AccountHolderName], [t].[AccountNumber], [t].[Address], [t].[BankName], [t].[BranchName], [t].[CompanyName], [t].[ContactPerson], [t].[CreatedBy], [t].[CreatedOn], [t].[Email], [t].[GSTNumber], [t].[IFSCCode], [t].[IsActive], [t].[IsDeleted], [t].[ModifiedBy], [t].[ModifiedOn], [t].[PANNumber], [t].[PaymentMethod], [t].[PaymentTerms], [t].[Phone], [t].[PreferredCurrency], [t].[SwiftCode], [t].[UpdatedOn], [t].[VendorName]
+FROM [Contracts] AS [c]
+INNER JOIN (
+    SELECT [v].[Id], [v].[AccountHolderName], [v].[AccountNumber], [v].[Address], [v].[BankName], [v].[BranchName], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedBy], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IFSCCode], [v].[IsActive], [v].[IsDeleted], [v].[ModifiedBy], [v].[ModifiedOn], [v].[PANNumber], [v].[PaymentMethod], [v].[PaymentTerms], [v].[Phone], [v].[PreferredCurrency], [v].[SwiftCode], [v].[UpdatedOn], [v].[VendorName]
+    FROM [Vendors] AS [v]
+    WHERE [v].[IsDeleted] = CAST(0 AS bit)
+) AS [t] ON [c].[VendorId] = [t].[Id]
+WHERE [c].[IsDeleted] = CAST(0 AS bit)
+2026-08-11 07:55:25.722 +05:30 [INF] Executed DbCommand (95ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[Id], [c].[ApprovedBy], [c].[ApprovedOn], [c].[ContractNumber], [c].[ContractValue], [c].[CreatedBy], [c].[CreatedOn], [c].[Description], [c].[EndDate], [c].[IsActive], [c].[IsDeleted], [c].[IsRenewal], [c].[ModifiedBy], [c].[ModifiedOn], [c].[ParentContractId], [c].[RejectionReason], [c].[RenewalApprovedBy], [c].[RenewalApprovedOn], [c].[RenewalRequestedOn], [c].[StartDate], [c].[Status], [c].[SubmittedOn], [c].[TerminatedBy], [c].[TerminatedOn], [c].[TerminationReason], [c].[Title], [c].[UpdatedOn], [c].[VendorId], [t].[Id], [t].[AccountHolderName], [t].[AccountNumber], [t].[Address], [t].[BankName], [t].[BranchName], [t].[CompanyName], [t].[ContactPerson], [t].[CreatedBy], [t].[CreatedOn], [t].[Email], [t].[GSTNumber], [t].[IFSCCode], [t].[IsActive], [t].[IsDeleted], [t].[ModifiedBy], [t].[ModifiedOn], [t].[PANNumber], [t].[PaymentMethod], [t].[PaymentTerms], [t].[Phone], [t].[PreferredCurrency], [t].[SwiftCode], [t].[UpdatedOn], [t].[VendorName]
+FROM [Contracts] AS [c]
+INNER JOIN (
+    SELECT [v].[Id], [v].[AccountHolderName], [v].[AccountNumber], [v].[Address], [v].[BankName], [v].[BranchName], [v].[CompanyName], [v].[ContactPerson], [v].[CreatedBy], [v].[CreatedOn], [v].[Email], [v].[GSTNumber], [v].[IFSCCode], [v].[IsActive], [v].[IsDeleted], [v].[ModifiedBy], [v].[ModifiedOn], [v].[PANNumber], [v].[PaymentMethod], [v].[PaymentTerms], [v].[Phone], [v].[PreferredCurrency], [v].[SwiftCode], [v].[UpdatedOn], [v].[VendorName]
+    FROM [Vendors] AS [v]
+    WHERE [v].[IsDeleted] = CAST(0 AS bit)
+) AS [t] ON [c].[VendorId] = [t].[Id]
+WHERE [c].[IsDeleted] = CAST(0 AS bit) AND [c].[Status] = 4
+2026-08-11 07:55:27.967 +05:30 [INF] Execution Worker recovered from the Failed state after 10:45:56.5821149 and is in the Running state now
+2026-08-11 07:55:28.245 +05:30 [INF] Executed DbCommand (180ms) [Parameters=[@p27='?' (DbType = Int32), @p0='?' (Size = 4000), @p1='?' (DbType = DateTime2), @p2='?' (Size = 50), @p3='?' (Precision = 18) (Scale = 2) (DbType = Decimal), @p4='?' (Size = 4000), @p5='?' (DbType = DateTime2), @p6='?' (Size = 4000), @p7='?' (DbType = DateTime2), @p8='?' (DbType = Boolean), @p9='?' (DbType = Boolean), @p10='?' (DbType = Boolean), @p11='?' (Size = 4000), @p12='?' (DbType = DateTime2), @p13='?' (DbType = Int32), @p14='?' (Size = 4000), @p15='?' (Size = 4000), @p16='?' (DbType = DateTime2), @p17='?' (DbType = DateTime2), @p18='?' (DbType = DateTime2), @p19='?' (DbType = Int32), @p20='?' (DbType = DateTime2), @p21='?' (Size = 4000), @p22='?' (DbType = DateTime2), @p23='?' (Size = 4000), @p24='?' (Size = 200), @p25='?' (DbType = DateTime2), @p26='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SET IMPLICIT_TRANSACTIONS OFF;
+SET NOCOUNT ON;
+UPDATE [Contracts] SET [ApprovedBy] = @p0, [ApprovedOn] = @p1, [ContractNumber] = @p2, [ContractValue] = @p3, [CreatedBy] = @p4, [CreatedOn] = @p5, [Description] = @p6, [EndDate] = @p7, [IsActive] = @p8, [IsDeleted] = @p9, [IsRenewal] = @p10, [ModifiedBy] = @p11, [ModifiedOn] = @p12, [ParentContractId] = @p13, [RejectionReason] = @p14, [RenewalApprovedBy] = @p15, [RenewalApprovedOn] = @p16, [RenewalRequestedOn] = @p17, [StartDate] = @p18, [Status] = @p19, [SubmittedOn] = @p20, [TerminatedBy] = @p21, [TerminatedOn] = @p22, [TerminationReason] = @p23, [Title] = @p24, [UpdatedOn] = @p25, [VendorId] = @p26
+OUTPUT 1
+WHERE [Id] = @p27;
+2026-08-11 07:55:32.597 +05:30 [INF] Request starting HTTP/2 OPTIONS https://localhost:7220/hubs/notifications/negotiate?negotiateVersion=1 - null null
+2026-08-11 07:55:33.656 +05:30 [INF] CORS policy execution successful.
+2026-08-11 07:55:33.758 +05:30 [INF] HTTP OPTIONS /hubs/notifications/negotiate responded 204 in 102.1640 ms
+2026-08-11 07:55:34.067 +05:30 [INF] Request finished HTTP/2 OPTIONS https://localhost:7220/hubs/notifications/negotiate?negotiateVersion=1 - 204 null null 1470.2949ms
+2026-08-11 08:28:20.646 +05:30 [WRN] Server laptop-m2ucbo4s:308184:5710245f encountered an exception while sending heartbeat
+Microsoft.Data.SqlClient.SqlException (0x80131904): A connection was successfully established with the server, but then an error occurred during the pre-login handshake. (provider: Shared Memory Provider, error: 0 - No process is on the other end of the pipe.)
+ ---> System.ComponentModel.Win32Exception (233): No process is on the other end of the pipe.
+   at Microsoft.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at Microsoft.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at Microsoft.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry, SqlConnectionOverrides overrides)
+   at Microsoft.Data.SqlClient.SqlConnection.Open(SqlConnectionOverrides overrides)
+   at Hangfire.SqlServer.SqlServerStorage.CreateAndOpenConnection() in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 365
+   at Hangfire.SqlServer.SqlServerStorage.UseConnection[T](DbConnection dedicatedConnection, Func`2 func) in C:\projects\hangfire-525\src\Hangfire.SqlServer\SqlServerStorage.cs:line 256
+   at Hangfire.Server.ServerHeartbeatProcess.Execute(BackgroundProcessContext context) in C:\projects\hangfire-525\src\Hangfire.Core\Server\ServerHeartbeatProcess.cs:line 42
+ClientConnectionId:72b649a7-5885-4f89-8c5d-d0bfd3767b23
+Error Number:233,State:0,Class:20
+2026-08-11 08:28:43.133 +05:30 [INF] Execution DelayedJobScheduler recovered from the Faulted state after 00:00:33.3965725 and is in the Running state now
+2026-08-11 08:28:47.142 +05:30 [INF] Execution RecurringJobScheduler recovered from the Faulted state after 00:00:33.6471537 and is in the Running state now
+2026-08-11 08:28:50.716 +05:30 [INF] Server laptop-m2ucbo4s:308184:5710245f is now able to continue sending heartbeats

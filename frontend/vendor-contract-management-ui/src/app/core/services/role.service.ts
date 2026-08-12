@@ -13,13 +13,15 @@ import {
   RoleLookup
 } from '../models/role.model';
 import { PermissionGroup } from '../models/permission-matrix.model';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RoleService {
 
-  private readonly apiUrl = 'https://localhost:7220/api/Role';
+  private readonly apiUrl =
+  `${environment.apiUrl}/Role`;
 
   constructor(
     private http: HttpClient
